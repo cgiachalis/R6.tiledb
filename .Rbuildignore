@@ -1,0 +1,13 @@
+^.*\.Rproj$
+^\.Rproj\.user$
+^README\.Rmd$
+^README-.*\.png$
+^_pkgdown\.yml$
+^docs$
+^pkgdown$
+^Makefile$
+^data-coverage$
+^dev$
+^.github$
+^inst\WORDLIST\.txt$
+^tests/data-tests$

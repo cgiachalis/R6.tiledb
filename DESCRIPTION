@@ -1,0 +1,12 @@
+Package: R6.tiledb
+Title: What the Package Does (One Line, Title Case)
+Version: 0.0.1
+Authors@R: 
+    person("Constantinos", "Giachalis", , "cgiachalis@outlook.com", role = c("aut", "cre"))
+Maintainer: Constantinos Giachalis <cgiachalis@outlook.com>
+Description: What the package does (one paragraph).
+License: file LICENSE
+Encoding: UTF-8
+Language: en-GB
+Roxygen: list(markdown = TRUE, old_usage = TRUE)
+RoxygenNote: 7.3.2
