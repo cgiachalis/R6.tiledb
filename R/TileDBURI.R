@@ -8,8 +8,6 @@
 #'
 #' uri_r6 <- TileDBURI$new(uri)
 #'
-#' @keywords internal
-#'
 #' @export
 TileDBURI <- R6::R6Class(
   classname = "TileDBURI",

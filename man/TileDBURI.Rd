@@ -12,7 +12,6 @@ uri <- "tiledb://namespace/s3://bucket"
 uri_r6 <- TileDBURI$new(uri)
 
 }
-\keyword{internal}
 \section{Active bindings}{
 \if{html}{\out{<div class="r6-active-bindings">}}
 \describe{

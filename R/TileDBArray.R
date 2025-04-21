@@ -2,8 +2,6 @@
 #'
 #' @description Base class for representing an individual TileDB array.
 #'
-#' @keywords internal
-#'
 #' @export
 TileDBArray <- R6::R6Class(
   classname = "TileDBArray",

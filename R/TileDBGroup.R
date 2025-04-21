@@ -2,8 +2,6 @@
 #'
 #' @description Base class for interacting with TileDB groups
 #'
-#' @keywords internal
-#'
 #' @returns An object `TileDBGroup` of class `R6`.
 #'
 #' @export

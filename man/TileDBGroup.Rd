@@ -9,7 +9,6 @@ An object \code{TileDBGroup} of class \code{R6}.
 \description{
 Base class for interacting with TileDB groups
 }
-\keyword{internal}
 \section{Super class}{
 \code{\link[R6.tiledb:TileDBObject]{R6.tiledb::TileDBObject}} -> \code{TileDBGroup}
 }

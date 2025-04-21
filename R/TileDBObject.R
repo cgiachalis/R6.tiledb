@@ -4,7 +4,6 @@
 #' Base class to implement shared functionality across the `TileDBArray` and
 #' `TileDBGroup` classes.
 #'
-#' @keywords internal
 #'
 #' @export
 TileDBObject <- R6::R6Class(
