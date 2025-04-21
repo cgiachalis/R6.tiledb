@@ -544,7 +544,7 @@ TileDBGroup <- R6::R6Class(
     # and stores the reference in private$.tiledb_group.
     initialize_object = function() {
 
-      private$.tiledb_group <- tiledb::tiledb_group(self$uri, ctx = self$tiledbfoms_ctx)
+      private$.tiledb_group <- tiledb::tiledb_group(self$uri, ctx = self$ctx)
       private$.mode <- "READ"
 
     },
@@ -563,7 +563,7 @@ TileDBGroup <- R6::R6Class(
         GROUP = TileDBGroup$new,
         cli::cli_abort("Unknown member type: {.emph '{deparse(substitute(type))}'.}", call = NULL))
 
-      obj <- constructor(uri, tiledbfoms_ctx = self$tiledbfoms_ctx,
+      obj <- constructor(uri,ctx = self$ctx,
                          tiledb_timestamp = private$.group_open_timestamp,
                          internal_use = "permit")
       obj

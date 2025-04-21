@@ -11,7 +11,7 @@ Base class for interacting with TileDB groups
 }
 \keyword{internal}
 \section{Super class}{
-\code{R6.tiledb::TileDBObject} -> \code{TileDBGroup}
+\code{\link[R6.tiledb:TileDBObject]{R6.tiledb::TileDBObject}} -> \code{TileDBGroup}
 }
 \section{Active bindings}{
 \if{html}{\out{<div class="r6-active-bindings">}}

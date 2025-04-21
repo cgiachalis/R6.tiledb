@@ -11,7 +11,7 @@ Base class to implement shared functionality across the \code{TileDBArray} and
 \section{Active bindings}{
 \if{html}{\out{<div class="r6-active-bindings">}}
 \describe{
-\item{\code{tiledbfoms_ctx}}{FOMS tileDB Context.}
+\item{\code{ctx}}{TileDB Context.}
 
 \item{\code{tiledb_timestamp}}{Time that object was opened at.}
 
@@ -46,7 +46,7 @@ TileDB object types:
 \subsection{Method \code{new()}}{
 Create a new TileDB object.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{TileDBObject$new(uri, tiledbfoms_ctx = NULL, tiledb_timestamp = NULL,
+\if{html}{\out{<div class="r">}}\preformatted{TileDBObject$new(uri, ctx = NULL, tiledb_timestamp = NULL,
   internal_use = NULL)}\if{html}{\out{</div>}}
 }
 
@@ -55,7 +55,7 @@ Create a new TileDB object.
 \describe{
 \item{\code{uri}}{URI path for the TileDB object.}
 
-\item{\code{tiledbfoms_ctx}}{Optional \code{\link[tiledb:tiledb_ctx]{tiledb::tiledb_ctx()}} object.}
+\item{\code{ctx}}{Optional \code{\link[tiledb:tiledb_ctx]{tiledb::tiledb_ctx()}} object.}
 
 \item{\code{tiledb_timestamp}}{Optional Datetime (POSIXct) with TileDB timestamp.}
 

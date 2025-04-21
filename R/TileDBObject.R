@@ -13,13 +13,13 @@ TileDBObject <- R6::R6Class(
     #' @description Create a new TileDB object.
     #'
     #' @param uri URI path for the TileDB object.
-    #' @param tiledbfoms_ctx Optional [`tiledb::tiledb_ctx()`] object.
+    #' @param ctx Optional [`tiledb::tiledb_ctx()`] object.
     #' @param tiledb_timestamp Optional Datetime (POSIXct) with TileDB timestamp.
     #' @param internal_use  A character value that gives access to internal method `new()`.
     #' The `new()` method should not be called directly.
     #'
     initialize = function(uri,
-                          tiledbfoms_ctx = NULL,
+                          ctx = NULL,
                           tiledb_timestamp = NULL,
                           internal_use = NULL) {
 
@@ -33,13 +33,13 @@ TileDBObject <- R6::R6Class(
 
       # Set context
 
-      if (is.null(tiledbfoms_ctx)) tiledbfoms_ctx <- tiledb::tiledb_ctx()
+      if (is.null(ctx)) ctx <- tiledb::tiledb_ctx()
 
-      if (!inherits(tiledbfoms_ctx, what = 'tiledb_ctx')) {
-        cli::cli_abort("{.emph 'tiledbfoms_ctx''}  must be a {.emph 'tiledb_ctx'} object.", call = NULL)
+      if (!inherits(ctx, what = 'tiledb_ctx')) {
+        cli::cli_abort("{.emph 'ctx''}  must be a {.emph 'tiledb_ctx'} object.", call = NULL)
       }
 
-      private$.tiledb_ctx <- tiledbfoms_ctx
+      private$.tiledb_ctx <- ctx
 
 
       if (!is.null(tiledb_timestamp)) {
@@ -132,10 +132,10 @@ TileDBObject <- R6::R6Class(
 
   active = list(
 
-    #' @field tiledbfoms_ctx FOMS tileDB Context.
-    tiledbfoms_ctx = function(value) {
+    #' @field ctx TileDB Context.
+    ctx = function(value) {
       if (!missing(value)) {
-        .emit_read_only_error("tiledbfoms_ctx")
+        .emit_read_only_error("ctx")
       }
       private$.tiledb_ctx
     },

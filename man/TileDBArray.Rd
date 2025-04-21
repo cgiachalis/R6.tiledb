@@ -8,7 +8,7 @@ Base class for representing an individual TileDB array.
 }
 \keyword{internal}
 \section{Super class}{
-\code{R6.tiledb::TileDBObject} -> \code{TileDBArray}
+\code{\link[R6.tiledb:TileDBObject]{R6.tiledb::TileDBObject}} -> \code{TileDBArray}
 }
 \section{Active bindings}{
 \if{html}{\out{<div class="r6-active-bindings">}}

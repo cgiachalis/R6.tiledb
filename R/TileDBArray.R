@@ -84,9 +84,9 @@ TileDBArray <- R6::R6Class(
 
       args <- list(...)
       args$uri <- self$uri
-      args$query_type <- self$.mode
+      args$query_type <- self$mode
       args$query_layout <- "UNORDERED"
-      args$ctx <- self$tiledbfoms_ctx
+      args$ctx <- self$ctx
 
       spdl::debug("[TileDBArray$tiledb_array] for uri '{}' mode '{}' layout '{}'", args$uri, args$query_type, args$query_layout)
 
@@ -311,7 +311,7 @@ TileDBArray <- R6::R6Class(
 
       private$.tiledb_array <- tiledb::tiledb_array(
         uri = self$uri,
-        ctx = self$tiledbfoms_ctx,
+        ctx = self$ctx,
         query_layout = "UNORDERED",
         keep_open = TRUE)
     },
