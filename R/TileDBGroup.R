@@ -667,10 +667,7 @@ TileDBGroup <- R6::R6Class(
       }
 
       private$.member_cache[[name]] <- list(
-        # TODO: Do we really need the group type here?
-        # Calling tiledb::tiledb_object_type on remote storage has a cost;
-        # perhaps unnecessary to incur.
-        type = tiledb::tiledb_object_type(object$uri),
+        type = object$object_type,
         uri = object$uri,
         name = name,
         object = object
