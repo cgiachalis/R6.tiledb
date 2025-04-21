@@ -8,6 +8,14 @@
 \description{
 What the package does (one paragraph).
 }
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://github.com/cgiachalis/R6.tiledb}
+  \item Report bugs at \url{https://github.com/cgiachalis/R6.tiledb/issues}
+}
+
+}
 \author{
 \strong{Maintainer}: Constantinos Giachalis \email{cgiachalis@outlook.com}
 

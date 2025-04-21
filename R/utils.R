@@ -48,20 +48,6 @@ vapply_int <- function(X, FUN, ..., USE.NAMES = TRUE) {
 }
 
 
-# Encode and compress an object
-# x is an R object
-.encode_model <- function(x) {
-  qs <- qs::base85_encode(qs::qserialize(x, preset = "high"))
-  qs
-}
-
-# Decode a compressed string
-# x is a string
-.decode_model <- function(x) {
-  qs <- qs::qdeserialize(qs::base85_decode(x))
-  qs
-}
-
 # nocov start
 .set_log_level <- function(s = "debug") {
   spdl::set_pattern("[%X] [%L] %v");
