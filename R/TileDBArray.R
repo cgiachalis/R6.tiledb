@@ -72,11 +72,15 @@ TileDBArray <- R6::R6Class(
       invisible(self)
     },
 
-    #' @description Return a [`TileDBArray`] object.
+    #' @description Return a [tiledb_array()] object.
+    #'
+    #' If a `query_type` not provided then it will be inherited from class
+    #' mode; in case the class mode is `"CLOSED"`, then the query type
+    #' defaults to `"READ"`.
     #'
     #' @param ... Optional arguments to pass to `tiledb::tiledb_array()`
     #'
-    #' @return A [`tiledb::tiledb_array`] object.
+    #' @return A [tiledb_array()] object.
     #'
     tiledb_array = function(...) {
 
@@ -84,7 +88,11 @@ TileDBArray <- R6::R6Class(
 
       args <- list(...)
       args$uri <- self$uri
-      args$query_type <- self$mode
+      # user has not supplied 'query_type'
+      if(is.null(args$query_type)) {
+        mode <- self$mode()
+        args$query_type <- ifelse(mode == "CLOSED", "READ", mode)
+      }
       args$query_layout <- "UNORDERED"
       args$ctx <- self$ctx
 

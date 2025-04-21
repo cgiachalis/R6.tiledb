@@ -94,7 +94,11 @@ The object, invisibly.
 \if{html}{\out{<a id="method-TileDBArray-tiledb_array"></a>}}
 \if{latex}{\out{\hypertarget{method-TileDBArray-tiledb_array}{}}}
 \subsection{Method \code{tiledb_array()}}{
-Return a \code{\link{TileDBArray}} object.
+Return a \code{\link[=tiledb_array]{tiledb_array()}} object.
+
+If a \code{query_type} not provided then it will be inherited from class
+mode; in case the class mode is \code{"CLOSED"}, then the query type
+defaults to \code{"READ"}.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{TileDBArray$tiledb_array(...)}\if{html}{\out{</div>}}
 }
@@ -107,7 +111,7 @@ Return a \code{\link{TileDBArray}} object.
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-A \code{\link[tiledb:tiledb_array]{tiledb::tiledb_array}} object.
+A \code{\link[=tiledb_array]{tiledb_array()}} object.
 }
 }
 \if{html}{\out{<hr>}}
