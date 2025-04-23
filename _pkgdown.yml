@@ -18,7 +18,14 @@ navbar:
       href: index.html
       icon: fa-home fa-lg
       aria-label: R6.tiledb
-    - text: "Functions"
+    - text: "R6 Classes"
       href: reference/index.html
     - text: "News"
       href: news/index.html
+
+reference:
+
+- title: TileDB R6 Classes
+  desc: ~
+  contents:
+  - starts_with("TileDB")
