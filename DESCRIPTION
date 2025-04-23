@@ -12,6 +12,7 @@ Description: Provides foundational R6 classes to interface with 'TileDB'
     make it easier to work with 'TileDB' Arrays and Groups. The base
     classes 'TileDBArray' and 'TileDBGroup' can be easily extended to new
     subclasses for representing and support any data model.
+License: MIT + file LICENSE
 URL: https://github.com/cgiachalis/R6.tiledb
 BugReports: https://github.com/cgiachalis/R6.tiledb/issues
 Depends:
