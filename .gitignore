@@ -2,3 +2,7 @@
 .Rhistory
 .RData
 .Ruserdata
+data-coverage/lib
+data-coverage/R6.tiledb-report.html
+docs
+inst/doc
