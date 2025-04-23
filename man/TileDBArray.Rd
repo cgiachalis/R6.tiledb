@@ -56,7 +56,7 @@ mode and kept open.}
 \subsection{Method \code{open()}}{
 Open TileDB array object for read or write.
 
-This methods opens the underlying \code{\link[tiledb:tiledb_array]{tiledb::tiledb_array()}} object in the
+This methods opens the underlying \code{\link[=tiledb_array]{tiledb_array()}} object in the
 requested mode if it is different from the current mode.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{TileDBArray$open(mode = c("READ", "WRITE"), internal_use = NULL)}\if{html}{\out{</div>}}
@@ -93,7 +93,7 @@ The object, invisibly.
 \if{html}{\out{<a id="method-TileDBArray-tiledb_array"></a>}}
 \if{latex}{\out{\hypertarget{method-TileDBArray-tiledb_array}{}}}
 \subsection{Method \code{tiledb_array()}}{
-Return a \code{\link[=tiledb_array]{tiledb_array()}} object.
+Return a \link{tiledb_array} object.
 
 If a \code{query_type} not provided then it will be inherited from class
 mode; in case the class mode is \code{"CLOSED"}, then the query type
@@ -110,7 +110,7 @@ defaults to \code{"READ"}.
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-A \code{\link[=tiledb_array]{tiledb_array()}} object.
+A \link{tiledb_array} object.
 }
 }
 \if{html}{\out{<hr>}}
@@ -169,7 +169,7 @@ Retrieve the array schema as TileDB schema.
 }
 
 \subsection{Returns}{
-A \code{\link[tiledb:tiledb_array_schema]{tiledb::tiledb_array_schema}} object.
+A \link{tiledb_array_schema} object.
 }
 }
 \if{html}{\out{<hr>}}
@@ -190,33 +190,33 @@ information: \code{names}, \code{types}, \code{status} and \code{enum}.
 \if{html}{\out{<a id="method-TileDBArray-dimensions"></a>}}
 \if{latex}{\out{\hypertarget{method-TileDBArray-dimensions}{}}}
 \subsection{Method \code{dimensions()}}{
-Retrieve the array dimensions
+Retrieve the array dimensions.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{TileDBArray$dimensions()}\if{html}{\out{</div>}}
 }
 
 \subsection{Returns}{
-A named list of \code{\link[tiledb:tiledb_dim]{tiledb::tiledb_dim}} objects.
+A named list of \link{tiledb_dim} objects.
 }
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-TileDBArray-attributes"></a>}}
 \if{latex}{\out{\hypertarget{method-TileDBArray-attributes}{}}}
 \subsection{Method \code{attributes()}}{
-Retrieve the array attributes
+Retrieve the array attributes.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{TileDBArray$attributes()}\if{html}{\out{</div>}}
 }
 
 \subsection{Returns}{
-A list of \code{\link[tiledb:tiledb_attr]{tiledb::tiledb_attr}} objects.
+A list of \link{tiledb_attr} objects.
 }
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-TileDBArray-dimnames"></a>}}
 \if{latex}{\out{\hypertarget{method-TileDBArray-dimnames}{}}}
 \subsection{Method \code{dimnames()}}{
-Retrieve dimension names
+Retrieve dimension names.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{TileDBArray$dimnames()}\if{html}{\out{</div>}}
 }
@@ -229,7 +229,7 @@ A character vector with the array's dimension names.
 \if{html}{\out{<a id="method-TileDBArray-attrnames"></a>}}
 \if{latex}{\out{\hypertarget{method-TileDBArray-attrnames}{}}}
 \subsection{Method \code{attrnames()}}{
-Retrieve attribute names
+Retrieve attribute names.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{TileDBArray$attrnames()}\if{html}{\out{</div>}}
 }
@@ -243,7 +243,7 @@ A character vector with the array's attribute names.
 \if{latex}{\out{\hypertarget{method-TileDBArray-colnames}{}}}
 \subsection{Method \code{colnames()}}{
 Retrieve the names of all columns, including dimensions and
-attributes
+attributes.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{TileDBArray$colnames()}\if{html}{\out{</div>}}
 }
@@ -256,7 +256,7 @@ A character vector with the array's column names.
 \if{html}{\out{<a id="method-TileDBArray-index_column_names"></a>}}
 \if{latex}{\out{\hypertarget{method-TileDBArray-index_column_names}{}}}
 \subsection{Method \code{index_column_names()}}{
-Retrieve names of index (dimension) columns
+Retrieve names of index (dimension) columns.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{TileDBArray$index_column_names()}\if{html}{\out{</div>}}
 }

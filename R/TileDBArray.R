@@ -10,7 +10,7 @@ TileDBArray <- R6::R6Class(
 
     #' @description Open TileDB array object for read or write.
     #'
-    #' This methods opens the underlying [`tiledb::tiledb_array()`] object in the
+    #' This methods opens the underlying [tiledb_array()] object in the
     #' requested mode if it is different from the current mode.
     #'
     #' @param mode Mode to open : either `"READ"` or `"WRITE"`.  Default is `"READ"`.
@@ -31,14 +31,12 @@ TileDBArray <- R6::R6Class(
       }
 
       init_mode <- self$mode()
-      private$.mode <- mode
 
       identical_mode <- init_mode == mode
 
       spdl::debug("[TileDBArray$open] Requested open mode is {}", ifelse(identical_mode, "identical, no mode switch", "not identical, switch mode"))
 
       if (isFALSE(identical_mode)) {
-
 
         if (tiledb::tiledb_array_is_open(private$.tiledb_array)) {
 
@@ -50,7 +48,7 @@ TileDBArray <- R6::R6Class(
         spdl::debug("[TileDBArray$open] Opening {} '{}' in {} mode", self$class(), self$uri, mode)
 
         private$.tiledb_array <- tiledb::tiledb_array_open(self$object, type = mode)
-
+        private$.mode <- mode
         private$update_metadata_cache()
       }
 
@@ -70,7 +68,7 @@ TileDBArray <- R6::R6Class(
       invisible(self)
     },
 
-    #' @description Return a [tiledb_array()] object.
+    #' @description Return a [tiledb_array] object.
     #'
     #' If a `query_type` not provided then it will be inherited from class
     #' mode; in case the class mode is `"CLOSED"`, then the query type
@@ -78,7 +76,7 @@ TileDBArray <- R6::R6Class(
     #'
     #' @param ... Optional arguments to pass to `tiledb::tiledb_array()`
     #'
-    #' @return A [tiledb_array()] object.
+    #' @return A [tiledb_array] object.
     #'
     tiledb_array = function(...) {
 
@@ -163,7 +161,7 @@ TileDBArray <- R6::R6Class(
 
     #' @description Retrieve the array schema as TileDB schema.
     #'
-    #' @return A [`tiledb::tiledb_array_schema`] object.
+    #' @return A [tiledb_array_schema] object.
     #'
     schema = function() {
 
@@ -186,9 +184,9 @@ TileDBArray <- R6::R6Class(
       )
     },
 
-    #' @description Retrieve the array dimensions
+    #' @description Retrieve the array dimensions.
     #'
-    #' @return A named list of [`tiledb::tiledb_dim`] objects.
+    #' @return A named list of [tiledb_dim] objects.
     #'
     dimensions = function() {
       dims <- tiledb::dimensions(self$schema())
@@ -196,15 +194,15 @@ TileDBArray <- R6::R6Class(
     },
 
 
-    #' @description Retrieve the array attributes
+    #' @description Retrieve the array attributes.
     #'
-    #' @return A list of [`tiledb::tiledb_attr`] objects.
+    #' @return A list of [tiledb_attr] objects.
     #'
     attributes = function() {
       tiledb::attrs(self$schema())
     },
 
-    #' @description Retrieve dimension names
+    #' @description Retrieve dimension names.
     #'
     #' @return A character vector with the array's dimension names.
     #'
@@ -212,7 +210,7 @@ TileDBArray <- R6::R6Class(
       names(self$dimensions())
     },
 
-    #' @description Retrieve attribute names
+    #' @description Retrieve attribute names.
     #'
     #' @return A character vector with the array's attribute names.
     #'
@@ -221,7 +219,7 @@ TileDBArray <- R6::R6Class(
     },
 
     #' @description Retrieve the names of all columns, including dimensions and
-    #' attributes
+    #' attributes.
     #'
     #' @return A character vector with the array's column names.
     #'
@@ -231,7 +229,7 @@ TileDBArray <- R6::R6Class(
 
     },
 
-    #' @description Retrieve names of index (dimension) columns
+    #' @description Retrieve names of index (dimension) columns.
     #'
     #' @return A character vector with the array index (dimension) names.
     #'

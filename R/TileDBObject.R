@@ -12,15 +12,12 @@ TileDBObject <- R6::R6Class(
     #' @description Create a new TileDB object.
     #'
     #' @param uri URI path for the TileDB object.
-    #' @param ctx Optional [`tiledb::tiledb_ctx()`] object.
+    #' @param ctx Optional [tiledb_ctx()] object.
     #' @param tiledb_timestamp Optional Datetime (POSIXct) with TileDB timestamp.
     #' @param internal_use  A character value that gives access to internal method `new()`.
     #' The `new()` method should not be called directly.
     #'
-    initialize = function(uri,
-                          ctx = NULL,
-                          tiledb_timestamp = NULL,
-                          internal_use = NULL) {
+    initialize = function(uri, ctx = NULL, tiledb_timestamp = NULL, internal_use = NULL) {
 
       private$check_internal_use(internal_use, method = "new()")
 
@@ -58,17 +55,15 @@ TileDBObject <- R6::R6Class(
       class(self)[1]
     },
 
-    # The create/open/close are necessarily specific to TileDBArray/TileDBGroup.
-    # This is a bit of re-use at the TileDBObject level.
-    #' @description Determine if the object is open for reading or writing
+    #' @description Determine if the object is open for reading or writing.
     #'
-    #' @return `TRUE` if the object is open, otherwise `FALSE`
+    #' @return `TRUE` if the object is open, otherwise `FALSE`.
     #'
     is_open = function() {
       return(self$mode() != 'CLOSED')
     },
 
-    #' @description Get the mode of the object
+    #' @description Get the mode of the object.
     #'
     #' @return If the object is closed, returns `"CLOSED"`;
     #' otherwise returns the mode (e.g. `"READ"`) of the object.
@@ -81,7 +76,7 @@ TileDBObject <- R6::R6Class(
       }
     },
 
-    #' @description Close and reopen the TileDB object in a new mode
+    #' @description Close and reopen the TileDB object in a new mode.
     #'
     #' @param mode New mode to open the object in; choose from: `"READ"` or `"WRITE"`.
     #'
@@ -271,7 +266,7 @@ TileDBObject <- R6::R6Class(
       if (is.null(x) || x != "permit") {
         cli::cli_abort(
           c(paste(cli::col_br_blue("{.emph '{deparse(substitute(method))}'}"),  "method is for internal use only."),
-            "i" = "Please use a factory method."),
+            "i" = "Please use a subclass or factory method."),
           call = NULL)
       }
     },

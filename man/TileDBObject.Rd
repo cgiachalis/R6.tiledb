@@ -54,7 +54,7 @@ Create a new TileDB object.
 \describe{
 \item{\code{uri}}{URI path for the TileDB object.}
 
-\item{\code{ctx}}{Optional \code{\link[tiledb:tiledb_ctx]{tiledb::tiledb_ctx()}} object.}
+\item{\code{ctx}}{Optional \code{\link[=tiledb_ctx]{tiledb_ctx()}} object.}
 
 \item{\code{tiledb_timestamp}}{Optional Datetime (POSIXct) with TileDB timestamp.}
 
@@ -78,20 +78,20 @@ Print the name of the R6 class.
 \if{html}{\out{<a id="method-TileDBObject-is_open"></a>}}
 \if{latex}{\out{\hypertarget{method-TileDBObject-is_open}{}}}
 \subsection{Method \code{is_open()}}{
-Determine if the object is open for reading or writing
+Determine if the object is open for reading or writing.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{TileDBObject$is_open()}\if{html}{\out{</div>}}
 }
 
 \subsection{Returns}{
-\code{TRUE} if the object is open, otherwise \code{FALSE}
+\code{TRUE} if the object is open, otherwise \code{FALSE}.
 }
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-TileDBObject-mode"></a>}}
 \if{latex}{\out{\hypertarget{method-TileDBObject-mode}{}}}
 \subsection{Method \code{mode()}}{
-Get the mode of the object
+Get the mode of the object.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{TileDBObject$mode()}\if{html}{\out{</div>}}
 }
@@ -105,7 +105,7 @@ otherwise returns the mode (e.g. \code{"READ"}) of the object.
 \if{html}{\out{<a id="method-TileDBObject-reopen"></a>}}
 \if{latex}{\out{\hypertarget{method-TileDBObject-reopen}{}}}
 \subsection{Method \code{reopen()}}{
-Close and reopen the TileDB object in a new mode
+Close and reopen the TileDB object in a new mode.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{TileDBObject$reopen(mode = c("READ", "WRITE"), tiledb_timestamp = NULL)}\if{html}{\out{</div>}}
 }
