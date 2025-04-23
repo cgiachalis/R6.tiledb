@@ -1,30 +1,36 @@
 Package: R6.tiledb
-Title: What the Package Does (One Line, Title Case)
-Version: 0.0.1
-Authors@R: 
-    person("Constantinos", "Giachalis", , "cgiachalis@outlook.com", role = c("aut", "cre"))
-Maintainer: Constantinos Giachalis <cgiachalis@outlook.com>
-Description: What the package does (one paragraph).
-License: file LICENSE
-Encoding: UTF-8
-Language: en-GB
-Roxygen: list(markdown = TRUE, old_usage = TRUE)
-RoxygenNote: 7.3.2
+Title: R6 Classes for TileDB Arrays and Groups
+Version: 0.1.0
+Authors@R: c(
+    person("Constantinos", "Giachalis", , "cgiachalis@outlook.com", role = c("aut", "cre")),
+    person("TileDB, Inc.", role = "ctb",
+           comment = "Initial code and tests for R6 classes from 'TileDB-SOMA/apis/r' GitHub repo")
+  )
+Description: Provides foundational R6 classes to interface with 'TileDB'
+    storage engine using 'tiledb' package. The goal is to offer a set of
+    minimum classes based on the R6 object oriented system in order to
+    make it easier to work with 'TileDB' Arrays and Groups. The base
+    classes 'TileDBArray' and 'TileDBGroup' can be easily extended to new
+    subclasses for representing and support any data model.
 URL: https://github.com/cgiachalis/R6.tiledb
 BugReports: https://github.com/cgiachalis/R6.tiledb/issues
 Depends:
     R (>= 4.4.0)
 Imports:
-    methods,
     cli,
     fs,
+    methods,
     R6,
     rlang,
     spdl,
     tiledb (>= 0.31.0),
-    urltools,
+    urltools
 Suggests:
     spelling,
     testthat (>= 3.0.0),
     withr
 Config/testthat/edition: 3
+Encoding: UTF-8
+Language: en-GB
+Roxygen: list(markdown = TRUE, old_usage = TRUE)
+RoxygenNote: 7.3.2
