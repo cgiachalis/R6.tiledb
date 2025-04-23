@@ -12,7 +12,7 @@ Base class for representing an individual TileDB array.
 \section{Active bindings}{
 \if{html}{\out{<div class="r6-active-bindings">}}
 \describe{
-\item{\code{object}}{Access the underlying \code{\link[=tiledb_array]{tiledb_array()}} object. When
+\item{\code{object}}{Access the underlying \code{\link[tiledb:tiledb_array]{tiledb::tiledb_array()}} object. When
 used before open() method, the underlying array will be initialised at \code{"READ"}
 mode and kept open.}
 }
@@ -56,7 +56,7 @@ mode and kept open.}
 \subsection{Method \code{open()}}{
 Open TileDB array object for read or write.
 
-This methods opens the underlying \code{\link[=tiledb_array]{tiledb_array()}} object in the
+This methods opens the underlying \code{\link[tiledb:tiledb_array]{tiledb::tiledb_array()}} object in the
 requested mode if it is different from the current mode.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{TileDBArray$open(mode = c("READ", "WRITE"))}\if{html}{\out{</div>}}
@@ -90,7 +90,7 @@ The object, invisibly.
 \if{html}{\out{<a id="method-TileDBArray-tiledb_array"></a>}}
 \if{latex}{\out{\hypertarget{method-TileDBArray-tiledb_array}{}}}
 \subsection{Method \code{tiledb_array()}}{
-Return a \link{tiledb_array} object.
+Return a \link[tiledb:tiledb_array]{tiledb::tiledb_array} object.
 
 If a \code{query_type} not provided then it will be inherited from class
 mode; in case the class mode is \code{"CLOSED"}, then the query type
@@ -102,12 +102,12 @@ defaults to \code{"READ"}.
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{...}}{Optional arguments to pass to \code{tiledb::tiledb_array()}}
+\item{\code{...}}{Optional arguments to pass to \code{tiledb::tiledb_array()}.}
 }
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-A \link{tiledb_array} object.
+A \link[tiledb:tiledb_array]{tiledb::tiledb_array} object.
 }
 }
 \if{html}{\out{<hr>}}
@@ -166,7 +166,7 @@ Retrieve the array schema as TileDB schema.
 }
 
 \subsection{Returns}{
-A \link{tiledb_array_schema} object.
+A \link[tiledb:tiledb_array_schema]{tiledb::tiledb_array_schema} object.
 }
 }
 \if{html}{\out{<hr>}}
@@ -193,7 +193,7 @@ Retrieve the array dimensions.
 }
 
 \subsection{Returns}{
-A named list of \link{tiledb_dim} objects.
+A named list of \link[tiledb:tiledb_dim]{tiledb::tiledb_dim} objects.
 }
 }
 \if{html}{\out{<hr>}}
@@ -206,7 +206,7 @@ Retrieve the array attributes.
 }
 
 \subsection{Returns}{
-A list of \link{tiledb_attr} objects.
+A list of \link[tiledb:tiledb_attr]{tiledb::tiledb_attr} objects.
 }
 }
 \if{html}{\out{<hr>}}

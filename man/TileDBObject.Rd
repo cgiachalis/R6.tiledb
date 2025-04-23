@@ -54,7 +54,7 @@ Create a new TileDB object.
 \describe{
 \item{\code{uri}}{URI path for the TileDB object.}
 
-\item{\code{ctx}}{Optional \code{\link[=tiledb_ctx]{tiledb_ctx()}} object.}
+\item{\code{ctx}}{Optional \code{\link[tiledb:tiledb_ctx]{tiledb::tiledb_ctx()}} object.}
 
 \item{\code{tiledb_timestamp}}{Optional Datetime (POSIXct) with TileDB timestamp.}
 

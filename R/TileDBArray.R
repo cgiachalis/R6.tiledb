@@ -10,7 +10,7 @@ TileDBArray <- R6::R6Class(
 
     #' @description Open TileDB array object for read or write.
     #'
-    #' This methods opens the underlying [tiledb_array()] object in the
+    #' This methods opens the underlying [tiledb::tiledb_array()] object in the
     #' requested mode if it is different from the current mode.
     #'
     #' @param mode Mode to open : either `"READ"` or `"WRITE"`.  Default is `"READ"`.
@@ -65,15 +65,15 @@ TileDBArray <- R6::R6Class(
       invisible(self)
     },
 
-    #' @description Return a [tiledb_array] object.
+    #' @description Return a [tiledb::tiledb_array] object.
     #'
     #' If a `query_type` not provided then it will be inherited from class
     #' mode; in case the class mode is `"CLOSED"`, then the query type
     #' defaults to `"READ"`.
     #'
-    #' @param ... Optional arguments to pass to `tiledb::tiledb_array()`
+    #' @param ... Optional arguments to pass to `tiledb::tiledb_array()`.
     #'
-    #' @return A [tiledb_array] object.
+    #' @return A [tiledb::tiledb_array] object.
     #'
     tiledb_array = function(...) {
 
@@ -158,7 +158,7 @@ TileDBArray <- R6::R6Class(
 
     #' @description Retrieve the array schema as TileDB schema.
     #'
-    #' @return A [tiledb_array_schema] object.
+    #' @return A [tiledb::tiledb_array_schema] object.
     #'
     schema = function() {
 
@@ -183,7 +183,7 @@ TileDBArray <- R6::R6Class(
 
     #' @description Retrieve the array dimensions.
     #'
-    #' @return A named list of [tiledb_dim] objects.
+    #' @return A named list of [tiledb::tiledb_dim] objects.
     #'
     dimensions = function() {
       dims <- tiledb::dimensions(self$schema())
@@ -193,7 +193,7 @@ TileDBArray <- R6::R6Class(
 
     #' @description Retrieve the array attributes.
     #'
-    #' @return A list of [tiledb_attr] objects.
+    #' @return A list of [tiledb::tiledb_attr] objects.
     #'
     attributes = function() {
       tiledb::attrs(self$schema())
@@ -264,7 +264,7 @@ TileDBArray <- R6::R6Class(
   ),
 
   active = list(
-    #' @field object Access the underlying [tiledb_array()] object. When
+    #' @field object Access the underlying [tiledb::tiledb_array()] object. When
     #' used before open() method, the underlying array will be initialised at `"READ"`
     #' mode and kept open.
     object = function(value) {

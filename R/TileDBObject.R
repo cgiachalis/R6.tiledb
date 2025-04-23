@@ -12,7 +12,7 @@ TileDBObject <- R6::R6Class(
     #' @description Create a new TileDB object.
     #'
     #' @param uri URI path for the TileDB object.
-    #' @param ctx Optional [tiledb_ctx()] object.
+    #' @param ctx Optional [tiledb::tiledb_ctx()] object.
     #' @param tiledb_timestamp Optional Datetime (POSIXct) with TileDB timestamp.
     #' @param internal_use  A character value that gives access to new instance.
     #' Use `options(R6.tiledb.internal = NULL)` for internal mode.

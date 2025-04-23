@@ -15,7 +15,7 @@ Base class for interacting with TileDB groups
 \section{Active bindings}{
 \if{html}{\out{<div class="r6-active-bindings">}}
 \describe{
-\item{\code{object}}{Access the underlying \code{\link[=tiledb_group]{tiledb_group()}} object.}
+\item{\code{object}}{Access the underlying \code{\link[tiledb:tiledb_group]{tiledb::tiledb_group()}} object.}
 }
 \if{html}{\out{</div>}}
 }
