@@ -1,6 +1,8 @@
 
 test_that("'TileDBArray' class works as expected", {
 
+  options(R6.tiledb.internal = NULL)
+
   uri <- withr::local_tempdir(pattern = "test-TileDBArray")
 
   arrObj <- TileDBArray$new(uri = uri, internal_use = "permit")
@@ -15,10 +17,7 @@ test_that("'TileDBArray' class works as expected", {
   df <- as.data.frame(UCBAdmissions)
   tiledb::fromDataFrame(df, uri, col_index = idx_cols)
 
-  # 'open()' method is for internal use only.
-  expect_error(arrObj$open())
-
-  expect_no_error(arrObj$open(internal_use = "permit"))
+  expect_invisible(arrObj$open())
   expect_equal(arrObj$mode(), "READ")
 
   # Check schema info
@@ -43,7 +42,7 @@ test_that("'TileDBArray' class works as expected", {
   expect_false(.tiledb_array_is_open_for_writing(arrObj$object), FALSE)
 
   # Open from CLOSE to WRITE mode
-  expect_no_error(arrObj$open("WRITE", internal_use = "permit"))
+  expect_no_error(arrObj$open("WRITE"))
   expect_equal(arrObj$mode(), "WRITE")
 
   # Verify that array is open in WRITE mode
@@ -94,7 +93,7 @@ test_that("'TileDBArray' class works as expected", {
   arrObj$close()
 
   md <- list(1)
-  arrObj$open(mode = "WRITE", internal_use = "permit")
+  arrObj$open(mode = "WRITE")
   expect_error(arrObj$set_metadata(md))
   arrObj$close()
 
@@ -105,7 +104,7 @@ test_that("'TileDBArray' class works as expected", {
 
   # We need the ability to read back metadata even when the
   # array is opened for write.
-  arrObj$open(mode = "WRITE", internal_use = "permit")
+  arrObj$open(mode = "WRITE")
   expect_equal(arrObj$get_metadata(key = "d"), "Boo")
   expect_equal(arrObj$get_metadata(key = "a"), "Hi")
   expect_equal(length(arrObj$get_metadata()), 5)
@@ -113,7 +112,7 @@ test_that("'TileDBArray' class works as expected", {
 
   # new instances
   arrObj_new <- TileDBArray$new(uri = uri, internal_use = "permit")
-  expect_no_error(arrObj_new$open(internal_use = "permit"))
+  expect_invisible(arrObj_new$open())
   expect_equal(arrObj_new$mode(), "READ")
 
   # Verify that array is open in READ mode (1/2)
@@ -127,7 +126,7 @@ test_that("'TileDBArray' class works as expected", {
 
   # Verify that array is open in WRITE mode
   arrObj_new <- TileDBArray$new(uri = uri, internal_use = "permit")
-  expect_no_error(arrObj_new$open(mode = "WRITE", internal_use = "permit"))
+  expect_no_error(arrObj_new$open(mode = "WRITE"))
   expect_true(.tiledb_array_is_open_for_writing(arrObj_new$object), TRUE)
   arrObj_new$close()
 

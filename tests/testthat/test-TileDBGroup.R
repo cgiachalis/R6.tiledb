@@ -10,7 +10,7 @@ test_that("'TileDBGroup' class tests on non-existent group", {
   # Check errors on non-existent group
   expect_error(group$get_member("a"),
                label = "TileDB resource should be open for read or write")
-  expect_error(group$open(internal_use = "permit"),
+  expect_error(group$open(),
                label = "Group does not exist.")
 })
 
@@ -20,13 +20,13 @@ test_that("'TileDBGroup' class tests on existent but empty group", {
   group <- TileDBGroup$new(uri, internal_use = "permit")
 
   # Create a group object on disk
-  group$create(internal_use = "permit")
+  group$create()
 
   # Verify that group reference is opened at WRITE mode
   expect_equal(tiledb::tiledb_group_query_type(group$object), "WRITE")
 
 
-  expect_error(group$create(internal_use = "permit"), "already exists")
+  expect_error(group$create(), "already exists")
   expect_true(dir.exists(uri))  # Any folder at this uri? Expect TRUE
   expect_true(file.exists(file.path(uri, "__group")))
   expect_true(group$exists())
@@ -42,7 +42,7 @@ test_that("'TileDBGroup' class tests on existent but empty group", {
   group2 <- TileDBGroup$new(uri2, internal_use = "permit")
 
   # Create a group object on disk
-  group2$create(mode = "READ", internal_use = "permit")
+  group2$create(mode = "READ")
 
   # Verify that group reference is opened at READ mode
   expect_equal(tiledb::tiledb_group_query_type(group2$object), "READ")
@@ -55,7 +55,7 @@ test_that("'TileDBGroup' class tests on existent but empty group", {
 
   # New instance
   group2_new <- TileDBGroup$new(uri2, internal_use = "permit")
-  expect_no_error(group2_new$open(mode = "READ", internal_use = "permit"))
+  expect_no_error(group2_new$open(mode = "READ"))
   expect_equal(group2_new$mode(), "READ")
 
   # Verify that group is open in READ mode
@@ -64,7 +64,7 @@ test_that("'TileDBGroup' class tests on existent but empty group", {
   expect_equal(group2_new$mode(), "CLOSED")
 
   group2_new <- TileDBGroup$new(uri2, internal_use = "permit")
-  expect_no_error(group2_new$open(mode = "WRITE", internal_use = "permit"))
+  expect_no_error(group2_new$open(mode = "WRITE"))
   expect_equal(group2_new$mode(), "WRITE")
   expect_equal(tiledb::tiledb_group_query_type(group2_new$object), "WRITE")
 
@@ -96,9 +96,9 @@ test_that("'TileDBGroup' class tests accessors on empty group", {
   uri <- file.path(withr::local_tempdir(), "test-group")
   group <- TileDBGroup$new(uri, internal_use = "permit")
 
-  group$create(internal_use = "permit")
+  group$create()
 
-  group$open(mode = "READ", internal_use = "permit")
+  group$open(mode = "READ")
 
   # Check exporters
   lst <- group$to_list()
@@ -121,19 +121,19 @@ test_that("'TileDBGroup' class tests add/remove members", {
   group <- TileDBGroup$new(uri, internal_use = "permit")
 
   # Step 1: Create a group object
-  group$create(internal_use = "permit")
+  group$create()
   group$close()
 
   # Test opening on new instance that correctly initialises the object
 
   group_new <- TileDBGroup$new(uri, internal_use = "permit")
 
-  expect_no_error(group_new$open(internal_use = "permit"))
+  expect_invisible(group_new$open())
   group_new$close()
 
   group_new <- TileDBGroup$new(uri, internal_use = "permit")
 
-  expect_no_error(group_new$open(mode = "WRITE", internal_use = "permit"))
+  expect_invisible(group_new$open(mode = "WRITE"))
   group_new$close()
 
   # Step 2: Create array and subgroups that will be
@@ -151,7 +151,7 @@ test_that("'TileDBGroup' class tests add/remove members", {
   grp2 <- TileDBGroup$new(grp_uri2, internal_use = "permit")
 
   # Step 3: Check arr1 and grp1 exist (but not yet members)
-  group$open(mode = "READ", internal_use = "permit")
+  group$open(mode = "READ")
 
   expect_true(arr1$exists())
   expect_true(grp1$exists())
@@ -162,7 +162,7 @@ test_that("'TileDBGroup' class tests add/remove members", {
   group$close()
 
   # Step 4: Add array and subgroup as members
-  group$open(mode = "WRITE", internal_use = "permit")
+  group$open(mode = "WRITE")
 
   # add array
   group$set_member(arr1, name = "arr1")
@@ -196,7 +196,7 @@ test_that("'TileDBGroup' class tests add/remove members", {
   group$close()
 
   # Step 5: Read back
-  group$open(mode = "READ", internal_use = "permit")
+  group$open(mode = "READ")
   expect_equal(group$count_members(), 3)
   expect_setequal(group$names(), c("arr1", "grp1", "grp2"))
 
@@ -209,7 +209,7 @@ test_that("'TileDBGroup' class tests add/remove members", {
   # New instantiation
   # Need to close group first
   group2 <- TileDBGroup$new(uri, internal_use = "permit")
-  group2$open(internal_use = "permit")
+  group2$open()
 
   expect_setequal(group2$names(), c("arr1", "grp1", "grp2"))
 
@@ -222,7 +222,7 @@ test_that("'TileDBGroup' class tests add/remove members", {
 
   group2$close()
 
-  group2$open("READ", internal_use = "permit")
+  group2$open("READ")
   expect_error(group2$get_member("no-member"))
 
   # Test member constructor
@@ -235,7 +235,7 @@ test_that("'TileDBGroup' class tests add/remove members", {
   # but grp1 is not there because we didn't fetch it via get_member
   expect_true(is.null(lst$grp1$object))
 
-  group2$open("WRITE", internal_use = "permit")
+  group2$open("WRITE")
   grp1 <- group2$get_member("grp1")
   expect_s3_class(grp1, "TileDBGroup")
   # mode should be identical to group2
@@ -253,7 +253,7 @@ test_that("'TileDBGroup' class tests add/remove members", {
   group2$close()
 
   # Step 5: Remove members
-  group$open(mode = "WRITE", internal_use = "permit")
+  group$open(mode = "WRITE")
 
   group$remove("arr1")
   expect_equal(group$count_members(), 2)
@@ -267,7 +267,7 @@ test_that("'TileDBGroup' class tests add/remove members", {
   group$close()
 
   # Read back and check
-  group$open(mode = "READ", internal_use = "permit")
+  group$open(mode = "READ")
   expect_equal(group$count_members(), 0)
   expect_equal(length(group$names()), 0)
   group$close()
@@ -290,7 +290,7 @@ test_that("'TileDBGroup' class tests print method", {
   uri <- file.path(withr::local_tempdir(), "test-group")
   group <- TileDBGroup$new(uri, internal_use = "permit")
 
-  group$create(internal_use = "permit")
+  group$create()
   group$close()
 
   arr_uri <- file.path(uri, "arr_a1")
@@ -306,19 +306,19 @@ test_that("'TileDBGroup' class tests print method", {
   grp2 <- TileDBGroup$new(grp_uri2, internal_use = "permit")
 
   # Add members
-  group$open(mode = "WRITE", internal_use = "permit")
+  group$open(mode = "WRITE")
   group$set_member(arr1, name = "arr1")
   group$set_member(grp1, name = "grp1")
   group$set_member(grp2)
   group$close()
 
   # Full print
-  group$open(mode = "READ", internal_use = "permit")
+  group$open(mode = "READ")
 
   expect_snapshot(group$print())
 
   # Remove one by one and print
-  group$open(mode = "WRITE", internal_use = "permit")
+  group$open(mode = "WRITE")
   group$remove("arr1")
   expect_snapshot(group$print())
 
@@ -345,13 +345,13 @@ test_that("'TileDBGroup' class tests relative paths", {
   uri <- file.path(withr::local_tempdir(), "test-group")
 
   group <- TileDBGroup$new(uri, internal_use = "permit")
-  group$create(internal_use = "permit")
+  group$create()
 
   # Error when attempting to add a relative member that's not a subpath
   g2 <- TileDBGroup$new(
     uri = file.path(withr::local_tempdir(), "not-relative-subpath"),
     internal_use = "permit")
-  g2$create(internal_use = "permit")
+  g2$create()
 
   expect_error(group$set_member(g2, name = "g2", relative = TRUE),
     info = "Unable to make relative path between URIs with no common parent")
@@ -376,7 +376,7 @@ test_that("'TileDBGroup' class tests metatadata", {
 
   expect_error(group$set_metadata(list(a = 1)), info = "TileDB resource should be open for write")
 
-  group$create(internal_use = "permit") # mode is WRITE now
+  group$create() # mode is WRITE now
 
   md <- list(a = "a", b = 100)
   group$set_metadata(md)
@@ -392,7 +392,7 @@ test_that("'TileDBGroup' class tests metatadata", {
   group$close()
 
   # Read all metadata while the group is open for read
-  group$open(mode = "READ", internal_use = "permit")
+  group$open(mode = "READ")
   readmd <- group$get_metadata()
   expect_equal(readmd, md, ignore_attr = TRUE)
 

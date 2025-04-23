@@ -14,15 +14,10 @@ TileDBGroup <- R6::R6Class(
     #' @description Create a TileDB Group object given the class URI path.
     #'
     #' @param mode Mode to open : either `"READ"` or `"WRITE"` (default).
-    #' @param internal_use A character value that gives access to internal
-    #' method `create()`. The `create()` method should not be called
-    #' directly.
     #'
     #' @return The object, invisibly.
     #'
-    create = function(mode = "WRITE", internal_use = NULL) {
-
-      private$check_internal_use(internal_use, method = "create()")
+    create = function(mode = "WRITE") {
 
       spdl::debug("[TileDBGroup$create] Creating new {} in '{}' at ({})",
                   self$class(),
@@ -43,14 +38,11 @@ TileDBGroup <- R6::R6Class(
     #' @description Open TileDB group object for read or write.
     #'
     #' @param mode Mode to open : either `"READ"` or `"WRITE"`.  Default is `"READ"`.
-    #' @param internal_use A character value that gives access to internal method `open()`.
-    #' The `open()` method should not be called directly.
     #'
     #' @return The object, invisibly.
     #'
-    open = function(mode = c("READ", "WRITE"), internal_use = NULL) {
+    open = function(mode = c("READ", "WRITE")) {
 
-      private$check_internal_use(internal_use, method = "open()")
       private$check_object_exists()
       mode <- match.arg(mode)
 
@@ -227,7 +219,7 @@ TileDBGroup <- R6::R6Class(
       if (!obj$is_open()) {
         switch(
           EXPR = (mode <- self$mode()),
-          READ = obj$open(mode, internal_use = "permit"),
+          READ = obj$open(mode),
           WRITE = obj$reopen(mode)
         )
       }
@@ -324,7 +316,7 @@ TileDBGroup <- R6::R6Class(
    get_metadata = function(key = NULL) {
 
      if (!self$is_open()) {
-       self$open(mode = "READ", internal_use = "permit")
+       self$open(mode = "READ")
      }
 
      private$fill_metadata_cache_if_null()
@@ -393,7 +385,7 @@ TileDBGroup <- R6::R6Class(
       private$check_object_exists()
 
       if (!self$is_open()) {
-        self$open(mode = "READ", internal_use = "permit")
+        self$open(mode = "READ")
         on.exit(self$close())
       }
 
@@ -561,7 +553,7 @@ TileDBGroup <- R6::R6Class(
         GROUP = TileDBGroup$new,
         cli::cli_abort("Unknown member type: {.emph '{deparse(substitute(type))}'.}", call = NULL))
 
-      obj <- constructor(uri,ctx = self$ctx,
+      obj <- constructor(uri, ctx = self$ctx,
                          tiledb_timestamp = private$.group_open_timestamp,
                          internal_use = "permit")
       obj

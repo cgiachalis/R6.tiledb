@@ -14,14 +14,11 @@ TileDBArray <- R6::R6Class(
     #' requested mode if it is different from the current mode.
     #'
     #' @param mode Mode to open : either `"READ"` or `"WRITE"`.  Default is `"READ"`.
-    #' @param internal_use  A character value that gives access to internal method `new()`.
-    #' The `new()` method should not be called directly.
     #'
     #' @return The object, invisibly.
     #'
-    open = function(mode = c("READ", "WRITE"), internal_use = NULL) {
+    open = function(mode = c("READ", "WRITE")) {
 
-      private$check_internal_use(internal_use, method = "open()")
       private$check_object_exists()
       mode <- match.arg(mode)
 
@@ -110,7 +107,7 @@ TileDBArray <- R6::R6Class(
     get_metadata = function(key = NULL) {
 
       if (!self$is_open()) {
-        self$open(mode = "READ", internal_use = "permit")
+        self$open(mode = "READ")
       }
 
       spdl::debug("[TileDBArray$get_metadata] Retrieving metadata for {} '{}'", self$class(), self$uri)

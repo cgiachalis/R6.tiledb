@@ -59,16 +59,13 @@ Open TileDB array object for read or write.
 This methods opens the underlying \code{\link[=tiledb_array]{tiledb_array()}} object in the
 requested mode if it is different from the current mode.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{TileDBArray$open(mode = c("READ", "WRITE"), internal_use = NULL)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{TileDBArray$open(mode = c("READ", "WRITE"))}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
 \item{\code{mode}}{Mode to open : either \code{"READ"} or \code{"WRITE"}.  Default is \code{"READ"}.}
-
-\item{\code{internal_use}}{A character value that gives access to internal method \code{new()}.
-The \code{new()} method should not be called directly.}
 }
 \if{html}{\out{</div>}}
 }

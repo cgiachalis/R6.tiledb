@@ -14,10 +14,14 @@ TileDBObject <- R6::R6Class(
     #' @param uri URI path for the TileDB object.
     #' @param ctx Optional [tiledb_ctx()] object.
     #' @param tiledb_timestamp Optional Datetime (POSIXct) with TileDB timestamp.
-    #' @param internal_use  A character value that gives access to internal method `new()`.
-    #' The `new()` method should not be called directly.
+    #' @param internal_use  A character value that gives access to new instance.
+    #' Use `options(R6.tiledb.internal = NULL)` for internal mode.
     #'
-    initialize = function(uri, ctx = NULL, tiledb_timestamp = NULL, internal_use = NULL) {
+    #'
+    initialize = function(uri,
+                          ctx = NULL,
+                          tiledb_timestamp = NULL,
+                          internal_use = getOption("R6.tiledb.internal")) {
 
       private$check_internal_use(internal_use, method = "new()")
 
@@ -101,7 +105,7 @@ TileDBObject <- R6::R6Class(
 
       private$.tiledb_timestamp <- tiledb_timestamp
 
-      self$open(mode, internal_use = "permit")
+      self$open(mode)
 
       invisible(self)
     },

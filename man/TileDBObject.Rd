@@ -46,7 +46,7 @@ TileDB object types:
 Create a new TileDB object.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{TileDBObject$new(uri, ctx = NULL, tiledb_timestamp = NULL,
-  internal_use = NULL)}\if{html}{\out{</div>}}
+  internal_use = getOption("R6.tiledb.internal"))}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -58,8 +58,8 @@ Create a new TileDB object.
 
 \item{\code{tiledb_timestamp}}{Optional Datetime (POSIXct) with TileDB timestamp.}
 
-\item{\code{internal_use}}{A character value that gives access to internal method \code{new()}.
-The \code{new()} method should not be called directly.}
+\item{\code{internal_use}}{A character value that gives access to new instance.
+Use \code{options(R6.tiledb.internal = NULL)} for internal mode.}
 }
 \if{html}{\out{</div>}}
 }

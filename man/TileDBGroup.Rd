@@ -58,17 +58,13 @@ Base class for interacting with TileDB groups
 \subsection{Method \code{create()}}{
 Create a TileDB Group object given the class URI path.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{TileDBGroup$create(mode = "WRITE", internal_use = NULL)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{TileDBGroup$create(mode = "WRITE")}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
 \item{\code{mode}}{Mode to open : either \code{"READ"} or \code{"WRITE"} (default).}
-
-\item{\code{internal_use}}{A character value that gives access to internal
-method \code{create()}. The \code{create()} method should not be called
-directly.}
 }
 \if{html}{\out{</div>}}
 }
@@ -82,16 +78,13 @@ The object, invisibly.
 \subsection{Method \code{open()}}{
 Open TileDB group object for read or write.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{TileDBGroup$open(mode = c("READ", "WRITE"), internal_use = NULL)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{TileDBGroup$open(mode = c("READ", "WRITE"))}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
 \item{\code{mode}}{Mode to open : either \code{"READ"} or \code{"WRITE"}.  Default is \code{"READ"}.}
-
-\item{\code{internal_use}}{A character value that gives access to internal method \code{open()}.
-The \code{open()} method should not be called directly.}
 }
 \if{html}{\out{</div>}}
 }
