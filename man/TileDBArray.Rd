@@ -12,7 +12,7 @@ Base class for representing an individual TileDB array.
 \section{Active bindings}{
 \if{html}{\out{<div class="r6-active-bindings">}}
 \describe{
-\item{\code{object}}{Access the underlying \code{\link[tiledb:tiledb_array]{tiledb::tiledb_array()}} object. When
+\item{\code{object}}{Access the underlying \code{\link[=tiledb_array]{tiledb_array()}} object. When
 used before open() method, the underlying array will be initialised at \code{"READ"}
 mode and kept open.}
 }

@@ -264,7 +264,7 @@ TileDBArray <- R6::R6Class(
   ),
 
   active = list(
-    #' @field object Access the underlying [`tiledb::tiledb_array()`] object. When
+    #' @field object Access the underlying [tiledb_array()] object. When
     #' used before open() method, the underlying array will be initialised at `"READ"`
     #' mode and kept open.
     object = function(value) {
