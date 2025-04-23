@@ -483,7 +483,7 @@ TileDBGroup <- R6::R6Class(
   ),
 
   active = list(
-    #' @field object Access the underlying [`tiledb::tiledb_group()`] object.
+    #' @field object Access the underlying [tiledb_group()] object.
     object = function(value) {
       if (!missing(value)) {
         .emit_read_only_error("object")
