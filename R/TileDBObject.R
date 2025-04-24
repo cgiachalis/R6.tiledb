@@ -1,8 +1,10 @@
 #' @title TileDB Object Base Class
 #'
 #' @description
-#' Base class to implement shared functionality across the `TileDBArray` and
-#' `TileDBGroup` classes.
+#' Base class to implement shared functionality across the [TileDBArray] and
+#' [TileDBGroup] classes.
+#'
+#'  **This class is not intended to be used directly**.
 #'
 #'
 #' @export

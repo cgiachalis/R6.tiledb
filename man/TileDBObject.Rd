@@ -4,8 +4,10 @@
 \alias{TileDBObject}
 \title{TileDB Object Base Class}
 \description{
-Base class to implement shared functionality across the \code{TileDBArray} and
-\code{TileDBGroup} classes.
+Base class to implement shared functionality across the \link{TileDBArray} and
+\link{TileDBGroup} classes.
+
+\strong{This class is not intended to be used directly}.
 }
 \section{Active bindings}{
 \if{html}{\out{<div class="r6-active-bindings">}}
