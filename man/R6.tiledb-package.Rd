@@ -21,7 +21,7 @@ Useful links:
 
 Other contributors:
 \itemize{
-  \item TileDB, Inc. (Initial code and tests for R6 classes from 'TileDB-SOMA/apis/r' GitHub repo) [contributor]
+  \item TileDB, Inc (Initial code and tests for R6 classes from 'TileDB-SOMA/apis/r' GitHub repo.) [contributor]
 }
 
 }

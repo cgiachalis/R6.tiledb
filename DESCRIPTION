@@ -3,8 +3,8 @@ Title: R6 Classes for TileDB Arrays and Groups
 Version: 0.1.0
 Authors@R: c(
     person("Constantinos", "Giachalis", , "cgiachalis@outlook.com", role = c("aut", "cre")),
-    person("TileDB, Inc.", role = "ctb",
-           comment = "Initial code and tests for R6 classes from 'TileDB-SOMA/apis/r' GitHub repo")
+    person("TileDB, Inc", role = "ctb",
+           comment = "Initial code and tests for R6 classes from 'TileDB-SOMA/apis/r' GitHub repo.")
   )
 Description: Provides foundational R6 classes to interface with 'TileDB'
     storage engine using 'tiledb' package. The goal is to offer a set of
