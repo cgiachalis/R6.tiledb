@@ -3,8 +3,25 @@
 \name{TileDBArray}
 \alias{TileDBArray}
 \title{TileDB Array Base Class}
+\value{
+An object \code{TileDBArray} of class \code{R6}.
+}
 \description{
-Base class for representing an individual TileDB array.
+Base class for representing an individual TileDB Array.
+\subsection{Initialization}{
+
+A new \code{TileDBArray} instance is initialized using the \code{new()} method:
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{ # uri path
+ uri <- tempdir()
+ # new instance
+ obj <- TileDBArray$new(uri = uri)
+ # does array exist at this uri
+ obj$exists() # FALSE
+
+ unlink(uri)
+}\if{html}{\out{</div>}}
+}
 }
 \section{Super class}{
 \code{\link[R6.tiledb:TileDBObject]{R6.tiledb::TileDBObject}} -> \code{TileDBArray}
@@ -21,6 +38,7 @@ mode and kept open.}
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
+\item \href{#method-TileDBArray-new}{\code{TileDBArray$new()}}
 \item \href{#method-TileDBArray-open}{\code{TileDBArray$open()}}
 \item \href{#method-TileDBArray-close}{\code{TileDBArray$close()}}
 \item \href{#method-TileDBArray-tiledb_array}{\code{TileDBArray$tiledb_array()}}
@@ -39,17 +57,41 @@ mode and kept open.}
 }
 }
 \if{html}{\out{
-<details><summary>Inherited methods</summary>
+<details open><summary>Inherited methods</summary>
 <ul>
 <li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBObject" data-id="class"><a href='../../R6.tiledb/html/TileDBObject.html#method-TileDBObject-class'><code>R6.tiledb::TileDBObject$class()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBObject" data-id="exists"><a href='../../R6.tiledb/html/TileDBObject.html#method-TileDBObject-exists'><code>R6.tiledb::TileDBObject$exists()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBObject" data-id="initialize"><a href='../../R6.tiledb/html/TileDBObject.html#method-TileDBObject-initialize'><code>R6.tiledb::TileDBObject$initialize()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBObject" data-id="is_open"><a href='../../R6.tiledb/html/TileDBObject.html#method-TileDBObject-is_open'><code>R6.tiledb::TileDBObject$is_open()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBObject" data-id="mode"><a href='../../R6.tiledb/html/TileDBObject.html#method-TileDBObject-mode'><code>R6.tiledb::TileDBObject$mode()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBObject" data-id="reopen"><a href='../../R6.tiledb/html/TileDBObject.html#method-TileDBObject-reopen'><code>R6.tiledb::TileDBObject$reopen()</code></a></span></li>
 </ul>
 </details>
 }}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-TileDBArray-new"></a>}}
+\if{latex}{\out{\hypertarget{method-TileDBArray-new}{}}}
+\subsection{Method \code{new()}}{
+Create a new \code{TileDBArray} instance.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{TileDBArray$new(uri, ctx = NULL, tiledb_timestamp = NULL,
+  internal_use = getOption("R6.tiledb.internal"))}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{uri}}{URI path for the TileDB Array.}
+
+\item{\code{ctx}}{Optional \code{\link[tiledb:tiledb_ctx]{tiledb::tiledb_ctx()}} object.}
+
+\item{\code{tiledb_timestamp}}{Optional Datetime (POSIXct) with TileDB timestamp.}
+
+\item{\code{internal_use}}{A character value that gives access to new instance.
+Use \code{options(R6.tiledb.internal = NULL)} for internal mode.}
+}
+\if{html}{\out{</div>}}
+}
+}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-TileDBArray-open"></a>}}
 \if{latex}{\out{\hypertarget{method-TileDBArray-open}{}}}

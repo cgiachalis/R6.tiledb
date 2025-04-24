@@ -1,13 +1,46 @@
 #' @title  TileDB Array Base Class
 #'
-#' @description Base class for representing an individual TileDB array.
+#' @description Base class for representing an individual TileDB Array.
+#'
+#' ## Initialization
+#' A new `TileDBArray` instance is initialized using the `new()` method:
+#'
+#' ```r
+#'  # uri path
+#'  uri <- tempdir()
+#'  # new instance
+#'  obj <- TileDBArray$new(uri = uri)
+#'  # does array exist at this uri
+#'  obj$exists() # FALSE
+#'
+#'  unlink(uri)
+#' ```
+#' @returns An object `TileDBArray` of class `R6`.
 #'
 #' @export
 TileDBArray <- R6::R6Class(
   classname = "TileDBArray",
   inherit = TileDBObject,
   public = list(
+    #' @description Create a new `TileDBArray` instance.
+    #'
+    #' @param uri URI path for the TileDB Array.
+    #' @param ctx Optional [tiledb::tiledb_ctx()] object.
+    #' @param tiledb_timestamp Optional Datetime (POSIXct) with TileDB timestamp.
+    #' @param internal_use  A character value that gives access to new instance.
+    #' Use `options(R6.tiledb.internal = NULL)` for internal mode.
+    #'
+    initialize = function(uri,
+                          ctx = NULL,
+                          tiledb_timestamp = NULL,
+                          internal_use = getOption("R6.tiledb.internal")) {
 
+      super$initialize(uri = uri,
+                       ctx = ctx,
+                       tiledb_timestamp = tiledb_timestamp,
+                       internal_use = internal_use)
+
+    },
     #' @description Open TileDB array object for read or write.
     #'
     #' This methods opens the underlying [tiledb::tiledb_array()] object in the

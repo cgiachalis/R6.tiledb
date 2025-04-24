@@ -1,6 +1,20 @@
 #' @title TileDB Group Base Class
 #'
-#' @description Base class for interacting with TileDB groups
+#' @description Base class for interacting with TileDB Groups.
+#'
+#' ## Initialization
+#' A new `TileDBGroup` instance is initialized using the `new()` method:
+#'
+#' ```r
+#'  # uri path
+#'  uri <- tempdir()
+#'  # new instance
+#'  obj <- TileDBGroup$new(uri = uri)
+#'  # does array exist at this uri
+#'  obj$exists() # FALSE
+#'
+#'  unlink(uri)
+#' ```
 #'
 #' @returns An object `TileDBGroup` of class `R6`.
 #'
@@ -10,7 +24,26 @@ TileDBGroup <- R6::R6Class(
   inherit = TileDBObject,
 
   public = list(
+    #' @description Create a new `TileDBGroup` instance.
+    #'
+    #' @param uri URI path for the TileDB Group.
+    #' @param ctx Optional [tiledb::tiledb_ctx()] object.
+    #' @param tiledb_timestamp Optional Datetime (POSIXct) with TileDB timestamp.
+    #' @param internal_use  A character value that gives access to new instance.
+    #' Use `options(R6.tiledb.internal = NULL)` for internal mode.
+    #'
+    #'
+    initialize = function(uri,
+                          ctx = NULL,
+                          tiledb_timestamp = NULL,
+                          internal_use = getOption("R6.tiledb.internal")) {
 
+      super$initialize(uri = uri,
+                       ctx = ctx,
+                       tiledb_timestamp = tiledb_timestamp,
+                       internal_use = internal_use)
+
+    },
     #' @description Create a TileDB Group object given the class URI path.
     #'
     #' @param mode Mode to open : either `"READ"` or `"WRITE"` (default).
