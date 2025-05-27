@@ -3,7 +3,7 @@ test_that("'TileDBArray' class works as expected", {
 
   options(R6.tiledb.internal = NULL)
 
-  uri <- withr::local_tempdir(pattern = "test-TileDBArray")
+  uri <- file.path(withr::local_tempdir(), "test-TileDBArray")
 
   arrObj <- TileDBArray$new(uri = uri, internal_use = "permit")
 
@@ -12,6 +12,9 @@ test_that("'TileDBArray' class works as expected", {
 
   expect_error(arrObj$object, "Array does not exist.")
 
+  # Print that array does not exist
+  expect_snapshot(arrObj$print())
+
   # Create an array
   idx_cols <- c("Dept", "Gender")
   df <- as.data.frame(UCBAdmissions)
@@ -19,6 +22,9 @@ test_that("'TileDBArray' class works as expected", {
 
   expect_invisible(arrObj$open())
   expect_equal(arrObj$mode(), "READ")
+
+  # Print array
+  expect_snapshot(arrObj$print())
 
   # Check schema info
   expect_no_error(sch_info <- arrObj$schema_info())
@@ -127,6 +133,7 @@ test_that("'TileDBArray' class works as expected", {
   arrObj_new <- TileDBArray$new(uri = uri, internal_use = "permit")
   expect_no_error(arrObj_new$open(mode = "WRITE"))
   expect_true(tiledb::tiledb_array_is_open_for_writing(arrObj_new$object), TRUE)
+
   arrObj_new$close()
 
 })
