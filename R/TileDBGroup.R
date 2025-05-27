@@ -146,6 +146,8 @@ TileDBGroup <- R6::R6Class(
 
     #' @description Remove member.
     #'
+    #' Deletes either an array or group from group member list.
+    #'
     #' @param name Name of the member to remove.
     #'
     #' @return `NULL` value, invisibly.
@@ -159,6 +161,45 @@ TileDBGroup <- R6::R6Class(
       spdl::debug("[TileDBGroup$remove] Removing '{}' member from {} '{}'", name, self$class(), self$uri)
 
        tiledb::tiledb_group_remove_member(private$.tiledb_group, uri = name)
+
+      # Drop member if cache has been initialized
+      if (is.list(private$.member_cache)) {
+        private$.member_cache[[name]] <- NULL
+      }
+
+      invisible(NULL)
+    },
+
+    #' @description Delete member.
+    #'
+    #' Deletes either an array or group resource from disk
+    #' and removes it from group member list.
+    #'
+    #' @param name Name of the member to delete.
+    #'
+    #' @return `NULL` value, invisibly.
+    #'
+    delete = function(name) {
+
+      private$check_object_exists()
+      private$check_scalar_character(name)
+      private$check_open_for_write()
+
+      member <- self$members[[name]]$object
+
+      if (is.null(member)) {
+        cli::cli_abort("Unknown member: {.emph '{name}'.}", call = NULL)
+      }
+
+      spdl::debug("[TileDBGroup$delete] Deleting '{}' member from {} '{}'", name, self$class(), self$uri)
+
+      uri_member <- member$uri
+
+      # Remove group member
+      tiledb::tiledb_group_remove_member(private$.tiledb_group, uri = name)
+
+      # Remove TileDB resource
+      tiledb::tiledb_object_rm(uri_member, private$.tiledb_ctx)
 
       # Drop member if cache has been initialized
       if (is.list(private$.member_cache)) {

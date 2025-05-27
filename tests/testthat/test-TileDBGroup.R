@@ -293,6 +293,62 @@ test_that("'TileDBGroup' class tests add/remove members", {
   expect_snapshot(group$print())
 })
 
+test_that("'TileDBGroup' class tests delete members", {
+
+  uri <- file.path(withr::local_tempdir(), "test-group")
+  group <- TileDBGroup$new(uri, internal_use = "permit")
+
+  # Step 1: Create a group object
+  group$create()
+  group$close()
+
+  # Step 1: Create array and subgroups that will be
+  #           added later to test-group
+  arr_uri <- file.path(uri, "arr_a1")
+  create_empty_test_array(arr_uri)
+  arr1 <- TileDBArray$new(arr_uri, internal_use = "permit")
+
+  grp_uri <- file.path(uri, "grp_g1")
+  tiledb::tiledb_group_create(grp_uri)
+  grp1 <- TileDBGroup$new(grp_uri, internal_use = "permit")
+
+  grp_uri2 <- file.path(uri, "grp2")
+  tiledb::tiledb_group_create(grp_uri2)
+  grp2 <- TileDBGroup$new(grp_uri2, internal_use = "permit")
+
+  # Step 2: Add array and subgroup as members
+  group$open(mode = "WRITE")
+
+  # add array
+  group$set_member(arr1, name = "arr1")
+  # add group 1
+  group$set_member(grp1, name = "grp1")
+
+  # add group 2
+  group$set_member(grp2) # name defaults to uri basename
+  expect_equal(group$count_members(), 3)
+
+
+  # Step 5: Delete members
+  group$reopen(mode = "WRITE")
+
+  group$delete("arr1")
+  expect_equal(group$count_members(), 2)
+
+  group$delete("grp1")
+  expect_equal(group$count_members(), 1)
+
+  group$reopen()
+  expect_equal(tiledb::tiledb_group_member_count(group$object), 1)
+
+  # Verify on disk we have only 'grp2' GROUP
+  result <- tiledb::tiledb_object_ls(group$uri)
+  expect_equal(result$TYPE, "GROUP")
+  expect_equal(basename(result$URI), "grp2")
+
+  group$close()
+
+})
 
 test_that("'TileDBGroup' class tests print method", {
 

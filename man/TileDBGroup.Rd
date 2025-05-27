@@ -43,6 +43,7 @@ A new \code{TileDBGroup} instance is initialized using the \code{new()} method:
 \item \href{#method-TileDBGroup-open}{\code{TileDBGroup$open()}}
 \item \href{#method-TileDBGroup-close}{\code{TileDBGroup$close()}}
 \item \href{#method-TileDBGroup-remove}{\code{TileDBGroup$remove()}}
+\item \href{#method-TileDBGroup-delete}{\code{TileDBGroup$delete()}}
 \item \href{#method-TileDBGroup-count_members}{\code{TileDBGroup$count_members()}}
 \item \href{#method-TileDBGroup-get_members_df}{\code{TileDBGroup$get_members_df()}}
 \item \href{#method-TileDBGroup-get_member}{\code{TileDBGroup$get_member()}}
@@ -150,6 +151,8 @@ The object, invisibly.
 \if{latex}{\out{\hypertarget{method-TileDBGroup-remove}{}}}
 \subsection{Method \code{remove()}}{
 Remove member.
+
+Deletes either an array or group from group member list.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{TileDBGroup$remove(name)}\if{html}{\out{</div>}}
 }
@@ -158,6 +161,29 @@ Remove member.
 \if{html}{\out{<div class="arguments">}}
 \describe{
 \item{\code{name}}{Name of the member to remove.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+\code{NULL} value, invisibly.
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-TileDBGroup-delete"></a>}}
+\if{latex}{\out{\hypertarget{method-TileDBGroup-delete}{}}}
+\subsection{Method \code{delete()}}{
+Delete member.
+
+Deletes either an array or group resource from disk
+and removes it from group member list.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{TileDBGroup$delete(name)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{name}}{Name of the member to delete.}
 }
 \if{html}{\out{</div>}}
 }
