@@ -193,7 +193,7 @@ TileDBGroup <- R6::R6Class(
 
       type <- match.arg(type)
 
-      member_list <- self$to_list()
+      member_list <- self$members
 
       count <- length(member_list)
 
@@ -409,24 +409,6 @@ TileDBGroup <- R6::R6Class(
       names(private$.member_cache) %||% character(length = 0L)
     },
 
-    #' @description Retrieve a `list` of members.
-    #'
-    #' @return A `list`.
-    #'
-    to_list = function() {
-
-      private$check_object_exists()
-
-      if (!self$is_open()) {
-        self$open(mode = "READ")
-        on.exit(self$close())
-      }
-
-      private$fill_member_cache_if_null()
-
-      private$.member_cache
-    },
-
    #' @description Check if a member exists.
    #'
    #' @param name Name of the member to check.
@@ -437,7 +419,7 @@ TileDBGroup <- R6::R6Class(
 
       private$check_scalar_character(name)
 
-      members <- names(self$to_list())
+      members <- names(self$members)
 
       name %in% members
 
@@ -527,6 +509,24 @@ TileDBGroup <- R6::R6Class(
         private$initialize_object()
       }
       private$.tiledb_group
+    },
+    #' @field members Access the `list` of group members.
+    members = function(value) {
+
+      if (!missing(value)) {
+        .emit_read_only_error("members")
+      }
+
+      private$check_object_exists()
+
+      if (!self$is_open()) {
+        self$open(mode = "READ")
+        on.exit(self$close())
+      }
+
+      private$fill_member_cache_if_null()
+
+      private$.member_cache
     }
   ),
 
