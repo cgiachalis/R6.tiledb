@@ -71,7 +71,6 @@ test_that("'TileDBArray' class works as expected", {
 
   expect_s4_class(arrObj$object, "tiledb_array")
   expect_identical(arrObj$dimnames(), idx_cols)
-  expect_identical(arrObj$index_column_names(), idx_cols)
 
   attr_cols <- setdiff(colnames(df), idx_cols)
   expect_identical(arrObj$attrnames(), attr_cols)

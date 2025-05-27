@@ -51,7 +51,6 @@ mode and kept open.}
 \item \href{#method-TileDBArray-dimnames}{\code{TileDBArray$dimnames()}}
 \item \href{#method-TileDBArray-attrnames}{\code{TileDBArray$attrnames()}}
 \item \href{#method-TileDBArray-colnames}{\code{TileDBArray$colnames()}}
-\item \href{#method-TileDBArray-index_column_names}{\code{TileDBArray$index_column_names()}}
 \item \href{#method-TileDBArray-print}{\code{TileDBArray$print()}}
 \item \href{#method-TileDBArray-clone}{\code{TileDBArray$clone()}}
 }
@@ -289,19 +288,6 @@ attributes.
 
 \subsection{Returns}{
 A character vector with the array's column names.
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-TileDBArray-index_column_names"></a>}}
-\if{latex}{\out{\hypertarget{method-TileDBArray-index_column_names}{}}}
-\subsection{Method \code{index_column_names()}}{
-Retrieve names of index (dimension) columns.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{TileDBArray$index_column_names()}\if{html}{\out{</div>}}
-}
-
-\subsection{Returns}{
-A character vector with the array index (dimension) names.
 }
 }
 \if{html}{\out{<hr>}}

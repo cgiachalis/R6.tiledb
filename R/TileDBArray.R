@@ -260,14 +260,6 @@ TileDBArray <- R6::R6Class(
 
     },
 
-    #' @description Retrieve names of index (dimension) columns.
-    #'
-    #' @return A character vector with the array index (dimension) names.
-    #'
-    index_column_names = function() {
-      self$dimnames()
-    },
-
     #' @description Print summary of the array.
     #'
     print = function() {
