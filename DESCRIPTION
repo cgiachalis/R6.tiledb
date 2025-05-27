@@ -1,6 +1,7 @@
 Package: R6.tiledb
 Title: R6 Classes for TileDB Arrays and Groups
 Version: 0.1.0
+Date: 2025-05-27
 Authors@R: c(
     person("Constantinos", "Giachalis", , "cgiachalis@outlook.com", role = c("aut", "cre")),
     person("TileDB, Inc", role = "ctb",
@@ -24,7 +25,7 @@ Imports:
     R6,
     rlang,
     spdl,
-    tiledb (>= 0.31.1),
+    tiledb (>= 0.32.0),
     urltools
 Suggests:
     spelling,
