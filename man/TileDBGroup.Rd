@@ -30,6 +30,8 @@ A new \code{TileDBGroup} instance is initialized using the \code{new()} method:
 \if{html}{\out{<div class="r6-active-bindings">}}
 \describe{
 \item{\code{object}}{Access the underlying \code{\link[tiledb:tiledb_group]{tiledb::tiledb_group()}} object.}
+
+\item{\code{members}}{Access the \code{list} of group members.}
 }
 \if{html}{\out{</div>}}
 }
@@ -48,7 +50,6 @@ A new \code{TileDBGroup} instance is initialized using the \code{new()} method:
 \item \href{#method-TileDBGroup-get_metadata}{\code{TileDBGroup$get_metadata()}}
 \item \href{#method-TileDBGroup-set_metadata}{\code{TileDBGroup$set_metadata()}}
 \item \href{#method-TileDBGroup-names}{\code{TileDBGroup$names()}}
-\item \href{#method-TileDBGroup-to_list}{\code{TileDBGroup$to_list()}}
 \item \href{#method-TileDBGroup-member_exists}{\code{TileDBGroup$member_exists()}}
 \item \href{#method-TileDBGroup-print}{\code{TileDBGroup$print()}}
 \item \href{#method-TileDBGroup-dump}{\code{TileDBGroup$dump()}}
@@ -304,19 +305,6 @@ Retrieve the members' names.
 
 \subsection{Returns}{
 A \code{character} vector of member names.
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-TileDBGroup-to_list"></a>}}
-\if{latex}{\out{\hypertarget{method-TileDBGroup-to_list}{}}}
-\subsection{Method \code{to_list()}}{
-Retrieve a \code{list} of members.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{TileDBGroup$to_list()}\if{html}{\out{</div>}}
-}
-
-\subsection{Returns}{
-A \code{list}.
 }
 }
 \if{html}{\out{<hr>}}

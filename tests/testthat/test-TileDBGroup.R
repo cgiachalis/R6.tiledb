@@ -6,6 +6,7 @@ test_that("'TileDBGroup' class tests on non-existent group", {
   # Should not exist on disk until created
   expect_false(dir.exists(uri)) # Any folder at this uri? Expect FALSE
   expect_false(group$exists())
+  expect_equal(group$object_type, "INVALID")
 
   # Check errors on non-existent group
   expect_error(group$get_member("a"),
@@ -20,11 +21,11 @@ test_that("'TileDBGroup' class tests on existent but empty group", {
   group <- TileDBGroup$new(uri, internal_use = "permit")
 
   # Create a group object on disk
-  group$create()
+  expect_invisible(group$create())
 
   # Verify that group reference is opened at WRITE mode
   expect_equal(tiledb::tiledb_group_query_type(group$object), "WRITE")
-
+  expect_equal(group$object_type, "GROUP")
 
   expect_error(group$create(), "already exists")
   expect_true(dir.exists(uri))  # Any folder at this uri? Expect TRUE
@@ -34,6 +35,10 @@ test_that("'TileDBGroup' class tests on existent but empty group", {
   # debug
   # fp = file.path(uri, "__group")
   # expect_match(tiledb::tiledb_object_type(uri), "GROUP")
+
+  expect_error(group$object <- "a", label = '"object" is a read-only field')
+  expect_error(group$members <- "a", label = '"members" is a read-only field')
+
 
   group$close()
   expect_equal(group$mode(), "CLOSED")
@@ -101,7 +106,7 @@ test_that("'TileDBGroup' class tests accessors on empty group", {
   group$open(mode = "READ")
 
   # Check exporters
-  lst <- group$to_list()
+  lst <- group$members
   expect_type(lst, "list")
   expect_length(lst, 0)
 
@@ -219,7 +224,7 @@ test_that("'TileDBGroup' class tests add/remove members", {
 
   group2$close()
 
-  lst <- group2$to_list() # to_list() will reopen group
+  lst <- group2$members # this will open group if it is in close mode
 
   # Opening existing Group, it will not instantiate member objects
   expect_true(all(vapply_lgl(lst, function(.x) is.null(.x$object))))
@@ -234,7 +239,7 @@ test_that("'TileDBGroup' class tests add/remove members", {
   expect_s3_class(arr1, "TileDBArray")
 
   # get_member() instantiates members when adding to cache
-  lst <- group2$to_list()
+  lst <- group2$members
   expect_true(!is.null(lst$arr1$object))
   # but grp1 is not there because we didn't fetch it via get_member
   expect_true(is.null(lst$grp1$object))
@@ -248,7 +253,7 @@ test_that("'TileDBGroup' class tests add/remove members", {
   # Verify group query mode
   expect_equal(tiledb::tiledb_group_query_type(grp1$object), "WRITE")
 
-  lst <- group2$to_list()
+  lst <- group2$members
   # get_member() instantiates members when adding to cache (again for group)
   expect_true(!is.null(lst$grp1$object))
 
