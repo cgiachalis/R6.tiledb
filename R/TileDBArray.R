@@ -210,7 +210,8 @@ TileDBArray <- R6::R6Class(
         names = tiledb::tiledb_schema_get_names(sch),
         types = tiledb::tiledb_schema_get_types(sch),
         status = .tiledb_schema_get_dim_attr_status(sch),
-        enum = .tiledb_schema_get_enumeration_status(sch)
+        enum = .tiledb_schema_get_enumeration_status(sch),
+        row.names = NULL
       )
     },
 

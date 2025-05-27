@@ -56,6 +56,7 @@ vapply_int <- function(X, FUN, ..., USE.NAMES = TRUE) {
 # nocov end
 
 # Modified from tiledb:::tiledb_schema_get_dim_attr_status
+# 1-> Dim, 2 -> Attr
 .tiledb_schema_get_dim_attr_status <- function(sch) {
   stopifnot(`The 'sch' argument must be a schema` = is(sch,
                                                        "tiledb_array_schema"))
@@ -71,6 +72,10 @@ vapply_int <- function(X, FUN, ..., USE.NAMES = TRUE) {
                                                        "tiledb_array_schema"))
   dom <- tiledb::domain(sch)
   dims <- tiledb::dimensions(dom)
+  nms <- sapply(dims, tiledb::name)
+  dim_enum <- rep(FALSE, length(dims))
+  names(dim_enum) <- nms
+
   attrs <- tiledb::attrs(sch)
-  return(c(rep(FALSE, length(dims)), sapply(attrs, tiledb::tiledb_attribute_has_enumeration)))
+  c(dim_enum, sapply(attrs, tiledb::tiledb_attribute_has_enumeration))
 }
