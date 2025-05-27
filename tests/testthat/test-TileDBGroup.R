@@ -187,6 +187,10 @@ test_that("'TileDBGroup' class tests add/remove members", {
   group$set_member(grp2) # name defaults to uri basename
   expect_equal(group$count_members(), 3)
 
+  # Verify we have 3 members on disk
+  group$reopen()
+  expect_identical(tiledb::tiledb_group_member_count(group$object), 3)
+
   # Test member 'grp1' exists in group
   expect_true(group$member_exists("grp1"))
 
