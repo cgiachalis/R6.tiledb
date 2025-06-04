@@ -51,8 +51,8 @@ TileDBObject <- R6::R6Class(
         private$.tiledb_timestamp <- tiledb_timestamp
       }
 
-      spdl::debug("[TileDBObject] initialize {} with '{}' at ({})", self$class(), self$uri,
-                  self$tiledb_timestamp %||% "now")
+      private$log_debug("initialize", "Initialize with timestamp ({})", self$tiledb_timestamp %||% "now")
+
     },
 
     #' @description Print the name of the R6 class.
@@ -297,7 +297,29 @@ TileDBObject <- R6::R6Class(
       if (!self$exists()) {
         cli::cli_abort("R6Class: {.cls {self$class()}} object does not exist.", call = NULL)
       }
-    }
+    },
+    log_debug0 = function(method, comment, ...) {
 
+      comment <- spdl::fmt(comment, ...)
+
+      spdl::debug("[{}] [{}${}] {}",
+                  getPackageName(parent.frame()),
+                  self$class(),
+                  method,
+                  comment)
+
+    },
+    log_debug = function(method, comment, ...) {
+
+      comment <- spdl::fmt(comment, ...)
+
+        spdl::debug("[{}] [{}${}] {} for uri '{}'",
+                    getPackageName(parent.frame()),
+                    self$class(),
+                    method,
+                    comment,
+                    self$uri)
+
+    }
   )
 )

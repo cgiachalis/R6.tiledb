@@ -56,7 +56,7 @@ TileDBArray <- R6::R6Class(
       mode <- match.arg(mode)
 
       if (is.null(private$.tiledb_array)) {
-        spdl::debug("[TileDBArray$open] Opening with initialisation {} '{}'", self$class(), self$uri, mode)
+        private$log_debug("open", "Opening with mode '{}'", mode)
         private$initialize_object()
       }
 
@@ -64,18 +64,18 @@ TileDBArray <- R6::R6Class(
 
       identical_mode <- init_mode == mode
 
-      spdl::debug("[TileDBArray$open] Requested open mode is {}", ifelse(identical_mode, "identical, no mode switch", "not identical, switch mode"))
+      private$log_debug0("open", "Requested open mode is {}", ifelse(identical_mode, "identical, no mode switch", "not identical, switch mode"))
 
       if (isFALSE(identical_mode)) {
 
         if (tiledb::tiledb_array_is_open(private$.tiledb_array)) {
 
-          spdl::debug("[TileDBArray$open] Closing {} '{}' to switch mode to {} from {}", self$class(), self$uri, mode, init_mode)
+          private$log_debug("open", "Closing to switch from {} to {} mode", init_mode, mode)
 
           tiledb::tiledb_array_close(self$object)
         }
 
-        spdl::debug("[TileDBArray$open] Opening {} '{}' in {} mode", self$class(), self$uri, mode)
+        private$log_debug("open", "Opening in {} mode", mode)
 
         private$.tiledb_array <- tiledb::tiledb_array_open(self$object, type = mode)
         private$.mode <- mode
@@ -91,7 +91,7 @@ TileDBArray <- R6::R6Class(
     #'
     close = function() {
 
-      spdl::debug("[TileDBArray$close] Closing {} '{}'", self$class(), self$uri)
+      private$log_debug("close", "Closing array")
 
       tiledb::tiledb_array_close(self$object)
       private$.mode = "CLOSED"
@@ -115,14 +115,14 @@ TileDBArray <- R6::R6Class(
       args <- list(...)
       args$uri <- self$uri
       # user has not supplied 'query_type'
-      if(is.null(args$query_type)) {
+      if (is.null(args$query_type)) {
         mode <- self$mode()
         args$query_type <- ifelse(mode == "CLOSED", "READ", mode)
       }
       args$query_layout <- "UNORDERED"
       args$ctx <- self$ctx
 
-      spdl::debug("[TileDBArray$tiledb_array] for uri '{}' mode '{}' layout '{}'", args$uri, args$query_type, args$query_layout)
+      private$log_debug("tiledb_array", "Array handle with query type '{}' and layout '{}'", args$query_type, args$query_layout)
 
       do.call(tiledb::tiledb_array, args)
     },
@@ -143,7 +143,7 @@ TileDBArray <- R6::R6Class(
         self$open(mode = "READ")
       }
 
-      spdl::debug("[TileDBArray$get_metadata] Retrieving metadata for {} '{}'", self$class(), self$uri)
+      private$log_debug("get_metatdata", "Retrieving metadata")
 
        private$fill_metadata_cache_if_null()
       if (!is.null(key)) {
@@ -169,7 +169,7 @@ TileDBArray <- R6::R6Class(
       private$check_metadata(metadata)
       private$check_open_for_write()
 
-      spdl::debug("Writing metadata to {} '{}'", self$class(), self$uri)
+      private$log_debug("set_metatdata", "Setting metadata")
 
       nms <- names(metadata)
       dev_null <- mapply(
@@ -357,7 +357,7 @@ TileDBArray <- R6::R6Class(
 
     update_metadata_cache = function() {
 
-      spdl::debug("[TileDBArray$update_metadata_cache] updating metadata cache for {} '{}' in {}", self$class(), self$uri, private$.mode)
+      private$log_debug("update_metadata_cache", "Updating metadata cache in mode {}",  private$.mode)
 
       # See notes above -- at the TileDB implementation level, we cannot read array metadata
       # while the array is open for read, but at the SOMA application level we must support
@@ -372,7 +372,7 @@ TileDBArray <- R6::R6Class(
 
       if (private$.mode == "WRITE") {
 
-       spdl::debug("[TileDBArray$update_metadata_cache] getting object")
+      private$log_debug("update_metadata_cache", "Getting array object")
 
        array_object <- tiledb::tiledb_array(self$uri, ctx = private$.tiledb_ctx)
 
@@ -381,7 +381,7 @@ TileDBArray <- R6::R6Class(
 
       if (isFALSE(tiledb::tiledb_array_is_open(array_handle))) {
 
-       spdl::debug("[TileDBArray$update_metadata_cache] reopening object")
+       private$log_debug("update_metadata_cache", "Reopening array object")
 
        array_handle <- tiledb::tiledb_array_open(array_handle, type = "READ")
 
