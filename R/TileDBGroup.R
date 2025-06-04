@@ -508,12 +508,14 @@ TileDBGroup <- R6::R6Class(
    },
    #' @description Dump the TileDB Group structure to string.
    #'
+   #' @param title A character string for title header. Set `NULL` to
+   #' omit.
    #' @param recursive  Should the nested uris be returned recursively?
    #'  Default is `TRUE`.
    #'
    #' @return A `character` string.
    #'
-   dump = function(recursive = TRUE) {
+   dump = function(title = "TileDB Directory", recursive = TRUE) {
 
      private$check_object_exists()
      private$check_open_for_read_or_write()
@@ -522,9 +524,11 @@ TileDBGroup <- R6::R6Class(
      bsname <- basename(self$uri)
      xuri <- self$get_members_df()
      xuri$bsn <- basename(xuri$uri)
-     cli::cat_line()
-     cli::cat_rule("Model Store Directory")
-     cli::cat_line()
+     if(isFALSE(is.null(title))) {
+       cli::cat_line()
+       cli::cat_rule(title)
+       cli::cat_line()
+     }
      dmp <- tiledb::tiledb_group_member_dump(private$.tiledb_group, recursive = recursive)
      dmp_raw <- dmp
 

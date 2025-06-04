@@ -369,12 +369,15 @@ Print summary of the group.
 \subsection{Method \code{dump()}}{
 Dump the TileDB Group structure to string.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{TileDBGroup$dump(recursive = TRUE)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{TileDBGroup$dump(title = "TileDB Directory", recursive = TRUE)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
+\item{\code{title}}{A character string for title header. Set \code{NULL} to
+omit.}
+
 \item{\code{recursive}}{Should the nested uris be returned recursively?
 Default is \code{TRUE}.}
 }

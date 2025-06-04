@@ -117,6 +117,11 @@ test_that("'TileDBGroup' class tests accessors on empty group", {
   # Print that group is empty
   expect_snapshot(group$print())
 
+  # Raw dump
+  expect_snapshot(group$dump("Test TileDB"))
+  # Raw dump (no header)
+  expect_snapshot(group$dump(NULL))
+
   group$close()
 })
 
@@ -379,6 +384,9 @@ test_that("'TileDBGroup' class tests print method", {
 
   # Full print
   group$open(mode = "READ")
+
+  # Raw dump
+  expect_snapshot(group$dump("Test Dump TileDB with members"))
 
   expect_snapshot(group$print())
 
