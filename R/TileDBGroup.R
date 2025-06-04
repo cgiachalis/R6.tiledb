@@ -32,7 +32,6 @@ TileDBGroup <- R6::R6Class(
     #' @param internal_use  A character value that gives access to new instance.
     #' Use `options(R6.tiledb.internal = NULL)` for internal mode.
     #'
-    #'
     initialize = function(uri,
                           ctx = NULL,
                           tiledb_timestamp = NULL,
@@ -52,10 +51,7 @@ TileDBGroup <- R6::R6Class(
     #'
     create = function(mode = "WRITE") {
 
-      spdl::debug("[TileDBGroup$create] Creating new {} in '{}' at ({})",
-                  self$class(),
-                  self$uri,
-                  self$tiledb_timestamp %||% "now")
+      private$log_debug("create", "Creating new group with timestamp ({})", self$tiledb_timestamp %||% "now")
 
       tiledb::tiledb_group_create(self$uri, ctx = private$.tiledb_ctx)
 
@@ -80,7 +76,7 @@ TileDBGroup <- R6::R6Class(
       mode <- match.arg(mode)
 
       if (is.null(private$.tiledb_group)) {
-        spdl::debug("[TileDBGroup$open] Opening with initialisation {} '{}'", self$class(), self$uri, mode)
+        private$log_debug("open", "Opening with mode '{}'", mode)
         private$initialize_object()
       }
 
@@ -89,18 +85,18 @@ TileDBGroup <- R6::R6Class(
 
       identical_mode <- init_mode == mode
 
-      spdl::debug("[TileDBGroup$open] Requested open mode is {}", ifelse(identical_mode, "identical, no mode switch", "not identical, switch mode"))
+      private$log_debug0("open", "Requested open mode is {}", ifelse(identical_mode, "identical, no mode switch", "not identical, switch mode"))
 
       if (isFALSE(identical_mode)) {
 
         if (tiledb::tiledb_group_is_open(private$.tiledb_group)) {
 
-          spdl::debug("[TileDBGroup$open] Closing {} '{}' to switch mode to {} from {}", self$class(), self$uri, mode, init_mode)
+          private$log_debug("open", "Closing to switch from {} to {} mode", init_mode, mode)
 
           tiledb::tiledb_group_close(self$object)
         }
 
-        spdl::debug("Opening {} '{}' in {} mode", self$class(), self$uri, mode)
+        private$log_debug("open", "Opening in {} mode", mode)
 
         private$.tiledb_group <- tiledb::tiledb_group_open(self$object, type = mode)
 
@@ -133,7 +129,7 @@ TileDBGroup <- R6::R6Class(
           }
         }
 
-        spdl::debug("[TileDBGroup$close] Closing {} '{}'", self$class(), self$uri)
+        private$log_debug("close", "Closing group")
 
         tiledb::tiledb_group_close(private$.tiledb_group)
 
@@ -158,7 +154,7 @@ TileDBGroup <- R6::R6Class(
       private$check_scalar_character(name)
       private$check_open_for_write()
 
-      spdl::debug("[TileDBGroup$remove] Removing '{}' member from {} '{}'", name, self$class(), self$uri)
+      private$log_debug("remove", "Removing '{}' member", name)
 
        tiledb::tiledb_group_remove_member(private$.tiledb_group, uri = name)
 
@@ -191,7 +187,7 @@ TileDBGroup <- R6::R6Class(
         cli::cli_abort("Unknown member: {.emph '{name}'.}", call = NULL)
       }
 
-      spdl::debug("[TileDBGroup$delete] Deleting '{}' member from {} '{}'", name, self$class(), self$uri)
+      private$log_debug("delete", "Deleting '{}' member", name)
 
       uri_member <- member$uri
 
@@ -283,13 +279,14 @@ TileDBGroup <- R6::R6Class(
       # may override construct_member.
       #
       obj <- if (is.null(member$object)) {
-       spdl::debug("[TileDBGroup$get_member] construct member {} type {}", member$uri, member$type)
+        private$log_debug0("get_member", "Construct member with uri {} and type '{}'", member$uri, member$type)
         obj <- private$construct_member(member$uri, member$type)
       } else {
         member$object
       }
 
-      spdl::debug("[TileDBGroup$get_member] open check, mode {}", self$mode())
+      private$log_debug0("get_member", "Check is open,  mode is {}", self$mode())
+
       if (!obj$is_open()) {
         switch(
           EXPR = (mode <- self$mode()),
@@ -394,8 +391,7 @@ TileDBGroup <- R6::R6Class(
      }
 
      private$fill_metadata_cache_if_null()
-
-     spdl::debug("Retrieving metadata for {} '{}'", self$class(), self$uri)
+     private$log_debug("get_metatdata", "Retrieving metadata")
 
      if (!is.null(key)) {
        private$.metadata_cache[[key]]
@@ -418,7 +414,7 @@ TileDBGroup <- R6::R6Class(
      private$check_metadata(metadata)
      private$check_open_for_write()
 
-     spdl::debug("Writing metadata to {} '{}'", self$class(), self$uri)
+     private$log_debug("set_metatdata", "Setting metadata")
 
      nms <- names(metadata)
      dev_null <- mapply(
@@ -624,7 +620,7 @@ TileDBGroup <- R6::R6Class(
 
       private$check_scalar_character(type)
 
-      spdl::debug("[TileDBGroup$construct_member] entered, uri {} type {}", uri, type)
+      private$log_debug0("construct_member", "Entered, uri {} type {}", uri, type)
 
       constructor <- switch(type,
         ARRAY = TileDBArray$new,
@@ -686,7 +682,7 @@ TileDBGroup <- R6::R6Class(
 
     update_member_cache = function() {
 
-      spdl::debug("Updating member cache for {} '{}'", self$class(), self$uri)
+      private$log_debug("update_member_cache", "Updating member cache")
 
       # See notes above -- at the TileDB implementation level, we cannot read anything about the
       # group while the group is open for read, but at the SOMA application level we must support
@@ -761,7 +757,7 @@ TileDBGroup <- R6::R6Class(
 
     update_metadata_cache = function() {
 
-      spdl::debug("Updating metadata cache for {} '{}'", self$class(), self$uri)
+      private$log_debug("update_metadata_cache", "Updating metadata cache")
 
       # See notes above -- at the TileDB implementation level, we cannot read anything about the
       # group while the group is open for read, but at the SOMA application level we must support
