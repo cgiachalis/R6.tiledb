@@ -384,7 +384,7 @@ Default is \code{TRUE}.}
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-A \code{character} string.
+A \code{character} string, invisibly.
 }
 }
 \if{html}{\out{<hr>}}

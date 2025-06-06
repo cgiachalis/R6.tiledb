@@ -509,7 +509,7 @@ TileDBGroup <- R6::R6Class(
    #' @param recursive  Should the nested uris be returned recursively?
    #'  Default is `TRUE`.
    #'
-   #' @return A `character` string.
+   #' @return A `character` string, invisibly.
    #'
    dump = function(title = "TileDB Directory", recursive = TRUE) {
 
