@@ -200,7 +200,7 @@ TileDBObject <- R6::R6Class(
     # * "ARRAY", "GROUP" or "INVALID"
     .object_type = NULL,
 
-    # @description Contains TileDBURI object
+    # Contains TileDBURI object
     tiledb_uri = NULL,
 
     # Opener-supplied POSIXct timestamp, if any. TileDBArray and TileDBGroup are each responsible
