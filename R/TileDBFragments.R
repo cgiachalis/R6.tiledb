@@ -1,0 +1,264 @@
+# TODO: DOCUMENT
+# TODO: add debug statements
+# TODO: UNIT TESTING
+
+#' @title  TileDBFragments Class
+#'
+#' @description An R6 class to work with TileDB Fragments.
+#'
+#' @returns An object `TileDBFragments` of class `R6`.
+#'
+#' @export
+TileDBFragments <- R6::R6Class(
+  classname = "TileDBFragments",
+  public = list(
+    #' @description Create a new `TileDBFragments` instance.
+    #'
+    #' @param uri URI path for the TileDB Array.
+    #' @param ctx Optional [tiledb::tiledb_ctx()] object.
+    #'
+    initialize = function(uri, ctx = NULL) {
+
+      if (missing(uri)) {
+        cli::cli_abort("{.emph 'uri'} argument is missing.", call = NULL)
+      }
+
+      # TODO: review do we need TileDBURI?
+      private$tiledb_uri <- TileDBURI$new(uri)
+
+      # Set context
+      if (is.null(ctx)) ctx <- tiledb::tiledb_ctx()
+
+      if (!inherits(ctx, what = 'tiledb_ctx')) {
+        cli::cli_abort("{.emph 'ctx''}  must be a {.emph 'tiledb_ctx'} object.", call = NULL)
+      }
+
+      private$.tiledb_ctx <- ctx
+
+      # TODO: review
+      private$log_debug("initialize", "Initialize TileDBFragments")
+
+    },
+    #' @description Print the name of the R6 class.
+    #'
+    class = function() {
+      class(self)[1]
+    },
+    #' @description The number of fragments.
+    #'
+    count = function() {
+      tiledb::tiledb_fragment_info_get_num(private$finfo())
+    },
+    #' @description Consolidated fragments to be removed.
+    #' @param trunc_uri `TRUE` to truncate uri path.
+    to_vacuum = function(trunc_uri = TRUE) {
+
+      finfo <- private$finfo()
+      idx <- tiledb::tiledb_fragment_info_get_to_vacuum_num(finfo) - 1
+
+      if (idx < 0) {
+        cli::cli_alert_info("No fragments found to vacuum.")
+        return(invisible(NULL))
+      }
+
+      lst <- lapply(0:idx, function(.x) {
+        uri <- tiledb::tiledb_fragment_info_get_to_vacuum_uri(finfo, .x)
+        tsp <- tiledb::tiledb_fragment_info_get_timestamp_range(finfo, .x)
+        tsp <- sapply(tsp, as.POSIXct, tz = "UTC", simplify = FALSE)
+        data.frame(Fragment = paste0("#", .x + 1),
+                   start_timestamp = tsp[[1]],
+                   end_timestamp = tsp[[1]],
+                   URI = ifelse(trunc_uri, sub(".*__fragments/", "", uri) , uri))
+      })
+
+      if (requireNamespace("data.table", quietly = TRUE)) {
+        out <- data.table::rbindlist(lst)
+      } else {
+        out <- do.call(rbind, lst)
+      }
+
+      out
+
+    },
+    #' @description Delete fragments using a range of timestamps.
+    #' @param timestamp_range A vector of two.
+    #'
+    delete_fragment_range = function(timestamp_range) {
+
+      if (!inherits(timestamp_range, "POSIXct") | length(timestamp_range) != 2L) {
+        cli::cli_abort("{.emph '{deparse(substitute(timestamp_range))}'} must be a class  {.cls POSIXct} of length 2.", call = NULL)
+      }
+
+      if (timestamp_range[1] > timestamp_range[2]) {
+        cli::cli_abort(
+          c("{.emph '{deparse(substitute(timestamp_range))}'} not in the right order: {.cls {timestamp_range}}.",
+            "i" = "Please use <start_timestamp, end__timestamp> format."),
+          call = NULL)
+      }
+
+      arr <- tiledb::tiledb_array(self$uri, keep_open = FALSE)
+
+      tiledb::tiledb_array_delete_fragments(arr,
+                                            ts_start = timestamp_range[1],
+                                            ts_end = timestamp_range[2],
+                                            ctx = private$.tiledb_ctx)
+      self$reload_finfo
+
+      invisible(TRUE)
+
+    },
+    #' @description Delete fragments using a vector of fragment uris.
+    #' @param frag_uris A vector of uris.
+    #'
+    delete_fragment_list = function(frag_uris) {
+
+      if (isFALSE(is.character(frag_uris))) {
+        cli::cli_abort("{.emph '{deparse(substitute(frag_uris))}'}  must be a character vector.", call = NULL)
+      }
+
+      arr <- tiledb::tiledb_array(self$uri, keep_open = FALSE)
+
+      tiledb::tiledb_array_delete_fragments_list(arr,
+                                                 fragments = frag_uris,
+                                                 ctx = private$.tiledb_ctx)
+      self$reload_finfo
+
+      invisible(TRUE)
+
+    },
+    #' @description Delete a fragment by index.
+    #' @param n A fragment index to be deleted (starts at 0).
+    #'
+    delete_fragment = function(n) {
+
+      if (isFALSE( rlang::is_scalar_double(n))) {
+        cli::cli_abort("{.emph '{deparse(substitute(n))}'}  must be a numeric value.", call = NULL)
+      }
+
+      furis <- self$finfo_uris(FALSE)
+
+      num_frags <- nrow(furis)
+
+      if (num_frags == 0) {
+        cli::cli_alert_info("No fragments found to delete.")
+        return(invisible(FALSE))
+
+      }
+
+      # if (n > nrow(furis)) {
+      #   cli::cli_abort("Out of bound fragment index.")
+      # }
+
+      old_frags <- furis$URI[n]
+
+      arr <- tiledb::tiledb_array(self$uri, keep_open = FALSE)
+
+      tiledb::tiledb_array_delete_fragments_list(arr,
+                                                 fragments = old_frags,
+                                                 ctx = private$.tiledb_ctx)
+      self$reload_finfo
+
+      invisible(TRUE)
+
+    },
+    #' @description Fragments uri and time stamps.
+    #' @param trunc_uri `TRUE` to truncate uri path.
+    finfo_uris = function(trunc_uri = TRUE) {
+
+      idx <- self$count()
+
+      # No fragments, then return empty data.frame
+      if (idx == 0) {
+        out <-  data.frame(Fragment = character(),
+                           start_timestamp = numeric(),
+                           end_timestamp = numeric(),
+                           URI = character())
+       return(out)
+
+      }
+
+      # C++ index
+      idx <- idx - 1
+      finfo <- private$finfo()
+
+      lst <- lapply(0:idx, function(.x) {
+        uri <- tiledb::tiledb_fragment_info_uri(finfo, .x)
+        tsp <- tiledb::tiledb_fragment_info_get_timestamp_range(finfo, .x)
+        tsp <- sapply(tsp, as.POSIXct, tz = "UTC", simplify = FALSE)
+        data.frame(Fragment = paste0("#",.x + 1),
+                   start_timestamp = tsp[[1]],
+                   end_timestamp = tsp[[1]],
+                   URI = ifelse(trunc_uri, sub(".*__fragments/", "", uri) , uri))
+
+      })
+      do.call(rbind, lst)
+    },
+    #' @description Dump to console the commit fragments.
+    #'
+    dump = function() {
+      tiledb::tiledb_fragment_info_dump(private$finfo())
+    }
+  ),
+
+  active = list(
+    #' @field uri The URI of the TileDB object.
+    #'
+    uri = function(value) {
+      if (!missing(value)) {
+        .emit_read_only_error("uri")
+      }
+      private$tiledb_uri$uri
+    },
+    #' @field reload_finfo Refresh the TileDB Fragment Info object.
+    #'
+    reload_finfo = function(value) {
+      if (!missing(value)) {
+        .emit_read_only_error("reload_finfo")
+      }
+      private$.finfo <- tiledb::tiledb_fragment_info(self$uri)
+
+      invisible(NULL)
+    }
+  ),
+
+  private = list(
+    # @description Contains TileDBURI object
+    tiledb_uri = NULL,
+
+    .tiledb_ctx = NULL,
+    .finfo = NULL,
+
+    # @description TileDB fragment info object
+    finfo = function(){
+      if (is.null(private$.finfo)){
+        private$.finfo <- tiledb::tiledb_fragment_info(self$uri)
+      }
+      private$.finfo
+    },
+
+    log_debug0 = function(method, comment, ...) {
+
+      comment <- spdl::fmt(comment, ...)
+
+      spdl::debug("[{}] [{}${}] {}",
+                  getPackageName(parent.frame()),
+                  self$class(),
+                  method,
+                  comment)
+
+    },
+
+    log_debug = function(method, comment, ...) {
+
+      comment <- spdl::fmt(comment, ...)
+
+      spdl::debug("[{}] [{}${}] {} for uri '{}'",
+                  getPackageName(parent.frame()),
+                  self$class(),
+                  method,
+                  comment,
+                  self$uri)
+
+    }
+  )
+)

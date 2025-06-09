@@ -28,6 +28,7 @@ Imports:
     tiledb (>= 0.32.0),
     urltools
 Suggests:
+    data.table,
     spelling,
     testthat (>= 3.0.0),
     withr

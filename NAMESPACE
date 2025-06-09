@@ -2,6 +2,7 @@
 
 export(TileDBArray)
 export(TileDBArrayExtended)
+export(TileDBFragments)
 export(TileDBGroup)
 export(TileDBObject)
 export(TileDBURI)
