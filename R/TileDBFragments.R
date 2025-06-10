@@ -1,12 +1,13 @@
-# TODO: DOCUMENT
+
 # TODO: add debug statements
 # TODO: UNIT TESTING
 
-#' @title  TileDBFragments Class
+#' @title Generate a `TileDBFragments` Object
 #'
-#' @description An R6 class to work with TileDB Fragments.
+#' @description
+#' An R6 class for handling `TileDB` Fragments.
 #'
-#' @returns An object `TileDBFragments` of class `R6`.
+#' @returns An object of class `TileDBFragments`.
 #'
 #' @export
 TileDBFragments <- R6::R6Class(
@@ -14,7 +15,7 @@ TileDBFragments <- R6::R6Class(
   public = list(
     #' @description Create a new `TileDBFragments` instance.
     #'
-    #' @param uri URI path for the TileDB Array.
+    #' @param uri URI path for the `TileDB` Array.
     #' @param ctx Optional [tiledb::tiledb_ctx()] object.
     #'
     initialize = function(uri, ctx = NULL) {
@@ -50,7 +51,20 @@ TileDBFragments <- R6::R6Class(
       tiledb::tiledb_fragment_info_get_num(private$finfo())
     },
     #' @description Consolidated fragments to be removed.
+    #'
     #' @param trunc_uri `TRUE` to truncate uri path.
+    #'
+    #' @return An object of class `data.frame` with four columns:
+    #'
+    #'  - `Fragment`: the fragment index (starts at 1)
+    #'  - `start_timestamp`: fragment's start time stamp
+    #'  - `end_timestamp`: fragment's end time stamp
+    #'  - `URI`: fragment's truncated uri path (fragment name) when
+    #'  `trunc_uri = TRUE` (default), otherwise the full uri path
+    #'
+    #'  Note that return object will be of class `data.table` if the
+    #'  library is found in your system.
+    #'
     to_vacuum = function(trunc_uri = TRUE) {
 
       finfo <- private$finfo()
@@ -80,8 +94,19 @@ TileDBFragments <- R6::R6Class(
       out
 
     },
+    #' @description Return the number of fragments to vacuum
+    #'
+    #' @return An numeric value.
+    #'
+    to_vaccum_num = function() {
+      tiledb::tiledb_fragment_info_get_to_vacuum_num(private$finfo())
+    },
     #' @description Delete fragments using a range of timestamps.
-    #' @param timestamp_range A vector of two.
+    #'
+    #' @param timestamp_range A vector of length 2 with date time elements
+    #' of class `POSIXct` that represents the start and end time stamps.
+    #'
+    #' @return `TRUE` for successful deletion, invisibly.
     #'
     delete_fragment_range = function(timestamp_range) {
 
@@ -108,7 +133,13 @@ TileDBFragments <- R6::R6Class(
 
     },
     #' @description Delete fragments using a vector of fragment uris.
-    #' @param frag_uris A vector of uris.
+    #'
+    #' Use `$finfo_uris(trunc_uri = FALSE)` method to get a `data.frame`
+    #' with all fragment uri paths.
+    #'
+    #' @param frag_uris A vector of fragment uris.
+    #'
+    #' @return `TRUE` for successful deletion, invisibly.
     #'
     delete_fragment_list = function(frag_uris) {
 
@@ -127,7 +158,11 @@ TileDBFragments <- R6::R6Class(
 
     },
     #' @description Delete a fragment by index.
-    #' @param n A fragment index to be deleted (starts at 0).
+    #'
+    #' @param n A fragment index to be deleted (starts at 1).
+    #'
+    #' @return A boolean,  invisibly. `TRUE` for successful deletion and
+    #' `FALSE` for no fragment to delete.
     #'
     delete_fragment = function(n) {
 
@@ -161,8 +196,22 @@ TileDBFragments <- R6::R6Class(
       invisible(TRUE)
 
     },
-    #' @description Fragments uri and time stamps.
+    #' @description Return a `data.frame` with  time stamps and
+    #' fragments uris.
+    #'
     #' @param trunc_uri `TRUE` to truncate uri path.
+    #'
+    #' @return An object of class `data.frame` with four columns:
+    #'
+    #'  - `Fragment`: the fragment index (start at 1)
+    #'  - `start_timestamp`: fragment's starts time stamp
+    #'  - `end_timestamp`: fragment's end time stamp
+    #'  - `URI`: fragment's truncated uri path (fragment name) when
+    #'  `trunc_uri = TRUE` (default), otherwise the full uri path
+    #'
+    #'  Note that return object will be of class `data.table` if the
+    #'  library is found in your system.
+    #'
     finfo_uris = function(trunc_uri = TRUE) {
 
       idx <- self$count()
@@ -191,7 +240,15 @@ TileDBFragments <- R6::R6Class(
                    URI = ifelse(trunc_uri, sub(".*__fragments/", "", uri) , uri))
 
       })
-      do.call(rbind, lst)
+
+      if (requireNamespace("data.table", quietly = TRUE)) {
+        out <- data.table::rbindlist(lst)
+      } else {
+        out <- do.call(rbind, lst)
+      }
+
+      out
+
     },
     #' @description Dump to console the commit fragments.
     #'
@@ -222,13 +279,13 @@ TileDBFragments <- R6::R6Class(
   ),
 
   private = list(
-    # @description Contains TileDBURI object
+    # TileDBURI object
     tiledb_uri = NULL,
 
     .tiledb_ctx = NULL,
     .finfo = NULL,
 
-    # @description TileDB fragment info object
+    # TileDB fragment info object
     finfo = function(){
       if (is.null(private$.finfo)){
         private$.finfo <- tiledb::tiledb_fragment_info(self$uri)
