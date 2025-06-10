@@ -1,31 +1,10 @@
-# TODO:
-#  4. is_sparse
-#  5. consolidate / vacuum_async (using mirai)
-
-# 11. non_empty_domain ? use  tiledb_array_get_non_empty_domain_from_index and dimnames
-# 13. add_attribute (with or without enum)
-# 14. drop_attribute
-# 15. rename_attribute
-# 16. create method
-# 17. consolidate/vacuum metadata
-# cfg["sm.consolidation.mode"] <- "array_meta"
-# cfg["sm.vacuum.mode"] <- "array_meta"
-
-# TODO DOCUMENT
-tdb_array <- function(uri,
-                      ctx = NULL,
-                      tiledb_timestamp = NULL){
-  obj <- TileDBArrayExtended$new(uri,
-                                 ctx = ctx,
-                                 tiledb_timestamp = tiledb_timestamp)
-  obj$open("READ")
-}
-
 #' @title Generate a `TileDBArrayExtended` Object
 #'
 #' @description
-#' This class inherits from [TileDBArrayExtended] and represents `TileDB` Array
-#' with enhanced functionality.
+#' This class inherits from [TileDBArray] and offers additional methods to
+#' operate on the array.
+#'
+#' **TODO** add section with methods: enum, consol/vac, fragment
 #'
 #' ## Initialization
 #' A new `TileDBArrayExtended` instance is initialized using the `new()` method.
@@ -165,17 +144,17 @@ TileDBArrayExtended <- R6::R6Class(
     #'
     finfo_to_vacuum = function(trunc_uri = TRUE) {
 
-      private$.fragments_object$to_vacuum(trunc_uri)
+      self$fragments_object$to_vacuum(trunc_uri)
     },
     #' @description Dump to console the commit fragments.
     #'
     finfo_dump = function() {
-     private$.fragments_object$dump()
+      self$fragments_object$dump()
     },
     #' @description Fragments uri and time stamps.
     #' @param trunc_uri `TRUE` to truncate uri path.
     finfo_uris = function(trunc_uri = TRUE){
-      private$.fragments_object$finfo_uris(trunc_uri)
+      self$fragments_object$finfo_uris(trunc_uri)
 
     },
     #' @description Upgrade the array to the latest format version.

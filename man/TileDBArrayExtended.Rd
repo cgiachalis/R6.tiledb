@@ -7,8 +7,10 @@
 An object of class \code{TileDBArrayExtented}.
 }
 \description{
-This class inherits from \link{TileDBArrayExtended} and represents \code{TileDB} Array
-with enhanced functionality.
+This class inherits from \link{TileDBArray} and offers additional methods to
+operate on the array.
+
+\strong{TODO} add section with methods: enum, consol/vac, fragment
 \subsection{Initialization}{
 
 A new \code{TileDBArrayExtended} instance is initialized using the \code{new()} method.
