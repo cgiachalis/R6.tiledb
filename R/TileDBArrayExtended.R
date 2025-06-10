@@ -6,13 +6,31 @@
 # 13. add_attribute (with or without enum)
 # 14. drop_attribute
 # 15. rename_attribute
+# 16. create method
+# 17. consolidate/vacuum metadata
+# cfg["sm.consolidation.mode"] <- "array_meta"
+# cfg["sm.vacuum.mode"] <- "array_meta"
 
-#' @title  TileDB Array Extended Class
+# TODO DOCUMENT
+tdb_array <- function(uri,
+                      ctx = NULL,
+                      tiledb_timestamp = NULL){
+  obj <- TileDBArrayExtended$new(uri,
+                                 ctx = ctx,
+                                 tiledb_timestamp = tiledb_timestamp)
+  obj$open("READ")
+}
+
+#' @title Generate a `TileDBArrayExtended` Object
 #'
-#' @description An R6 class for representing an extended TileDB Array.
+#' @description
+#' This class inherits from [TileDBArrayExtended] and represents `TileDB` Array
+#' with enhanced functionality.
 #'
 #' ## Initialization
-#' A new `TileDBArrayExtended` instance is initialized using the `new()` method:
+#' A new `TileDBArrayExtended` instance is initialized using the `new()` method.
+#' Alternatively use [tdb_array()] to create an instance and open the array at
+#' `READ` mode.
 #'
 #' ```r
 #'  # uri path
@@ -24,7 +42,7 @@
 #'
 #'  unlink(uri)
 #' ```
-#' @returns An object `TileDBArrayExtented` of class `R6`.
+#' @returns An object of class `TileDBArrayExtented`.
 #'
 #' @export
 TileDBArrayExtended <- R6::R6Class(
@@ -33,21 +51,18 @@ TileDBArrayExtended <- R6::R6Class(
   public = list(
     #' @description Create a new `TileDBArrayExtended` instance.
     #'
-    #' @param uri URI path for the TileDB Array.
+    #' @param uri URI path for the `TileDB` Array.
     #' @param ctx Optional [tiledb::tiledb_ctx()] object.
     #' @param tiledb_timestamp Optional Datetime (POSIXct) with TileDB timestamp.
-    #' @param internal_use A character value that gives access to new instance.
-    #' Use `options(R6.tiledb.internal = NULL)` for internal mode.
     #'
     initialize = function(uri,
                           ctx = NULL,
-                          tiledb_timestamp = NULL,
-                          internal_use = getOption("R6.tiledb.internal")) {
+                          tiledb_timestamp = NULL) {
 
       super$initialize(uri = uri,
                        ctx = ctx,
                        tiledb_timestamp = tiledb_timestamp,
-                       internal_use = internal_use)
+                       internal_use = "permit")
 
     },
     #' @description Retrieve factor columns (attributes).
@@ -82,7 +97,7 @@ TileDBArrayExtended <- R6::R6Class(
       enum
 
     },
-    #' @description Checks if array has factor columns.
+    #' @description Checks array for factor columns.
     #'
     #'
     #' @return A boolean. `TRUE` indicating the array has factor columns and
@@ -92,14 +107,19 @@ TileDBArrayExtended <- R6::R6Class(
       idx <- vapply_lgl(self$attributes(), tiledb::tiledb_attribute_has_enumeration)
       any(idx)
     },
-    #' @description Fragment consolidation.
+    # TODO: add key https://github.com/TileDB-Inc/TileDB-Py/blob/28714d9b25d44d6c6c1f318525184d3784b7de00/tiledb/array.py#L729
+    # TODO: ctx? add example..
+    # TODO: ADD LIST OF CONFIGUREATION PARAMETERS
+    #' @description Consolidates the fragments of the array into
+    #'  a single fragment.
     #'
-    #' @param cfg A `TileDB` configuration object.
-    #' @param start_time,end_time Optional time stamp value. A date time object
-    #' of class `POSIXlt`. If not provided,the default values from configuration
+    #' @param cfg A configuration object [tiledb::tiledb_config()] to set parameters
+    #'  for the consolidation.
+    #' @param start_time,end_time Optional time stamp values. A date time objects
+    #' of class `POSIXlt`. If not provided, the default values from configuration
     #' object will be used.
-    #' @param ctx A `TileDB` context object. By default, object's context is used.
-    #'
+    #' @param ctx Optional [tiledb::tiledb_ctx()] object. By default, object's context
+    #'  is used.
     #' @return `NULL`, invisibly.
     #'
     consolidate = function(cfg = NULL, start_time, end_time, ctx = NULL) {
@@ -114,13 +134,15 @@ TileDBArrayExtended <- R6::R6Class(
                                 end_time,
                                 ctx = ctx)
     },
-    #' @description Remove consolidated fragments.
+    #' @description Clean up consolidated fragments and array metadata.
     #'
-    #' @param cfg A `TileDB` configuration object.
-    #' @param start_time,end_time Optional time stamp value. A date time object
-    #' of class `POSIXlt`. If not provided,the default values from configuration
+    #' @param cfg A configuration object [tiledb::tiledb_config()] to set parameters
+    #'  for the vacuum process.
+    #' @param start_time,end_time Optional time stamp values. A date time objects
+    #' of class `POSIXlt`. If not provided, the default values from configuration
     #' object will be used.
-    #' @param ctx A `TileDB` context object. By default, object's context is used.
+    #' @param ctx Optional [tiledb::tiledb_ctx()] object. By default, object's context
+    #'  is used.
     #'
     #' @return `NULL`, invisibly.
     #'
@@ -136,8 +158,11 @@ TileDBArrayExtended <- R6::R6Class(
                            end_time,
                            ctx = ctx)
     },
-    #' @description Consolidated fragments to be removed.
-    #' @param trunc_uri `TRUE` to truncate uri path.
+    #' @description Returns a `data.frame` with consolidated fragments to be
+    #' removed.
+    #'
+    #' @param trunc_uri `TRUE` to return the truncated uri path of fragments.
+    #'
     finfo_to_vacuum = function(trunc_uri = TRUE) {
 
       private$.fragments_object$to_vacuum(trunc_uri)
@@ -153,9 +178,11 @@ TileDBArrayExtended <- R6::R6Class(
       private$.fragments_object$finfo_uris(trunc_uri)
 
     },
-    #' @description Upgrade array schema
-    #' @param cfg  A `TileDB` configuration object.
-    #' @param ctx A `TileDB` context object. By default, object's context is used.
+    #' @description Upgrade the array to the latest format version.
+    #'
+    #' @param cfg A configuration object [tiledb::tiledb_config()].
+    #' @param ctx Optional [tiledb::tiledb_ctx()] object. By default, object's context
+    #'  is used.
     schema_upgrade = function(cfg = NULL, ctx = NULL) {
       if (is.null(ctx)) {
         ctx <- self$ctx
@@ -165,7 +192,9 @@ TileDBArrayExtended <- R6::R6Class(
   ),
 
   active = list(
-    #' @field fragments_object Access an [TileDBFragments] instance.
+    #' @field fragments_object Access the [TileDBFragments] instance for this
+    #' array.
+    #'
     fragments_object = function(value) {
       if (!missing(value)) {
         .emit_read_only_error("fragment_object")
@@ -177,6 +206,7 @@ TileDBArrayExtended <- R6::R6Class(
 
     },
     #' @field schema_version Retrieve the schema version for this array.
+    #'
     schema_version = function(value) {
       if (!missing(value)) {
         .emit_read_only_error("schema_version")

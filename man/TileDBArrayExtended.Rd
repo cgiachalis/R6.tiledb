@@ -2,15 +2,18 @@
 % Please edit documentation in R/TileDBArrayExtended.R
 \name{TileDBArrayExtended}
 \alias{TileDBArrayExtended}
-\title{TileDB Array Extended Class}
+\title{Generate a \code{TileDBArrayExtended} Object}
 \value{
-An object \code{TileDBArrayExtented} of class \code{R6}.
+An object of class \code{TileDBArrayExtented}.
 }
 \description{
-An R6 class for representing an extended TileDB Array.
+This class inherits from \link{TileDBArrayExtended} and represents \code{TileDB} Array
+with enhanced functionality.
 \subsection{Initialization}{
 
-A new \code{TileDBArrayExtended} instance is initialized using the \code{new()} method:
+A new \code{TileDBArrayExtended} instance is initialized using the \code{new()} method.
+Alternatively use \code{\link[=tdb_array]{tdb_array()}} to create an instance and open the array at
+\code{READ} mode.
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{ # uri path
  uri <- tempdir()
@@ -29,7 +32,8 @@ A new \code{TileDBArrayExtended} instance is initialized using the \code{new()} 
 \section{Active bindings}{
 \if{html}{\out{<div class="r6-active-bindings">}}
 \describe{
-\item{\code{fragments_object}}{Access an \link{TileDBFragments} instance.}
+\item{\code{fragments_object}}{Access the \link{TileDBFragments} instance for this
+array.}
 
 \item{\code{schema_version}}{Retrieve the schema version for this array.}
 }
@@ -81,21 +85,17 @@ A new \code{TileDBArrayExtended} instance is initialized using the \code{new()} 
 \subsection{Method \code{new()}}{
 Create a new \code{TileDBArrayExtended} instance.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{TileDBArrayExtended$new(uri, ctx = NULL, tiledb_timestamp = NULL,
-  internal_use = getOption("R6.tiledb.internal"))}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{TileDBArrayExtended$new(uri, ctx = NULL, tiledb_timestamp = NULL)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{uri}}{URI path for the TileDB Array.}
+\item{\code{uri}}{URI path for the \code{TileDB} Array.}
 
 \item{\code{ctx}}{Optional \code{\link[tiledb:tiledb_ctx]{tiledb::tiledb_ctx()}} object.}
 
 \item{\code{tiledb_timestamp}}{Optional Datetime (POSIXct) with TileDB timestamp.}
-
-\item{\code{internal_use}}{A character value that gives access to new instance.
-Use \code{options(R6.tiledb.internal = NULL)} for internal mode.}
 }
 \if{html}{\out{</div>}}
 }
@@ -137,7 +137,7 @@ A character vector with levels (enum values).
 \if{html}{\out{<a id="method-TileDBArrayExtended-has_enums"></a>}}
 \if{latex}{\out{\hypertarget{method-TileDBArrayExtended-has_enums}{}}}
 \subsection{Method \code{has_enums()}}{
-Checks if array has factor columns.
+Checks array for factor columns.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{TileDBArrayExtended$has_enums()}\if{html}{\out{</div>}}
 }
@@ -151,7 +151,8 @@ A boolean. \code{TRUE} indicating the array has factor columns and
 \if{html}{\out{<a id="method-TileDBArrayExtended-consolidate"></a>}}
 \if{latex}{\out{\hypertarget{method-TileDBArrayExtended-consolidate}{}}}
 \subsection{Method \code{consolidate()}}{
-Fragment consolidation.
+Consolidates the fragments of the array into
+a single fragment.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{TileDBArrayExtended$consolidate(cfg = NULL, start_time, end_time,
   ctx = NULL)}\if{html}{\out{</div>}}
@@ -160,13 +161,15 @@ Fragment consolidation.
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{cfg}}{A \code{TileDB} configuration object.}
+\item{\code{cfg}}{A configuration object \code{\link[tiledb:tiledb_config]{tiledb::tiledb_config()}} to set parameters
+for the consolidation.}
 
-\item{\code{start_time, end_time}}{Optional time stamp value. A date time object
-of class \code{POSIXlt}. If not provided,the default values from configuration
+\item{\code{start_time, end_time}}{Optional time stamp values. A date time objects
+of class \code{POSIXlt}. If not provided, the default values from configuration
 object will be used.}
 
-\item{\code{ctx}}{A \code{TileDB} context object. By default, object's context is used.}
+\item{\code{ctx}}{Optional \code{\link[tiledb:tiledb_ctx]{tiledb::tiledb_ctx()}} object. By default, object's context
+is used.}
 }
 \if{html}{\out{</div>}}
 }
@@ -178,7 +181,7 @@ object will be used.}
 \if{html}{\out{<a id="method-TileDBArrayExtended-vacuum"></a>}}
 \if{latex}{\out{\hypertarget{method-TileDBArrayExtended-vacuum}{}}}
 \subsection{Method \code{vacuum()}}{
-Remove consolidated fragments.
+Clean up consolidated fragments and array metadata.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{TileDBArrayExtended$vacuum(cfg = NULL, start_time, end_time, ctx = NULL)}\if{html}{\out{</div>}}
 }
@@ -186,13 +189,15 @@ Remove consolidated fragments.
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{cfg}}{A \code{TileDB} configuration object.}
+\item{\code{cfg}}{A configuration object \code{\link[tiledb:tiledb_config]{tiledb::tiledb_config()}} to set parameters
+for the vacuum process.}
 
-\item{\code{start_time, end_time}}{Optional time stamp value. A date time object
-of class \code{POSIXlt}. If not provided,the default values from configuration
+\item{\code{start_time, end_time}}{Optional time stamp values. A date time objects
+of class \code{POSIXlt}. If not provided, the default values from configuration
 object will be used.}
 
-\item{\code{ctx}}{A \code{TileDB} context object. By default, object's context is used.}
+\item{\code{ctx}}{Optional \code{\link[tiledb:tiledb_ctx]{tiledb::tiledb_ctx()}} object. By default, object's context
+is used.}
 }
 \if{html}{\out{</div>}}
 }
@@ -204,7 +209,8 @@ object will be used.}
 \if{html}{\out{<a id="method-TileDBArrayExtended-finfo_to_vacuum"></a>}}
 \if{latex}{\out{\hypertarget{method-TileDBArrayExtended-finfo_to_vacuum}{}}}
 \subsection{Method \code{finfo_to_vacuum()}}{
-Consolidated fragments to be removed.
+Returns a \code{data.frame} with consolidated fragments to be
+removed.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{TileDBArrayExtended$finfo_to_vacuum(trunc_uri = TRUE)}\if{html}{\out{</div>}}
 }
@@ -212,7 +218,7 @@ Consolidated fragments to be removed.
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{trunc_uri}}{\code{TRUE} to truncate uri path.}
+\item{\code{trunc_uri}}{\code{TRUE} to return the truncated uri path of fragments.}
 }
 \if{html}{\out{</div>}}
 }
@@ -248,7 +254,7 @@ Fragments uri and time stamps.
 \if{html}{\out{<a id="method-TileDBArrayExtended-schema_upgrade"></a>}}
 \if{latex}{\out{\hypertarget{method-TileDBArrayExtended-schema_upgrade}{}}}
 \subsection{Method \code{schema_upgrade()}}{
-Upgrade array schema
+Upgrade the array to the latest format version.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{TileDBArrayExtended$schema_upgrade(cfg = NULL, ctx = NULL)}\if{html}{\out{</div>}}
 }
@@ -256,9 +262,10 @@ Upgrade array schema
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{cfg}}{A \code{TileDB} configuration object.}
+\item{\code{cfg}}{A configuration object \code{\link[tiledb:tiledb_config]{tiledb::tiledb_config()}}.}
 
-\item{\code{ctx}}{A \code{TileDB} context object. By default, object's context is used.}
+\item{\code{ctx}}{Optional \code{\link[tiledb:tiledb_ctx]{tiledb::tiledb_ctx()}} object. By default, object's context
+is used.}
 }
 \if{html}{\out{</div>}}
 }
