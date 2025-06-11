@@ -45,11 +45,14 @@ array.}
 \subsection{Public methods}{
 \itemize{
 \item \href{#method-TileDBArrayExtended-new}{\code{TileDBArrayExtended$new()}}
+\item \href{#method-TileDBArrayExtended-reopen}{\code{TileDBArrayExtended$reopen()}}
 \item \href{#method-TileDBArrayExtended-enum_columns}{\code{TileDBArrayExtended$enum_columns()}}
 \item \href{#method-TileDBArrayExtended-enum_levels}{\code{TileDBArrayExtended$enum_levels()}}
 \item \href{#method-TileDBArrayExtended-has_enums}{\code{TileDBArrayExtended$has_enums()}}
 \item \href{#method-TileDBArrayExtended-consolidate}{\code{TileDBArrayExtended$consolidate()}}
+\item \href{#method-TileDBArrayExtended-consolidate_async}{\code{TileDBArrayExtended$consolidate_async()}}
 \item \href{#method-TileDBArrayExtended-vacuum}{\code{TileDBArrayExtended$vacuum()}}
+\item \href{#method-TileDBArrayExtended-finfo_num}{\code{TileDBArrayExtended$finfo_num()}}
 \item \href{#method-TileDBArrayExtended-finfo_to_vacuum}{\code{TileDBArrayExtended$finfo_to_vacuum()}}
 \item \href{#method-TileDBArrayExtended-finfo_dump}{\code{TileDBArrayExtended$finfo_dump()}}
 \item \href{#method-TileDBArrayExtended-finfo_uris}{\code{TileDBArrayExtended$finfo_uris()}}
@@ -64,7 +67,6 @@ array.}
 <li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBObject" data-id="exists"><a href='../../R6.tiledb/html/TileDBObject.html#method-TileDBObject-exists'><code>R6.tiledb::TileDBObject$exists()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBObject" data-id="is_open"><a href='../../R6.tiledb/html/TileDBObject.html#method-TileDBObject-is_open'><code>R6.tiledb::TileDBObject$is_open()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBObject" data-id="mode"><a href='../../R6.tiledb/html/TileDBObject.html#method-TileDBObject-mode'><code>R6.tiledb::TileDBObject$mode()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBObject" data-id="reopen"><a href='../../R6.tiledb/html/TileDBObject.html#method-TileDBObject-reopen'><code>R6.tiledb::TileDBObject$reopen()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBArray" data-id="attributes"><a href='../../R6.tiledb/html/TileDBArray.html#method-TileDBArray-attributes'><code>R6.tiledb::TileDBArray$attributes()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBArray" data-id="attrnames"><a href='../../R6.tiledb/html/TileDBArray.html#method-TileDBArray-attrnames'><code>R6.tiledb::TileDBArray$attrnames()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBArray" data-id="close"><a href='../../R6.tiledb/html/TileDBArray.html#method-TileDBArray-close'><code>R6.tiledb::TileDBArray$close()</code></a></span></li>
@@ -100,6 +102,29 @@ Create a new \code{TileDBArrayExtended} instance.
 \item{\code{tiledb_timestamp}}{Optional Datetime (POSIXct) with TileDB timestamp.}
 }
 \if{html}{\out{</div>}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-TileDBArrayExtended-reopen"></a>}}
+\if{latex}{\out{\hypertarget{method-TileDBArrayExtended-reopen}{}}}
+\subsection{Method \code{reopen()}}{
+Close and reopen the TileDB object in a new mode.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{TileDBArrayExtended$reopen(mode = c("READ", "WRITE"),
+  tiledb_timestamp = NULL)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{mode}}{New mode to open the object in; choose from: \code{"READ"} or \code{"WRITE"}.}
+
+\item{\code{tiledb_timestamp}}{Optional Datetime (POSIXct) with TileDB timestamp.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+Invisibly returns \code{self} opened in \code{mode}.
 }
 }
 \if{html}{\out{<hr>}}
@@ -157,7 +182,7 @@ Consolidates the fragments of the array into
 a single fragment.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{TileDBArrayExtended$consolidate(cfg = NULL, start_time, end_time,
-  ctx = NULL)}\if{html}{\out{</div>}}
+  cmode = c("fragments", "commits", "fragment_meta", "array_meta"))}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -170,13 +195,53 @@ for the consolidation.}
 of class \code{POSIXlt}. If not provided, the default values from configuration
 object will be used.}
 
-\item{\code{ctx}}{Optional \code{\link[tiledb:tiledb_ctx]{tiledb::tiledb_ctx()}} object. By default, object's context
-is used.}
+\item{\code{cmode}}{The consolidate mode, one of the following:
+\itemize{
+\item \code{"fragments"}: - consolidate all fragments (default)
+\item \code{"commits"}: - consolidate all commit files
+\item \code{"fragment_meta"}: - consolidate only fragment metadata footers to a single file
+\item \code{"array_meta"}: - consolidate array metadata only
+}}
 }
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-\code{NULL}, invisibly.
+\code{TRUE}, invisibly.
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-TileDBArrayExtended-consolidate_async"></a>}}
+\if{latex}{\out{\hypertarget{method-TileDBArrayExtended-consolidate_async}{}}}
+\subsection{Method \code{consolidate_async()}}{
+Consolidates the async fragments of the array into
+a single fragment.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{TileDBArrayExtended$consolidate_async(config_params = c(),
+  start_time = NULL, end_time = NULL, cmode = c("fragments", "commits",
+  "fragment_meta", "array_meta"))}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{config_params}}{A vector configuration parameters for the consolidation.}
+
+\item{\code{start_time, end_time}}{Optional time stamp values. A date time objects
+of class \code{POSIXlt}. If not provided, the default values from configuration
+object will be used.}
+
+\item{\code{cmode}}{The consolidate mode, one of the following:
+\itemize{
+\item \code{"fragments"}: - consolidate all fragments (default)
+\item \code{"commits"}: - consolidate all commit files
+\item \code{"fragment_meta"}: - consolidate only fragment metadata footers to a single file
+\item \code{"array_meta"}: - consolidate array metadata only
+}}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+\code{TRUE}, invisibly.
 }
 }
 \if{html}{\out{<hr>}}
@@ -206,6 +271,16 @@ is used.}
 \subsection{Returns}{
 \code{NULL}, invisibly.
 }
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-TileDBArrayExtended-finfo_num"></a>}}
+\if{latex}{\out{\hypertarget{method-TileDBArrayExtended-finfo_num}{}}}
+\subsection{Method \code{finfo_num()}}{
+The number of fragments.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{TileDBArrayExtended$finfo_num()}\if{html}{\out{</div>}}
+}
+
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-TileDBArrayExtended-finfo_to_vacuum"></a>}}
