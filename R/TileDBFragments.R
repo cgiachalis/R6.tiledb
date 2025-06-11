@@ -68,6 +68,7 @@ TileDBFragments <- R6::R6Class(
     to_vacuum = function(trunc_uri = TRUE) {
 
       finfo <- private$finfo()
+
       idx <- tiledb::tiledb_fragment_info_get_to_vacuum_num(finfo) - 1
 
       if (idx < 0) {
@@ -76,12 +77,17 @@ TileDBFragments <- R6::R6Class(
       }
 
       lst <- lapply(0:idx, function(.x) {
+
         uri <- tiledb::tiledb_fragment_info_get_to_vacuum_uri(finfo, .x)
-        tsp <- tiledb::tiledb_fragment_info_get_timestamp_range(finfo, .x)
+
+        trunc01 <-  sub(".*__fragments/__", "", uri)
+        tsp <- c(as.numeric(substr(trunc01, 0, 13)) + 0.0001,
+                 as.numeric(substr(trunc01, 15, 27)) + 0.0001) / 1000
+
         tsp <- sapply(tsp, as.POSIXct, tz = "UTC", simplify = FALSE)
         data.frame(Fragment = paste0("#", .x + 1),
                    start_timestamp = tsp[[1]],
-                   end_timestamp = tsp[[1]],
+                   end_timestamp = tsp[[2]],
                    URI = ifelse(trunc_uri, sub(".*__fragments/", "", uri) , uri))
       })
 
@@ -98,7 +104,7 @@ TileDBFragments <- R6::R6Class(
     #'
     #' @return An numeric value.
     #'
-    to_vaccum_num = function() {
+    to_vacuum_num = function() {
       tiledb::tiledb_fragment_info_get_to_vacuum_num(private$finfo())
     },
     #' @description Delete fragments using a range of timestamps.
@@ -265,6 +271,16 @@ TileDBFragments <- R6::R6Class(
         .emit_read_only_error("uri")
       }
       private$tiledb_uri$uri
+    },
+    #TODO review
+    #' @field fragment_info TileDB Fragment Info object.
+    #'
+    fragment_info = function(value) {
+      if (!missing(value)) {
+        .emit_read_only_error("fragment_info")
+      }
+      private$finfo()
+
     },
     #' @field reload_finfo Refresh the TileDB Fragment Info object.
     #'

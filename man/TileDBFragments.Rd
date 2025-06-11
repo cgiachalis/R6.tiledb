@@ -14,6 +14,8 @@ An R6 class for handling \code{TileDB} Fragments.
 \describe{
 \item{\code{uri}}{The URI of the TileDB object.}
 
+\item{\code{fragment_info}}{TileDB Fragment Info object.}
+
 \item{\code{reload_finfo}}{Refresh the TileDB Fragment Info object.}
 }
 \if{html}{\out{</div>}}
@@ -25,7 +27,7 @@ An R6 class for handling \code{TileDB} Fragments.
 \item \href{#method-TileDBFragments-class}{\code{TileDBFragments$class()}}
 \item \href{#method-TileDBFragments-count}{\code{TileDBFragments$count()}}
 \item \href{#method-TileDBFragments-to_vacuum}{\code{TileDBFragments$to_vacuum()}}
-\item \href{#method-TileDBFragments-to_vaccum_num}{\code{TileDBFragments$to_vaccum_num()}}
+\item \href{#method-TileDBFragments-to_vacuum_num}{\code{TileDBFragments$to_vacuum_num()}}
 \item \href{#method-TileDBFragments-delete_fragment_range}{\code{TileDBFragments$delete_fragment_range()}}
 \item \href{#method-TileDBFragments-delete_fragment_list}{\code{TileDBFragments$delete_fragment_list()}}
 \item \href{#method-TileDBFragments-delete_fragment}{\code{TileDBFragments$delete_fragment()}}
@@ -104,12 +106,12 @@ library is found in your system.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-TileDBFragments-to_vaccum_num"></a>}}
-\if{latex}{\out{\hypertarget{method-TileDBFragments-to_vaccum_num}{}}}
-\subsection{Method \code{to_vaccum_num()}}{
+\if{html}{\out{<a id="method-TileDBFragments-to_vacuum_num"></a>}}
+\if{latex}{\out{\hypertarget{method-TileDBFragments-to_vacuum_num}{}}}
+\subsection{Method \code{to_vacuum_num()}}{
 Return the number of fragments to vacuum
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{TileDBFragments$to_vaccum_num()}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{TileDBFragments$to_vacuum_num()}\if{html}{\out{</div>}}
 }
 
 \subsection{Returns}{
