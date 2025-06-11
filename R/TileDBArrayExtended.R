@@ -108,7 +108,8 @@ TileDBArrayExtended <- R6::R6Class(
     #'  a single fragment.
     #'
     #' @param cfg A configuration object [tiledb::tiledb_config()] to set parameters
-    #'  for the consolidation.
+    #'  for the consolidation. When `NULL` (default) the configuration parameters will
+    #'  be retrieve from object context.
     #' @param start_time,end_time Optional time stamp values. A date time objects
     #' of class `POSIXlt`. If not provided, the default values from configuration
     #' object will be used.
@@ -132,16 +133,18 @@ TileDBArrayExtended <- R6::R6Class(
       cmode <- match.arg(cmode)
 
       if (is.null(cfg)) {
-        cfg <- tiledb::tiledb_config()
+        cfg <- tiledb::config(self$ctx)
       }
 
-      # TODO CHECK IS CONFIG OBJECT
+      if (!inherits(cfg, "tiledb_config")) {
+        cli::cli_abort("{.emph '{deparse(substitute(cfg))}'} should be of class {.cls tiledb_config}.", call = NULL)
+      }
 
       cfg["sm.consolidation.mode"] <- cmode
 
       if (!is.null(start_time)) {
-        if (!inherits(inherits(start_time, "POSIXt"))) {
-          cli::cli_abort("{.emph '{deparse(substitute((start_time))}'} should be of class {.cls POSIXt}.", call = NULL)
+        if (!inherits(start_time, "POSIXt")) {
+          cli::cli_abort("{.emph '{deparse(substitute(start_time))}'} should be of class {.cls POSIXt}.", call = NULL)
         }
         start_time_int64 <- as.character(bit64::as.integer64(as.numeric(start_time) * 1000))
         cfg["sm.consolidation.timestamp_start"] <- start_time_int64
@@ -149,22 +152,30 @@ TileDBArrayExtended <- R6::R6Class(
 
       if (!is.null(end_time)) {
 
-        if (!inherits(inherits(end_time, "POSIXt"))) {
+        if (!inherits(end_time, "POSIXt")) {
           cli::cli_abort("{.emph '{deparse(substitute(end_time))}'} should be of class {.cls POSIXt}.", call = NULL)
         }
         end_time_int64 <- as.character(bit64::as.integer64(as.numeric(end_time) * 1000))
         cfg["sm.consolidation.timestamp_end"] <- end_time_int64
       }
+
       tiledb::array_consolidate(self$uri, cfg = cfg)
+
       # reset fragment object
       private$.fragments_object <- NULL
 
       invisible(TRUE)
     },
-    #' @description Consolidates the async fragments of the array into
-    #'  a single fragment.
+    #' @description Consolidate fragments of the array into
+    #' a single fragment asynchronously.
     #'
-    #' @param config_params A vector configuration parameters for the consolidation.
+    #' The consolidation will run in a separate R process in a clean environment.
+    #'
+    #' **Note this function requires the [mirai](https://cran.r-project.org/web/packages/mirai/index.html) package**.
+    #'
+    #' @param cfg A configuration object [tiledb::tiledb_config()] to set parameters
+    #'  for the consolidation. When `NULL` (default) the configuration parameters will
+    #'  be retrieve from object context.
     #' @param start_time,end_time Optional time stamp values. A date time objects
     #' of class `POSIXlt`. If not provided, the default values from configuration
     #' object will be used.
@@ -175,9 +186,10 @@ TileDBArrayExtended <- R6::R6Class(
     #'  - `"fragment_meta"`: - consolidate only fragment metadata footers to a single file
     #'  - `"array_meta"`: - consolidate array metadata only
     #'
-    #' @return `TRUE`, invisibly.
+    #' @return This function will return a [mirai::mirai()] object immediately. When it is
+    #' resolved, it returns `TRUE` indicating consolidation success.
     #'
-    consolidate_async = function(config_params = c(),
+    consolidate_async = function(cfg = NULL,
                                  start_time = NULL,
                                  end_time = NULL,
                                  cmode = c("fragments",
@@ -185,34 +197,40 @@ TileDBArrayExtended <- R6::R6Class(
                                            "fragment_meta",
                                            "array_meta")) {
 
-      #TODO CHECK FOR MIRAI
+      if (!requireNamespace("mirai", quietly = TRUE)) {
+        cli::cli_abort("{.emph 'consolicate_async'} requires {.pkg '{.href [mirai](https://cran.r-project.org/web/packages/mirai/index.html)}'} package.", call = NULL)
+      }
 
       cmode <- match.arg(cmode)
 
-      config_params <- c(config_params,"sm.consolidation.mode" = cmode)
+      if (is.null(cfg)) {
+        cfg <- tiledb::config(self$ctx)
+      }
+
+      cfg["sm.consolidation.mode"] <- cmode
 
       if (!is.null(start_time)) {
-        if (!inherits(inherits(start_time, "POSIXt"))) {
-          cli::cli_abort("{.emph '{deparse(substitute((start_time))}'} should be of class {.cls POSIXt}.", call = NULL)
+        if (!inherits(start_time, "POSIXt")) {
+          cli::cli_abort("{.emph '{deparse(substitute(start_time))}'} should be of class {.cls POSIXt}.", call = NULL)
         }
         start_time_int64 <- as.character(bit64::as.integer64(as.numeric(start_time) * 1000))
-        config_params <- c(config_params, "sm.consolidation.timestamp_start" = start_time_int64)
-      }
+        cfg["sm.consolidation.timestamp_start"] <- start_time_int64
+        }
 
       if (!is.null(end_time)) {
 
-        if (!inherits(inherits(end_time, "POSIXt"))) {
+        if (!inherits(end_time, "POSIXt")) {
           cli::cli_abort("{.emph '{deparse(substitute(end_time))}'} should be of class {.cls POSIXt}.", call = NULL)
         }
         end_time_int64 <- as.character(bit64::as.integer64(as.numeric(end_time) * 1000))
-        config_params <- c(config_params, "sm.consolidation.timestamp_end" = end_time_int64)
+        cfg["sm.consolidation.timestamp_end"] <- end_time_int64
       }
 
 
       # mirai namespace compute profile
       ns <- "r6.tiledb"
 
-     # Start one non-dispatcher background process if not already started
+      # Start non-dispatcher background process if not already started
       if (is.null(mirai::nextget("n", .compute = ns))) {
        mirai::daemons(1L, dispatcher = FALSE, autoexit = tools::SIGINT, .compute = ns)
       }
@@ -224,16 +242,15 @@ TileDBArrayExtended <- R6::R6Class(
         #   from R session
         cfg <- tiledb::tiledb_config(config_params)
 
-        ctx <- tiledb::tiledb_ctx(cfg, cached = FALSE)
-        tiledb::tiledb_set_context(ctx)
+        ctx <- tiledb::tiledb_ctx(cfg)
 
-        # TODO: Should we use libtiledb?
-        cc <- tiledb::array_consolidate(uri = uri, ctx = ctx)
+        tiledb::array_consolidate(uri = uri, ctx = ctx)
 
         return(TRUE)
 
-        }, uri = self$uri, config_params = config_params, .compute = ns)
+        }, uri = self$uri, config_params = as.vector(cfg), .compute = ns)
 
+      # reset fragment object
       private$.fragments_object <- NULL
 
       m

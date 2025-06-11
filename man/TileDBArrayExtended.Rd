@@ -189,7 +189,8 @@ a single fragment.
 \if{html}{\out{<div class="arguments">}}
 \describe{
 \item{\code{cfg}}{A configuration object \code{\link[tiledb:tiledb_config]{tiledb::tiledb_config()}} to set parameters
-for the consolidation.}
+for the consolidation. When \code{NULL} (default) the configuration parameters will
+be retrieve from object context.}
 
 \item{\code{start_time, end_time}}{Optional time stamp values. A date time objects
 of class \code{POSIXlt}. If not provided, the default values from configuration
@@ -213,18 +214,24 @@ object will be used.}
 \if{html}{\out{<a id="method-TileDBArrayExtended-consolidate_async"></a>}}
 \if{latex}{\out{\hypertarget{method-TileDBArrayExtended-consolidate_async}{}}}
 \subsection{Method \code{consolidate_async()}}{
-Consolidates the async fragments of the array into
-a single fragment.
+Consolidate fragments of the array into
+a single fragment asynchronously.
+
+The consolidation will run in a separate R process in a clean environment.
+
+\strong{Note this function requires the \href{https://cran.r-project.org/web/packages/mirai/index.html}{mirai} package}.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{TileDBArrayExtended$consolidate_async(config_params = c(),
-  start_time = NULL, end_time = NULL, cmode = c("fragments", "commits",
-  "fragment_meta", "array_meta"))}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{TileDBArrayExtended$consolidate_async(cfg = NULL, start_time = NULL,
+  end_time = NULL, cmode = c("fragments", "commits", "fragment_meta",
+  "array_meta"))}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{config_params}}{A vector configuration parameters for the consolidation.}
+\item{\code{cfg}}{A configuration object \code{\link[tiledb:tiledb_config]{tiledb::tiledb_config()}} to set parameters
+for the consolidation. When \code{NULL} (default) the configuration parameters will
+be retrieve from object context.}
 
 \item{\code{start_time, end_time}}{Optional time stamp values. A date time objects
 of class \code{POSIXlt}. If not provided, the default values from configuration
@@ -241,7 +248,8 @@ object will be used.}
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-\code{TRUE}, invisibly.
+This function will return a \code{\link[mirai:mirai]{mirai::mirai()}} object immediately. When it is
+resolved, it returns \code{TRUE} indicating consolidation success.
 }
 }
 \if{html}{\out{<hr>}}
