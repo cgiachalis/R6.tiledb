@@ -25,13 +25,13 @@ An R6 class for handling \code{TileDB} Fragments.
 \itemize{
 \item \href{#method-TileDBFragments-new}{\code{TileDBFragments$new()}}
 \item \href{#method-TileDBFragments-class}{\code{TileDBFragments$class()}}
-\item \href{#method-TileDBFragments-count}{\code{TileDBFragments$count()}}
+\item \href{#method-TileDBFragments-frag_num}{\code{TileDBFragments$frag_num()}}
+\item \href{#method-TileDBFragments-frag_uris}{\code{TileDBFragments$frag_uris()}}
 \item \href{#method-TileDBFragments-to_vacuum}{\code{TileDBFragments$to_vacuum()}}
 \item \href{#method-TileDBFragments-to_vacuum_num}{\code{TileDBFragments$to_vacuum_num()}}
 \item \href{#method-TileDBFragments-delete_fragment_range}{\code{TileDBFragments$delete_fragment_range()}}
 \item \href{#method-TileDBFragments-delete_fragment_list}{\code{TileDBFragments$delete_fragment_list()}}
 \item \href{#method-TileDBFragments-delete_fragment}{\code{TileDBFragments$delete_fragment()}}
-\item \href{#method-TileDBFragments-finfo_uris}{\code{TileDBFragments$finfo_uris()}}
 \item \href{#method-TileDBFragments-dump}{\code{TileDBFragments$dump()}}
 \item \href{#method-TileDBFragments-clone}{\code{TileDBFragments$clone()}}
 }
@@ -66,14 +66,45 @@ Print the name of the R6 class.
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-TileDBFragments-count"></a>}}
-\if{latex}{\out{\hypertarget{method-TileDBFragments-count}{}}}
-\subsection{Method \code{count()}}{
+\if{html}{\out{<a id="method-TileDBFragments-frag_num"></a>}}
+\if{latex}{\out{\hypertarget{method-TileDBFragments-frag_num}{}}}
+\subsection{Method \code{frag_num()}}{
 The number of fragments.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{TileDBFragments$count()}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{TileDBFragments$frag_num()}\if{html}{\out{</div>}}
 }
 
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-TileDBFragments-frag_uris"></a>}}
+\if{latex}{\out{\hypertarget{method-TileDBFragments-frag_uris}{}}}
+\subsection{Method \code{frag_uris()}}{
+Return a \code{data.frame} with  time stamps and
+fragments uris.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{TileDBFragments$frag_uris(trunc_uri = TRUE)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{trunc_uri}}{\code{TRUE} to truncate uri path.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+An object of class \code{data.frame} with four columns:
+\itemize{
+\item \code{Fragment}: the fragment index (start at 1)
+\item \code{start_timestamp}: start time-stamp of when fragment was written
+\item \code{end_timestamp}: end time-stamp of when fragment was written
+\item \code{URI}: fragment's truncated uri path (fragment name) when
+\code{trunc_uri = TRUE} (default), otherwise the full uri path
+}
+
+Note that return object will be of class \code{data.table} if the
+library is found in your system.
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-TileDBFragments-to_vacuum"></a>}}
@@ -145,7 +176,7 @@ of class \code{POSIXct} that represents the start and end time stamps.}
 \subsection{Method \code{delete_fragment_list()}}{
 Delete fragments using a vector of fragment uris.
 
-Use \verb{$finfo_uris(trunc_uri = FALSE)} method to get a \code{data.frame}
+Use \verb{$frag_uris(trunc_uri = FALSE)} method to get a \code{data.frame}
 with all fragment uri paths.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{TileDBFragments$delete_fragment_list(frag_uris)}\if{html}{\out{</div>}}
@@ -181,37 +212,6 @@ Delete a fragment by index.
 \subsection{Returns}{
 A boolean,  invisibly. \code{TRUE} for successful deletion and
 \code{FALSE} for no fragment to delete.
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-TileDBFragments-finfo_uris"></a>}}
-\if{latex}{\out{\hypertarget{method-TileDBFragments-finfo_uris}{}}}
-\subsection{Method \code{finfo_uris()}}{
-Return a \code{data.frame} with  time stamps and
-fragments uris.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{TileDBFragments$finfo_uris(trunc_uri = TRUE)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{trunc_uri}}{\code{TRUE} to truncate uri path.}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-An object of class \code{data.frame} with four columns:
-\itemize{
-\item \code{Fragment}: the fragment index (start at 1)
-\item \code{start_timestamp}: fragment's starts time stamp
-\item \code{end_timestamp}: fragment's end time stamp
-\item \code{URI}: fragment's truncated uri path (fragment name) when
-\code{trunc_uri = TRUE} (default), otherwise the full uri path
-}
-
-Note that return object will be of class \code{data.table} if the
-library is found in your system.
 }
 }
 \if{html}{\out{<hr>}}

@@ -47,8 +47,62 @@ TileDBFragments <- R6::R6Class(
     },
     #' @description The number of fragments.
     #'
-    count = function() {
+    frag_num = function() {
       tiledb::tiledb_fragment_info_get_num(private$finfo())
+    },
+    #' @description Return a `data.frame` with  time stamps and
+    #' fragments uris.
+    #'
+    #' @param trunc_uri `TRUE` to truncate uri path.
+    #'
+    #' @return An object of class `data.frame` with four columns:
+    #'
+    #'  - `Fragment`: the fragment index (start at 1)
+    #'  - `start_timestamp`: start time-stamp of when fragment was written
+    #'  - `end_timestamp`: end time-stamp of when fragment was written
+    #'  - `URI`: fragment's truncated uri path (fragment name) when
+    #'  `trunc_uri = TRUE` (default), otherwise the full uri path
+    #'
+    #'  Note that return object will be of class `data.table` if the
+    #'  library is found in your system.
+    #'
+    frag_uris = function(trunc_uri = TRUE) {
+
+      idx <- self$frag_num()
+
+      # No fragments, then return empty data.frame
+      if (idx == 0) {
+        out <-  data.frame(Fragment = character(),
+                           start_timestamp = numeric(),
+                           end_timestamp = numeric(),
+                           URI = character())
+        return(out)
+
+      }
+
+      # C++ index
+      idx <- idx - 1
+      finfo <- private$finfo()
+
+      lst <- lapply(0:idx, function(.x) {
+        uri <- tiledb::tiledb_fragment_info_uri(finfo, .x)
+        tsp <- tiledb::tiledb_fragment_info_get_timestamp_range(finfo, .x)
+        tsp <- sapply(tsp, as.POSIXct, tz = "UTC", simplify = FALSE)
+        data.frame(Fragment = paste0("#",.x + 1),
+                   start_timestamp = tsp[[1]],
+                   end_timestamp = tsp[[1]],
+                   URI = ifelse(trunc_uri, sub(".*__fragments/", "", uri) , uri))
+
+      })
+
+      if (requireNamespace("data.table", quietly = TRUE)) {
+        out <- data.table::rbindlist(lst)
+      } else {
+        out <- do.call(rbind, lst)
+      }
+
+      out
+
     },
     #' @description Consolidated fragments to be removed.
     #'
@@ -140,7 +194,7 @@ TileDBFragments <- R6::R6Class(
     },
     #' @description Delete fragments using a vector of fragment uris.
     #'
-    #' Use `$finfo_uris(trunc_uri = FALSE)` method to get a `data.frame`
+    #' Use `$frag_uris(trunc_uri = FALSE)` method to get a `data.frame`
     #' with all fragment uri paths.
     #'
     #' @param frag_uris A vector of fragment uris.
@@ -176,7 +230,7 @@ TileDBFragments <- R6::R6Class(
         cli::cli_abort("{.emph '{deparse(substitute(n))}'}  must be a numeric value.", call = NULL)
       }
 
-      furis <- self$finfo_uris(FALSE)
+      furis <- self$frag_uris(FALSE)
 
       num_frags <- nrow(furis)
 
@@ -200,60 +254,6 @@ TileDBFragments <- R6::R6Class(
       self$reload_finfo
 
       invisible(TRUE)
-
-    },
-    #' @description Return a `data.frame` with  time stamps and
-    #' fragments uris.
-    #'
-    #' @param trunc_uri `TRUE` to truncate uri path.
-    #'
-    #' @return An object of class `data.frame` with four columns:
-    #'
-    #'  - `Fragment`: the fragment index (start at 1)
-    #'  - `start_timestamp`: fragment's starts time stamp
-    #'  - `end_timestamp`: fragment's end time stamp
-    #'  - `URI`: fragment's truncated uri path (fragment name) when
-    #'  `trunc_uri = TRUE` (default), otherwise the full uri path
-    #'
-    #'  Note that return object will be of class `data.table` if the
-    #'  library is found in your system.
-    #'
-    finfo_uris = function(trunc_uri = TRUE) {
-
-      idx <- self$count()
-
-      # No fragments, then return empty data.frame
-      if (idx == 0) {
-        out <-  data.frame(Fragment = character(),
-                           start_timestamp = numeric(),
-                           end_timestamp = numeric(),
-                           URI = character())
-       return(out)
-
-      }
-
-      # C++ index
-      idx <- idx - 1
-      finfo <- private$finfo()
-
-      lst <- lapply(0:idx, function(.x) {
-        uri <- tiledb::tiledb_fragment_info_uri(finfo, .x)
-        tsp <- tiledb::tiledb_fragment_info_get_timestamp_range(finfo, .x)
-        tsp <- sapply(tsp, as.POSIXct, tz = "UTC", simplify = FALSE)
-        data.frame(Fragment = paste0("#",.x + 1),
-                   start_timestamp = tsp[[1]],
-                   end_timestamp = tsp[[1]],
-                   URI = ifelse(trunc_uri, sub(".*__fragments/", "", uri) , uri))
-
-      })
-
-      if (requireNamespace("data.table", quietly = TRUE)) {
-        out <- data.table::rbindlist(lst)
-      } else {
-        out <- do.call(rbind, lst)
-      }
-
-      out
 
     },
     #' @description Dump to console the commit fragments.

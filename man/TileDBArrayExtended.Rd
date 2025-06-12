@@ -52,10 +52,11 @@ array.}
 \item \href{#method-TileDBArrayExtended-consolidate}{\code{TileDBArrayExtended$consolidate()}}
 \item \href{#method-TileDBArrayExtended-consolidate_async}{\code{TileDBArrayExtended$consolidate_async()}}
 \item \href{#method-TileDBArrayExtended-vacuum}{\code{TileDBArrayExtended$vacuum()}}
-\item \href{#method-TileDBArrayExtended-finfo_num}{\code{TileDBArrayExtended$finfo_num()}}
-\item \href{#method-TileDBArrayExtended-finfo_to_vacuum}{\code{TileDBArrayExtended$finfo_to_vacuum()}}
-\item \href{#method-TileDBArrayExtended-finfo_dump}{\code{TileDBArrayExtended$finfo_dump()}}
-\item \href{#method-TileDBArrayExtended-finfo_uris}{\code{TileDBArrayExtended$finfo_uris()}}
+\item \href{#method-TileDBArrayExtended-vacuum_async}{\code{TileDBArrayExtended$vacuum_async()}}
+\item \href{#method-TileDBArrayExtended-frag_num}{\code{TileDBArrayExtended$frag_num()}}
+\item \href{#method-TileDBArrayExtended-frag_to_vacuum}{\code{TileDBArrayExtended$frag_to_vacuum()}}
+\item \href{#method-TileDBArrayExtended-frag_dump}{\code{TileDBArrayExtended$frag_dump()}}
+\item \href{#method-TileDBArrayExtended-frag_uris}{\code{TileDBArrayExtended$frag_uris()}}
 \item \href{#method-TileDBArrayExtended-schema_upgrade}{\code{TileDBArrayExtended$schema_upgrade()}}
 \item \href{#method-TileDBArrayExtended-clone}{\code{TileDBArrayExtended$clone()}}
 }
@@ -182,7 +183,7 @@ Consolidates the fragments of the array into
 a single fragment.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{TileDBArrayExtended$consolidate(cfg = NULL, start_time, end_time,
-  cmode = c("fragments", "commits", "fragment_meta", "array_meta"))}\if{html}{\out{</div>}}
+  mode = c("fragments", "commits", "fragment_meta", "array_meta"))}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -196,7 +197,7 @@ be retrieve from object context.}
 of class \code{POSIXlt}. If not provided, the default values from configuration
 object will be used.}
 
-\item{\code{cmode}}{The consolidate mode, one of the following:
+\item{\code{mode}}{The consolidate mode, one of the following:
 \itemize{
 \item \code{"fragments"}: - consolidate all fragments (default)
 \item \code{"commits"}: - consolidate all commit files
@@ -222,7 +223,7 @@ The consolidation will run in a separate R process in a clean environment.
 \strong{Note this function requires the \href{https://cran.r-project.org/web/packages/mirai/index.html}{mirai} package}.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{TileDBArrayExtended$consolidate_async(cfg = NULL, start_time = NULL,
-  end_time = NULL, cmode = c("fragments", "commits", "fragment_meta",
+  end_time = NULL, mode = c("fragments", "commits", "fragment_meta",
   "array_meta"))}\if{html}{\out{</div>}}
 }
 
@@ -237,7 +238,7 @@ be retrieve from object context.}
 of class \code{POSIXlt}. If not provided, the default values from configuration
 object will be used.}
 
-\item{\code{cmode}}{The consolidate mode, one of the following:
+\item{\code{mode}}{The consolidate mode, one of the following:
 \itemize{
 \item \code{"fragments"}: - consolidate all fragments (default)
 \item \code{"commits"}: - consolidate all commit files
@@ -258,73 +259,93 @@ resolved, it returns \code{TRUE} indicating consolidation success.
 \subsection{Method \code{vacuum()}}{
 Clean up consolidated fragments and array metadata.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{TileDBArrayExtended$vacuum(cfg = NULL, start_time, end_time, ctx = NULL)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{TileDBArrayExtended$vacuum(cfg = NULL, start_time, end_time,
+  mode = c("fragments", "commits", "fragment_meta", "array_meta"))}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
 \item{\code{cfg}}{A configuration object \code{\link[tiledb:tiledb_config]{tiledb::tiledb_config()}} to set parameters
-for the vacuum process.}
+for the vacuum. When \code{NULL} (default) the configuration parameters
+will be retrieve from object context.}
 
 \item{\code{start_time, end_time}}{Optional time stamp values. A date time objects
 of class \code{POSIXlt}. If not provided, the default values from configuration
 object will be used.}
 
-\item{\code{ctx}}{Optional \code{\link[tiledb:tiledb_ctx]{tiledb::tiledb_ctx()}} object. By default, object's context
-is used.}
+\item{\code{mode}}{The vacuum mode, one of the following:
+\itemize{
+\item \code{"fragments"}: - vacuum all fragments (default)
+\item \code{"commits"}: - vacuum all commit files
+\item \code{"fragment_meta"}: - vacuum only fragment metadata footers to a single file
+\item \code{"array_meta"}: - vacuum array metadata only
+}}
 }
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-\code{NULL}, invisibly.
+\code{TRUE}, invisibly.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-TileDBArrayExtended-finfo_num"></a>}}
-\if{latex}{\out{\hypertarget{method-TileDBArrayExtended-finfo_num}{}}}
-\subsection{Method \code{finfo_num()}}{
-The number of fragments.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{TileDBArrayExtended$finfo_num()}\if{html}{\out{</div>}}
-}
+\if{html}{\out{<a id="method-TileDBArrayExtended-vacuum_async"></a>}}
+\if{latex}{\out{\hypertarget{method-TileDBArrayExtended-vacuum_async}{}}}
+\subsection{Method \code{vacuum_async()}}{
+Asynchronously clean up consolidated fragments and array metadata.
 
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-TileDBArrayExtended-finfo_to_vacuum"></a>}}
-\if{latex}{\out{\hypertarget{method-TileDBArrayExtended-finfo_to_vacuum}{}}}
-\subsection{Method \code{finfo_to_vacuum()}}{
-Returns a \code{data.frame} with consolidated fragments to be
-removed.
+The clean up will run in a separate R process in a clean environment.
+
+\strong{Note this function requires the \href{https://cran.r-project.org/web/packages/mirai/index.html}{mirai} package}.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{TileDBArrayExtended$finfo_to_vacuum(trunc_uri = TRUE)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{TileDBArrayExtended$vacuum_async(cfg = NULL, start_time = NULL,
+  end_time = NULL, mode = c("fragments", "commits", "fragment_meta",
+  "array_meta"))}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{trunc_uri}}{\code{TRUE} to return the truncated uri path of fragments.}
+\item{\code{cfg}}{A configuration object \code{\link[tiledb:tiledb_config]{tiledb::tiledb_config()}} to set parameters
+for the vacuum process. When \code{NULL} (default) the configuration parameters will
+be retrieve from object context.}
+
+\item{\code{start_time, end_time}}{Optional time stamp values. A date time objects
+of class \code{POSIXlt}. If not provided, the default values from configuration
+object will be used.}
+
+\item{\code{mode}}{The vacuum mode, one of the following:
+\itemize{
+\item \code{"fragments"}: - vacuum all fragments (default)
+\item \code{"commits"}: - vacuum all commit files
+\item \code{"fragment_meta"}: - vacuum only fragment metadata footers to a single file
+\item \code{"array_meta"}: - vacuum array metadata only
+}}
 }
 \if{html}{\out{</div>}}
 }
+\subsection{Returns}{
+This function will return a \code{\link[mirai:mirai]{mirai::mirai()}} object immediately. When it is
+resolved, it returns \code{TRUE} indicating vacuum success.
+}
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-TileDBArrayExtended-finfo_dump"></a>}}
-\if{latex}{\out{\hypertarget{method-TileDBArrayExtended-finfo_dump}{}}}
-\subsection{Method \code{finfo_dump()}}{
-Dump to console the commit fragments.
+\if{html}{\out{<a id="method-TileDBArrayExtended-frag_num"></a>}}
+\if{latex}{\out{\hypertarget{method-TileDBArrayExtended-frag_num}{}}}
+\subsection{Method \code{frag_num()}}{
+The number of fragments.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{TileDBArrayExtended$finfo_dump()}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{TileDBArrayExtended$frag_num()}\if{html}{\out{</div>}}
 }
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-TileDBArrayExtended-finfo_uris"></a>}}
-\if{latex}{\out{\hypertarget{method-TileDBArrayExtended-finfo_uris}{}}}
-\subsection{Method \code{finfo_uris()}}{
-Fragments uri and time stamps.
+\if{html}{\out{<a id="method-TileDBArrayExtended-frag_to_vacuum"></a>}}
+\if{latex}{\out{\hypertarget{method-TileDBArrayExtended-frag_to_vacuum}{}}}
+\subsection{Method \code{frag_to_vacuum()}}{
+Consolidated fragments to be removed.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{TileDBArrayExtended$finfo_uris(trunc_uri = TRUE)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{TileDBArrayExtended$frag_to_vacuum(trunc_uri = TRUE)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -333,6 +354,60 @@ Fragments uri and time stamps.
 \item{\code{trunc_uri}}{\code{TRUE} to truncate uri path.}
 }
 \if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+An object of class \code{data.frame} with four columns:
+\itemize{
+\item \code{Fragment}: the fragment index (starts at 1)
+\item \code{start_timestamp}: fragment's start time stamp
+\item \code{end_timestamp}: fragment's end time stamp
+\item \code{URI}: fragment's truncated uri path (fragment name) when
+\code{trunc_uri = TRUE} (default), otherwise the full uri path
+}
+
+Note that return object will be of class \code{data.table} if the
+library is found in your system.
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-TileDBArrayExtended-frag_dump"></a>}}
+\if{latex}{\out{\hypertarget{method-TileDBArrayExtended-frag_dump}{}}}
+\subsection{Method \code{frag_dump()}}{
+Dump to console the commit fragments.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{TileDBArrayExtended$frag_dump()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-TileDBArrayExtended-frag_uris"></a>}}
+\if{latex}{\out{\hypertarget{method-TileDBArrayExtended-frag_uris}{}}}
+\subsection{Method \code{frag_uris()}}{
+Return a \code{data.frame} with  time stamps and
+fragments uris.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{TileDBArrayExtended$frag_uris(trunc_uri = TRUE)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{trunc_uri}}{\code{TRUE} to truncate uri path.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+An object of class \code{data.frame} with four columns:
+\itemize{
+\item \code{Fragment}: the fragment index (start at 1)
+\item \code{start_timestamp}: start time-stamp of when fragment was written
+\item \code{end_timestamp}: end time-stamp of when fragment was written
+\item \code{URI}: fragment's truncated uri path (fragment name) when
+\code{trunc_uri = TRUE} (default), otherwise the full uri path
+}
+
+Note that return object will be of class \code{data.table} if the
+library is found in your system.
 }
 }
 \if{html}{\out{<hr>}}

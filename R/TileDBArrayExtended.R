@@ -113,7 +113,7 @@ TileDBArrayExtended <- R6::R6Class(
     #' @param start_time,end_time Optional time stamp values. A date time objects
     #' of class `POSIXlt`. If not provided, the default values from configuration
     #' object will be used.
-    #' @param cmode The consolidate mode, one of the following:
+    #' @param mode The consolidate mode, one of the following:
     #'
     #'  - `"fragments"`: - consolidate all fragments (default)
     #'  - `"commits"`: - consolidate all commit files
@@ -125,12 +125,12 @@ TileDBArrayExtended <- R6::R6Class(
     consolidate = function(cfg = NULL,
                            start_time,
                            end_time,
-                           cmode = c("fragments",
-                                     "commits",
-                                     "fragment_meta",
-                                     "array_meta")) {
+                           mode = c("fragments",
+                                    "commits",
+                                    "fragment_meta",
+                                    "array_meta")) {
 
-      cmode <- match.arg(cmode)
+      mode <- match.arg(mode)
 
       if (is.null(cfg)) {
         cfg <- tiledb::config(self$ctx)
@@ -140,7 +140,7 @@ TileDBArrayExtended <- R6::R6Class(
         cli::cli_abort("{.emph '{deparse(substitute(cfg))}'} should be of class {.cls tiledb_config}.", call = NULL)
       }
 
-      cfg["sm.consolidation.mode"] <- cmode
+      cfg["sm.consolidation.mode"] <- mode
 
       if (!is.null(start_time)) {
         if (!inherits(start_time, "POSIXt")) {
@@ -179,7 +179,7 @@ TileDBArrayExtended <- R6::R6Class(
     #' @param start_time,end_time Optional time stamp values. A date time objects
     #' of class `POSIXlt`. If not provided, the default values from configuration
     #' object will be used.
-    #' @param cmode The consolidate mode, one of the following:
+    #' @param mode The consolidate mode, one of the following:
     #'
     #'  - `"fragments"`: - consolidate all fragments (default)
     #'  - `"commits"`: - consolidate all commit files
@@ -192,22 +192,22 @@ TileDBArrayExtended <- R6::R6Class(
     consolidate_async = function(cfg = NULL,
                                  start_time = NULL,
                                  end_time = NULL,
-                                 cmode = c("fragments",
-                                           "commits",
-                                           "fragment_meta",
-                                           "array_meta")) {
+                                 mode = c("fragments",
+                                          "commits",
+                                          "fragment_meta",
+                                          "array_meta")) {
 
       if (!requireNamespace("mirai", quietly = TRUE)) {
         cli::cli_abort("{.emph 'consolicate_async'} requires {.pkg '{.href [mirai](https://cran.r-project.org/web/packages/mirai/index.html)}'} package.", call = NULL)
       }
 
-      cmode <- match.arg(cmode)
+      mode <- match.arg(mode)
 
       if (is.null(cfg)) {
         cfg <- tiledb::config(self$ctx)
       }
 
-      cfg["sm.consolidation.mode"] <- cmode
+      cfg["sm.consolidation.mode"] <- mode
 
       if (!is.null(start_time)) {
         if (!inherits(start_time, "POSIXt")) {
@@ -258,53 +258,199 @@ TileDBArrayExtended <- R6::R6Class(
     #' @description Clean up consolidated fragments and array metadata.
     #'
     #' @param cfg A configuration object [tiledb::tiledb_config()] to set parameters
-    #'  for the vacuum process.
+    #'  for the vacuum. When `NULL` (default) the configuration parameters
+    #'  will be retrieve from object context.
     #' @param start_time,end_time Optional time stamp values. A date time objects
     #' of class `POSIXlt`. If not provided, the default values from configuration
     #' object will be used.
-    #' @param ctx Optional [tiledb::tiledb_ctx()] object. By default, object's context
-    #'  is used.
+    #' @param mode The vacuum mode, one of the following:
     #'
-    #' @return `NULL`, invisibly.
+    #'  - `"fragments"`: - vacuum all fragments (default)
+    #'  - `"commits"`: - vacuum all commit files
+    #'  - `"fragment_meta"`: - vacuum only fragment metadata footers to a single file
+    #'  - `"array_meta"`: - vacuum array metadata only
     #'
-    vacuum = function(cfg = NULL, start_time, end_time, ctx = NULL){
+    #' @return `TRUE`, invisibly.
+    #'
+    vacuum = function(cfg = NULL,
+                      start_time,
+                      end_time,
+                      mode = c("fragments",
+                               "commits",
+                               "fragment_meta",
+                               "array_meta")){
 
-      if (is.null(ctx)) {
-        ctx <- self$ctx
+      mode <- match.arg(mode)
+
+      if (is.null(cfg)) {
+        cfg <- tiledb::config(self$ctx)
       }
 
-      tiledb::array_vacuum(self$uri,
-                           cfg = cfg,
-                           start_time,
-                           end_time,
-                           ctx = ctx)
+      if (!inherits(cfg, "tiledb_config")) {
+        cli::cli_abort("{.emph '{deparse(substitute(cfg))}'} should be of class {.cls tiledb_config}.", call = NULL)
+      }
+
+      cfg["sm.vacuum.mode"] <- mode
+
+      if (!is.null(start_time)) {
+        if (!inherits(start_time, "POSIXt")) {
+          cli::cli_abort("{.emph '{deparse(substitute(start_time))}'} should be of class {.cls POSIXt}.", call = NULL)
+        }
+        start_time_int64 <- as.character(bit64::as.integer64(as.numeric(start_time) * 1000))
+        cfg["sm.vacuum.timestamp_start"] <- start_time_int64
+      }
+
+      if (!is.null(end_time)) {
+
+        if (!inherits(end_time, "POSIXt")) {
+          cli::cli_abort("{.emph '{deparse(substitute(end_time))}'} should be of class {.cls POSIXt}.", call = NULL)
+        }
+        end_time_int64 <- as.character(bit64::as.integer64(as.numeric(end_time) * 1000))
+        cfg["sm.vacuum.timestamp_end"] <- end_time_int64
+      }
+
+      tiledb::array_vacuum(self$uri, cfg = cfg)
+
       # reset fragment object
       private$.fragments_object <- NULL
 
-      invisible(NULL)
+      invisible(TRUE)
+
+    },
+    #' @description Asynchronously clean up consolidated fragments and array metadata.
+    #'
+    #' The clean up will run in a separate R process in a clean environment.
+    #'
+    #' **Note this function requires the [mirai](https://cran.r-project.org/web/packages/mirai/index.html) package**.
+    #'
+    #' @param cfg A configuration object [tiledb::tiledb_config()] to set parameters
+    #'  for the vacuum process. When `NULL` (default) the configuration parameters will
+    #'  be retrieve from object context.
+    #' @param start_time,end_time Optional time stamp values. A date time objects
+    #' of class `POSIXlt`. If not provided, the default values from configuration
+    #' object will be used.
+    #' @param mode The vacuum mode, one of the following:
+    #'
+    #'  - `"fragments"`: - vacuum all fragments (default)
+    #'  - `"commits"`: - vacuum all commit files
+    #'  - `"fragment_meta"`: - vacuum only fragment metadata footers to a single file
+    #'  - `"array_meta"`: - vacuum array metadata only
+    #'
+    #' @return This function will return a [mirai::mirai()] object immediately. When it is
+    #' resolved, it returns `TRUE` indicating vacuum success.
+    #'
+    vacuum_async = function(cfg = NULL,
+                            start_time = NULL,
+                            end_time = NULL,
+                            mode = c("fragments",
+                                     "commits",
+                                     "fragment_meta",
+                                     "array_meta")) {
+
+      if (!requireNamespace("mirai", quietly = TRUE)) {
+        cli::cli_abort("{.emph 'vacuum_async'} requires {.pkg '{.href [mirai](https://cran.r-project.org/web/packages/mirai/index.html)}'} package.", call = NULL)
+      }
+
+      mode <- match.arg(mode)
+
+      if (is.null(cfg)) {
+        cfg <- tiledb::config(self$ctx)
+      }
+
+      cfg["sm.vacuum.mode"] <- mode
+
+      if (!is.null(start_time)) {
+        if (!inherits(start_time, "POSIXt")) {
+          cli::cli_abort("{.emph '{deparse(substitute(start_time))}'} should be of class {.cls POSIXt}.", call = NULL)
+        }
+        start_time_int64 <- as.character(bit64::as.integer64(as.numeric(start_time) * 1000))
+        cfg["sm.vacuum.timestamp_start"] <- start_time_int64
+      }
+
+      if (!is.null(end_time)) {
+
+        if (!inherits(end_time, "POSIXt")) {
+          cli::cli_abort("{.emph '{deparse(substitute(end_time))}'} should be of class {.cls POSIXt}.", call = NULL)
+        }
+        end_time_int64 <- as.character(bit64::as.integer64(as.numeric(end_time) * 1000))
+        cfg["sm.vacuum.timestamp_end"] <- end_time_int64
+      }
+
+
+      # mirai namespace compute profile
+      ns <- "r6.tiledb"
+
+      # Start non-dispatcher background process if not already started
+      if (is.null(mirai::nextget("n", .compute = ns))) {
+        mirai::daemons(1L, dispatcher = FALSE, autoexit = tools::SIGINT, .compute = ns)
+      }
+
+      m <- mirai::mirai({
+
+        # * Note: We cannot serialise external pointers without custom serialisers,
+        #   so we setup config / context in the daemon and pass the config parameters
+        #   from R session
+        cfg <- tiledb::tiledb_config(config_params)
+
+        ctx <- tiledb::tiledb_ctx(cfg)
+
+        tiledb::array_vacuum(uri = uri, ctx = ctx)
+
+        return(TRUE)
+
+      }, uri = self$uri, config_params = as.vector(cfg), .compute = ns)
+
+      # reset fragment object
+      private$.fragments_object <- NULL
+
+      m
     },
     #' @description The number of fragments.
     #'
-    finfo_num = function() {
-      self$fragments_object$count()
+    frag_num = function() {
+      self$fragments_object$frag_num()
     },
-    #' @description Returns a `data.frame` with consolidated fragments to be
-    #' removed.
+    #' @description Consolidated fragments to be removed.
     #'
-    #' @param trunc_uri `TRUE` to return the truncated uri path of fragments.
+    #' @param trunc_uri `TRUE` to truncate uri path.
     #'
-    finfo_to_vacuum = function(trunc_uri = TRUE) {
+    #' @return An object of class `data.frame` with four columns:
+    #'
+    #'  - `Fragment`: the fragment index (starts at 1)
+    #'  - `start_timestamp`: fragment's start time stamp
+    #'  - `end_timestamp`: fragment's end time stamp
+    #'  - `URI`: fragment's truncated uri path (fragment name) when
+    #'  `trunc_uri = TRUE` (default), otherwise the full uri path
+    #'
+    #'  Note that return object will be of class `data.table` if the
+    #'  library is found in your system.
+    #'
+    frag_to_vacuum = function(trunc_uri = TRUE) {
 
       self$fragments_object$to_vacuum(trunc_uri)
     },
     #' @description Dump to console the commit fragments.
     #'
-    finfo_dump = function() {
+    frag_dump = function() {
       self$fragments_object$dump()
     },
-    #' @description Fragments uri and time stamps.
+    #' @description Return a `data.frame` with  time stamps and
+    #' fragments uris.
+    #'
     #' @param trunc_uri `TRUE` to truncate uri path.
-    finfo_uris = function(trunc_uri = TRUE){
+    #'
+    #' @return An object of class `data.frame` with four columns:
+    #'
+    #'  - `Fragment`: the fragment index (start at 1)
+    #'  - `start_timestamp`: start time-stamp of when fragment was written
+    #'  - `end_timestamp`: end time-stamp of when fragment was written
+    #'  - `URI`: fragment's truncated uri path (fragment name) when
+    #'  `trunc_uri = TRUE` (default), otherwise the full uri path
+    #'
+    #'  Note that return object will be of class `data.table` if the
+    #'  library is found in your system.
+    #'
+    frag_uris = function(trunc_uri = TRUE){
       self$fragments_object$finfo_uris(trunc_uri)
 
     },
