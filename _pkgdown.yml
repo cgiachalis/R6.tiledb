@@ -1,7 +1,6 @@
 template:
   bootstrap: 5
   bootswatch: zephyr
-  math-rendering: mathjax
   bslib:
     base_font: {google: "Roboto"}
     heading_font: {google: "Rubik"}
