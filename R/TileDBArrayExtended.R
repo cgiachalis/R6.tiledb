@@ -77,8 +77,11 @@ TileDBArrayExtended <- R6::R6Class(
     #'
     enum_levels = function(x) {
 
+      private$check_scalar_character(x)
+
       if (isFALSE(x %in% self$attrnames())) {
-        cli::cli_abort( "{.emph '{deparse(substitute(x))}'} is not attribute.", call = NULL)}
+        cli::cli_abort("{.emph '{deparse(substitute(x))}'} is not attribute.", call = NULL)
+      }
 
       .attrib <- self$attributes()[[x]]
 
@@ -405,6 +408,45 @@ TileDBArrayExtended <- R6::R6Class(
 
       m
     },
+    #' @description Remove an attribute from array.
+    #'
+    #' @param x An attribute name.
+    #'
+    #' @return The object, invisibly.
+    #'
+    drop_attribute = function(x) {
+
+      private$check_scalar_character(x)
+
+      if (isFALSE(x %in% self$attrnames())) {
+        cli::cli_abort("{.emph '{deparse(substitute(x))}'} is not attribute.", call = NULL)
+      }
+
+      ase <- tiledb::tiledb_array_schema_evolution()
+      ase <- tiledb::tiledb_array_schema_evolution_drop_attribute(ase, x)
+      ase <- tiledb::tiledb_array_schema_evolution_array_evolve(ase, self$uri)
+
+      invisible(self)
+    },
+
+    # rework: populate data
+    # add_attribute = function(attr, enums = NULL) {
+    #
+    #   # STOP IF NOT attribute
+    #
+    #   ase <- tiledb::tiledb_array_schema_evolution()
+    #
+    #   if (!is.null(enums)) {
+    #     ase <- tiledb::tiledb_array_schema_evolution_add_enumeration(ase, attr_name, enums)
+    #     attr <- tiledb::tiledb_attribute_set_enumeration_name(attr, attr_name)
+    #
+    #   }
+    #
+    #   ase <- tiledb::tiledb_array_schema_evolution_add_attribute(ase, attr)
+    #
+    #   tiledb::tiledb_array_schema_evolution_array_evolve(ase, self$uri)
+    # }
+
     #' @description The number of fragments.
     #'
     frag_num = function() {
@@ -451,7 +493,8 @@ TileDBArrayExtended <- R6::R6Class(
     #'  library is found in your system.
     #'
     frag_uris = function(trunc_uri = TRUE){
-      self$fragments_object$finfo_uris(trunc_uri)
+
+      self$fragments_object$frag_uris(trunc_uri)
 
     },
     #' @description Upgrade the array to the latest format version.
@@ -459,6 +502,7 @@ TileDBArrayExtended <- R6::R6Class(
     #' @param cfg A configuration object [tiledb::tiledb_config()].
     #' @param ctx Optional [tiledb::tiledb_ctx()] object. By default, object's context
     #'  is used.
+    #'
     schema_upgrade = function(cfg = NULL, ctx = NULL) {
       if (is.null(ctx)) {
         ctx <- self$ctx

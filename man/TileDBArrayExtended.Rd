@@ -53,6 +53,7 @@ array.}
 \item \href{#method-TileDBArrayExtended-consolidate_async}{\code{TileDBArrayExtended$consolidate_async()}}
 \item \href{#method-TileDBArrayExtended-vacuum}{\code{TileDBArrayExtended$vacuum()}}
 \item \href{#method-TileDBArrayExtended-vacuum_async}{\code{TileDBArrayExtended$vacuum_async()}}
+\item \href{#method-TileDBArrayExtended-drop_attribute}{\code{TileDBArrayExtended$drop_attribute()}}
 \item \href{#method-TileDBArrayExtended-frag_num}{\code{TileDBArrayExtended$frag_num()}}
 \item \href{#method-TileDBArrayExtended-frag_to_vacuum}{\code{TileDBArrayExtended$frag_to_vacuum()}}
 \item \href{#method-TileDBArrayExtended-frag_dump}{\code{TileDBArrayExtended$frag_dump()}}
@@ -327,6 +328,26 @@ object will be used.}
 \subsection{Returns}{
 This function will return a \code{\link[mirai:mirai]{mirai::mirai()}} object immediately. When it is
 resolved, it returns \code{TRUE} indicating vacuum success.
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-TileDBArrayExtended-drop_attribute"></a>}}
+\if{latex}{\out{\hypertarget{method-TileDBArrayExtended-drop_attribute}{}}}
+\subsection{Method \code{drop_attribute()}}{
+Remove an attribute from array.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{TileDBArrayExtended$drop_attribute(x)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{x}}{An attribute name.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+The object, invisibly.
 }
 }
 \if{html}{\out{<hr>}}
