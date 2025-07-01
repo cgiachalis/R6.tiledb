@@ -451,8 +451,11 @@ test_that("'TileDBGroup' class tests metatadata", {
 
   group$create() # mode is WRITE now
 
+  expect_snapshot(group$get_metadata())
+
   md <- list(a = "a", b = 100)
   group$set_metadata(md)
+  expect_snapshot(group$get_metadata())
 
   # Read all metadata while the group is still open for write
   group$reopen("WRITE")
@@ -468,6 +471,11 @@ test_that("'TileDBGroup' class tests metatadata", {
   group$open(mode = "READ")
   readmd <- group$get_metadata()
   expect_equal(readmd, md, ignore_attr = TRUE)
+
+  group$reopen("WRITE")
+  new_md <- setNames(as.list(1:20), paste0(letters[1:20], "v"))
+  group$set_metadata(new_md)
+  expect_snapshot(group$get_metadata())
 
   group$close()
 })

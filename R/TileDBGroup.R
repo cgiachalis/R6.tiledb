@@ -773,6 +773,11 @@ TileDBGroup <- R6::R6Class(
       # NOTE: Strip off key attribute; see https://github.com/TileDB-Inc/TileDB-R/issues/775
       .m <- lapply(tiledb::tiledb_group_get_all_metadata(group_handle),
                    function(.x) {attr(.x, "key") <- NULL; .x})
+
+      class(.m) <- c("tdb_metadata", "list")
+      attr(.m, "R6.class") <- self$class()
+      attr(.m, "object_type") <- self$object_type
+
       private$.metadata_cache <- .m
 
       if (private$.mode == "WRITE") {
@@ -785,7 +790,11 @@ TileDBGroup <- R6::R6Class(
     add_cached_metadata = function(key, value) {
 
       if (is.null(private$.metadata_cache)) {
-        private$.metadata_cache <- list()
+        .m <- list()
+        class(.m) <- c("tdb_metadata", "list")
+        attr(.m, "R6.class") <- self$class()
+        attr(.m, "object_type") <- self$object_type
+        private$.metadata_cache <- .m
       }
 
       private$.metadata_cache[[key]] <- value

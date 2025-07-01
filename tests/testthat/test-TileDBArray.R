@@ -85,8 +85,9 @@ test_that("'TileDBArray' class works as expected", {
   # metadata
 
   empty_metadata <- arrObj$get_metadata()
-  expect_s3_class(empty_metadata, "tiledb_metadata")
+  expect_s3_class(empty_metadata, "tdb_metadata")
   expect_equal(length(empty_metadata), 0L)
+  expect_snapshot(arrObj$get_metadata())
 
   md <- list(a = "Hi", b = "good", c = 10)
   arrObj$reopen(mode = "WRITE" )
@@ -94,6 +95,7 @@ test_that("'TileDBArray' class works as expected", {
 
   md <- list(d = "Boo", e = 3)
   arrObj$set_metadata(md)
+  expect_snapshot(arrObj$get_metadata())
   arrObj$close()
 
   md <- list(1)

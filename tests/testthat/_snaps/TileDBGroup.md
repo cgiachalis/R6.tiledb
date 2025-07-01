@@ -86,3 +86,52 @@
     Message
       i R6Class: <TileDBGroup> object does not exist.
 
+# 'TileDBGroup' class tests metatadata
+
+    Code
+      group$get_metadata()
+    Output
+      TileDB GROUP: <R6 Class: TileDBGroup>
+      Metadata: <key,value>
+      
+
+---
+
+    Code
+      group$get_metadata()
+    Output
+      TileDB GROUP: <R6 Class: TileDBGroup>
+      Metadata: <key,value>
+       * a: 'a'
+       * b: 100
+      
+
+---
+
+    Code
+      group$get_metadata()
+    Output
+      TileDB GROUP: <R6 Class: TileDBGroup>
+      Metadata: <key,value>
+       * a: 'a'
+       * b: 100
+       * av: 1
+       * bv: 2
+       * cv: 3
+       * dv: 4
+       * ev: 5
+       * fv: 6
+       * gv: 7
+       * hv: 8
+       * iv: 9
+       * jv: 10
+       * kv: 11
+       * lv: 12
+       * mv: 13
+       * nv: 14
+       * ov: 15
+       * pv: 16
+       * qv: 17
+       * rv: 18
+       ... and 2 more metadata
+

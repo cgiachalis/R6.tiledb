@@ -387,8 +387,13 @@ TileDBArray <- R6::R6Class(
 
       }
 
-      private$.metadata_cache <- tiledb::tiledb_get_all_metadata(array_handle)
+      .m  <- tiledb::tiledb_get_all_metadata(array_handle)
 
+      class(.m) <- c("tdb_metadata", "list")
+      attr(.m, "R6.class") <- self$class()
+      attr(.m, "object_type") <- self$object_type
+
+      private$.metadata_cache <- .m
 
       if (private$.mode == "WRITE") {
        tiledb::tiledb_array_close(array_handle)
@@ -401,7 +406,11 @@ TileDBArray <- R6::R6Class(
 
       if (is.null(private$.metadata_cache)) {
 
-        private$.metadata_cache <- list()
+        .m <- list()
+        class(.m) <- c("tdb_metadata", "list")
+        attr(.m, "R6.class") <- self$class()
+        attr(.m, "object_type") <- self$object_type
+        private$.metadata_cache <- .m
 
       }
 
