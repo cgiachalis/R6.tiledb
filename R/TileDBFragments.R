@@ -126,8 +126,13 @@ TileDBFragments <- R6::R6Class(
       idx <- tiledb::tiledb_fragment_info_get_to_vacuum_num(finfo) - 1
 
       if (idx < 0) {
-        cli::cli_alert_info("No fragments found to vacuum.")
-        return(invisible(NULL))
+
+          out <-  data.frame(Fragment = character(),
+                             start_timestamp = numeric(),
+                             end_timestamp = numeric(),
+                             URI = character())
+          return(out)
+
       }
 
       lst <- lapply(0:idx, function(.x) {
