@@ -183,8 +183,9 @@ A boolean. \code{TRUE} indicating the array has factor columns and
 Consolidates the fragments of the array into
 a single fragment.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{TileDBArrayExtended$consolidate(cfg = NULL, start_time, end_time,
-  mode = c("fragments", "commits", "fragment_meta", "array_meta"))}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{TileDBArrayExtended$consolidate(cfg = NULL, start_time = NULL,
+  end_time = NULL, mode = c("fragments", "commits", "fragment_meta",
+  "array_meta"))}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -260,8 +261,9 @@ resolved, it returns \code{TRUE} indicating consolidation success.
 \subsection{Method \code{vacuum()}}{
 Clean up consolidated fragments and array metadata.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{TileDBArrayExtended$vacuum(cfg = NULL, start_time, end_time,
-  mode = c("fragments", "commits", "fragment_meta", "array_meta"))}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{TileDBArrayExtended$vacuum(cfg = NULL, start_time = NULL,
+  end_time = NULL, mode = c("fragments", "commits", "fragment_meta",
+  "array_meta"))}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{

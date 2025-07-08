@@ -126,8 +126,8 @@ TileDBArrayExtended <- R6::R6Class(
     #' @return `TRUE`, invisibly.
     #'
     consolidate = function(cfg = NULL,
-                           start_time,
-                           end_time,
+                           start_time = NULL,
+                           end_time = NULL,
                            mode = c("fragments",
                                     "commits",
                                     "fragment_meta",
@@ -276,8 +276,8 @@ TileDBArrayExtended <- R6::R6Class(
     #' @return `TRUE`, invisibly.
     #'
     vacuum = function(cfg = NULL,
-                      start_time,
-                      end_time,
+                      start_time = NULL,
+                      end_time = NULL,
                       mode = c("fragments",
                                "commits",
                                "fragment_meta",
