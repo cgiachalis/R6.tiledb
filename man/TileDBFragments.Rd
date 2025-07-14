@@ -103,7 +103,7 @@ An object of class \code{data.frame} with four columns:
 }
 
 Note that return object will be of class \code{data.table} if the
-library is found in your system.
+package is found in your system.
 }
 }
 \if{html}{\out{<hr>}}
@@ -133,7 +133,7 @@ An object of class \code{data.frame} with four columns:
 }
 
 Note that return object will be of class \code{data.table} if the
-library is found in your system.
+package is found in your system.
 }
 }
 \if{html}{\out{<hr>}}

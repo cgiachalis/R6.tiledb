@@ -1,6 +1,8 @@
 
 # TODO: add debug statements
 # TODO: UNIT TESTING
+# TODO: list delete fragments
+# TODO: revert_deleted_frags
 
 #' @title Generate a `TileDBFragments` Object
 #'
@@ -64,7 +66,7 @@ TileDBFragments <- R6::R6Class(
     #'  `trunc_uri = TRUE` (default), otherwise the full uri path
     #'
     #'  Note that return object will be of class `data.table` if the
-    #'  library is found in your system.
+    #'  package is found in your system.
     #'
     frag_uris = function(trunc_uri = TRUE) {
 
@@ -90,7 +92,7 @@ TileDBFragments <- R6::R6Class(
         tsp <- sapply(tsp, as.POSIXct, tz = "UTC", simplify = FALSE)
         data.frame(Fragment = paste0("#",.x + 1),
                    start_timestamp = tsp[[1]],
-                   end_timestamp = tsp[[1]],
+                   end_timestamp = tsp[[2]],
                    URI = ifelse(trunc_uri, sub(".*__fragments/", "", uri) , uri))
 
       })
@@ -117,7 +119,7 @@ TileDBFragments <- R6::R6Class(
     #'  `trunc_uri = TRUE` (default), otherwise the full uri path
     #'
     #'  Note that return object will be of class `data.table` if the
-    #'  library is found in your system.
+    #'  package is found in your system.
     #'
     to_vacuum = function(trunc_uri = TRUE) {
 
@@ -300,7 +302,7 @@ TileDBFragments <- R6::R6Class(
   ),
 
   private = list(
-    # TileDBURI object
+    # TileDBURI object or string?
     tiledb_uri = NULL,
 
     .tiledb_ctx = NULL,
