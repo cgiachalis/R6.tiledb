@@ -88,7 +88,7 @@ TileDBObject <- R6::R6Class(
     #'
     #' @param tiledb_timestamp Optional Datetime (POSIXct) with TileDB timestamp.
     #'
-    #' @return Invisibly returns `self` opened in `mode`.
+    #' @return The object, invisibly.
     #'
     reopen = function(mode = c('READ', 'WRITE'), tiledb_timestamp = NULL) {
 

@@ -126,7 +126,7 @@ Close and reopen the TileDB object in a new mode.
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-Invisibly returns \code{self} opened in \code{mode}.
+The object, invisibly.
 }
 }
 \if{html}{\out{<hr>}}
@@ -217,8 +217,8 @@ object will be used.}
 \if{html}{\out{<a id="method-TileDBArrayExtended-consolidate_async"></a>}}
 \if{latex}{\out{\hypertarget{method-TileDBArrayExtended-consolidate_async}{}}}
 \subsection{Method \code{consolidate_async()}}{
-Consolidate fragments of the array into
-a single fragment asynchronously.
+Consolidate fragments of the array into a single fragment
+asynchronously.
 
 The consolidation will run in a separate R process in a clean environment.
 
@@ -389,7 +389,7 @@ An object of class \code{data.frame} with four columns:
 }
 
 Note that return object will be of class \code{data.table} if the
-library is found in your system.
+package is found in your system.
 }
 }
 \if{html}{\out{<hr>}}
@@ -430,7 +430,7 @@ An object of class \code{data.frame} with four columns:
 }
 
 Note that return object will be of class \code{data.table} if the
-library is found in your system.
+package is found in your system.
 }
 }
 \if{html}{\out{<hr>}}

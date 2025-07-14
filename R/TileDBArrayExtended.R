@@ -50,7 +50,7 @@ TileDBArrayExtended <- R6::R6Class(
     #'
     #' @param tiledb_timestamp Optional Datetime (POSIXct) with TileDB timestamp.
     #'
-    #' @return Invisibly returns `self` opened in `mode`.
+    #' @return The object, invisibly.
     #'
     reopen = function(mode = c('READ', 'WRITE'), tiledb_timestamp = NULL) {
 
@@ -169,8 +169,8 @@ TileDBArrayExtended <- R6::R6Class(
 
       invisible(TRUE)
     },
-    #' @description Consolidate fragments of the array into
-    #' a single fragment asynchronously.
+    #' @description Consolidate fragments of the array into a single fragment
+    #'  asynchronously.
     #'
     #' The consolidation will run in a separate R process in a clean environment.
     #'
@@ -379,7 +379,6 @@ TileDBArrayExtended <- R6::R6Class(
         cfg["sm.vacuum.timestamp_end"] <- end_time_int64
       }
 
-
       # mirai namespace compute profile
       ns <- "r6.tiledb"
 
@@ -465,7 +464,7 @@ TileDBArrayExtended <- R6::R6Class(
     #'  `trunc_uri = TRUE` (default), otherwise the full uri path
     #'
     #'  Note that return object will be of class `data.table` if the
-    #'  library is found in your system.
+    #'  package is found in your system.
     #'
     frag_to_vacuum = function(trunc_uri = TRUE) {
 
@@ -490,7 +489,7 @@ TileDBArrayExtended <- R6::R6Class(
     #'  `trunc_uri = TRUE` (default), otherwise the full uri path
     #'
     #'  Note that return object will be of class `data.table` if the
-    #'  library is found in your system.
+    #'  package is found in your system.
     #'
     frag_uris = function(trunc_uri = TRUE){
 
