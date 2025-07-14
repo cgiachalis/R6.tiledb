@@ -1,4 +1,4 @@
-#' @title Generate a `TileDBArrayExtended` Object
+#' @title Generate a `TileDBArrayExp` Object
 #'
 #' @description
 #' This class inherits from [TileDBArray] and offers additional methods to
@@ -7,7 +7,7 @@
 #' **TODO** add section with methods: enum, consol/vac, fragment
 #'
 #' ## Initialization
-#' A new `TileDBArrayExtended` instance is initialized using the `new()` method.
+#' A new `TileDBArrayExp` instance is initialized using the `new()` method.
 #' Alternatively use [tdb_array()] to create an instance and open the array at
 #' `READ` mode.
 #'
@@ -15,20 +15,20 @@
 #'  # uri path
 #'  uri <- tempdir()
 #'  # new instance
-#'  obj <- TileDBArrayExtended$new(uri = uri)
+#'  obj <- TileDBArrayExp$new(uri = uri)
 #'  # does array exist at this uri
 #'  obj$exists() # FALSE
 #'
 #'  unlink(uri)
 #' ```
-#' @returns An object of class `TileDBArrayExtented`.
+#' @returns An object of class `TileDBArrayExp`.
 #'
 #' @export
-TileDBArrayExtended <- R6::R6Class(
-  classname = "TileDBArrayExtended",
+TileDBArrayExp <- R6::R6Class(
+  classname = "TileDBArrayExp",
   inherit = TileDBArray,
   public = list(
-    #' @description Create a new `TileDBArrayExtended` instance.
+    #' @description Create a new `TileDBArrayExp` instance.
     #'
     #' @param uri URI path for the `TileDB` Array.
     #' @param ctx Optional [tiledb::tiledb_ctx()] object.
