@@ -118,7 +118,7 @@ TileDBArrayExp <- R6::R6Class(
     #'  - `"fragment_meta"`: - consolidate only fragment metadata footers to a single file
     #'  - `"array_meta"`: - consolidate array metadata only
     #' @param start_time,end_time Optional time stamp values. A date time objects
-    #' of class `POSIXlt`. If not provided, the default values from configuration
+    #' of class `POSIXt`. If not provided, the default values from configuration
     #' object will be used.
     #'
     #' @return `TRUE`, invisibly.
@@ -184,7 +184,7 @@ TileDBArrayExp <- R6::R6Class(
     #'  - `"fragment_meta"`: - consolidate only fragment metadata footers to a single file
     #'  - `"array_meta"`: - consolidate array metadata only
     #' @param start_time,end_time Optional time stamp values. A date time objects
-    #' of class `POSIXlt`. If not provided, the default values from configuration
+    #' of class `POSIXt`. If not provided, the default values from configuration
     #' object will be used.
     #'
     #' @return This function will return a [mirai::mirai()] object immediately. When it is
@@ -262,7 +262,7 @@ TileDBArrayExp <- R6::R6Class(
     #'  for the vacuum. When `NULL` (default) the configuration parameters
     #'  will be retrieve from object context.
     #' @param start_time,end_time Optional time stamp values. A date time objects
-    #' of class `POSIXlt`. If not provided, the default values from configuration
+    #' of class `POSIXt`. If not provided, the default values from configuration
     #' object will be used.
     #' @param mode The vacuum mode, one of the following:
     #'
@@ -335,7 +335,7 @@ TileDBArrayExp <- R6::R6Class(
     #'  - `"array_meta"`: - vacuum array metadata only
     #'
     #' @param start_time,end_time Optional time stamp values. A date time objects
-    #' of class `POSIXlt`. If not provided, the default values from configuration
+    #' of class `POSIXt`. If not provided, the default values from configuration
     #' object will be used.
     #'
     #' @return This function will return a [mirai::mirai()] object immediately. When it is
@@ -418,7 +418,7 @@ TileDBArrayExp <- R6::R6Class(
     #'  - `"fragment_meta"`: - consolidate only fragment metadata footers to a single file
     #'  - `"array_meta"`: - consolidate array metadata only
     #' @param start_time,end_time Optional time stamp values. A date time objects
-    #' of class `POSIXlt`. If not provided, the default values from configuration
+    #' of class `POSIXt`. If not provided, the default values from configuration
     #' object will be used.
     #'
     #' @return `TRUE`, invisibly.
@@ -489,7 +489,7 @@ TileDBArrayExp <- R6::R6Class(
     #'  - `"fragment_meta"`: - consolidate only fragment metadata footers to a single file
     #'  - `"array_meta"`: - consolidate array metadata only
     #' @param start_time,end_time Optional time stamp values. A date time objects
-    #' of class `POSIXlt`. If not provided, the default values from configuration
+    #' of class `POSIXt`. If not provided, the default values from configuration
     #' object will be used.
     #'
     #' @return This function will return a [mirai::mirai()] object immediately. When it is

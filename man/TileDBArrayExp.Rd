@@ -202,7 +202,7 @@ be retrieve from object context.}
 }}
 
 \item{\code{start_time, end_time}}{Optional time stamp values. A date time objects
-of class \code{POSIXlt}. If not provided, the default values from configuration
+of class \code{POSIXt}. If not provided, the default values from configuration
 object will be used.}
 }
 \if{html}{\out{</div>}}
@@ -243,7 +243,7 @@ be retrieve from object context.}
 }}
 
 \item{\code{start_time, end_time}}{Optional time stamp values. A date time objects
-of class \code{POSIXlt}. If not provided, the default values from configuration
+of class \code{POSIXt}. If not provided, the default values from configuration
 object will be used.}
 }
 \if{html}{\out{</div>}}
@@ -279,7 +279,7 @@ will be retrieve from object context.}
 }}
 
 \item{\code{start_time, end_time}}{Optional time stamp values. A date time objects
-of class \code{POSIXlt}. If not provided, the default values from configuration
+of class \code{POSIXt}. If not provided, the default values from configuration
 object will be used.}
 }
 \if{html}{\out{</div>}}
@@ -318,7 +318,7 @@ be retrieve from object context.}
 }}
 
 \item{\code{start_time, end_time}}{Optional time stamp values. A date time objects
-of class \code{POSIXlt}. If not provided, the default values from configuration
+of class \code{POSIXt}. If not provided, the default values from configuration
 object will be used.}
 }
 \if{html}{\out{</div>}}
@@ -355,7 +355,7 @@ be retrieve from object context.}
 }}
 
 \item{\code{start_time, end_time}}{Optional time stamp values. A date time objects
-of class \code{POSIXlt}. If not provided, the default values from configuration
+of class \code{POSIXt}. If not provided, the default values from configuration
 object will be used.}
 }
 \if{html}{\out{</div>}}
@@ -395,7 +395,7 @@ be retrieve from object context.}
 }}
 
 \item{\code{start_time, end_time}}{Optional time stamp values. A date time objects
-of class \code{POSIXlt}. If not provided, the default values from configuration
+of class \code{POSIXt}. If not provided, the default values from configuration
 object will be used.}
 }
 \if{html}{\out{</div>}}
