@@ -106,6 +106,16 @@ TileDBFragments <- R6::R6Class(
       out
 
     },
+    #' @description Refresh the TileDB Fragment Info object.
+    #'
+    #' @return The object, invisibly.
+    #'
+    reload_finfo = function() {
+
+      private$.finfo <- tiledb::tiledb_fragment_info(self$uri)
+
+      invisible(self)
+    },
     #' @description Consolidated fragments to be removed.
     #'
     #' @param trunc_uri `TRUE` to truncate uri path.
@@ -194,7 +204,7 @@ TileDBFragments <- R6::R6Class(
                                             ts_start = timestamp_range[1],
                                             ts_end = timestamp_range[2],
                                             ctx = private$.tiledb_ctx)
-      self$reload_finfo
+      self$reload_finfo()
 
       invisible(TRUE)
 
@@ -219,7 +229,7 @@ TileDBFragments <- R6::R6Class(
       tiledb::tiledb_array_delete_fragments_list(arr,
                                                  fragments = frag_uris,
                                                  ctx = private$.tiledb_ctx)
-      self$reload_finfo
+      self$reload_finfo()
 
       invisible(TRUE)
 
@@ -258,7 +268,7 @@ TileDBFragments <- R6::R6Class(
       tiledb::tiledb_array_delete_fragments_list(arr,
                                                  fragments = old_frags,
                                                  ctx = private$.tiledb_ctx)
-      self$reload_finfo
+      self$reload_finfo()
 
       invisible(TRUE)
 
@@ -288,16 +298,6 @@ TileDBFragments <- R6::R6Class(
       }
       private$finfo()
 
-    },
-    #' @field reload_finfo Refresh the TileDB Fragment Info object.
-    #'
-    reload_finfo = function(value) {
-      if (!missing(value)) {
-        .emit_read_only_error("reload_finfo")
-      }
-      private$.finfo <- tiledb::tiledb_fragment_info(self$uri)
-
-      invisible(NULL)
     }
   ),
 

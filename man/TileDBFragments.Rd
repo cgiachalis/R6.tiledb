@@ -15,8 +15,6 @@ An R6 class for handling \code{TileDB} Fragments.
 \item{\code{uri}}{The URI of the TileDB object.}
 
 \item{\code{fragment_info}}{TileDB Fragment Info object.}
-
-\item{\code{reload_finfo}}{Refresh the TileDB Fragment Info object.}
 }
 \if{html}{\out{</div>}}
 }
@@ -27,6 +25,7 @@ An R6 class for handling \code{TileDB} Fragments.
 \item \href{#method-TileDBFragments-class}{\code{TileDBFragments$class()}}
 \item \href{#method-TileDBFragments-frag_num}{\code{TileDBFragments$frag_num()}}
 \item \href{#method-TileDBFragments-frag_uris}{\code{TileDBFragments$frag_uris()}}
+\item \href{#method-TileDBFragments-reload_finfo}{\code{TileDBFragments$reload_finfo()}}
 \item \href{#method-TileDBFragments-to_vacuum}{\code{TileDBFragments$to_vacuum()}}
 \item \href{#method-TileDBFragments-to_vacuum_num}{\code{TileDBFragments$to_vacuum_num()}}
 \item \href{#method-TileDBFragments-delete_fragment_range}{\code{TileDBFragments$delete_fragment_range()}}
@@ -104,6 +103,19 @@ An object of class \code{data.frame} with four columns:
 
 Note that return object will be of class \code{data.table} if the
 package is found in your system.
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-TileDBFragments-reload_finfo"></a>}}
+\if{latex}{\out{\hypertarget{method-TileDBFragments-reload_finfo}{}}}
+\subsection{Method \code{reload_finfo()}}{
+Refresh the TileDB Fragment Info object.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{TileDBFragments$reload_finfo()}\if{html}{\out{</div>}}
+}
+
+\subsection{Returns}{
+The object, invisibly.
 }
 }
 \if{html}{\out{<hr>}}
