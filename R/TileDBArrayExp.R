@@ -1,4 +1,4 @@
-#' @title Generate a `TileDBArray2` Object
+#' @title Generate a `TileDBArrayExp` Object
 #'
 #' @description
 #' This class inherits from [TileDBArray] and offers additional methods to
@@ -7,7 +7,7 @@
 #' **TODO** add section with methods: enum, consol/vac, fragment
 #'
 #' ## Initialization
-#' A new `TileDBArray2` instance is initialized using the `new()` method.
+#' A new `TileDBArrayExp` instance is initialized using the `new()` method.
 #' Alternatively use [tdb_array()] to create an instance and open the array at
 #' `READ` mode.
 #'
@@ -15,20 +15,20 @@
 #'  # uri path
 #'  uri <- tempdir()
 #'  # new instance
-#'  obj <- TileDBArray2$new(uri = uri)
+#'  obj <- TileDBArrayExp$new(uri = uri)
 #'  # does array exist at this uri
 #'  obj$exists() # FALSE
 #'
 #'  unlink(uri)
 #' ```
-#' @returns An object of class `TileDBArray2`.
+#' @returns An object of class `TileDBArrayExp`.
 #'
 #' @export
-TileDBArray2 <- R6::R6Class(
-  classname = "TileDBArray2",
+TileDBArrayExp <- R6::R6Class(
+  classname = "TileDBArrayExp",
   inherit = TileDBArray,
   public = list(
-    #' @description Create a new `TileDBArray2` instance.
+    #' @description Create a new `TileDBArrayExp` instance.
     #'
     #' @param uri URI path for the `TileDB` Array.
     #' @param ctx Optional [tiledb::tiledb_ctx()] object.
@@ -113,25 +113,25 @@ TileDBArray2 <- R6::R6Class(
     #' @param cfg A configuration object [tiledb::tiledb_config()] to set parameters
     #'  for the consolidation. When `NULL` (default) the configuration parameters will
     #'  be retrieve from object context.
-    #' @param start_time,end_time Optional time stamp values. A date time objects
-    #' of class `POSIXlt`. If not provided, the default values from configuration
-    #' object will be used.
     #' @param mode The consolidate mode, one of the following:
     #'
     #'  - `"fragments"`: - consolidate all fragments (default)
     #'  - `"commits"`: - consolidate all commit files
     #'  - `"fragment_meta"`: - consolidate only fragment metadata footers to a single file
     #'  - `"array_meta"`: - consolidate array metadata only
+    #' @param start_time,end_time Optional time stamp values. A date time objects
+    #' of class `POSIXlt`. If not provided, the default values from configuration
+    #' object will be used.
     #'
     #' @return `TRUE`, invisibly.
     #'
     consolidate = function(cfg = NULL,
-                           start_time = NULL,
-                           end_time = NULL,
                            mode = c("fragments",
                                     "commits",
                                     "fragment_meta",
-                                    "array_meta")) {
+                                    "array_meta"),
+                           start_time = NULL,
+                           end_time = NULL) {
 
       mode <- match.arg(mode)
 
@@ -179,26 +179,26 @@ TileDBArray2 <- R6::R6Class(
     #' @param cfg A configuration object [tiledb::tiledb_config()] to set parameters
     #'  for the consolidation. When `NULL` (default) the configuration parameters will
     #'  be retrieve from object context.
-    #' @param start_time,end_time Optional time stamp values. A date time objects
-    #' of class `POSIXlt`. If not provided, the default values from configuration
-    #' object will be used.
     #' @param mode The consolidate mode, one of the following:
     #'
     #'  - `"fragments"`: - consolidate all fragments (default)
     #'  - `"commits"`: - consolidate all commit files
     #'  - `"fragment_meta"`: - consolidate only fragment metadata footers to a single file
     #'  - `"array_meta"`: - consolidate array metadata only
+    #' @param start_time,end_time Optional time stamp values. A date time objects
+    #' of class `POSIXlt`. If not provided, the default values from configuration
+    #' object will be used.
     #'
     #' @return This function will return a [mirai::mirai()] object immediately. When it is
     #' resolved, it returns `TRUE` indicating consolidation success.
     #'
     consolidate_async = function(cfg = NULL,
-                                 start_time = NULL,
-                                 end_time = NULL,
                                  mode = c("fragments",
                                           "commits",
                                           "fragment_meta",
-                                          "array_meta")) {
+                                          "array_meta"),
+                                 start_time = NULL,
+                                 end_time = NULL) {
 
       if (!requireNamespace("mirai", quietly = TRUE)) {
         cli::cli_abort("{.emph 'consolicate_async'} requires {.pkg '{.href [mirai](https://cran.r-project.org/web/packages/mirai/index.html)}'} package.", call = NULL)
@@ -276,12 +276,12 @@ TileDBArray2 <- R6::R6Class(
     #' @return `TRUE`, invisibly.
     #'
     vacuum = function(cfg = NULL,
-                      start_time = NULL,
-                      end_time = NULL,
                       mode = c("fragments",
                                "commits",
                                "fragment_meta",
-                               "array_meta")){
+                               "array_meta"),
+                      start_time = NULL,
+                      end_time = NULL){
 
       mode <- match.arg(mode)
 
@@ -329,9 +329,6 @@ TileDBArray2 <- R6::R6Class(
     #' @param cfg A configuration object [tiledb::tiledb_config()] to set parameters
     #'  for the vacuum process. When `NULL` (default) the configuration parameters will
     #'  be retrieve from object context.
-    #' @param start_time,end_time Optional time stamp values. A date time objects
-    #' of class `POSIXlt`. If not provided, the default values from configuration
-    #' object will be used.
     #' @param mode The vacuum mode, one of the following:
     #'
     #'  - `"fragments"`: - vacuum all fragments (default)
@@ -339,16 +336,20 @@ TileDBArray2 <- R6::R6Class(
     #'  - `"fragment_meta"`: - vacuum only fragment metadata footers to a single file
     #'  - `"array_meta"`: - vacuum array metadata only
     #'
+    #' @param start_time,end_time Optional time stamp values. A date time objects
+    #' of class `POSIXlt`. If not provided, the default values from configuration
+    #' object will be used.
+    #'
     #' @return This function will return a [mirai::mirai()] object immediately. When it is
     #' resolved, it returns `TRUE` indicating vacuum success.
     #'
     vacuum_async = function(cfg = NULL,
-                            start_time = NULL,
-                            end_time = NULL,
                             mode = c("fragments",
                                      "commits",
                                      "fragment_meta",
-                                     "array_meta")) {
+                                     "array_meta"),
+                            start_time = NULL,
+                            end_time = NULL) {
 
       if (!requireNamespace("mirai", quietly = TRUE)) {
         cli::cli_abort("{.emph 'vacuum_async'} requires {.pkg '{.href [mirai](https://cran.r-project.org/web/packages/mirai/index.html)}'} package.", call = NULL)
@@ -406,6 +407,72 @@ TileDBArray2 <- R6::R6Class(
       private$.fragments_object <- NULL
 
       m
+    },
+    #' @description Consolidates and vacuums the fragments of the array into
+    #'  a single fragment.
+    #'
+    #' @param cfg A configuration object [tiledb::tiledb_config()] to set parameters
+    #'  for the consolidation and vacuum. When `NULL` (default) the configuration parameters will
+    #'  be retrieve from object context.
+    #' @param mode The consolidate and vaccum mode, one of the following:
+    #'
+    #'  - `"fragments"`: - consolidate all fragments (default)
+    #'  - `"commits"`: - consolidate all commit files
+    #'  - `"fragment_meta"`: - consolidate only fragment metadata footers to a single file
+    #'  - `"array_meta"`: - consolidate array metadata only
+    #' @param start_time,end_time Optional time stamp values. A date time objects
+    #' of class `POSIXlt`. If not provided, the default values from configuration
+    #' object will be used.
+    #'
+    #' @return `TRUE`, invisibly.
+    #'
+    consolidate_and_vacuum = function(cfg = NULL,
+                                      mode = c("fragments",
+                                               "commits",
+                                               "fragment_meta",
+                                               "array_meta"),
+                                      start_time = NULL,
+                                      end_time = NULL) {
+
+      mode <- match.arg(mode)
+
+      if (is.null(cfg)) {
+        cfg <- tiledb::config(self$ctx)
+      }
+
+      if (!inherits(cfg, "tiledb_config")) {
+        cli::cli_abort("{.emph '{deparse(substitute(cfg))}'} should be of class {.cls tiledb_config}.", call = NULL)
+      }
+
+      cfg["sm.consolidation.mode"] <- mode
+      cfg["sm.vacuum.mode"] <- mode
+
+      if (!is.null(start_time)) {
+        if (!inherits(start_time, "POSIXt")) {
+          cli::cli_abort("{.emph '{deparse(substitute(start_time))}'} should be of class {.cls POSIXt}.", call = NULL)
+        }
+        start_time_int64 <- as.character(bit64::as.integer64(as.numeric(start_time) * 1000))
+        cfg["sm.consolidation.timestamp_start"] <- start_time_int64
+        cfg["sm.vacuum.timestamp_start"] <- start_time_int64
+      }
+
+      if (!is.null(end_time)) {
+
+        if (!inherits(end_time, "POSIXt")) {
+          cli::cli_abort("{.emph '{deparse(substitute(end_time))}'} should be of class {.cls POSIXt}.", call = NULL)
+        }
+        end_time_int64 <- as.character(bit64::as.integer64(as.numeric(end_time) * 1000))
+        cfg["sm.consolidation.timestamp_end"] <- end_time_int64
+        cfg["sm.vacuum.timestamp_end"] <- start_time_int64
+      }
+
+      tiledb::array_consolidate(self$uri, cfg = cfg)
+      tiledb::array_vacuum(self$uri, cfg = cfg)
+
+      # reset fragment object
+      private$.fragments_object <- NULL
+
+      invisible(TRUE)
     },
     #' @description Remove an attribute from array.
     #'
