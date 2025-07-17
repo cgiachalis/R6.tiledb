@@ -7,10 +7,8 @@
 An object of class \code{TileDBArrayExp}.
 }
 \description{
-This class inherits from \link{TileDBArray} and offers additional methods to
+An enhanced version of \link{TileDBArray} with additional methods to
 operate on the array.
-
-\strong{TODO} add section with methods: enum, consol/vac, fragment
 \subsection{Initialization}{
 
 A new \code{TileDBArrayExp} instance is initialized using the \code{new()} method.
@@ -54,6 +52,7 @@ array.}
 \item \href{#method-TileDBArrayExp-vacuum}{\code{TileDBArrayExp$vacuum()}}
 \item \href{#method-TileDBArrayExp-vacuum_async}{\code{TileDBArrayExp$vacuum_async()}}
 \item \href{#method-TileDBArrayExp-consolidate_and_vacuum}{\code{TileDBArrayExp$consolidate_and_vacuum()}}
+\item \href{#method-TileDBArrayExp-consolidate_and_vacuum_async}{\code{TileDBArrayExp$consolidate_and_vacuum_async()}}
 \item \href{#method-TileDBArrayExp-drop_attribute}{\code{TileDBArrayExp$drop_attribute()}}
 \item \href{#method-TileDBArrayExp-frag_num}{\code{TileDBArrayExp$frag_num()}}
 \item \href{#method-TileDBArrayExp-frag_to_vacuum}{\code{TileDBArrayExp$frag_to_vacuum()}}
@@ -333,8 +332,7 @@ resolved, it returns \code{TRUE} indicating vacuum success.
 \if{html}{\out{<a id="method-TileDBArrayExp-consolidate_and_vacuum"></a>}}
 \if{latex}{\out{\hypertarget{method-TileDBArrayExp-consolidate_and_vacuum}{}}}
 \subsection{Method \code{consolidate_and_vacuum()}}{
-Consolidates and vacuums the fragments of the array into
-a single fragment.
+Consolidates and vacuums the fragments.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{TileDBArrayExp$consolidate_and_vacuum(cfg = NULL, mode = c("fragments",
   "commits", "fragment_meta", "array_meta"), start_time = NULL,
@@ -348,7 +346,7 @@ a single fragment.
 for the consolidation and vacuum. When \code{NULL} (default) the configuration parameters will
 be retrieve from object context.}
 
-\item{\code{mode}}{The consolidate and vaccum mode, one of the following:
+\item{\code{mode}}{The consolidate and vacuum mode, one of the following:
 \itemize{
 \item \code{"fragments"}: - consolidate all fragments (default)
 \item \code{"commits"}: - consolidate all commit files
@@ -364,6 +362,47 @@ object will be used.}
 }
 \subsection{Returns}{
 \code{TRUE}, invisibly.
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-TileDBArrayExp-consolidate_and_vacuum_async"></a>}}
+\if{latex}{\out{\hypertarget{method-TileDBArrayExp-consolidate_and_vacuum_async}{}}}
+\subsection{Method \code{consolidate_and_vacuum_async()}}{
+Consolidate and vacuum fragments asynchronously.
+
+The consolidation and vacuum will run in a separate R process in a clean environment.
+
+\strong{Note this function requires the \href{https://cran.r-project.org/web/packages/mirai/index.html}{mirai} package}.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{TileDBArrayExp$consolidate_and_vacuum_async(cfg = NULL,
+  mode = c("fragments", "commits", "fragment_meta", "array_meta"),
+  start_time = NULL, end_time = NULL)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{cfg}}{A configuration object \code{\link[tiledb:tiledb_config]{tiledb::tiledb_config()}} to set parameters
+for the consolidation and vacuum. When \code{NULL} (default) the configuration parameters will
+be retrieve from object context.}
+
+\item{\code{mode}}{The consolidate and vacuum mode, one of the following:
+\itemize{
+\item \code{"fragments"}: - consolidate all fragments (default)
+\item \code{"commits"}: - consolidate all commit files
+\item \code{"fragment_meta"}: - consolidate only fragment metadata footers to a single file
+\item \code{"array_meta"}: - consolidate array metadata only
+}}
+
+\item{\code{start_time, end_time}}{Optional time stamp values. A date time objects
+of class \code{POSIXlt}. If not provided, the default values from configuration
+object will be used.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+This function will return a \code{\link[mirai:mirai]{mirai::mirai()}} object immediately. When it is
+resolved, it returns \code{TRUE} indicating consolidation success.
 }
 }
 \if{html}{\out{<hr>}}
