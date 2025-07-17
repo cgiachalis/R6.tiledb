@@ -44,9 +44,10 @@ array.}
 \itemize{
 \item \href{#method-TileDBArrayExp-new}{\code{TileDBArrayExp$new()}}
 \item \href{#method-TileDBArrayExp-reopen}{\code{TileDBArrayExp$reopen()}}
+\item \href{#method-TileDBArrayExp-any_enums}{\code{TileDBArrayExp$any_enums()}}
 \item \href{#method-TileDBArrayExp-enum_columns}{\code{TileDBArrayExp$enum_columns()}}
 \item \href{#method-TileDBArrayExp-enum_levels}{\code{TileDBArrayExp$enum_levels()}}
-\item \href{#method-TileDBArrayExp-has_enums}{\code{TileDBArrayExp$has_enums()}}
+\item \href{#method-TileDBArrayExp-has_enumeration}{\code{TileDBArrayExp$has_enumeration()}}
 \item \href{#method-TileDBArrayExp-consolidate}{\code{TileDBArrayExp$consolidate()}}
 \item \href{#method-TileDBArrayExp-consolidate_async}{\code{TileDBArrayExp$consolidate_async()}}
 \item \href{#method-TileDBArrayExp-vacuum}{\code{TileDBArrayExp$vacuum()}}
@@ -129,6 +130,20 @@ The object, invisibly.
 }
 }
 \if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-TileDBArrayExp-any_enums"></a>}}
+\if{latex}{\out{\hypertarget{method-TileDBArrayExp-any_enums}{}}}
+\subsection{Method \code{any_enums()}}{
+Checks array for factors (enumerations).
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{TileDBArrayExp$any_enums()}\if{html}{\out{</div>}}
+}
+
+\subsection{Returns}{
+A boolean. \code{TRUE} indicating the array has factors and
+\code{FALSE} otherwise.
+}
+}
+\if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-TileDBArrayExp-enum_columns"></a>}}
 \if{latex}{\out{\hypertarget{method-TileDBArrayExp-enum_columns}{}}}
 \subsection{Method \code{enum_columns()}}{
@@ -138,7 +153,7 @@ Retrieve factor columns (attributes).
 }
 
 \subsection{Returns}{
-A character vector with factor columns (enum attributes).
+A character vector with factor columns (enumeration attributes).
 }
 }
 \if{html}{\out{<hr>}}
@@ -158,21 +173,20 @@ Retrieve factor levels for a given attribute.
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-A character vector with levels (enum values).
+A character vector with levels (enumeration values).
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-TileDBArrayExp-has_enums"></a>}}
-\if{latex}{\out{\hypertarget{method-TileDBArrayExp-has_enums}{}}}
-\subsection{Method \code{has_enums()}}{
-Checks array for factor columns.
+\if{html}{\out{<a id="method-TileDBArrayExp-has_enumeration"></a>}}
+\if{latex}{\out{\hypertarget{method-TileDBArrayExp-has_enumeration}{}}}
+\subsection{Method \code{has_enumeration()}}{
+Check columns for factors.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{TileDBArrayExp$has_enums()}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{TileDBArrayExp$has_enumeration()}\if{html}{\out{</div>}}
 }
 
 \subsection{Returns}{
-A boolean. \code{TRUE} indicating the array has factor columns and
-\code{FALSE} otherwise.
+A logical vector indicating which column (attribute) is encoded as factor (enumeration).
 }
 }
 \if{html}{\out{<hr>}}

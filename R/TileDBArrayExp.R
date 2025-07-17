@@ -57,13 +57,21 @@ TileDBArrayExp <- R6::R6Class(
 
       super$reopen(mode, tiledb_timestamp = tiledb_timestamp)
     },
+    #' @description Checks array for factors (enumerations).
+    #'
+    #' @return A boolean. `TRUE` indicating the array has factors and
+    #' `FALSE` otherwise.
+    #'
+    any_enums = function(){
+      any(self$has_enumeration())
+    },
     #' @description Retrieve factor columns (attributes).
     #'
-    #' @return A character vector with factor columns (enum attributes).
+    #' @return A character vector with factor columns (enumeration attributes).
     #'
     enum_columns = function() {
 
-      idx <- vapply_lgl(self$attributes(), tiledb::tiledb_attribute_has_enumeration)
+      idx <- tiledb::tiledb_array_has_enumeration(self$object)
       names(idx[idx])
 
     },
@@ -71,7 +79,7 @@ TileDBArrayExp <- R6::R6Class(
     #'
     #' @param x An attribute name.
     #'
-    #' @return A character vector with levels (enum values).
+    #' @return A character vector with levels (enumeration values).
     #'
     enum_levels = function(x) {
 
@@ -92,16 +100,15 @@ TileDBArrayExp <- R6::R6Class(
       enum
 
     },
-    #' @description Checks array for factor columns.
+    #' @description Check columns for factors.
     #'
     #'
-    #' @return A boolean. `TRUE` indicating the array has factor columns and
-    #' `FALSE` otherwise.
+    #' @return A logical vector indicating which column (attribute) is encoded as factor (enumeration).
     #'
-    has_enums = function(){
-      idx <- vapply_lgl(self$attributes(), tiledb::tiledb_attribute_has_enumeration)
-      any(idx)
+    has_enumeration = function(){
+      tiledb::tiledb_array_has_enumeration(self$object)
     },
+
     # TODO: add key https://github.com/TileDB-Inc/TileDB-Py/blob/28714d9b25d44d6c6c1f318525184d3784b7de00/tiledb/array.py#L729
     # TODO: ctx? add example..
     # TODO: ADD LIST OF CONFIGUREATION PARAMETERS
