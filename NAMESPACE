@@ -2,7 +2,7 @@
 
 S3method(print,tdb_metadata)
 export(TileDBArray)
-export(TileDBArrayExp)
+export(TileDBArray2)
 export(TileDBFragments)
 export(TileDBGroup)
 export(TileDBObject)
