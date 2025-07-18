@@ -117,7 +117,7 @@ TileDBArrayExp <- R6::R6Class(
     #'
     #' @param cfg A configuration object [tiledb::tiledb_config()] to set parameters
     #'  for the consolidation. When `NULL` (default) the configuration parameters will
-    #'  be retrieved from object context.
+    #'  be retrieved from object's context.
     #' @param mode The consolidate mode, one of the following:
     #'
     #'  - `"fragments"`: - consolidate all fragments (default)
@@ -183,7 +183,7 @@ TileDBArrayExp <- R6::R6Class(
     #'
     #' @param cfg A configuration object [tiledb::tiledb_config()] to set parameters
     #'  for the consolidation. When `NULL` (default) the configuration parameters will
-    #'  be retrieved from object context.
+    #'  be retrieved from object's context.
     #' @param mode The consolidate mode, one of the following:
     #'
     #'  - `"fragments"`: - consolidate all fragments (default)
@@ -267,7 +267,7 @@ TileDBArrayExp <- R6::R6Class(
     #'
     #' @param cfg A configuration object [tiledb::tiledb_config()] to set parameters
     #'  for the vacuum. When `NULL` (default) the configuration parameters
-    #'  will be retrieved from object context.
+    #'  will be retrieved from object's context.
     #' @param start_time,end_time Optional time stamp values. A date time objects
     #' of class `POSIXt`. If not provided, the default values from configuration
     #' object will be used.
@@ -333,7 +333,7 @@ TileDBArrayExp <- R6::R6Class(
     #'
     #' @param cfg A configuration object [tiledb::tiledb_config()] to set parameters
     #'  for the vacuum process. When `NULL` (default) the configuration parameters will
-    #'  be retrieved from object context.
+    #'  be retrieved from object's context.
     #' @param mode The vacuum mode, one of the following:
     #'
     #'  - `"fragments"`: - vacuum all fragments (default)
@@ -417,7 +417,7 @@ TileDBArrayExp <- R6::R6Class(
     #'
     #' @param cfg A configuration object [tiledb::tiledb_config()] to set parameters
     #'  for the consolidation and vacuum. When `NULL` (default) the configuration parameters will
-    #'  be retrieved from object context.
+    #'  be retrieved from object's context.
     #' @param mode The consolidate and vacuum mode, one of the following:
     #'
     #'  - `"fragments"`: - consolidate all fragments (default)
@@ -488,7 +488,7 @@ TileDBArrayExp <- R6::R6Class(
     #'
     #' @param cfg A configuration object [tiledb::tiledb_config()] to set parameters
     #'  for the consolidation and vacuum. When `NULL` (default) the configuration parameters will
-    #'  be retrieved from object context.
+    #'  be retrieved from object's context.
     #' @param mode The consolidate and vacuum mode, one of the following:
     #'
     #'  - `"fragments"`: - consolidate all fragments (default)
