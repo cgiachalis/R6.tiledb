@@ -205,7 +205,7 @@ a single fragment.
 \describe{
 \item{\code{cfg}}{A configuration object \code{\link[tiledb:tiledb_config]{tiledb::tiledb_config()}} to set parameters
 for the consolidation. When \code{NULL} (default) the configuration parameters will
-be retrieve from object context.}
+be retrieved from object context.}
 
 \item{\code{mode}}{The consolidate mode, one of the following:
 \itemize{
@@ -246,7 +246,7 @@ The consolidation will run in a separate R process in a clean environment.
 \describe{
 \item{\code{cfg}}{A configuration object \code{\link[tiledb:tiledb_config]{tiledb::tiledb_config()}} to set parameters
 for the consolidation. When \code{NULL} (default) the configuration parameters will
-be retrieve from object context.}
+be retrieved from object context.}
 
 \item{\code{mode}}{The consolidate mode, one of the following:
 \itemize{
@@ -282,7 +282,7 @@ Clean up consolidated fragments and array metadata.
 \describe{
 \item{\code{cfg}}{A configuration object \code{\link[tiledb:tiledb_config]{tiledb::tiledb_config()}} to set parameters
 for the vacuum. When \code{NULL} (default) the configuration parameters
-will be retrieve from object context.}
+will be retrieved from object context.}
 
 \item{\code{mode}}{The vacuum mode, one of the following:
 \itemize{
@@ -321,7 +321,7 @@ The clean up will run in a separate R process in a clean environment.
 \describe{
 \item{\code{cfg}}{A configuration object \code{\link[tiledb:tiledb_config]{tiledb::tiledb_config()}} to set parameters
 for the vacuum process. When \code{NULL} (default) the configuration parameters will
-be retrieve from object context.}
+be retrieved from object context.}
 
 \item{\code{mode}}{The vacuum mode, one of the following:
 \itemize{
@@ -358,7 +358,7 @@ Consolidates and vacuums the fragments.
 \describe{
 \item{\code{cfg}}{A configuration object \code{\link[tiledb:tiledb_config]{tiledb::tiledb_config()}} to set parameters
 for the consolidation and vacuum. When \code{NULL} (default) the configuration parameters will
-be retrieve from object context.}
+be retrieved from object context.}
 
 \item{\code{mode}}{The consolidate and vacuum mode, one of the following:
 \itemize{
@@ -398,7 +398,7 @@ The consolidation and vacuum will run in a separate R process in a clean environ
 \describe{
 \item{\code{cfg}}{A configuration object \code{\link[tiledb:tiledb_config]{tiledb::tiledb_config()}} to set parameters
 for the consolidation and vacuum. When \code{NULL} (default) the configuration parameters will
-be retrieve from object context.}
+be retrieved from object context.}
 
 \item{\code{mode}}{The consolidate and vacuum mode, one of the following:
 \itemize{
