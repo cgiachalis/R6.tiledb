@@ -696,6 +696,16 @@ TileDBArrayExp <- R6::R6Class(
         .emit_read_only_error("schema_version")
       }
       tiledb::tiledb_array_schema_version(self$schema())
+    },
+    #' @field is_sparse Check if schema is sparse.
+    #'
+    is_sparse = function(value) {
+
+      if (!missing(value)) {
+        .emit_read_only_error("is_sparse")
+      }
+      tiledb::is.sparse(self$schema())
+
     }
   ),
 

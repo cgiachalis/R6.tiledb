@@ -36,6 +36,8 @@ Alternatively use \code{\link[=tdb_array]{tdb_array()}} to create an instance an
 array.}
 
 \item{\code{schema_version}}{Retrieve the schema version for this array.}
+
+\item{\code{is_sparse}}{Check if schema is sparse.}
 }
 \if{html}{\out{</div>}}
 }
