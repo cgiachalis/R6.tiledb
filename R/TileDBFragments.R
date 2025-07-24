@@ -33,7 +33,7 @@ TileDBFragments <- R6::R6Class(
       if (is.null(ctx)) ctx <- tiledb::tiledb_ctx()
 
       if (!inherits(ctx, what = 'tiledb_ctx')) {
-        cli::cli_abort("{.emph 'ctx''}  must be a {.emph 'tiledb_ctx'} object.", call = NULL)
+        cli::cli_abort("{.emph 'ctx''} must be a {.emph 'tiledb_ctx'} object.", call = NULL)
       }
 
       private$.tiledb_ctx <- ctx
@@ -194,7 +194,7 @@ TileDBFragments <- R6::R6Class(
       if (timestamp_range[1] > timestamp_range[2]) {
         cli::cli_abort(
           c("{.emph '{deparse(substitute(timestamp_range))}'} not in the right order: {.cls {timestamp_range}}.",
-            "i" = "Please use <start_timestamp, end__timestamp> format."),
+            "i" = "Please use <start_timestamp, end_timestamp> format."),
           call = NULL)
       }
 
