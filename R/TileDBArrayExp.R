@@ -151,20 +151,21 @@ TileDBArrayExp <- R6::R6Class(
       cfg["sm.consolidation.mode"] <- mode
 
       if (!is.null(start_time)) {
-        if (!inherits(start_time, "POSIXt")) {
-          cli::cli_abort("{.arg {deparse(substitute(start_time))}} should be of class {.cls POSIXt}.", call = NULL)
-        }
+
+        check_timestamp_posixt(start_time)
+
         start_time_int64 <- as.character(bit64::as.integer64(as.numeric(start_time) * 1000))
         cfg["sm.consolidation.timestamp_start"] <- start_time_int64
+
       }
 
       if (!is.null(end_time)) {
 
-        if (!inherits(end_time, "POSIXt")) {
-          cli::cli_abort("{.arg {deparse(substitute(end_time))}} should be of class {.cls POSIXt}.", call = NULL)
-        }
+        check_timestamp_posixt(end_time)
+
         end_time_int64 <- as.character(bit64::as.integer64(as.numeric(end_time) * 1000))
         cfg["sm.consolidation.timestamp_end"] <- end_time_int64
+
       }
 
       tiledb::array_consolidate(self$uri, cfg = cfg)
@@ -218,22 +219,22 @@ TileDBArrayExp <- R6::R6Class(
       cfg["sm.consolidation.mode"] <- mode
 
       if (!is.null(start_time)) {
-        if (!inherits(start_time, "POSIXt")) {
-          cli::cli_abort("{.arg {deparse(substitute(start_time))}} should be of class {.cls POSIXt}.", call = NULL)
-        }
+
+        check_timestamp_posixt(start_time)
+
         start_time_int64 <- as.character(bit64::as.integer64(as.numeric(start_time) * 1000))
         cfg["sm.consolidation.timestamp_start"] <- start_time_int64
+
         }
 
       if (!is.null(end_time)) {
 
-        if (!inherits(end_time, "POSIXt")) {
-          cli::cli_abort("{.arg {deparse(substitute(end_time))}} should be of class {.cls POSIXt}.", call = NULL)
-        }
+        check_timestamp_posixt(end_time)
+
         end_time_int64 <- as.character(bit64::as.integer64(as.numeric(end_time) * 1000))
         cfg["sm.consolidation.timestamp_end"] <- end_time_int64
-      }
 
+      }
 
       # mirai namespace compute profile
       ns <- "r6.tiledb"
@@ -301,20 +302,21 @@ TileDBArrayExp <- R6::R6Class(
       cfg["sm.vacuum.mode"] <- mode
 
       if (!is.null(start_time)) {
-        if (!inherits(start_time, "POSIXt")) {
-          cli::cli_abort("{.arg {deparse(substitute(start_time))}} should be of class {.cls POSIXt}.", call = NULL)
-        }
+
+        check_timestamp_posixt(start_time)
+
         start_time_int64 <- as.character(bit64::as.integer64(as.numeric(start_time) * 1000))
         cfg["sm.vacuum.timestamp_start"] <- start_time_int64
+
       }
 
       if (!is.null(end_time)) {
 
-        if (!inherits(end_time, "POSIXt")) {
-          cli::cli_abort("{.arg {deparse(substitute(end_time))}} should be of class {.cls POSIXt}.", call = NULL)
-        }
+        check_timestamp_posixt(end_time)
+
         end_time_int64 <- as.character(bit64::as.integer64(as.numeric(end_time) * 1000))
         cfg["sm.vacuum.timestamp_end"] <- end_time_int64
+
       }
 
       tiledb::array_vacuum(self$uri, cfg = cfg)
@@ -369,20 +371,21 @@ TileDBArrayExp <- R6::R6Class(
       cfg["sm.vacuum.mode"] <- mode
 
       if (!is.null(start_time)) {
-        if (!inherits(start_time, "POSIXt")) {
-          cli::cli_abort("{.arg {deparse(substitute(start_time))}} should be of class {.cls POSIXt}.", call = NULL)
-        }
+
+        check_timestamp_posixt(start_time)
+
         start_time_int64 <- as.character(bit64::as.integer64(as.numeric(start_time) * 1000))
         cfg["sm.vacuum.timestamp_start"] <- start_time_int64
+
       }
 
       if (!is.null(end_time)) {
 
-        if (!inherits(end_time, "POSIXt")) {
-          cli::cli_abort("{.arg {deparse(substitute(end_time))}} should be of class {.cls POSIXt}.", call = NULL)
-        }
+        check_timestamp_posixt(end_time)
+
         end_time_int64 <- as.character(bit64::as.integer64(as.numeric(end_time) * 1000))
         cfg["sm.vacuum.timestamp_end"] <- end_time_int64
+
       }
 
       # mirai namespace compute profile
@@ -452,22 +455,23 @@ TileDBArrayExp <- R6::R6Class(
       cfg["sm.vacuum.mode"] <- mode
 
       if (!is.null(start_time)) {
-        if (!inherits(start_time, "POSIXt")) {
-          cli::cli_abort("{.arg {deparse(substitute(start_time))}} should be of class {.cls POSIXt}.", call = NULL)
-        }
+
+        check_timestamp_posixt(start_time)
+
         start_time_int64 <- as.character(bit64::as.integer64(as.numeric(start_time) * 1000))
         cfg["sm.consolidation.timestamp_start"] <- start_time_int64
         cfg["sm.vacuum.timestamp_start"] <- start_time_int64
+
       }
 
       if (!is.null(end_time)) {
 
-        if (!inherits(end_time, "POSIXt")) {
-          cli::cli_abort("{.arg {deparse(substitute(end_time))}} should be of class {.cls POSIXt}.", call = NULL)
-        }
+        check_timestamp_posixt(end_time)
+
         end_time_int64 <- as.character(bit64::as.integer64(as.numeric(end_time) * 1000))
         cfg["sm.consolidation.timestamp_end"] <- end_time_int64
         cfg["sm.vacuum.timestamp_end"] <- start_time_int64
+
       }
 
       tiledb::array_consolidate(self$uri, cfg = cfg)
@@ -524,24 +528,24 @@ TileDBArrayExp <- R6::R6Class(
       cfg["sm.vacuum.mode"] <- mode
 
       if (!is.null(start_time)) {
-        if (!inherits(start_time, "POSIXt")) {
-          cli::cli_abort("{.arg {deparse(substitute(start_time))}} should be of class {.cls POSIXt}.", call = NULL)
-        }
+
+        check_timestamp_posixt(start_time)
+
         start_time_int64 <- as.character(bit64::as.integer64(as.numeric(start_time) * 1000))
         cfg["sm.consolidation.timestamp_start"] <- start_time_int64
         cfg["sm.vacuum.timestamp_start"] <- start_time_int64
+
       }
 
       if (!is.null(end_time)) {
 
-        if (!inherits(end_time, "POSIXt")) {
-          cli::cli_abort("{.arg {deparse(substitute(end_time))}} should be of class {.cls POSIXt}.", call = NULL)
-        }
+        check_timestamp_posixt(end_time)
+
         end_time_int64 <- as.character(bit64::as.integer64(as.numeric(end_time) * 1000))
         cfg["sm.consolidation.timestamp_end"] <- end_time_int64
         cfg["sm.vacuum.timestamp_end"] <- start_time_int64
-      }
 
+      }
 
       # mirai namespace compute profile
       ns <- "r6.tiledb"
