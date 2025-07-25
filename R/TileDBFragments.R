@@ -23,7 +23,7 @@ TileDBFragments <- R6::R6Class(
     initialize = function(uri, ctx = NULL) {
 
       if (missing(uri)) {
-        cli::cli_abort("{.emph 'uri'} argument is missing.", call = NULL)
+        cli::cli_abort("{.arg uri} argument is missing.", call = NULL)
       }
 
       # TODO: review do we need TileDBURI?
@@ -33,7 +33,7 @@ TileDBFragments <- R6::R6Class(
       if (is.null(ctx)) ctx <- tiledb::tiledb_ctx()
 
       if (!inherits(ctx, what = 'tiledb_ctx')) {
-        cli::cli_abort("{.emph 'ctx''} must be a {.emph 'tiledb_ctx'} object.", call = NULL)
+        cli::cli_abort("{.arg ctx} must be a {.emph 'tiledb_ctx'} object.", call = NULL)
       }
 
       private$.tiledb_ctx <- ctx
@@ -188,13 +188,13 @@ TileDBFragments <- R6::R6Class(
     delete_fragment_range = function(timestamp_range) {
 
       if (!inherits(timestamp_range, "POSIXct") | length(timestamp_range) != 2L) {
-        cli::cli_abort("{.emph '{deparse(substitute(timestamp_range))}'} must be a class  {.cls POSIXct} of length 2.", call = NULL)
+        cli::cli_abort("{.arg {deparse(substitute(timestamp_range))}} must be a class  {.cls POSIXct} of length 2.", call = NULL)
       }
 
       if (timestamp_range[1] > timestamp_range[2]) {
         cli::cli_abort(
-          c("{.emph '{deparse(substitute(timestamp_range))}'} not in the right order: {.cls {timestamp_range}}.",
-            "i" = "Please use <start_timestamp, end_timestamp> format."),
+          c("{.arg {deparse(substitute(timestamp_range))}} not in the right order: {.cls {timestamp_range}}.",
+            "i" = "Please use {.emph {'<start_timestamp, end_timestamp>'}} format."),
           call = NULL)
       }
 
@@ -221,7 +221,7 @@ TileDBFragments <- R6::R6Class(
     delete_fragment_list = function(frag_uris) {
 
       if (isFALSE(is.character(frag_uris))) {
-        cli::cli_abort("{.emph '{deparse(substitute(frag_uris))}'}  must be a character vector.", call = NULL)
+        cli::cli_abort("{.arg {deparse(substitute(frag_uris))}}  must be a character vector.", call = NULL)
       }
 
       arr <- tiledb::tiledb_array(self$uri, keep_open = FALSE)
@@ -244,7 +244,7 @@ TileDBFragments <- R6::R6Class(
     delete_fragment = function(n) {
 
       if (isFALSE( rlang::is_scalar_double(n))) {
-        cli::cli_abort("{.emph '{deparse(substitute(n))}'}  must be a numeric value.", call = NULL)
+        cli::cli_abort("{.arg {deparse(substitute(n))}}  must be a numeric value.", call = NULL)
       }
 
       furis <- self$frag_uris(FALSE)

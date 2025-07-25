@@ -86,13 +86,13 @@ TileDBArrayExp <- R6::R6Class(
       private$check_scalar_character(x)
 
       if (isFALSE(x %in% self$attrnames())) {
-        cli::cli_abort("{.emph '{deparse(substitute(x))}'} is not attribute.", call = NULL)
+        cli::cli_abort("{.arg {deparse(substitute(x))}} is not attribute.", call = NULL)
       }
 
       .attrib <- self$attributes()[[x]]
 
       if (isFALSE(tiledb::tiledb_attribute_has_enumeration(.attrib))) {
-        cli::cli_abort("{.emph '{deparse(substitute(x))}'} attribute is not factor (enum).", call = NULL)
+        cli::cli_abort("{.arg {deparse(substitute(x))}} attribute is not factor (enum).", call = NULL)
       }
 
       enum <- tiledb::tiledb_attribute_get_enumeration(attr = .attrib, arr = self$object)
@@ -145,14 +145,14 @@ TileDBArrayExp <- R6::R6Class(
       }
 
       if (!inherits(cfg, "tiledb_config")) {
-        cli::cli_abort("{.emph '{deparse(substitute(cfg))}'} should be of class {.cls tiledb_config}.", call = NULL)
+        cli::cli_abort("{.arg {deparse(substitute(cfg))}} should be of class {.cls tiledb_config}.", call = NULL)
       }
 
       cfg["sm.consolidation.mode"] <- mode
 
       if (!is.null(start_time)) {
         if (!inherits(start_time, "POSIXt")) {
-          cli::cli_abort("{.emph '{deparse(substitute(start_time))}'} should be of class {.cls POSIXt}.", call = NULL)
+          cli::cli_abort("{.arg {deparse(substitute(start_time))}} should be of class {.cls POSIXt}.", call = NULL)
         }
         start_time_int64 <- as.character(bit64::as.integer64(as.numeric(start_time) * 1000))
         cfg["sm.consolidation.timestamp_start"] <- start_time_int64
@@ -161,7 +161,7 @@ TileDBArrayExp <- R6::R6Class(
       if (!is.null(end_time)) {
 
         if (!inherits(end_time, "POSIXt")) {
-          cli::cli_abort("{.emph '{deparse(substitute(end_time))}'} should be of class {.cls POSIXt}.", call = NULL)
+          cli::cli_abort("{.arg {deparse(substitute(end_time))}} should be of class {.cls POSIXt}.", call = NULL)
         }
         end_time_int64 <- as.character(bit64::as.integer64(as.numeric(end_time) * 1000))
         cfg["sm.consolidation.timestamp_end"] <- end_time_int64
@@ -206,7 +206,7 @@ TileDBArrayExp <- R6::R6Class(
                                  end_time = NULL) {
 
       if (!requireNamespace("mirai", quietly = TRUE)) {
-        cli::cli_abort("{.emph 'consolicate_async'} requires {.pkg '{.href [mirai](https://cran.r-project.org/web/packages/mirai/index.html)}'} package.", call = NULL)
+        cli::cli_abort("{.arg consolicate_async} requires {.pkg '{.href [mirai](https://cran.r-project.org/web/packages/mirai/index.html)}'} package.", call = NULL)
       }
 
       mode <- match.arg(mode)
@@ -219,7 +219,7 @@ TileDBArrayExp <- R6::R6Class(
 
       if (!is.null(start_time)) {
         if (!inherits(start_time, "POSIXt")) {
-          cli::cli_abort("{.emph '{deparse(substitute(start_time))}'} should be of class {.cls POSIXt}.", call = NULL)
+          cli::cli_abort("{.arg {deparse(substitute(start_time))}} should be of class {.cls POSIXt}.", call = NULL)
         }
         start_time_int64 <- as.character(bit64::as.integer64(as.numeric(start_time) * 1000))
         cfg["sm.consolidation.timestamp_start"] <- start_time_int64
@@ -228,7 +228,7 @@ TileDBArrayExp <- R6::R6Class(
       if (!is.null(end_time)) {
 
         if (!inherits(end_time, "POSIXt")) {
-          cli::cli_abort("{.emph '{deparse(substitute(end_time))}'} should be of class {.cls POSIXt}.", call = NULL)
+          cli::cli_abort("{.arg {deparse(substitute(end_time))}} should be of class {.cls POSIXt}.", call = NULL)
         }
         end_time_int64 <- as.character(bit64::as.integer64(as.numeric(end_time) * 1000))
         cfg["sm.consolidation.timestamp_end"] <- end_time_int64
@@ -295,14 +295,14 @@ TileDBArrayExp <- R6::R6Class(
       }
 
       if (!inherits(cfg, "tiledb_config")) {
-        cli::cli_abort("{.emph '{deparse(substitute(cfg))}'} should be of class {.cls tiledb_config}.", call = NULL)
+        cli::cli_abort("{.arg {deparse(substitute(cfg))}} should be of class {.cls tiledb_config}.", call = NULL)
       }
 
       cfg["sm.vacuum.mode"] <- mode
 
       if (!is.null(start_time)) {
         if (!inherits(start_time, "POSIXt")) {
-          cli::cli_abort("{.emph '{deparse(substitute(start_time))}'} should be of class {.cls POSIXt}.", call = NULL)
+          cli::cli_abort("{.arg {deparse(substitute(start_time))}} should be of class {.cls POSIXt}.", call = NULL)
         }
         start_time_int64 <- as.character(bit64::as.integer64(as.numeric(start_time) * 1000))
         cfg["sm.vacuum.timestamp_start"] <- start_time_int64
@@ -311,7 +311,7 @@ TileDBArrayExp <- R6::R6Class(
       if (!is.null(end_time)) {
 
         if (!inherits(end_time, "POSIXt")) {
-          cli::cli_abort("{.emph '{deparse(substitute(end_time))}'} should be of class {.cls POSIXt}.", call = NULL)
+          cli::cli_abort("{.arg {deparse(substitute(end_time))}} should be of class {.cls POSIXt}.", call = NULL)
         }
         end_time_int64 <- as.character(bit64::as.integer64(as.numeric(end_time) * 1000))
         cfg["sm.vacuum.timestamp_end"] <- end_time_int64
@@ -357,7 +357,7 @@ TileDBArrayExp <- R6::R6Class(
                             end_time = NULL) {
 
       if (!requireNamespace("mirai", quietly = TRUE)) {
-        cli::cli_abort("{.emph 'vacuum_async'} requires {.pkg '{.href [mirai](https://cran.r-project.org/web/packages/mirai/index.html)}'} package.", call = NULL)
+        cli::cli_abort("{.arg vacuum_async} requires {.pkg '{.href [mirai](https://cran.r-project.org/web/packages/mirai/index.html)}'} package.", call = NULL)
       }
 
       mode <- match.arg(mode)
@@ -370,7 +370,7 @@ TileDBArrayExp <- R6::R6Class(
 
       if (!is.null(start_time)) {
         if (!inherits(start_time, "POSIXt")) {
-          cli::cli_abort("{.emph '{deparse(substitute(start_time))}'} should be of class {.cls POSIXt}.", call = NULL)
+          cli::cli_abort("{.arg {deparse(substitute(start_time))}} should be of class {.cls POSIXt}.", call = NULL)
         }
         start_time_int64 <- as.character(bit64::as.integer64(as.numeric(start_time) * 1000))
         cfg["sm.vacuum.timestamp_start"] <- start_time_int64
@@ -379,7 +379,7 @@ TileDBArrayExp <- R6::R6Class(
       if (!is.null(end_time)) {
 
         if (!inherits(end_time, "POSIXt")) {
-          cli::cli_abort("{.emph '{deparse(substitute(end_time))}'} should be of class {.cls POSIXt}.", call = NULL)
+          cli::cli_abort("{.arg {deparse(substitute(end_time))}} should be of class {.cls POSIXt}.", call = NULL)
         }
         end_time_int64 <- as.character(bit64::as.integer64(as.numeric(end_time) * 1000))
         cfg["sm.vacuum.timestamp_end"] <- end_time_int64
@@ -445,7 +445,7 @@ TileDBArrayExp <- R6::R6Class(
       }
 
       if (!inherits(cfg, "tiledb_config")) {
-        cli::cli_abort("{.emph '{deparse(substitute(cfg))}'} should be of class {.cls tiledb_config}.", call = NULL)
+        cli::cli_abort("{.arg {deparse(substitute(cfg))}} should be of class {.cls tiledb_config}.", call = NULL)
       }
 
       cfg["sm.consolidation.mode"] <- mode
@@ -453,7 +453,7 @@ TileDBArrayExp <- R6::R6Class(
 
       if (!is.null(start_time)) {
         if (!inherits(start_time, "POSIXt")) {
-          cli::cli_abort("{.emph '{deparse(substitute(start_time))}'} should be of class {.cls POSIXt}.", call = NULL)
+          cli::cli_abort("{.arg {deparse(substitute(start_time))}} should be of class {.cls POSIXt}.", call = NULL)
         }
         start_time_int64 <- as.character(bit64::as.integer64(as.numeric(start_time) * 1000))
         cfg["sm.consolidation.timestamp_start"] <- start_time_int64
@@ -463,7 +463,7 @@ TileDBArrayExp <- R6::R6Class(
       if (!is.null(end_time)) {
 
         if (!inherits(end_time, "POSIXt")) {
-          cli::cli_abort("{.emph '{deparse(substitute(end_time))}'} should be of class {.cls POSIXt}.", call = NULL)
+          cli::cli_abort("{.arg {deparse(substitute(end_time))}} should be of class {.cls POSIXt}.", call = NULL)
         }
         end_time_int64 <- as.character(bit64::as.integer64(as.numeric(end_time) * 1000))
         cfg["sm.consolidation.timestamp_end"] <- end_time_int64
@@ -511,7 +511,7 @@ TileDBArrayExp <- R6::R6Class(
                                             end_time = NULL) {
 
       if (!requireNamespace("mirai", quietly = TRUE)) {
-        cli::cli_abort("{.emph 'consolicate_async'} requires {.pkg '{.href [mirai](https://cran.r-project.org/web/packages/mirai/index.html)}'} package.", call = NULL)
+        cli::cli_abort("{.arg consolicate_async} requires {.pkg '{.href [mirai](https://cran.r-project.org/web/packages/mirai/index.html)}'} package.", call = NULL)
       }
 
       mode <- match.arg(mode)
@@ -525,7 +525,7 @@ TileDBArrayExp <- R6::R6Class(
 
       if (!is.null(start_time)) {
         if (!inherits(start_time, "POSIXt")) {
-          cli::cli_abort("{.emph '{deparse(substitute(start_time))}'} should be of class {.cls POSIXt}.", call = NULL)
+          cli::cli_abort("{.arg {deparse(substitute(start_time))}} should be of class {.cls POSIXt}.", call = NULL)
         }
         start_time_int64 <- as.character(bit64::as.integer64(as.numeric(start_time) * 1000))
         cfg["sm.consolidation.timestamp_start"] <- start_time_int64
@@ -535,7 +535,7 @@ TileDBArrayExp <- R6::R6Class(
       if (!is.null(end_time)) {
 
         if (!inherits(end_time, "POSIXt")) {
-          cli::cli_abort("{.emph '{deparse(substitute(end_time))}'} should be of class {.cls POSIXt}.", call = NULL)
+          cli::cli_abort("{.arg {deparse(substitute(end_time))}} should be of class {.cls POSIXt}.", call = NULL)
         }
         end_time_int64 <- as.character(bit64::as.integer64(as.numeric(end_time) * 1000))
         cfg["sm.consolidation.timestamp_end"] <- end_time_int64
@@ -583,7 +583,7 @@ TileDBArrayExp <- R6::R6Class(
       private$check_scalar_character(x)
 
       if (isFALSE(x %in% self$attrnames())) {
-        cli::cli_abort("{.emph '{deparse(substitute(x))}'} is not attribute.", call = NULL)
+        cli::cli_abort("{.arg {deparse(substitute(x))}} is not attribute.", call = NULL)
       }
 
       ase <- tiledb::tiledb_array_schema_evolution()
