@@ -701,7 +701,7 @@ TileDBArrayExp <- R6::R6Class(
       }
       tiledb::tiledb_array_schema_version(self$schema())
     },
-    #' @field is_sparse Check if schema is sparse.
+    #' @field is_sparse Check array schema for sparsity.
     #'
     is_sparse = function(value) {
 

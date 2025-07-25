@@ -37,7 +37,7 @@ array.}
 
 \item{\code{schema_version}}{Retrieve the schema version for this array.}
 
-\item{\code{is_sparse}}{Check if schema is sparse.}
+\item{\code{is_sparse}}{Check array schema for sparsity.}
 }
 \if{html}{\out{</div>}}
 }
