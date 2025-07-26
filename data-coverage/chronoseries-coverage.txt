@@ -1,0 +1,17 @@
+# Test Coverage --------------------
+Timestamp: Sat Jul 26 08:25:16 2025
+R6.tiledb Coverage: 61.16%
+R/tdb_array.R: 0.00%
+R/tiledb-lib.R: 0.00%
+R/zzz.R: 0.00%
+R/utils.R: 11.11%
+R/TileDBArrayExp.R: 34.83%
+R/TileDBArray.R: 41.30%
+R/TileDBFragments.R: 49.57%
+R/methods.R: 53.33%
+R/TileDBObject.R: 78.35%
+R/utils-assertions.R: 83.33%
+R/TileDBGroup.R: 84.21%
+R/utils-uris.R: 92.00%
+R/TileDBURI.R: 100.00%
+
