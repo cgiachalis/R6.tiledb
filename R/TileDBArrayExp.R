@@ -6,8 +6,8 @@
 #'
 #' ## Initialization
 #' A new `TileDBArrayExp` instance is initialized using the `new()` method.
-#' Alternatively use [tdb_array()] to create an instance and open the array at
-#' `READ` mode.
+#' Alternatively use [tdb_array()] to create a new instance and open the array
+#' at `READ` mode.
 #'
 #' ```r
 #'  # uri path
@@ -115,26 +115,26 @@ TileDBArrayExp <- R6::R6Class(
     #' @description Consolidates the fragments of the array into
     #'  a single fragment.
     #'
-    #' @param cfg A configuration object [tiledb::tiledb_config()] to set parameters
-    #'  for the consolidation. When `NULL` (default) the configuration parameters will
-    #'  be retrieved from object's context.
     #' @param mode The consolidate mode, one of the following:
     #'
     #'  - `"fragments"`: - consolidate all fragments (default)
     #'  - `"commits"`: - consolidate all commit files
     #'  - `"fragment_meta"`: - consolidate only fragment metadata footers to a single file
     #'  - `"array_meta"`: - consolidate array metadata only
+    #' @param cfg A configuration object [tiledb::tiledb_config()] to set parameters
+    #'  for the consolidation. When `NULL` (default) the configuration parameters will
+    #'  be retrieved from object's context.
     #' @param start_time,end_time Optional time stamp values. A date time objects
     #' of class `POSIXt`. If not provided, the default values from configuration
     #' object will be used.
     #'
     #' @return `TRUE`, invisibly.
     #'
-    consolidate = function(cfg = NULL,
-                           mode = c("fragments",
+    consolidate = function(mode = c("fragments",
                                     "commits",
                                     "fragment_meta",
                                     "array_meta"),
+                           cfg = NULL,
                            start_time = NULL,
                            end_time = NULL) {
 
@@ -182,15 +182,15 @@ TileDBArrayExp <- R6::R6Class(
     #'
     #' **Note this function requires the [mirai](https://cran.r-project.org/web/packages/mirai/index.html) package**.
     #'
-    #' @param cfg A configuration object [tiledb::tiledb_config()] to set parameters
-    #'  for the consolidation. When `NULL` (default) the configuration parameters will
-    #'  be retrieved from object's context.
     #' @param mode The consolidate mode, one of the following:
     #'
     #'  - `"fragments"`: - consolidate all fragments (default)
     #'  - `"commits"`: - consolidate all commit files
     #'  - `"fragment_meta"`: - consolidate only fragment metadata footers to a single file
     #'  - `"array_meta"`: - consolidate array metadata only
+    #' @param cfg A configuration object [tiledb::tiledb_config()] to set parameters
+    #'  for the consolidation. When `NULL` (default) the configuration parameters will
+    #'  be retrieved from object's context.
     #' @param start_time,end_time Optional time stamp values. A date time objects
     #' of class `POSIXt`. If not provided, the default values from configuration
     #' object will be used.
@@ -198,11 +198,11 @@ TileDBArrayExp <- R6::R6Class(
     #' @return This function will return a [mirai::mirai()] object immediately. When it is
     #' resolved, it returns `TRUE` indicating consolidation success.
     #'
-    consolidate_async = function(cfg = NULL,
-                                 mode = c("fragments",
+    consolidate_async = function(mode = c("fragments",
                                           "commits",
                                           "fragment_meta",
                                           "array_meta"),
+                                 cfg = NULL,
                                  start_time = NULL,
                                  end_time = NULL) {
 
@@ -266,26 +266,25 @@ TileDBArrayExp <- R6::R6Class(
     },
     #' @description Clean up consolidated fragments and array metadata.
     #'
-    #' @param cfg A configuration object [tiledb::tiledb_config()] to set parameters
-    #'  for the vacuum. When `NULL` (default) the configuration parameters
-    #'  will be retrieved from object's context.
-    #' @param start_time,end_time Optional time stamp values. A date time objects
-    #' of class `POSIXt`. If not provided, the default values from configuration
-    #' object will be used.
     #' @param mode The vacuum mode, one of the following:
     #'
     #'  - `"fragments"`: - vacuum all fragments (default)
     #'  - `"commits"`: - vacuum all commit files
     #'  - `"fragment_meta"`: - vacuum only fragment metadata footers to a single file
     #'  - `"array_meta"`: - vacuum array metadata only
-    #'
+    #' @param cfg A configuration object [tiledb::tiledb_config()] to set parameters
+    #'  for the vacuum. When `NULL` (default) the configuration parameters
+    #'  will be retrieved from object's context.
+    #' @param start_time,end_time Optional time stamp values. A date time objects
+    #' of class `POSIXt`. If not provided, the default values from configuration
+    #' object will be used.
     #' @return `TRUE`, invisibly.
     #'
-    vacuum = function(cfg = NULL,
-                      mode = c("fragments",
+    vacuum = function(mode = c("fragments",
                                "commits",
                                "fragment_meta",
                                "array_meta"),
+                      cfg = NULL,
                       start_time = NULL,
                       end_time = NULL){
 
@@ -333,16 +332,15 @@ TileDBArrayExp <- R6::R6Class(
     #'
     #' **Note this function requires the [mirai](https://cran.r-project.org/web/packages/mirai/index.html) package**.
     #'
-    #' @param cfg A configuration object [tiledb::tiledb_config()] to set parameters
-    #'  for the vacuum process. When `NULL` (default) the configuration parameters will
-    #'  be retrieved from object's context.
     #' @param mode The vacuum mode, one of the following:
     #'
     #'  - `"fragments"`: - vacuum all fragments (default)
     #'  - `"commits"`: - vacuum all commit files
     #'  - `"fragment_meta"`: - vacuum only fragment metadata footers to a single file
     #'  - `"array_meta"`: - vacuum array metadata only
-    #'
+    #' @param cfg A configuration object [tiledb::tiledb_config()] to set parameters
+    #'  for the vacuum process. When `NULL` (default) the configuration parameters will
+    #'  be retrieved from object's context.
     #' @param start_time,end_time Optional time stamp values. A date time objects
     #' of class `POSIXt`. If not provided, the default values from configuration
     #' object will be used.
@@ -350,11 +348,11 @@ TileDBArrayExp <- R6::R6Class(
     #' @return This function will return a [mirai::mirai()] object immediately. When it is
     #' resolved, it returns `TRUE` indicating vacuum success.
     #'
-    vacuum_async = function(cfg = NULL,
-                            mode = c("fragments",
+    vacuum_async = function(mode = c("fragments",
                                      "commits",
                                      "fragment_meta",
                                      "array_meta"),
+                            cfg = NULL,
                             start_time = NULL,
                             end_time = NULL) {
 
@@ -418,26 +416,26 @@ TileDBArrayExp <- R6::R6Class(
     },
     #' @description Consolidates and vacuums the fragments.
     #'
-    #' @param cfg A configuration object [tiledb::tiledb_config()] to set parameters
-    #'  for the consolidation and vacuum. When `NULL` (default) the configuration parameters will
-    #'  be retrieved from object's context.
     #' @param mode The consolidate and vacuum mode, one of the following:
     #'
     #'  - `"fragments"`: - consolidate all fragments (default)
     #'  - `"commits"`: - consolidate all commit files
     #'  - `"fragment_meta"`: - consolidate only fragment metadata footers to a single file
     #'  - `"array_meta"`: - consolidate array metadata only
+    #' @param cfg A configuration object [tiledb::tiledb_config()] to set parameters
+    #'  for the consolidation and vacuum. When `NULL` (default) the configuration parameters will
+    #'  be retrieved from object's context.
     #' @param start_time,end_time Optional time stamp values. A date time objects
     #' of class `POSIXt`. If not provided, the default values from configuration
     #' object will be used.
     #'
     #' @return `TRUE`, invisibly.
     #'
-    consolidate_and_vacuum = function(cfg = NULL,
-                                      mode = c("fragments",
+    consolidate_and_vacuum = function(mode = c("fragments",
                                                "commits",
                                                "fragment_meta",
                                                "array_meta"),
+                                      cfg = NULL,
                                       start_time = NULL,
                                       end_time = NULL) {
 
@@ -490,15 +488,15 @@ TileDBArrayExp <- R6::R6Class(
     #'
     #' **Note this function requires the [mirai](https://cran.r-project.org/web/packages/mirai/index.html) package**.
     #'
-    #' @param cfg A configuration object [tiledb::tiledb_config()] to set parameters
-    #'  for the consolidation and vacuum. When `NULL` (default) the configuration parameters will
-    #'  be retrieved from object's context.
     #' @param mode The consolidate and vacuum mode, one of the following:
     #'
     #'  - `"fragments"`: - consolidate all fragments (default)
     #'  - `"commits"`: - consolidate all commit files
     #'  - `"fragment_meta"`: - consolidate only fragment metadata footers to a single file
     #'  - `"array_meta"`: - consolidate array metadata only
+    #' @param cfg A configuration object [tiledb::tiledb_config()] to set parameters
+    #'  for the consolidation and vacuum. When `NULL` (default) the configuration parameters will
+    #'  be retrieved from object's context.
     #' @param start_time,end_time Optional time stamp values. A date time objects
     #' of class `POSIXt`. If not provided, the default values from configuration
     #' object will be used.
@@ -506,11 +504,11 @@ TileDBArrayExp <- R6::R6Class(
     #' @return This function will return a [mirai::mirai()] object immediately. When it is
     #' resolved, it returns `TRUE` indicating consolidation success.
     #'
-    consolidate_and_vacuum_async = function(cfg = NULL,
-                                            mode = c("fragments",
+    consolidate_and_vacuum_async = function(mode = c("fragments",
                                                      "commits",
                                                      "fragment_meta",
                                                      "array_meta"),
+                                            cfg = NULL,
                                             start_time = NULL,
                                             end_time = NULL) {
 
@@ -587,7 +585,7 @@ TileDBArrayExp <- R6::R6Class(
       private$check_scalar_character(x)
 
       if (isFALSE(x %in% self$attrnames())) {
-        cli::cli_abort("{.arg {deparse(substitute(x))}} is not attribute.", call = NULL)
+        cli::cli_abort("{.arg {deparse(substitute(x))}} is not an attribute.", call = NULL)
       }
 
       ase <- tiledb::tiledb_array_schema_evolution()
@@ -684,21 +682,26 @@ TileDBArrayExp <- R6::R6Class(
     #' array.
     #'
     fragments_object = function(value) {
+
       if (!missing(value)) {
         .emit_read_only_error("fragment_object")
       }
+
       if (is.null(private$.fragments_object)) {
         private$.fragments_object <- TileDBFragments$new(self$uri, ctx = self$ctx)
       }
+
       private$.fragments_object
 
     },
     #' @field schema_version Retrieve the schema version for this array.
     #'
     schema_version = function(value) {
+
       if (!missing(value)) {
         .emit_read_only_error("schema_version")
       }
+
       tiledb::tiledb_array_schema_version(self$schema())
     },
     #' @field is_sparse Check array schema for sparsity.
@@ -708,7 +711,9 @@ TileDBArrayExp <- R6::R6Class(
       if (!missing(value)) {
         .emit_read_only_error("is_sparse")
       }
-      tiledb::is.sparse(self$schema())
+      sch <- self$schema()
+
+      tiledb::is.sparse(sch)
 
     }
   ),

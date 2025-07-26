@@ -12,8 +12,8 @@ operate on the array.
 \subsection{Initialization}{
 
 A new \code{TileDBArrayExp} instance is initialized using the \code{new()} method.
-Alternatively use \code{\link[=tdb_array]{tdb_array()}} to create an instance and open the array at
-\code{READ} mode.
+Alternatively use \code{\link[=tdb_array]{tdb_array()}} to create a new instance and open the array
+at \code{READ} mode.
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{ # uri path
  uri <- tempdir()
@@ -198,17 +198,13 @@ A logical vector indicating which column (attribute) is encoded as factor (enume
 Consolidates the fragments of the array into
 a single fragment.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{TileDBArrayExp$consolidate(cfg = NULL, mode = c("fragments", "commits",
-  "fragment_meta", "array_meta"), start_time = NULL, end_time = NULL)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{TileDBArrayExp$consolidate(mode = c("fragments", "commits", "fragment_meta",
+  "array_meta"), cfg = NULL, start_time = NULL, end_time = NULL)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{cfg}}{A configuration object \code{\link[tiledb:tiledb_config]{tiledb::tiledb_config()}} to set parameters
-for the consolidation. When \code{NULL} (default) the configuration parameters will
-be retrieved from object's context.}
-
 \item{\code{mode}}{The consolidate mode, one of the following:
 \itemize{
 \item \code{"fragments"}: - consolidate all fragments (default)
@@ -216,6 +212,10 @@ be retrieved from object's context.}
 \item \code{"fragment_meta"}: - consolidate only fragment metadata footers to a single file
 \item \code{"array_meta"}: - consolidate array metadata only
 }}
+
+\item{\code{cfg}}{A configuration object \code{\link[tiledb:tiledb_config]{tiledb::tiledb_config()}} to set parameters
+for the consolidation. When \code{NULL} (default) the configuration parameters will
+be retrieved from object's context.}
 
 \item{\code{start_time, end_time}}{Optional time stamp values. A date time objects
 of class \code{POSIXt}. If not provided, the default values from configuration
@@ -238,18 +238,14 @@ The consolidation will run in a separate R process in a clean environment.
 
 \strong{Note this function requires the \href{https://cran.r-project.org/web/packages/mirai/index.html}{mirai} package}.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{TileDBArrayExp$consolidate_async(cfg = NULL, mode = c("fragments",
-  "commits", "fragment_meta", "array_meta"), start_time = NULL,
+\if{html}{\out{<div class="r">}}\preformatted{TileDBArrayExp$consolidate_async(mode = c("fragments", "commits",
+  "fragment_meta", "array_meta"), cfg = NULL, start_time = NULL,
   end_time = NULL)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{cfg}}{A configuration object \code{\link[tiledb:tiledb_config]{tiledb::tiledb_config()}} to set parameters
-for the consolidation. When \code{NULL} (default) the configuration parameters will
-be retrieved from object's context.}
-
 \item{\code{mode}}{The consolidate mode, one of the following:
 \itemize{
 \item \code{"fragments"}: - consolidate all fragments (default)
@@ -257,6 +253,10 @@ be retrieved from object's context.}
 \item \code{"fragment_meta"}: - consolidate only fragment metadata footers to a single file
 \item \code{"array_meta"}: - consolidate array metadata only
 }}
+
+\item{\code{cfg}}{A configuration object \code{\link[tiledb:tiledb_config]{tiledb::tiledb_config()}} to set parameters
+for the consolidation. When \code{NULL} (default) the configuration parameters will
+be retrieved from object's context.}
 
 \item{\code{start_time, end_time}}{Optional time stamp values. A date time objects
 of class \code{POSIXt}. If not provided, the default values from configuration
@@ -275,17 +275,13 @@ resolved, it returns \code{TRUE} indicating consolidation success.
 \subsection{Method \code{vacuum()}}{
 Clean up consolidated fragments and array metadata.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{TileDBArrayExp$vacuum(cfg = NULL, mode = c("fragments", "commits",
-  "fragment_meta", "array_meta"), start_time = NULL, end_time = NULL)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{TileDBArrayExp$vacuum(mode = c("fragments", "commits", "fragment_meta",
+  "array_meta"), cfg = NULL, start_time = NULL, end_time = NULL)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{cfg}}{A configuration object \code{\link[tiledb:tiledb_config]{tiledb::tiledb_config()}} to set parameters
-for the vacuum. When \code{NULL} (default) the configuration parameters
-will be retrieved from object's context.}
-
 \item{\code{mode}}{The vacuum mode, one of the following:
 \itemize{
 \item \code{"fragments"}: - vacuum all fragments (default)
@@ -293,6 +289,10 @@ will be retrieved from object's context.}
 \item \code{"fragment_meta"}: - vacuum only fragment metadata footers to a single file
 \item \code{"array_meta"}: - vacuum array metadata only
 }}
+
+\item{\code{cfg}}{A configuration object \code{\link[tiledb:tiledb_config]{tiledb::tiledb_config()}} to set parameters
+for the vacuum. When \code{NULL} (default) the configuration parameters
+will be retrieved from object's context.}
 
 \item{\code{start_time, end_time}}{Optional time stamp values. A date time objects
 of class \code{POSIXt}. If not provided, the default values from configuration
@@ -314,17 +314,13 @@ The clean up will run in a separate R process in a clean environment.
 
 \strong{Note this function requires the \href{https://cran.r-project.org/web/packages/mirai/index.html}{mirai} package}.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{TileDBArrayExp$vacuum_async(cfg = NULL, mode = c("fragments", "commits",
-  "fragment_meta", "array_meta"), start_time = NULL, end_time = NULL)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{TileDBArrayExp$vacuum_async(mode = c("fragments", "commits", "fragment_meta",
+  "array_meta"), cfg = NULL, start_time = NULL, end_time = NULL)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{cfg}}{A configuration object \code{\link[tiledb:tiledb_config]{tiledb::tiledb_config()}} to set parameters
-for the vacuum process. When \code{NULL} (default) the configuration parameters will
-be retrieved from object's context.}
-
 \item{\code{mode}}{The vacuum mode, one of the following:
 \itemize{
 \item \code{"fragments"}: - vacuum all fragments (default)
@@ -332,6 +328,10 @@ be retrieved from object's context.}
 \item \code{"fragment_meta"}: - vacuum only fragment metadata footers to a single file
 \item \code{"array_meta"}: - vacuum array metadata only
 }}
+
+\item{\code{cfg}}{A configuration object \code{\link[tiledb:tiledb_config]{tiledb::tiledb_config()}} to set parameters
+for the vacuum process. When \code{NULL} (default) the configuration parameters will
+be retrieved from object's context.}
 
 \item{\code{start_time, end_time}}{Optional time stamp values. A date time objects
 of class \code{POSIXt}. If not provided, the default values from configuration
@@ -350,18 +350,14 @@ resolved, it returns \code{TRUE} indicating vacuum success.
 \subsection{Method \code{consolidate_and_vacuum()}}{
 Consolidates and vacuums the fragments.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{TileDBArrayExp$consolidate_and_vacuum(cfg = NULL, mode = c("fragments",
-  "commits", "fragment_meta", "array_meta"), start_time = NULL,
+\if{html}{\out{<div class="r">}}\preformatted{TileDBArrayExp$consolidate_and_vacuum(mode = c("fragments", "commits",
+  "fragment_meta", "array_meta"), cfg = NULL, start_time = NULL,
   end_time = NULL)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{cfg}}{A configuration object \code{\link[tiledb:tiledb_config]{tiledb::tiledb_config()}} to set parameters
-for the consolidation and vacuum. When \code{NULL} (default) the configuration parameters will
-be retrieved from object's context.}
-
 \item{\code{mode}}{The consolidate and vacuum mode, one of the following:
 \itemize{
 \item \code{"fragments"}: - consolidate all fragments (default)
@@ -369,6 +365,10 @@ be retrieved from object's context.}
 \item \code{"fragment_meta"}: - consolidate only fragment metadata footers to a single file
 \item \code{"array_meta"}: - consolidate array metadata only
 }}
+
+\item{\code{cfg}}{A configuration object \code{\link[tiledb:tiledb_config]{tiledb::tiledb_config()}} to set parameters
+for the consolidation and vacuum. When \code{NULL} (default) the configuration parameters will
+be retrieved from object's context.}
 
 \item{\code{start_time, end_time}}{Optional time stamp values. A date time objects
 of class \code{POSIXt}. If not provided, the default values from configuration
@@ -390,18 +390,14 @@ The consolidation and vacuum will run in a separate R process in a clean environ
 
 \strong{Note this function requires the \href{https://cran.r-project.org/web/packages/mirai/index.html}{mirai} package}.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{TileDBArrayExp$consolidate_and_vacuum_async(cfg = NULL,
-  mode = c("fragments", "commits", "fragment_meta", "array_meta"),
-  start_time = NULL, end_time = NULL)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{TileDBArrayExp$consolidate_and_vacuum_async(mode = c("fragments", "commits",
+  "fragment_meta", "array_meta"), cfg = NULL, start_time = NULL,
+  end_time = NULL)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{cfg}}{A configuration object \code{\link[tiledb:tiledb_config]{tiledb::tiledb_config()}} to set parameters
-for the consolidation and vacuum. When \code{NULL} (default) the configuration parameters will
-be retrieved from object's context.}
-
 \item{\code{mode}}{The consolidate and vacuum mode, one of the following:
 \itemize{
 \item \code{"fragments"}: - consolidate all fragments (default)
@@ -409,6 +405,10 @@ be retrieved from object's context.}
 \item \code{"fragment_meta"}: - consolidate only fragment metadata footers to a single file
 \item \code{"array_meta"}: - consolidate array metadata only
 }}
+
+\item{\code{cfg}}{A configuration object \code{\link[tiledb:tiledb_config]{tiledb::tiledb_config()}} to set parameters
+for the consolidation and vacuum. When \code{NULL} (default) the configuration parameters will
+be retrieved from object's context.}
 
 \item{\code{start_time, end_time}}{Optional time stamp values. A date time objects
 of class \code{POSIXt}. If not provided, the default values from configuration
