@@ -152,10 +152,10 @@ TileDBFragments <- R6::R6Class(
         uri <- tiledb::tiledb_fragment_info_get_to_vacuum_uri(finfo, .x)
 
         trunc01 <-  sub(".*__fragments/__", "", uri)
-        tsp <- c(as.numeric(substr(trunc01, 0, 13)) + 0.0001,
-                 as.numeric(substr(trunc01, 15, 27)) + 0.0001) / 1000
 
-        tsp <- sapply(tsp, as.POSIXct, tz = "UTC", simplify = FALSE)
+        tsp <- strsplit(trunc01, split ='_', fixed = TRUE)[[1]]
+        tsp <- as.POSIXct(as.numeric(c(tsp[1], tsp[2])) / 1000, tz = "UTC")
+
         data.frame(Fragment = paste0("#", .x + 1),
                    start_timestamp = tsp[[1]],
                    end_timestamp = tsp[[2]],
