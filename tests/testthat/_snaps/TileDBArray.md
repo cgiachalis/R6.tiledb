@@ -1,4 +1,4 @@
-# 'TileDBArray' class tests on non-existent arrat
+# 'TileDBArray' class tests on non-existent array
 
     Code
       arrObj$print()
