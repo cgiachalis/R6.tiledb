@@ -1,4 +1,4 @@
-
+# nocov start
 .onLoad <- function(libname, pkgname) {
 
   opt <- getOption("R6.tiledb.internal")
@@ -18,3 +18,5 @@
     }
   }
 }
+
+# nocov end
