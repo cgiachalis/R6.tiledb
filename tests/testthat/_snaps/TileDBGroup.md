@@ -86,7 +86,7 @@
     Message
       i R6Class: <TileDBGroup> object does not exist.
 
-# 'TileDBGroup' class tests metatadata
+# 'TileDBGroup' class tests metadata print method
 
     Code
       group$get_metadata()
@@ -95,7 +95,7 @@
       Metadata: <key,value>
       
 
----
+# 'TileDBGroup' class tests metadata
 
     Code
       group$get_metadata()

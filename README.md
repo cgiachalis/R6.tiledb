@@ -4,7 +4,7 @@
 <!-- badges: start -->
 [![repo-status](https://img.shields.io/badge/repo%20status-stable-brightgreen.svg)](#)
 [![CRAN status](https://www.r-pkg.org/badges/version/R6.tiledb)](https://CRAN.R-project.org/package=R6.tiledb)
-[![coverage](https://img.shields.io/badge/coverage-72.7%25-yellowgreen.svg)](#)
+[![coverage](https://img.shields.io/badge/coverage-78.1%25-yellowgreen.svg)](#)
 <!-- badges: end -->
 
 
