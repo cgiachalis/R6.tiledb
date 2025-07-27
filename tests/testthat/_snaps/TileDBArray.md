@@ -1,11 +1,11 @@
-# 'TileDBArray' class works as expected
+# 'TileDBArray' class tests on non-existent arrat
 
     Code
       arrObj$print()
     Message
       i R6Class: <TileDBArray> object does not exist.
 
----
+# 'TileDBArray' class works as expected
 
     Code
       arrObj$print()
@@ -15,7 +15,7 @@
         * Dimensions: "Dept" and "Gender"
         * Attributes: "Admit" and "Freq"
 
----
+# Test metadata print method
 
     Code
       arrObj$get_metadata()
