@@ -276,7 +276,7 @@ resolved, it returns \code{TRUE} indicating consolidation success.
 Clean up consolidated fragments and array metadata.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{TileDBArrayExp$vacuum(mode = c("fragments", "commits", "fragment_meta",
-  "array_meta"), cfg = NULL, start_time = NULL, end_time = NULL)}\if{html}{\out{</div>}}
+  "array_meta"), cfg = NULL)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -293,10 +293,6 @@ Clean up consolidated fragments and array metadata.
 \item{\code{cfg}}{A configuration object \code{\link[tiledb:tiledb_config]{tiledb::tiledb_config()}} to set parameters
 for the vacuum. When \code{NULL} (default) the configuration parameters
 will be retrieved from object's context.}
-
-\item{\code{start_time, end_time}}{Optional time stamp values. A date time objects
-of class \code{POSIXt}. If not provided, the default values from configuration
-object will be used.}
 }
 \if{html}{\out{</div>}}
 }
@@ -315,7 +311,7 @@ The clean up will run in a separate R process in a clean environment.
 \strong{Note this function requires the \href{https://cran.r-project.org/web/packages/mirai/index.html}{mirai} package}.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{TileDBArrayExp$vacuum_async(mode = c("fragments", "commits", "fragment_meta",
-  "array_meta"), cfg = NULL, start_time = NULL, end_time = NULL)}\if{html}{\out{</div>}}
+  "array_meta"), cfg = NULL)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -332,10 +328,6 @@ The clean up will run in a separate R process in a clean environment.
 \item{\code{cfg}}{A configuration object \code{\link[tiledb:tiledb_config]{tiledb::tiledb_config()}} to set parameters
 for the vacuum process. When \code{NULL} (default) the configuration parameters will
 be retrieved from object's context.}
-
-\item{\code{start_time, end_time}}{Optional time stamp values. A date time objects
-of class \code{POSIXt}. If not provided, the default values from configuration
-object will be used.}
 }
 \if{html}{\out{</div>}}
 }

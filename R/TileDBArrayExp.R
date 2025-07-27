@@ -216,6 +216,10 @@ TileDBArrayExp <- R6::R6Class(
         cfg <- tiledb::config(self$ctx)
       }
 
+      if (!inherits(cfg, "tiledb_config")) {
+        cli::cli_abort("{.arg {deparse(substitute(cfg))}} should be of class {.cls tiledb_config}.", call = NULL)
+      }
+
       cfg["sm.consolidation.mode"] <- mode
 
       if (!is.null(start_time)) {
@@ -275,18 +279,14 @@ TileDBArrayExp <- R6::R6Class(
     #' @param cfg A configuration object [tiledb::tiledb_config()] to set parameters
     #'  for the vacuum. When `NULL` (default) the configuration parameters
     #'  will be retrieved from object's context.
-    #' @param start_time,end_time Optional time stamp values. A date time objects
-    #' of class `POSIXt`. If not provided, the default values from configuration
-    #' object will be used.
+    #'
     #' @return `TRUE`, invisibly.
     #'
     vacuum = function(mode = c("fragments",
                                "commits",
                                "fragment_meta",
                                "array_meta"),
-                      cfg = NULL,
-                      start_time = NULL,
-                      end_time = NULL){
+                      cfg = NULL){
 
       mode <- match.arg(mode)
 
@@ -300,23 +300,6 @@ TileDBArrayExp <- R6::R6Class(
 
       cfg["sm.vacuum.mode"] <- mode
 
-      if (!is.null(start_time)) {
-
-        check_timestamp_posixt(start_time)
-
-        start_time_int64 <- as.character(bit64::as.integer64(as.numeric(start_time) * 1000))
-        cfg["sm.vacuum.timestamp_start"] <- start_time_int64
-
-      }
-
-      if (!is.null(end_time)) {
-
-        check_timestamp_posixt(end_time)
-
-        end_time_int64 <- as.character(bit64::as.integer64(as.numeric(end_time) * 1000))
-        cfg["sm.vacuum.timestamp_end"] <- end_time_int64
-
-      }
 
       tiledb::array_vacuum(self$uri, cfg = cfg)
 
@@ -341,9 +324,6 @@ TileDBArrayExp <- R6::R6Class(
     #' @param cfg A configuration object [tiledb::tiledb_config()] to set parameters
     #'  for the vacuum process. When `NULL` (default) the configuration parameters will
     #'  be retrieved from object's context.
-    #' @param start_time,end_time Optional time stamp values. A date time objects
-    #' of class `POSIXt`. If not provided, the default values from configuration
-    #' object will be used.
     #'
     #' @return This function will return a [mirai::mirai()] object immediately. When it is
     #' resolved, it returns `TRUE` indicating vacuum success.
@@ -352,9 +332,7 @@ TileDBArrayExp <- R6::R6Class(
                                      "commits",
                                      "fragment_meta",
                                      "array_meta"),
-                            cfg = NULL,
-                            start_time = NULL,
-                            end_time = NULL) {
+                            cfg = NULL) {
 
       if (!requireNamespace("mirai", quietly = TRUE)) {
         cli::cli_abort("{.arg vacuum_async} requires {.pkg '{.href [mirai](https://cran.r-project.org/web/packages/mirai/index.html)}'} package.", call = NULL)
@@ -366,25 +344,11 @@ TileDBArrayExp <- R6::R6Class(
         cfg <- tiledb::config(self$ctx)
       }
 
+      if (!inherits(cfg, "tiledb_config")) {
+        cli::cli_abort("{.arg {deparse(substitute(cfg))}} should be of class {.cls tiledb_config}.", call = NULL)
+      }
+
       cfg["sm.vacuum.mode"] <- mode
-
-      if (!is.null(start_time)) {
-
-        check_timestamp_posixt(start_time)
-
-        start_time_int64 <- as.character(bit64::as.integer64(as.numeric(start_time) * 1000))
-        cfg["sm.vacuum.timestamp_start"] <- start_time_int64
-
-      }
-
-      if (!is.null(end_time)) {
-
-        check_timestamp_posixt(end_time)
-
-        end_time_int64 <- as.character(bit64::as.integer64(as.numeric(end_time) * 1000))
-        cfg["sm.vacuum.timestamp_end"] <- end_time_int64
-
-      }
 
       # mirai namespace compute profile
       ns <- "r6.tiledb"
@@ -458,7 +422,6 @@ TileDBArrayExp <- R6::R6Class(
 
         start_time_int64 <- as.character(bit64::as.integer64(as.numeric(start_time) * 1000))
         cfg["sm.consolidation.timestamp_start"] <- start_time_int64
-        cfg["sm.vacuum.timestamp_start"] <- start_time_int64
 
       }
 
@@ -468,7 +431,6 @@ TileDBArrayExp <- R6::R6Class(
 
         end_time_int64 <- as.character(bit64::as.integer64(as.numeric(end_time) * 1000))
         cfg["sm.consolidation.timestamp_end"] <- end_time_int64
-        cfg["sm.vacuum.timestamp_end"] <- start_time_int64
 
       }
 
@@ -522,6 +484,10 @@ TileDBArrayExp <- R6::R6Class(
         cfg <- tiledb::config(self$ctx)
       }
 
+      if (!inherits(cfg, "tiledb_config")) {
+        cli::cli_abort("{.arg {deparse(substitute(cfg))}} should be of class {.cls tiledb_config}.", call = NULL)
+      }
+
       cfg["sm.consolidation.mode"] <- mode
       cfg["sm.vacuum.mode"] <- mode
 
@@ -531,7 +497,6 @@ TileDBArrayExp <- R6::R6Class(
 
         start_time_int64 <- as.character(bit64::as.integer64(as.numeric(start_time) * 1000))
         cfg["sm.consolidation.timestamp_start"] <- start_time_int64
-        cfg["sm.vacuum.timestamp_start"] <- start_time_int64
 
       }
 
@@ -541,7 +506,6 @@ TileDBArrayExp <- R6::R6Class(
 
         end_time_int64 <- as.character(bit64::as.integer64(as.numeric(end_time) * 1000))
         cfg["sm.consolidation.timestamp_end"] <- end_time_int64
-        cfg["sm.vacuum.timestamp_end"] <- start_time_int64
 
       }
 
