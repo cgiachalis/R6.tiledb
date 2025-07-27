@@ -26,5 +26,5 @@ source(paste0(path, "/update_badge.R"))
 total_coverage <- covr::coverage_to_list(cp)$totalcoverage
 update_badge(total_coverage, update_rmd = FALSE)
 
-add_covr_txt(cp)
+add_covr_txt(cp, pkgname)
 

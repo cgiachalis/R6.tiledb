@@ -75,9 +75,10 @@ update_badge <- function(total_coverage, use_rmd = TRUE, update_rmd = FALSE){
   }
 }
 
-add_covr_txt <- function(cp){
+add_covr_txt <- function(cp, pkgname){
 
-  sink("data-coverage/chronoseries-coverage.txt")
+  fname <- paste0("data-coverage/", pkgname, "-coverage.txt")
+  sink(fname)
 
   cat("# Test Coverage --------------------", sep = "\n")
   cat(paste0("Timestamp: ", date()), sep = "\n\n")
