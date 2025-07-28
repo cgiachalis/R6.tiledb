@@ -469,7 +469,7 @@ An object of class \code{data.frame} with four columns:
 \code{trunc_uri = TRUE} (default), otherwise the full uri path
 }
 
-Note that return object will be of class \code{data.table} if the
+Note that the return object will be of class \code{data.table} if the
 package is found in your system.
 }
 }
@@ -510,7 +510,7 @@ An object of class \code{data.frame} with four columns:
 \code{trunc_uri = TRUE} (default), otherwise the full uri path
 }
 
-Note that return object will be of class \code{data.table} if the
+Note that the return object will be of class \code{data.table} if the
 package is found in your system.
 }
 }

@@ -594,7 +594,7 @@ TileDBArrayExp <- R6::R6Class(
     #'  - `URI`: fragment's truncated uri path (fragment name) when
     #'  `trunc_uri = TRUE` (default), otherwise the full uri path
     #'
-    #'  Note that return object will be of class `data.table` if the
+    #'  Note that the return object will be of class `data.table` if the
     #'  package is found in your system.
     #'
     frag_to_vacuum = function(trunc_uri = TRUE) {
@@ -619,7 +619,7 @@ TileDBArrayExp <- R6::R6Class(
     #'  - `URI`: fragment's truncated uri path (fragment name) when
     #'  `trunc_uri = TRUE` (default), otherwise the full uri path
     #'
-    #'  Note that return object will be of class `data.table` if the
+    #'  Note that the return object will be of class `data.table` if the
     #'  package is found in your system.
     #'
     frag_uris = function(trunc_uri = TRUE){

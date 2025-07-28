@@ -7,7 +7,7 @@
 An object of class \code{TileDBFragments}.
 }
 \description{
-An R6 class for handling \code{TileDB} Fragments.
+An R6 object for working with \code{TileDB} Fragments.
 }
 \section{Active bindings}{
 \if{html}{\out{<div class="r6-active-bindings">}}
@@ -101,7 +101,7 @@ An object of class \code{data.frame} with four columns:
 \code{trunc_uri = TRUE} (default), otherwise the full uri path
 }
 
-Note that return object will be of class \code{data.table} if the
+Note that the return object will be of class \code{data.table} if the
 package is found in your system.
 }
 }
@@ -144,7 +144,7 @@ An object of class \code{data.frame} with four columns:
 \code{trunc_uri = TRUE} (default), otherwise the full uri path
 }
 
-Note that return object will be of class \code{data.table} if the
+Note that the return object will be of class \code{data.table} if the
 package is found in your system.
 }
 }
@@ -165,7 +165,7 @@ An numeric value.
 \if{html}{\out{<a id="method-TileDBFragments-delete_fragment_range"></a>}}
 \if{latex}{\out{\hypertarget{method-TileDBFragments-delete_fragment_range}{}}}
 \subsection{Method \code{delete_fragment_range()}}{
-Delete fragments using a range of timestamps.
+Delete fragments using a time-stamp range.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{TileDBFragments$delete_fragment_range(start_time, end_time)}\if{html}{\out{</div>}}
 }
@@ -179,7 +179,8 @@ of class \code{POSIXct}.}
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-\code{TRUE} for successful deletion, invisibly.
+A logical \code{TRUE}, invisibly. Note that if time stamps fall
+outside fragments' time range no deletion will incur.
 }
 }
 \if{html}{\out{<hr>}}

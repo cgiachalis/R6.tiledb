@@ -1,12 +1,7 @@
-
-# TODO: add debug statements
-# TODO: list delete fragments
-# TODO: revert_deleted_frags
-
 #' @title Generate a `TileDBFragments` Object
 #'
 #' @description
-#' An R6 class for handling `TileDB` Fragments.
+#' An R6 object for working with `TileDB` Fragments.
 #'
 #' @returns An object of class `TileDBFragments`.
 #'
@@ -64,7 +59,7 @@ TileDBFragments <- R6::R6Class(
     #'  - `URI`: fragment's truncated uri path (fragment name) when
     #'  `trunc_uri = TRUE` (default), otherwise the full uri path
     #'
-    #'  Note that return object will be of class `data.table` if the
+    #'  Note that the return object will be of class `data.table` if the
     #'  package is found in your system.
     #'
     frag_uris = function(trunc_uri = TRUE) {
@@ -127,7 +122,7 @@ TileDBFragments <- R6::R6Class(
     #'  - `URI`: fragment's truncated uri path (fragment name) when
     #'  `trunc_uri = TRUE` (default), otherwise the full uri path
     #'
-    #'  Note that return object will be of class `data.table` if the
+    #'  Note that the return object will be of class `data.table` if the
     #'  package is found in your system.
     #'
     to_vacuum = function(trunc_uri = TRUE) {
@@ -177,13 +172,13 @@ TileDBFragments <- R6::R6Class(
     to_vacuum_num = function() {
       tiledb::tiledb_fragment_info_get_to_vacuum_num(private$finfo())
     },
-    #' @description Delete fragments using a range of timestamps.
+    #' @description Delete fragments using a time-stamp range.
     #'
     #' @param start_time,end_time Time stamp values. A date time objects
     #' of class `POSIXct`.
     #'
-    #' @return `TRUE` (invisibly) for successful deletion if time stamps fall
-    #' within fragment time range.
+    #' @return A logical `TRUE`, invisibly. Note that if time stamps fall
+    #' outside fragments' time range no deletion will incur.
     #'
     delete_fragment_range = function(start_time, end_time) {
 
