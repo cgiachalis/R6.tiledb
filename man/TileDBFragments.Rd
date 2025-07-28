@@ -167,14 +167,14 @@ An numeric value.
 \subsection{Method \code{delete_fragment_range()}}{
 Delete fragments using a range of timestamps.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{TileDBFragments$delete_fragment_range(timestamp_range)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{TileDBFragments$delete_fragment_range(start_time, end_time)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{timestamp_range}}{A vector of length 2 with date time elements
-of class \code{POSIXct} that represents the start and end time stamps.}
+\item{\code{start_time, end_time}}{Time stamp values. A date time objects
+of class \code{POSIXct}.}
 }
 \if{html}{\out{</div>}}
 }

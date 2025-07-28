@@ -180,20 +180,21 @@ TileDBFragments <- R6::R6Class(
     },
     #' @description Delete fragments using a range of timestamps.
     #'
-    #' @param timestamp_range A vector of length 2 with date time elements
-    #' of class `POSIXct` that represents the start and end time stamps.
+    #' @param start_time,end_time Time stamp values. A date time objects
+    #' of class `POSIXct`.
     #'
-    #' @return `TRUE` for successful deletion, invisibly.
+    #' @return `TRUE` (invisibly) for successful deletion if time stamps fall
+    #' within fragment time range.
     #'
-    delete_fragment_range = function(timestamp_range) {
+    delete_fragment_range = function(start_time, end_time) {
 
-      if (!inherits(timestamp_range, "POSIXct") | length(timestamp_range) != 2L) {
-        cli::cli_abort("{.arg {deparse(substitute(timestamp_range))}} must be a class  {.cls POSIXct} of length 2.", call = NULL)
-      }
+      check_timestamp_posixt(start_time)
 
-      if (timestamp_range[1] > timestamp_range[2]) {
+      check_timestamp_posixt(end_time)
+
+      if (start_time > end_time) {
         cli::cli_abort(
-          c("{.arg {deparse(substitute(timestamp_range))}} not in the right order: {.cls {timestamp_range}}.",
+          c("{.arg {deparse(substitute(start_time))}} and {.arg {deparse(substitute(end_time))}} not in the right order.",
             "i" = "Please use {.emph {'<start_timestamp, end_timestamp>'}} format."),
           call = NULL)
       }
@@ -201,8 +202,8 @@ TileDBFragments <- R6::R6Class(
       arr <- tiledb::tiledb_array(self$uri, keep_open = FALSE)
 
       tiledb::tiledb_array_delete_fragments(arr,
-                                            ts_start = timestamp_range[1],
-                                            ts_end = timestamp_range[2],
+                                            ts_start = start_time[1],
+                                            ts_end = end_time[2],
                                             ctx = private$.tiledb_ctx)
       self$reload_finfo()
 
@@ -257,9 +258,9 @@ TileDBFragments <- R6::R6Class(
 
       }
 
-      # if (n > nrow(furis)) {
-      #   cli::cli_abort("Out of bound fragment index.")
-      # }
+      if (n > num_frags) {
+        cli::cli_abort("Out of bounds fragment index.", call = NULL)
+      }
 
       old_frags <- furis$URI[n]
 
