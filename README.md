@@ -7,42 +7,71 @@
 [![coverage](https://img.shields.io/badge/coverage-86.7%25-yellowgreen.svg)](#)
 <!-- badges: end -->
 
-
-`{R6.tiledb}` is an extension of [TileDB-R](https://cran.r-project.org/web/packages/tiledb/index.html) client built on top of [R6](https://cloud.r-project.org/web/packages/R6/index.html) object-oriented system. It includes base classes that represent `TileDB` arrays and groups with minimum integrated functionality that can be extended with focus on building domain specific applications. Moreover, it offers high level `R6` classes and convenient functional wrappers that integrate additional array methods.
+`{R6.tiledb}` is an extension of [TileDB-R](https://cran.r-project.org/web/packages/tiledb/index.html) client built on top of [R6](https://cloud.r-project.org/web/packages/R6/index.html) object-oriented system. It includes base classes that represent `TileDB` arrays and groups with minimum integrated functionality that can be extended with focus on building domain specific applications. Moreover, it offers high level `R6` classes and convenient functional wrappers with additional array methods.
 
 ### Motivation
 
-The impetus for this project is to narrow the gap between data engineering and analytics:
+The impetus is to make data engineering a little easier and narrow the gab with analytics integration:
 
 -   [TileDB Embedded](https://github.com/TileDB-Inc/TileDB) is a high performant storage engine that you can efficiently store any data and [R](https://www.r-project.org/) is a software with unparalleled analytics ecosystem
 
--   Combined these tools you can build powerful and versatile applications with tight integration of analytics
+-   Combined these tools we can build powerful and versatile applications with tight integration of analytics
 
--   Using `R6` classes we can define complex interactions between arrays and groups ideal for building any data architecture
+-   Using `R6` classes allow us to form complex interactions between arrays and groups ideal for developing any data architecture
 
-As an example of domain specific application with above characteristics is `TileDB` [SOMA-R](https://github.com/single-cell-data/TileDB-SOMA/tree/main/apis/r) from which `{R6.tiledb}` package extracts its initial base classes: `TileDBArray` and `TileDBGroup` and modifies them accordingly.
-
-## Installation
-
-You can install the development version from GitHub:
-
-``` r
-remotes::install_github("cgiachalis/R6.tiledb")
-
-```
+As an example of domain specific application with above characteristics is the `TileDB` [SOMA-R](https://github.com/single-cell-data/TileDB-SOMA/tree/main/apis/r) from which `{R6.tiledb}` package extracts its initial base classes: `TileDBArray` and `TileDBGroup` and modifies them accordingly.
 
 ## Usage
 
-TODO
+To get started if you already have an existing array is to use [tdb_array()]() :
 
 ``` r
 
-uri <- tempdir()
+library(R6.tiledb)
 
-arrobj <- tdb_array(uri)
+  # Create new array on disk ----
+
+  # temp uri path
+  uri <- tempfile()
+  
+
+  idx_cols <- c("Dept", "Gender")
+  d1 <- as.data.frame(UCBAdmissions)
+
+  # Create array and ingest data
+  tiledb::fromDataFrame(d1, uri, col_index = idx_cols, sparse = TRUE)
+
+  
+  # Create an instance that represents a TileDB Array ----
+  arrobj <- tdb_array(uri)
+  
+  arrobj
+#> R6Class: <TileDBArrayExp>
+#> → URI Basename: file3ea47b75133b
+#>   • Dimensions: "Dept" and "Gender"
+#>   • Attributes: "Admit" and "Freq"
+  
+  arrobj$frag_num()
+#> [1] 1
+
+  
+  # Query Dept dimension
+  arr <- arrobj$tiledb_array(selected_points = list(Dept = "A"), return_as = "data.frame")
+  arr[]
+#>   Dept Gender    Admit Freq
+#> 1    A Female Admitted   89
+#> 2    A Female Rejected   19
+#> 3    A   Male Rejected  313
+#> 4    A   Male Admitted  512
 ```
 
-See the [Introduction](https://r6.r-lib.org/articles/Introduction.html) article for usage examples.
+## Installation
+
+You can install the development version of `R6.tiledb` from GitHub:
+
+``` r
+remotes::install_github("cgiachalis/R6.tiledb")
+```
 
 ## References
 
@@ -53,6 +82,4 @@ See the [Introduction](https://r6.r-lib.org/articles/Introduction.html) articl
 -   ***A deep dive into the TileDB data format & storage engine*** [<a href="https://www.youtube.com/watch?v=GHJ16KyqGKI&t=3387s">video</a>]
 
 -   ***Introduction to Arrays*** [<a href="https://documentation.cloud.tiledb.com/academy/structure/arrays/introduction/">TileDB Academy</a>]
-
-
 
