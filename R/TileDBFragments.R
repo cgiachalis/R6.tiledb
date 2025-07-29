@@ -66,6 +66,8 @@ TileDBFragments <- R6::R6Class(
 
       idx <- self$frag_num()
 
+      private$log_debug("frag_uris", "Number of fragments: {}", idx)
+
       # No fragments, then return empty data.frame
       if (idx == 0) {
         out <-  data.frame(Fragment = character(),
@@ -108,6 +110,8 @@ TileDBFragments <- R6::R6Class(
 
       private$.finfo <- tiledb::tiledb_fragment_info(self$uri)
 
+      private$log_debug0("reload_finfo", "Fragment Info reloaded")
+
       invisible(self)
     },
     #' @description Consolidated fragments to be removed.
@@ -133,6 +137,8 @@ TileDBFragments <- R6::R6Class(
 
       if (idx < 0) {
 
+        private$log_debug0("to_vacuum", "No fragments found to vacuum")
+
           out <-  data.frame(Fragment = character(),
                              start_timestamp = numeric(),
                              end_timestamp = numeric(),
@@ -140,6 +146,8 @@ TileDBFragments <- R6::R6Class(
           return(out)
 
       }
+
+      private$log_debug0("to_vacuum", "{} fragments to vaccum", idx + 1)
 
       lst <- lapply(0:idx, function(.x) {
 
@@ -201,6 +209,8 @@ TileDBFragments <- R6::R6Class(
                                             ctx = private$.tiledb_ctx)
       self$reload_finfo()
 
+      private$log_debug0("delete_fragment_range", "Fragments in the range <{},{}> deleted successfully", start_time, end_time)
+
       invisible(TRUE)
 
     },
@@ -216,7 +226,7 @@ TileDBFragments <- R6::R6Class(
     delete_fragment_list = function(frag_uris) {
 
       if (isFALSE(is.character(frag_uris))) {
-        cli::cli_abort("{.arg {deparse(substitute(frag_uris))}}  must be a character vector.", call = NULL)
+        cli::cli_abort("{.arg {deparse(substitute(frag_uris))}} must be a character vector.", call = NULL)
       }
 
       arr <- tiledb::tiledb_array(self$uri, keep_open = FALSE)
@@ -225,6 +235,8 @@ TileDBFragments <- R6::R6Class(
                                                  fragments = frag_uris,
                                                  ctx = private$.tiledb_ctx)
       self$reload_finfo()
+
+      private$log_debug0("delete_fragment_list", "Fragment list deleted successfully")
 
       invisible(TRUE)
 
@@ -239,7 +251,7 @@ TileDBFragments <- R6::R6Class(
     delete_fragment = function(n) {
 
       if (isFALSE( rlang::is_scalar_double(n))) {
-        cli::cli_abort("{.arg {deparse(substitute(n))}}  must be a numeric value.", call = NULL)
+        cli::cli_abort("{.arg {deparse(substitute(n))}} must be a numeric value.", call = NULL)
       }
 
       furis <- self$frag_uris(FALSE)
@@ -264,6 +276,8 @@ TileDBFragments <- R6::R6Class(
                                                  fragments = old_frags,
                                                  ctx = private$.tiledb_ctx)
       self$reload_finfo()
+
+      private$log_debug0(" delete_fragment", "#{} fragment deleted successfully", n)
 
       invisible(TRUE)
 
