@@ -28,3 +28,8 @@ reference:
   desc: ~
   contents:
   - starts_with("TileDB")
+
+- title: Functional Interface
+  desc: ~
+  contents:
+  - tdb_array
