@@ -23,6 +23,8 @@
 #'
 #' @section Methods:
 #'
+#' **Public Methods**
+#'
 #' \if{html}{\out{
 #' <ul>
 #' <li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBObject" data-id="class"><a href='../../R6.tiledb/html/TileDBObject.html#method-TileDBObject-class'><code>$class()</code></a></span></li>
