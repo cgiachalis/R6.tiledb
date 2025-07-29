@@ -64,16 +64,18 @@
 #' }}
 #'
 #' @param uri URI path for the TileDB Array.
+#' @param mode Mode to open : either `"READ" (default) or "WRITE"`.
 #' @param ctx Optional [tiledb::tiledb_ctx()] object.
 #' @param tiledb_timestamp Optional Datetime (POSIXct) with TileDB timestamp.
 #'
-#' @returns A `R6` object.
+#' @returns An `R6` object.
 #'
 #' @export
 #'
 tdb_array <- function(uri,
+                      mode = "READ",
                       ctx = NULL,
                       tiledb_timestamp = NULL) {
   obj <- TileDBArrayExp$new(uri, ctx = ctx, tiledb_timestamp = tiledb_timestamp)
-  obj$open("READ")
+  obj$open(mode = mode)
 }

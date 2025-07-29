@@ -5,7 +5,7 @@
 #' operate on the array.
 #'
 #' ## Initialization
-#' A new `TileDBArrayExp` instance is initialized using the `new()` method.
+#' A new `TileDBArrayExp` instance is initialised using the `new()` method.
 #' Alternatively use [tdb_array()] to create a new instance and open the array
 #' at `READ` mode.
 #'

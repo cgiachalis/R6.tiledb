@@ -11,7 +11,7 @@ An enhanced version of \link{TileDBArray} with additional methods to
 operate on the array.
 \subsection{Initialization}{
 
-A new \code{TileDBArrayExp} instance is initialized using the \code{new()} method.
+A new \code{TileDBArrayExp} instance is initialised using the \code{new()} method.
 Alternatively use \code{\link[=tdb_array]{tdb_array()}} to create a new instance and open the array
 at \code{READ} mode.
 

@@ -70,7 +70,6 @@ test_that("'TileDBArrayExp' class works as expected", {
 
   expect_null(arrObj$schema_upgrade())
 
-
 })
 
 test_that("Test '$consolidate', '$consolidate_async' and '$vacuum' methods", {

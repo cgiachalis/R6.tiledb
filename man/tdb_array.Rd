@@ -4,17 +4,19 @@
 \alias{tdb_array}
 \title{Open \code{TileDBArrayExp}}
 \usage{
-tdb_array(uri, ctx = NULL, tiledb_timestamp = NULL)
+tdb_array(uri, mode = "READ", ctx = NULL, tiledb_timestamp = NULL)
 }
 \arguments{
 \item{uri}{URI path for the TileDB Array.}
+
+\item{mode}{Mode to open : either \verb{"READ" (default) or "WRITE"}.}
 
 \item{ctx}{Optional \code{\link[tiledb:tiledb_ctx]{tiledb::tiledb_ctx()}} object.}
 
 \item{tiledb_timestamp}{Optional Datetime (POSIXct) with TileDB timestamp.}
 }
 \value{
-A \code{R6} object.
+An \code{R6} object.
 }
 \description{
 Functional interface that initialise a \code{TileDBArrayExp} instance and opens the
