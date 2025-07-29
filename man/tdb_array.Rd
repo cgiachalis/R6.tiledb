@@ -90,3 +90,27 @@ array
 }}
 }
 
+\examples{
+\dontrun{
+ uri <- tempdir()
+
+ # create demo array on disk
+ demo_create_array(uri)
+
+ arrobj <- tdb_array(uri)
+
+ arrobj$object_type
+ #> "ARRAY"
+
+ arrobj$frag_num()
+ #> 3
+
+ arrobj$colnames()
+ #> "Dept"   "Gender" "Admit"  "Freq"
+
+ arrobj$has_enumeration()
+ #> Admit  Freq
+ #> TRUE FALSE
+}
+
+}

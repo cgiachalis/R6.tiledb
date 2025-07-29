@@ -24,12 +24,17 @@ navbar:
 
 reference:
 
-- title: TileDB R6 Classes
-  desc: ~
-  contents:
-  - starts_with("TileDB")
-
 - title: Functional Interface
   desc: ~
   contents:
   - tdb_array
+
+- title: R6 Interface
+  desc: ~
+  contents:
+  - starts_with("TileDB")
+
+- title: Utilities
+  desc: ~
+  contents:
+  - demo_create_array

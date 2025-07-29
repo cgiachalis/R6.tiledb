@@ -79,3 +79,23 @@ vapply_int <- function(X, FUN, ..., USE.NAMES = TRUE) {
   attrs <- tiledb::attrs(sch)
   c(dim_enum, vapply_lgl(attrs, tiledb::tiledb_attribute_has_enumeration))
 }
+
+#' Create demo Array
+#'
+#' @param uri The uri path.
+#'
+#' @export
+demo_create_array <- function(uri) {
+
+  idx_cols <- c("Dept", "Gender")
+  df <- as.data.frame(UCBAdmissions)
+
+  tiledb::fromDataFrame(df[1:8, ], uri, col_index = idx_cols, sparse = TRUE)
+
+  arr <- tiledb::tiledb_array(uri)
+  arr[] <- df[9:16, ]
+  arr[] <- df[17:24, ]
+
+  invisible(TRUE)
+
+}
