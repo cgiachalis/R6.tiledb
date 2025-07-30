@@ -18,6 +18,10 @@ Base class to implement shared functionality across the \link{TileDBArray} and
 
 \item{\code{uri}}{The URI of the TileDB object.}
 
+\item{\code{mode}}{Get the mode of the object.
+
+One of the following: \code{"CLOSED"}, \code{"READ"} or \code{"WRITE"}.}
+
 \item{\code{object_type}}{The TileDB object type.
 
 TileDB object types:
@@ -35,7 +39,6 @@ TileDB object types:
 \item \href{#method-TileDBObject-new}{\code{TileDBObject$new()}}
 \item \href{#method-TileDBObject-class}{\code{TileDBObject$class()}}
 \item \href{#method-TileDBObject-is_open}{\code{TileDBObject$is_open()}}
-\item \href{#method-TileDBObject-mode}{\code{TileDBObject$mode()}}
 \item \href{#method-TileDBObject-reopen}{\code{TileDBObject$reopen()}}
 \item \href{#method-TileDBObject-exists}{\code{TileDBObject$exists()}}
 \item \href{#method-TileDBObject-clone}{\code{TileDBObject$clone()}}
@@ -87,20 +90,6 @@ Determine if the object is open for reading or writing.
 
 \subsection{Returns}{
 \code{TRUE} if the object is open, otherwise \code{FALSE}.
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-TileDBObject-mode"></a>}}
-\if{latex}{\out{\hypertarget{method-TileDBObject-mode}{}}}
-\subsection{Method \code{mode()}}{
-Get the mode of the object.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{TileDBObject$mode()}\if{html}{\out{</div>}}
-}
-
-\subsection{Returns}{
-If the object is closed, returns \code{"CLOSED"};
-otherwise returns the mode (e.g. \code{"READ"}) of the object.
 }
 }
 \if{html}{\out{<hr>}}

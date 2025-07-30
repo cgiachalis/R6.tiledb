@@ -8,7 +8,7 @@ test_that("'TileDBArray' class tests on non-existent array", {
   arrObj <- TileDBArray$new(uri = uri, internal_use = "permit")
 
   expect_false(arrObj$exists())
-  expect_equal(arrObj$mode(), "CLOSED")
+  expect_equal(arrObj$mode, "CLOSED")
 
   expect_error(arrObj$object, "Array does not exist.")
 
@@ -32,7 +32,7 @@ test_that("'TileDBArray' class works as expected", {
   tiledb::fromDataFrame(df[1:4, ], uri, col_index = idx_cols)
 
   expect_invisible(arrObj$open())
-  expect_equal(arrObj$mode(), "READ")
+  expect_equal(arrObj$mode, "READ")
 
   # Check schema info
   expect_no_error(sch_info <- arrObj$schema_info())
@@ -49,7 +49,7 @@ test_that("'TileDBArray' class works as expected", {
   expect_true(tiledb::tiledb_array_is_open_for_reading(arrObj$object), TRUE)
 
   arrObj$close()
-  expect_equal(arrObj$mode(), "CLOSED")
+  expect_equal(arrObj$mode, "CLOSED")
 
   # Verify that array is neither open in READ nor WRITE mode
   expect_false(tiledb::tiledb_array_is_open_for_reading(arrObj$object), FALSE)
@@ -57,12 +57,12 @@ test_that("'TileDBArray' class works as expected", {
 
   # Open from CLOSE to WRITE mode
   expect_no_error(arrObj$open("WRITE"))
-  expect_equal(arrObj$mode(), "WRITE")
+  expect_equal(arrObj$mode, "WRITE")
 
   # Verify that array is open in WRITE mode
   expect_true(tiledb::tiledb_array_is_open_for_writing(arrObj$object), TRUE)
 
-  expect_equal(arrObj$reopen()$mode(), "READ")
+  expect_equal(arrObj$reopen()$mode, "READ")
   expect_true(arrObj$is_open())
   arrObj$close()
 
@@ -126,12 +126,12 @@ test_that("'TileDBArray' class works as expected", {
   # new instances
   arrObj_new <- TileDBArray$new(uri = uri, internal_use = "permit")
   expect_invisible(arrObj_new$open())
-  expect_equal(arrObj_new$mode(), "READ")
+  expect_equal(arrObj_new$mode, "READ")
 
   # Verify that array is open in READ mode (1/2)
   expect_true(tiledb::tiledb_array_is_open_for_reading(arrObj_new$object), TRUE)
   arrObj_new$close()
-  expect_equal(arrObj_new$mode(), "CLOSED")
+  expect_equal(arrObj_new$mode, "CLOSED")
 
   # Verify that object is kept open in READ mode (not using open method) (2/2)
   arrObj_new <- TileDBArray$new(uri = uri, internal_use = "permit")

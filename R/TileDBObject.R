@@ -66,22 +66,8 @@ TileDBObject <- R6::R6Class(
     #' @return `TRUE` if the object is open, otherwise `FALSE`.
     #'
     is_open = function() {
-      return(self$mode() != 'CLOSED')
+      return(self$mode != 'CLOSED')
     },
-
-    #' @description Get the mode of the object.
-    #'
-    #' @return If the object is closed, returns `"CLOSED"`;
-    #' otherwise returns the mode (e.g. `"READ"`) of the object.
-    #'
-    mode = function() {
-      if (is.null(private$.mode)) {
-        "CLOSED"
-      } else {
-        private$.mode
-      }
-    },
-
     #' @description Close and reopen the TileDB object in a new mode.
     #'
     #' @param mode New mode to open the object in; choose from: `"READ"` or `"WRITE"`.
@@ -158,6 +144,22 @@ TileDBObject <- R6::R6Class(
       private$tiledb_uri$uri
     },
 
+    #' @field mode Get the mode of the object.
+    #'
+    #' One of the following: `"CLOSED"`, `"READ"` or `"WRITE"`.
+    #'
+    mode = function(value) {
+
+      if (!missing(value)) {
+        .emit_read_only_error("uri")
+      }
+
+      if (is.null(private$.mode)) {
+        "CLOSED"
+      } else {
+        private$.mode
+      }
+    },
     #' @field object_type The TileDB object type.
     #'
     #' TileDB object types:

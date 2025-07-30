@@ -60,7 +60,7 @@ TileDBArray <- R6::R6Class(
         private$initialize_object()
       }
 
-      init_mode <- self$mode()
+      init_mode <- self$mode
 
       identical_mode <- init_mode == mode
 
@@ -116,7 +116,7 @@ TileDBArray <- R6::R6Class(
       args$uri <- self$uri
       # user has not supplied 'query_type'
       if (is.null(args$query_type)) {
-        mode <- self$mode()
+        mode <- self$mode
         args$query_type <- ifelse(mode == "CLOSED", "READ", mode)
       }
       args$query_layout <- "UNORDERED"
