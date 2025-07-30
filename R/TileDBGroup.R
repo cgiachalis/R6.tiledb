@@ -80,7 +80,7 @@ TileDBGroup <- R6::R6Class(
         private$initialize_object()
       }
 
-      init_mode <- self$mode()
+      init_mode <- self$mode
       private$.mode <- mode
 
       identical_mode <- init_mode == mode
@@ -285,11 +285,11 @@ TileDBGroup <- R6::R6Class(
         member$object
       }
 
-      private$log_debug0("get_member", "Check is open,  mode is {}", self$mode())
+      private$log_debug0("get_member", "Check is open,  mode is {}", self$mode)
 
       if (!obj$is_open()) {
         switch(
-          EXPR = (mode <- self$mode()),
+          EXPR = (mode <- self$mode),
           READ = obj$open(mode),
           WRITE = obj$reopen(mode)
         )

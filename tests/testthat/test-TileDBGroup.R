@@ -33,7 +33,7 @@ test_that("'TileDBGroup' class tests on existent but empty group", {
   expect_true(dir.exists(uri))  # Any folder at this uri? Expect TRUE
   expect_true(file.exists(file.path(uri, "__group")))
   expect_true(group$exists())
-  expect_equal(group$mode(), "WRITE") # once it is created, it is opened in WRITE mode
+  expect_equal(group$mode, "WRITE") # once it is created, it is opened in WRITE mode
   # debug
   # fp = file.path(uri, "__group")
   # expect_match(tiledb::tiledb_object_type(uri), "GROUP")
@@ -43,7 +43,7 @@ test_that("'TileDBGroup' class tests on existent but empty group", {
 
 
   group$close()
-  expect_equal(group$mode(), "CLOSED")
+  expect_equal(group$mode, "CLOSED")
 
   uri2 <- file.path(withr::local_tempdir(), "test-group2")
   group2 <- TileDBGroup$new(uri2, internal_use = "permit")
@@ -55,7 +55,7 @@ test_that("'TileDBGroup' class tests on existent but empty group", {
   expect_equal(tiledb::tiledb_group_query_type(group2$object), "READ")
 
   group2$close()
-  expect_equal(group2$mode(), "CLOSED")
+  expect_equal(group2$mode, "CLOSED")
 
   # Verify that group reference is CLOSED
   expect_false(tiledb::tiledb_group_is_open(group2$object))
@@ -63,29 +63,29 @@ test_that("'TileDBGroup' class tests on existent but empty group", {
   # New instance
   group2_new <- TileDBGroup$new(uri2, internal_use = "permit")
   expect_no_error(group2_new$open(mode = "READ"))
-  expect_equal(group2_new$mode(), "READ")
+  expect_equal(group2_new$mode, "READ")
 
   # Verify that group is open in READ mode
   expect_equal(tiledb::tiledb_group_query_type(group2_new$object), "READ")
   group2_new$close()
-  expect_equal(group2_new$mode(), "CLOSED")
+  expect_equal(group2_new$mode, "CLOSED")
 
   group2_new <- TileDBGroup$new(uri2, internal_use = "permit")
   expect_no_error(group2_new$open(mode = "WRITE"))
-  expect_equal(group2_new$mode(), "WRITE")
+  expect_equal(group2_new$mode, "WRITE")
   expect_equal(tiledb::tiledb_group_query_type(group2_new$object), "WRITE")
 
   group2_new$close()
 
   group3_new <- TileDBGroup$new(uri2, internal_use = "permit")
 
-  expect_equal( group3_new$mode(), "CLOSED")
+  expect_equal( group3_new$mode, "CLOSED")
 
   # Group object reference is initialised with READ mode if CLOSED
   expect_equal(tiledb::tiledb_group_is_open(group3_new$object), TRUE)
 
   # Checking again, this must be in READ mode
-  expect_equal(group3_new$mode(), "READ")
+  expect_equal(group3_new$mode, "READ")
 
   # Verify that group is open in READ mode
   expect_equal(tiledb::tiledb_group_query_type(group3_new$object), "READ")
@@ -257,7 +257,7 @@ test_that("'TileDBGroup' class tests add/remove members", {
   grp1 <- group2$get_member("grp1")
   expect_s3_class(grp1, "TileDBGroup")
   # mode should be identical to group2
-  expect_equal(grp1$mode(), "WRITE")
+  expect_equal(grp1$mode, "WRITE")
 
   # Verify group query mode
   expect_equal(tiledb::tiledb_group_query_type(grp1$object), "WRITE")

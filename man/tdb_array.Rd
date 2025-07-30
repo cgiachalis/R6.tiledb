@@ -28,7 +28,9 @@ array at \code{READ} mode.
 \item \code{ctx} : TileDB Context
 \item \code{tiledb_timestamp} : Time that object was opened at
 \item \code{uri} : The URI of the TileDB object
-\item \code{object_type} : The TileDB object type
+\item \code{mode}: Get the mode of the object: one of the following:
+\code{"CLOSED"}, \code{"READ"} or \code{"WRITE"}
+\item \code{object_type} : The TileDB object type:
 \itemize{
 \item \code{"ARRAY"}, for dense or sparse array resource
 \item \code{"GROUP"}, for group resource
@@ -53,7 +55,6 @@ array
 <ul>
 <li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBObject" data-id="class"><a href='../../R6.tiledb/html/TileDBObject.html#method-TileDBObject-class'><code>$class()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBObject" data-id="is_open"><a href='../../R6.tiledb/html/TileDBObject.html#method-TileDBObject-is_open'><code>$is_open()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBObject" data-id="mode"><a href='../../R6.tiledb/html/TileDBObject.html#method-TileDBObject-mode'><code>$mode()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBObject" data-id="exists"><a href='../../R6.tiledb/html/TileDBObject.html#method-TileDBObject-exists'><code>$exists()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBArray" data-id="open"><a href='../../R6.tiledb/html/TileDBArray.html#method-TileDBArray-open'><code>$open()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBArray" data-id="close"><a href='../../R6.tiledb/html/TileDBArray.html#method-TileDBArray-close'><code>$close()</code></a></span></li>

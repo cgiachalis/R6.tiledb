@@ -17,7 +17,7 @@ test_that("'TileDBObject' abstract class works as expected", {
   expect_error(TileDBObject$new(uri, ctx = "bad_ctx", internal_use_only = "allowed_use"))
   expect_error(TileDBObject$new(uri, tiledb_timestamp = "bad_stamp", internal_use_only = "allowed_use"))
   expect_false(arrObj$is_open())
-  expect_equal(arrObj$mode(), "CLOSED")
+  expect_equal(arrObj$mode, "CLOSED")
   expect_false(arrObj$exists())
 
   # arrObj$reopen(mode = "READ") : tested on derived classes
@@ -29,5 +29,6 @@ test_that("'TileDBObject' abstract class works as expected", {
   expect_error(arrObj$tiledb_timestamp <- "a")
   expect_error(arrObj$ctx <- "a")
   expect_error(arrObj$object_type <- "a")
+  expect_error(arrObj$mode <- "a")
 
 })
