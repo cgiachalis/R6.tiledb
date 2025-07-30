@@ -88,7 +88,7 @@ vapply_int <- function(X, FUN, ..., USE.NAMES = TRUE) {
 demo_UCBAdmissions_array <- function(uri) {
 
   idx_cols <- c("Dept", "Gender")
-  df <- as.data.frame(UCBAdmissions)
+  df <- as.data.frame(datasets::UCBAdmissions)
 
   tiledb::fromDataFrame(df[1:8, ], uri, col_index = idx_cols, sparse = TRUE)
 
