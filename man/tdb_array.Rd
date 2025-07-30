@@ -30,7 +30,7 @@ array at \code{READ} mode.
 \item \code{uri} : The URI of the TileDB object
 \item \code{mode}: Get the mode of the object: one of the following:
 \code{"CLOSED"}, \code{"READ"} or \code{"WRITE"}
-\item \code{object_type} : The TileDB object type
+\item \code{object_type} : The TileDB object type:
 \itemize{
 \item \code{"ARRAY"}, for dense or sparse array resource
 \item \code{"GROUP"}, for group resource

@@ -18,13 +18,10 @@ Base class to implement shared functionality across the \link{TileDBArray} and
 
 \item{\code{uri}}{The URI of the TileDB object.}
 
-\item{\code{mode}}{Get the mode of the object.
+\item{\code{mode}}{Get the mode of the object: one of the following:
+\code{"CLOSED"}, \code{"READ"} or \code{"WRITE"}.}
 
-One of the following: \code{"CLOSED"}, \code{"READ"} or \code{"WRITE"}.}
-
-\item{\code{object_type}}{The TileDB object type.
-
-TileDB object types:
+\item{\code{object_type}}{The TileDB object type:
 \itemize{
 \item \code{"ARRAY"}, for dense or sparse array resource
 \item \code{"GROUP"}, for group resource

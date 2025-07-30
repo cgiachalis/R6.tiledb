@@ -10,7 +10,7 @@
 #' - `uri` : The URI of the TileDB object
 #' - `mode`: Get the mode of the object: one of the following:
 #'  `"CLOSED"`, `"READ"` or `"WRITE"`
-#' - `object_type` : The TileDB object type
+#' - `object_type` : The TileDB object type:
 #'   - `"ARRAY"`, for dense or sparse array resource
 #'   - `"GROUP"`, for group resource
 #'   - `"INVALID"`, for not a TileDB resource

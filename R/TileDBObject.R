@@ -144,9 +144,8 @@ TileDBObject <- R6::R6Class(
       private$tiledb_uri$uri
     },
 
-    #' @field mode Get the mode of the object.
-    #'
-    #' One of the following: `"CLOSED"`, `"READ"` or `"WRITE"`.
+    #' @field mode Get the mode of the object: one of the following:
+    #' `"CLOSED"`, `"READ"` or `"WRITE"`.
     #'
     mode = function(value) {
 
@@ -160,9 +159,7 @@ TileDBObject <- R6::R6Class(
         private$.mode
       }
     },
-    #' @field object_type The TileDB object type.
-    #'
-    #' TileDB object types:
+    #' @field object_type The TileDB object type:
     #'
     #'  - `"ARRAY"`, for dense or sparse array resource
     #'  - `"GROUP"`, for group resource
