@@ -1,11 +1,9 @@
 
 test_that("'TileDBArray' class tests on non-existent array", {
 
-  options(R6.tiledb.internal = NULL)
-
   uri <- file.path(withr::local_tempdir(), "test-TileDBArray")
 
-  arrObj <- TileDBArray$new(uri = uri, internal_use = "permit")
+  arrObj <- TileDBArray$new(uri = uri)
 
   expect_false(arrObj$exists())
   expect_equal(arrObj$mode, "CLOSED")
@@ -24,7 +22,7 @@ test_that("'TileDBArray' class works as expected", {
 
   uri <- file.path(withr::local_tempdir(), "test-TileDBArray")
 
-  arrObj <- TileDBArray$new(uri = uri, internal_use = "permit")
+  arrObj <- TileDBArray$new(uri = uri)
 
   # Create an array
   idx_cols <- c("Dept", "Gender")
@@ -124,7 +122,7 @@ test_that("'TileDBArray' class works as expected", {
   arrObj$close()
 
   # new instances
-  arrObj_new <- TileDBArray$new(uri = uri, internal_use = "permit")
+  arrObj_new <- TileDBArray$new(uri = uri)
   expect_invisible(arrObj_new$open())
   expect_equal(arrObj_new$mode, "READ")
 
@@ -134,11 +132,11 @@ test_that("'TileDBArray' class works as expected", {
   expect_equal(arrObj_new$mode, "CLOSED")
 
   # Verify that object is kept open in READ mode (not using open method) (2/2)
-  arrObj_new <- TileDBArray$new(uri = uri, internal_use = "permit")
+  arrObj_new <- TileDBArray$new(uri = uri)
   expect_true(tiledb::tiledb_array_is_open_for_reading(arrObj_new$object), TRUE)
 
   # Verify that array is open in WRITE mode
-  arrObj_new <- TileDBArray$new(uri = uri, internal_use = "permit")
+  arrObj_new <- TileDBArray$new(uri = uri)
   expect_no_error(arrObj_new$open(mode = "WRITE"))
   expect_true(tiledb::tiledb_array_is_open_for_writing(arrObj_new$object), TRUE)
 
@@ -155,7 +153,7 @@ test_that("Test metadata print method", {
 
   uri <- file.path(withr::local_tempdir(), "test-TileDBArray")
 
-  arrObj <- TileDBArray$new(uri = uri, internal_use = "permit")
+  arrObj <- TileDBArray$new(uri = uri)
 
   # Create an array
   idx_cols <- c("Dept", "Gender")

@@ -16,16 +16,10 @@ TileDBObject <- R6::R6Class(
     #' @param uri URI path for the TileDB object.
     #' @param ctx Optional [tiledb::tiledb_ctx()] object.
     #' @param tiledb_timestamp Optional Datetime (POSIXct) with TileDB timestamp.
-    #' @param internal_use  A character value that gives access to new instance.
-    #' Use `options(R6.tiledb.internal = NULL)` for internal mode.
-    #'
     #'
     initialize = function(uri,
                           ctx = NULL,
-                          tiledb_timestamp = NULL,
-                          internal_use = getOption("R6.tiledb.internal")) {
-
-      private$check_internal_use(internal_use, method = "new()")
+                          tiledb_timestamp = NULL) {
 
       if (missing(uri)) {
         cli::cli_abort("{.emph 'uri'} argument is missing.", call = NULL)
@@ -66,7 +60,7 @@ TileDBObject <- R6::R6Class(
     #' @return `TRUE` if the object is open, otherwise `FALSE`.
     #'
     is_open = function() {
-      return(self$mode != 'CLOSED')
+      self$mode != 'CLOSED'
     },
     #' @description Close and reopen the TileDB object in a new mode.
     #'
