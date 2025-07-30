@@ -1,7 +1,6 @@
 template:
   bootstrap: 5
   bootswatch: zephyr
-  math-rendering: mathjax
   bslib:
     base_font: {google: "Roboto"}
     heading_font: {google: "Rubik"}
@@ -25,7 +24,17 @@ navbar:
 
 reference:
 
-- title: TileDB R6 Classes
+- title: Functional Interface
+  desc: ~
+  contents:
+  - tdb_array
+
+- title: R6 Interface
   desc: ~
   contents:
   - starts_with("TileDB")
+
+- title: Utilities
+  desc: ~
+  contents:
+  - demo_create_array

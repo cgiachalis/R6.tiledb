@@ -72,10 +72,30 @@ vapply_int <- function(X, FUN, ..., USE.NAMES = TRUE) {
                                                        "tiledb_array_schema"))
   dom <- tiledb::domain(sch)
   dims <- tiledb::dimensions(dom)
-  nms <- sapply(dims, tiledb::name)
+  nms <- vapply_char(dims, tiledb::name)
   dim_enum <- rep(FALSE, length(dims))
   names(dim_enum) <- nms
 
   attrs <- tiledb::attrs(sch)
-  c(dim_enum, sapply(attrs, tiledb::tiledb_attribute_has_enumeration))
+  c(dim_enum, vapply_lgl(attrs, tiledb::tiledb_attribute_has_enumeration))
+}
+
+#' Create array for `UCBAdmissions` dataset
+#'
+#' @param uri The uri path.
+#'
+#' @export
+demo_UCBAdmissions_array <- function(uri) {
+
+  idx_cols <- c("Dept", "Gender")
+  df <- as.data.frame(UCBAdmissions)
+
+  tiledb::fromDataFrame(df[1:8, ], uri, col_index = idx_cols, sparse = TRUE)
+
+  arr <- tiledb::tiledb_array(uri)
+  arr[] <- df[9:16, ]
+  arr[] <- df[17:24, ]
+
+  invisible(TRUE)
+
 }

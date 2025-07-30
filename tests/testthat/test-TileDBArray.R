@@ -1,5 +1,5 @@
 
-test_that("'TileDBArray' class works as expected", {
+test_that("'TileDBArray' class tests on non-existent array", {
 
   options(R6.tiledb.internal = NULL)
 
@@ -13,18 +13,26 @@ test_that("'TileDBArray' class works as expected", {
   expect_error(arrObj$object, "Array does not exist.")
 
   # Print that array does not exist
+  expect_no_error(suppressMessages(arrObj$print()))
   expect_snapshot(arrObj$print())
+
+  })
+
+test_that("'TileDBArray' class works as expected", {
+
+  options(R6.tiledb.internal = NULL)
+
+  uri <- file.path(withr::local_tempdir(), "test-TileDBArray")
+
+  arrObj <- TileDBArray$new(uri = uri, internal_use = "permit")
 
   # Create an array
   idx_cols <- c("Dept", "Gender")
   df <- as.data.frame(UCBAdmissions)
-  tiledb::fromDataFrame(df, uri, col_index = idx_cols)
+  tiledb::fromDataFrame(df[1:4, ], uri, col_index = idx_cols)
 
   expect_invisible(arrObj$open())
   expect_equal(arrObj$mode(), "READ")
-
-  # Print array
-  expect_snapshot(arrObj$print())
 
   # Check schema info
   expect_no_error(sch_info <- arrObj$schema_info())
@@ -85,7 +93,7 @@ test_that("'TileDBArray' class works as expected", {
   # metadata
 
   empty_metadata <- arrObj$get_metadata()
-  expect_s3_class(empty_metadata, "tiledb_metadata")
+  expect_s3_class(empty_metadata, "tdb_metadata")
   expect_equal(length(empty_metadata), 0L)
 
   md <- list(a = "Hi", b = "good", c = 10)
@@ -94,6 +102,7 @@ test_that("'TileDBArray' class works as expected", {
 
   md <- list(d = "Boo", e = 3)
   arrObj$set_metadata(md)
+
   arrObj$close()
 
   md <- list(1)
@@ -133,6 +142,37 @@ test_that("'TileDBArray' class works as expected", {
   expect_no_error(arrObj_new$open(mode = "WRITE"))
   expect_true(tiledb::tiledb_array_is_open_for_writing(arrObj_new$object), TRUE)
 
+  # Print array
+  expect_snapshot(arrObj$print())
+
   arrObj_new$close()
 
 })
+
+test_that("Test metadata print method", {
+
+  options(R6.tiledb.internal = NULL)
+
+  uri <- file.path(withr::local_tempdir(), "test-TileDBArray")
+
+  arrObj <- TileDBArray$new(uri = uri, internal_use = "permit")
+
+  # Create an array
+  idx_cols <- c("Dept", "Gender")
+  df <- as.data.frame(UCBAdmissions)
+  tiledb::fromDataFrame(df[1:4, ], uri, col_index = idx_cols)
+
+  # metadata
+  expect_snapshot(arrObj$get_metadata())
+
+  md <- list(a = "Hi", b = "good", c = 10)
+  arrObj$reopen(mode = "WRITE" )
+  arrObj$set_metadata(md)
+
+  md <- list(d = "Boo", e = 3)
+  arrObj$set_metadata(md)
+  expect_snapshot(arrObj$get_metadata())
+
+  arrObj$close()
+
+  })

@@ -122,7 +122,7 @@ Close and reopen the TileDB object in a new mode.
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-Invisibly returns \code{self} opened in \code{mode}.
+The object, invisibly.
 }
 }
 \if{html}{\out{<hr>}}

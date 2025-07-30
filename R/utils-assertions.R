@@ -22,6 +22,12 @@ check_uri <- function(uri) {
 
 check_timestamp <- function(x){
   if (!inherits(x, "POSIXct") || length(x) != 1L || is.na(x)) {
-    cli::cli_abort("{.emph '{deparse(substitute(x))}'} must be a single {.cls POSIXct} datetime object.", call = NULL)
+    cli::cli_abort("{.arg {deparse(substitute(x))}} must be a single {.cls POSIXct} datetime object.", call = NULL)
+  }
+}
+
+check_timestamp_posixt <- function(x){
+  if (!inherits(x, "POSIXt") || length(x) != 1L || is.na(x)) {
+    cli::cli_abort("{.arg {deparse(substitute(x))}} must be a single {.cls POSIXt} datetime object.", call = NULL)
   }
 }

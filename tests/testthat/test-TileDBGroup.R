@@ -13,6 +13,8 @@ test_that("'TileDBGroup' class tests on non-existent group", {
                label = "TileDB resource should be open for read or write")
   expect_error(group$open(),
                label = "Group does not exist.")
+
+  expect_message(group$print())
 })
 
 test_that("'TileDBGroup' class tests on existent but empty group", {
@@ -113,6 +115,8 @@ test_that("'TileDBGroup' class tests accessors on empty group", {
   mdf <- group$get_members_df()
   expect_s3_class(mdf, "data.frame")
   expect_equal(nrow(mdf), 0)
+
+  expect_message(group$print())
 
   # Print that group is empty
   expect_snapshot(group$print())
@@ -337,6 +341,8 @@ test_that("'TileDBGroup' class tests delete members", {
   # Step 5: Delete members
   group$reopen(mode = "WRITE")
 
+  expect_error(group$delete("Bob"))
+
   group$delete("arr1")
   expect_equal(group$count_members(), 2)
 
@@ -384,10 +390,10 @@ test_that("'TileDBGroup' class tests print method", {
 
   # Full print
   group$open(mode = "READ")
+  expect_no_error(suppressMessages(group$print()))
 
   # Raw dump
   expect_snapshot(group$dump("Test Dump TileDB with members"))
-
   expect_snapshot(group$print())
 
   # Remove one by one and print
@@ -442,7 +448,18 @@ test_that("'TileDBGroup' class tests relative paths", {
 })
 
 
-test_that("'TileDBGroup' class tests metatadata", {
+test_that("'TileDBGroup' class tests metadata print method", {
+
+  uri <- file.path(withr::local_tempdir(), "test-group")
+  group <- TileDBGroup$new(uri, internal_use = "permit")
+
+  group$create() # mode is WRITE now
+
+  expect_snapshot(group$get_metadata())
+})
+
+
+test_that("'TileDBGroup' class tests metadata", {
 
   uri <- file.path(withr::local_tempdir(), "test-group")
   group <- TileDBGroup$new(uri, internal_use = "permit")
@@ -453,6 +470,7 @@ test_that("'TileDBGroup' class tests metatadata", {
 
   md <- list(a = "a", b = 100)
   group$set_metadata(md)
+  expect_snapshot(group$get_metadata())
 
   # Read all metadata while the group is still open for write
   group$reopen("WRITE")
@@ -468,6 +486,11 @@ test_that("'TileDBGroup' class tests metatadata", {
   group$open(mode = "READ")
   readmd <- group$get_metadata()
   expect_equal(readmd, md, ignore_attr = TRUE)
+
+  group$reopen("WRITE")
+  new_md <- setNames(as.list(1:20), paste0(letters[1:20], "v"))
+  group$set_metadata(new_md)
+  expect_snapshot(group$get_metadata())
 
   group$close()
 })
