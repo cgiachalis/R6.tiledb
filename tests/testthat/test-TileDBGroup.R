@@ -1,7 +1,7 @@
 test_that("'TileDBGroup' class tests on non-existent group", {
 
   uri <- file.path(withr::local_tempdir(), "test-group")
-  group <- TileDBGroup$new(uri, internal_use = "permit")
+  group <- TileDBGroup$new(uri)
 
   # Should not exist on disk until created
   expect_false(dir.exists(uri)) # Any folder at this uri? Expect FALSE
@@ -20,7 +20,7 @@ test_that("'TileDBGroup' class tests on non-existent group", {
 test_that("'TileDBGroup' class tests on existent but empty group", {
 
   uri <- file.path(withr::local_tempdir(), "test-group")
-  group <- TileDBGroup$new(uri, internal_use = "permit")
+  group <- TileDBGroup$new(uri)
 
   # Create a group object on disk
   expect_invisible(group$create())
@@ -46,7 +46,7 @@ test_that("'TileDBGroup' class tests on existent but empty group", {
   expect_equal(group$mode, "CLOSED")
 
   uri2 <- file.path(withr::local_tempdir(), "test-group2")
-  group2 <- TileDBGroup$new(uri2, internal_use = "permit")
+  group2 <- TileDBGroup$new(uri2)
 
   # Create a group object on disk
   group2$create(mode = "READ")
@@ -61,7 +61,7 @@ test_that("'TileDBGroup' class tests on existent but empty group", {
   expect_false(tiledb::tiledb_group_is_open(group2$object))
 
   # New instance
-  group2_new <- TileDBGroup$new(uri2, internal_use = "permit")
+  group2_new <- TileDBGroup$new(uri2)
   expect_no_error(group2_new$open(mode = "READ"))
   expect_equal(group2_new$mode, "READ")
 
@@ -70,14 +70,14 @@ test_that("'TileDBGroup' class tests on existent but empty group", {
   group2_new$close()
   expect_equal(group2_new$mode, "CLOSED")
 
-  group2_new <- TileDBGroup$new(uri2, internal_use = "permit")
+  group2_new <- TileDBGroup$new(uri2)
   expect_no_error(group2_new$open(mode = "WRITE"))
   expect_equal(group2_new$mode, "WRITE")
   expect_equal(tiledb::tiledb_group_query_type(group2_new$object), "WRITE")
 
   group2_new$close()
 
-  group3_new <- TileDBGroup$new(uri2, internal_use = "permit")
+  group3_new <- TileDBGroup$new(uri2)
 
   expect_equal( group3_new$mode, "CLOSED")
 
@@ -101,7 +101,7 @@ test_that("'TileDBGroup' class tests on existent but empty group", {
 test_that("'TileDBGroup' class tests accessors on empty group", {
 
   uri <- file.path(withr::local_tempdir(), "test-group")
-  group <- TileDBGroup$new(uri, internal_use = "permit")
+  group <- TileDBGroup$new(uri)
 
   group$create()
 
@@ -132,7 +132,7 @@ test_that("'TileDBGroup' class tests accessors on empty group", {
 test_that("'TileDBGroup' class tests add/remove members", {
 
   uri <- file.path(withr::local_tempdir(), "test-group")
-  group <- TileDBGroup$new(uri, internal_use = "permit")
+  group <- TileDBGroup$new(uri)
 
   # Step 1: Create a group object
   group$create()
@@ -140,12 +140,12 @@ test_that("'TileDBGroup' class tests add/remove members", {
 
   # Test opening on new instance that correctly initialises the object
 
-  group_new <- TileDBGroup$new(uri, internal_use = "permit")
+  group_new <- TileDBGroup$new(uri)
 
   expect_invisible(group_new$open())
   group_new$close()
 
-  group_new <- TileDBGroup$new(uri, internal_use = "permit")
+  group_new <- TileDBGroup$new(uri)
 
   expect_invisible(group_new$open(mode = "WRITE"))
   group_new$close()
@@ -154,15 +154,15 @@ test_that("'TileDBGroup' class tests add/remove members", {
   #           added later to test-group
   arr_uri <- file.path(uri, "arr_a1")
   create_empty_test_array(arr_uri)
-  arr1 <- TileDBArray$new(arr_uri, internal_use = "permit")
+  arr1 <- TileDBArray$new(arr_uri)
 
   grp_uri <- file.path(uri, "grp_g1")
   tiledb::tiledb_group_create(grp_uri)
-  grp1 <- TileDBGroup$new(grp_uri, internal_use = "permit")
+  grp1 <- TileDBGroup$new(grp_uri)
 
   grp_uri2 <- file.path(uri, "grp2")
   tiledb::tiledb_group_create(grp_uri2)
-  grp2 <- TileDBGroup$new(grp_uri2, internal_use = "permit")
+  grp2 <- TileDBGroup$new(grp_uri2)
 
   # Step 3: Check arr1 and grp1 exist (but not yet members)
   group$open(mode = "READ")
@@ -226,7 +226,7 @@ test_that("'TileDBGroup' class tests add/remove members", {
 
   # New instantiation
   # Need to close group first
-  group2 <- TileDBGroup$new(uri, internal_use = "permit")
+  group2 <- TileDBGroup$new(uri)
   group2$open()
 
   expect_setequal(group2$names(), c("arr1", "grp1", "grp2"))
@@ -305,7 +305,7 @@ test_that("'TileDBGroup' class tests add/remove members", {
 test_that("'TileDBGroup' class tests delete members", {
 
   uri <- file.path(withr::local_tempdir(), "test-group")
-  group <- TileDBGroup$new(uri, internal_use = "permit")
+  group <- TileDBGroup$new(uri)
 
   # Step 1: Create a group object
   group$create()
@@ -315,15 +315,15 @@ test_that("'TileDBGroup' class tests delete members", {
   #           added later to test-group
   arr_uri <- file.path(uri, "arr_a1")
   create_empty_test_array(arr_uri)
-  arr1 <- TileDBArray$new(arr_uri, internal_use = "permit")
+  arr1 <- TileDBArray$new(arr_uri)
 
   grp_uri <- file.path(uri, "grp_g1")
   tiledb::tiledb_group_create(grp_uri)
-  grp1 <- TileDBGroup$new(grp_uri, internal_use = "permit")
+  grp1 <- TileDBGroup$new(grp_uri)
 
   grp_uri2 <- file.path(uri, "grp2")
   tiledb::tiledb_group_create(grp_uri2)
-  grp2 <- TileDBGroup$new(grp_uri2, internal_use = "permit")
+  grp2 <- TileDBGroup$new(grp_uri2)
 
   # Step 2: Add array and subgroup as members
   group$open(mode = "WRITE")
@@ -364,22 +364,22 @@ test_that("'TileDBGroup' class tests delete members", {
 test_that("'TileDBGroup' class tests print method", {
 
   uri <- file.path(withr::local_tempdir(), "test-group")
-  group <- TileDBGroup$new(uri, internal_use = "permit")
+  group <- TileDBGroup$new(uri)
 
   group$create()
   group$close()
 
   arr_uri <- file.path(uri, "arr_a1")
   create_empty_test_array(arr_uri)
-  arr1 <- TileDBArray$new(arr_uri, internal_use = "permit")
+  arr1 <- TileDBArray$new(arr_uri)
 
   grp_uri <- file.path(uri, "grp_g1")
   tiledb::tiledb_group_create(grp_uri)
-  grp1 <- TileDBGroup$new(grp_uri, internal_use = "permit")
+  grp1 <- TileDBGroup$new(grp_uri)
 
   grp_uri2 <- file.path(uri, "grp2")
   tiledb::tiledb_group_create(grp_uri2)
-  grp2 <- TileDBGroup$new(grp_uri2, internal_use = "permit")
+  grp2 <- TileDBGroup$new(grp_uri2)
 
   # Add members
   group$open(mode = "WRITE")
@@ -411,7 +411,7 @@ test_that("'TileDBGroup' class tests print method", {
 
 
   uri <- file.path(withr::local_tempdir(), "test-group")
-  group <- TileDBGroup$new(uri, internal_use = "permit")
+  group <- TileDBGroup$new(uri)
 
   expect_snapshot(group$print())
 
@@ -423,13 +423,12 @@ test_that("'TileDBGroup' class tests relative paths", {
 
   uri <- file.path(withr::local_tempdir(), "test-group")
 
-  group <- TileDBGroup$new(uri, internal_use = "permit")
+  group <- TileDBGroup$new(uri)
   group$create()
 
   # Error when attempting to add a relative member that's not a subpath
   g2 <- TileDBGroup$new(
-    uri = file.path(withr::local_tempdir(), "not-relative-subpath"),
-    internal_use = "permit")
+    uri = file.path(withr::local_tempdir(), "not-relative-subpath"))
   g2$create()
 
   expect_error(group$set_member(g2, name = "g2", relative = TRUE),
@@ -451,7 +450,7 @@ test_that("'TileDBGroup' class tests relative paths", {
 test_that("'TileDBGroup' class tests metadata print method", {
 
   uri <- file.path(withr::local_tempdir(), "test-group")
-  group <- TileDBGroup$new(uri, internal_use = "permit")
+  group <- TileDBGroup$new(uri)
 
   group$create() # mode is WRITE now
 
@@ -462,7 +461,7 @@ test_that("'TileDBGroup' class tests metadata print method", {
 test_that("'TileDBGroup' class tests metadata", {
 
   uri <- file.path(withr::local_tempdir(), "test-group")
-  group <- TileDBGroup$new(uri, internal_use = "permit")
+  group <- TileDBGroup$new(uri)
 
   expect_error(group$set_metadata(list(a = 1)), info = "TileDB resource should be open for write")
 

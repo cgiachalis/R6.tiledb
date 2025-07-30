@@ -29,18 +29,14 @@ TileDBGroup <- R6::R6Class(
     #' @param uri URI path for the TileDB Group.
     #' @param ctx Optional [tiledb::tiledb_ctx()] object.
     #' @param tiledb_timestamp Optional Datetime (POSIXct) with TileDB timestamp.
-    #' @param internal_use  A character value that gives access to new instance.
-    #' Use `options(R6.tiledb.internal = NULL)` for internal mode.
     #'
     initialize = function(uri,
                           ctx = NULL,
-                          tiledb_timestamp = NULL,
-                          internal_use = getOption("R6.tiledb.internal")) {
+                          tiledb_timestamp = NULL) {
 
       super$initialize(uri = uri,
                        ctx = ctx,
-                       tiledb_timestamp = tiledb_timestamp,
-                       internal_use = internal_use)
+                       tiledb_timestamp = tiledb_timestamp)
 
     },
     #' @description Create a TileDB Group object given the class URI path.
@@ -628,8 +624,7 @@ TileDBGroup <- R6::R6Class(
         cli::cli_abort("Unknown member type: {.emph '{deparse(substitute(type))}'.}", call = NULL))
 
       obj <- constructor(uri, ctx = self$ctx,
-                         tiledb_timestamp = private$.group_open_timestamp,
-                         internal_use = "permit")
+                         tiledb_timestamp = private$.group_open_timestamp)
       obj
     },
 

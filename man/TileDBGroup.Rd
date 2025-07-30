@@ -73,8 +73,7 @@ A new \code{TileDBGroup} instance is initialized using the \code{new()} method:
 \subsection{Method \code{new()}}{
 Create a new \code{TileDBGroup} instance.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{TileDBGroup$new(uri, ctx = NULL, tiledb_timestamp = NULL,
-  internal_use = getOption("R6.tiledb.internal"))}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{TileDBGroup$new(uri, ctx = NULL, tiledb_timestamp = NULL)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -85,9 +84,6 @@ Create a new \code{TileDBGroup} instance.
 \item{\code{ctx}}{Optional \code{\link[tiledb:tiledb_ctx]{tiledb::tiledb_ctx()}} object.}
 
 \item{\code{tiledb_timestamp}}{Optional Datetime (POSIXct) with TileDB timestamp.}
-
-\item{\code{internal_use}}{A character value that gives access to new instance.
-Use \code{options(R6.tiledb.internal = NULL)} for internal mode.}
 }
 \if{html}{\out{</div>}}
 }

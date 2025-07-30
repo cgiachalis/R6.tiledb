@@ -27,18 +27,14 @@ TileDBArray <- R6::R6Class(
     #' @param uri URI path for the TileDB Array.
     #' @param ctx Optional [tiledb::tiledb_ctx()] object.
     #' @param tiledb_timestamp Optional Datetime (POSIXct) with TileDB timestamp.
-    #' @param internal_use  A character value that gives access to new instance.
-    #' Use `options(R6.tiledb.internal = NULL)` for internal mode.
     #'
     initialize = function(uri,
                           ctx = NULL,
-                          tiledb_timestamp = NULL,
-                          internal_use = getOption("R6.tiledb.internal")) {
+                          tiledb_timestamp = NULL) {
 
       super$initialize(uri = uri,
                        ctx = ctx,
-                       tiledb_timestamp = tiledb_timestamp,
-                       internal_use = internal_use)
+                       tiledb_timestamp = tiledb_timestamp)
 
     },
     #' @description Open TileDB array object for read or write.

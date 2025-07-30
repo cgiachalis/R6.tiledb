@@ -38,8 +38,7 @@ TileDBArrayExp <- R6::R6Class(
 
       super$initialize(uri = uri,
                        ctx = ctx,
-                       tiledb_timestamp = tiledb_timestamp,
-                       internal_use = "permit")
+                       tiledb_timestamp = tiledb_timestamp)
 
     },
     #' @description Close and reopen the TileDB object in a new mode.

@@ -1,21 +1,17 @@
 
-
 test_that("'TileDBObject' abstract class works as expected", {
-
-  options(R6.tiledb.internal = NULL)
 
   uri <- withr::local_tempdir(pattern = "test-TileDBObject")
 
-  arrObj <- TileDBObject$new(uri, internal_use = "permit")
+  arrObj <- TileDBObject$new(uri)
 
   expect_identical(arrObj$uri, uri)
 
   # Test methods ---
   expect_equal(arrObj$class(), "TileDBObject")
-  expect_error(TileDBObject$new(uri))
-  expect_error(TileDBObject$new(internal_use = "permit"))
-  expect_error(TileDBObject$new(uri, ctx = "bad_ctx", internal_use_only = "allowed_use"))
-  expect_error(TileDBObject$new(uri, tiledb_timestamp = "bad_stamp", internal_use_only = "allowed_use"))
+  expect_error(TileDBObject$new())
+  expect_error(TileDBObject$new(uri, ctx = "bad_ctx"))
+  expect_error(TileDBObject$new(uri, tiledb_timestamp = "bad_stamp"))
   expect_false(arrObj$is_open())
   expect_equal(arrObj$mode, "CLOSED")
   expect_false(arrObj$exists())
