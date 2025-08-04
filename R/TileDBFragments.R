@@ -20,8 +20,9 @@ TileDBFragments <- R6::R6Class(
         cli::cli_abort("{.arg uri} argument is missing.", call = NULL)
       }
 
-      # TODO: review do we need TileDBURI?
-      private$tiledb_uri <- TileDBURI$new(uri)
+      check_uri(uri)
+
+      private$tiledb_uri <- uri
 
       # Set context
       if (is.null(ctx)) ctx <- tiledb::tiledb_ctx()
@@ -296,7 +297,7 @@ TileDBFragments <- R6::R6Class(
       if (!missing(value)) {
         .emit_read_only_error("uri")
       }
-      private$tiledb_uri$uri
+      private$tiledb_uri
     },
     #TODO review
     #' @field fragment_info TileDB Fragment Info object.
@@ -311,7 +312,7 @@ TileDBFragments <- R6::R6Class(
   ),
 
   private = list(
-    # TileDBURI object or string?
+
     tiledb_uri = NULL,
 
     .tiledb_ctx = NULL,

@@ -2,13 +2,14 @@
 % Please edit documentation in R/TileDBObject.R
 \name{TileDBObject}
 \alias{TileDBObject}
-\title{TileDB Object Base Class}
+\title{Generate a \code{TileDBObject} Object}
 \description{
-Base class to implement shared functionality across the \link{TileDBArray} and
+A virtual class to implement shared functionality for \link{TileDBArray} and
 \link{TileDBGroup} classes.
 
 \strong{This class is not intended to be used directly}.
 }
+\keyword{internal}
 \section{Active bindings}{
 \if{html}{\out{<div class="r6-active-bindings">}}
 \describe{
