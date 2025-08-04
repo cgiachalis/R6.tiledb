@@ -1,11 +1,12 @@
-#' @title TileDB Object Base Class
+#' @title Generate a `TileDBObject` Object
 #'
 #' @description
-#' Base class to implement shared functionality across the [TileDBArray] and
+#' A virtual class to implement shared functionality for [TileDBArray] and
 #' [TileDBGroup] classes.
 #'
 #'  **This class is not intended to be used directly**.
 #'
+#' @keywords internal
 #'
 #' @export
 TileDBObject <- R6::R6Class(
@@ -22,17 +23,19 @@ TileDBObject <- R6::R6Class(
                           tiledb_timestamp = NULL) {
 
       if (missing(uri)) {
-        cli::cli_abort("{.emph 'uri'} argument is missing.", call = NULL)
+        cli::cli_abort("{.arg uri} argument is missing.", call = NULL)
       }
 
-      private$tiledb_uri <- TileDBURI$new(uri)
+      check_uri(uri)
+
+      private$tiledb_uri <- uri
 
       # Set context
 
       if (is.null(ctx)) ctx <- tiledb::tiledb_ctx()
 
       if (!inherits(ctx, what = 'tiledb_ctx')) {
-        cli::cli_abort("{.emph 'ctx''}  must be a {.emph 'tiledb_ctx'} object.", call = NULL)
+        cli::cli_abort("{.arg ctx}  must be a {.cls tiledb_ctx} object.", call = NULL)
       }
 
       private$.tiledb_ctx <- ctx
@@ -135,7 +138,7 @@ TileDBObject <- R6::R6Class(
       if (!missing(value)) {
         .emit_read_only_error("uri")
       }
-      private$tiledb_uri$uri
+      private$tiledb_uri
     },
 
     #' @field mode Get the mode of the object: one of the following:
@@ -264,7 +267,7 @@ TileDBObject <- R6::R6Class(
     check_internal_use = function(x, method) {
       if (is.null(x) || x != "permit") {
         cli::cli_abort(
-          c(paste(cli::col_br_blue("{.emph '{deparse(substitute(method))}'}"),  "method is for internal use only."),
+          c(paste(cli::col_br_blue("{.arg {deparse(substitute(method))}}"),  "method is for internal use only."),
             "i" = "Please use a subclass or factory method."),
           call = NULL)
       }
@@ -274,7 +277,7 @@ TileDBObject <- R6::R6Class(
     check_metadata = function(x) {
       if (!.is_named_list(x)) {
         cli::cli_abort(
-          "{.emph '{deparse(substitute(x))}'} should be a named list with metadata.",
+          "{.arg {deparse(substitute(x))}} should be a named list with metadata.",
           call = NULL
         )
       }
@@ -282,7 +285,7 @@ TileDBObject <- R6::R6Class(
 
     check_scalar_character = function(x) {
       if (isFALSE(rlang::is_scalar_character(x))) {
-        cli::cli_abort("{.emph '{deparse(substitute(x))}'}  must be a single character string.", call = NULL)
+        cli::cli_abort("{.arg {deparse(substitute(x))}}  must be a single character string.", call = NULL)
       }
     },
 
