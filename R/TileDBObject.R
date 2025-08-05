@@ -1,12 +1,14 @@
 #' @title Generate a `TileDBObject` Object
 #'
 #' @description
-#' A virtual class to implement shared functionality for [TileDBArray] and
+#' An parent class to implement shared functionality for [TileDBArray] and
 #' [TileDBGroup] classes.
 #'
 #'  **This class is not intended to be used directly**.
 #'
 #' @keywords internal
+#'
+#' @returns An object of class `TileDBObject`, `R6`.
 #'
 #' @export
 TileDBObject <- R6::R6Class(
@@ -30,9 +32,9 @@ TileDBObject <- R6::R6Class(
 
       private$tiledb_uri <- uri
 
-      # Set context
-
-      if (is.null(ctx)) ctx <- tiledb::tiledb_ctx()
+      if (is.null(ctx)) {
+        ctx <- tiledb::tiledb_ctx()
+      }
 
       if (!inherits(ctx, what = 'tiledb_ctx')) {
         cli::cli_abort("{.arg ctx}  must be a {.cls tiledb_ctx} object.", call = NULL)
@@ -147,7 +149,7 @@ TileDBObject <- R6::R6Class(
     mode = function(value) {
 
       if (!missing(value)) {
-        .emit_read_only_error("uri")
+        .emit_read_only_error("mode")
       }
 
       if (is.null(private$.mode)) {
@@ -196,7 +198,7 @@ TileDBObject <- R6::R6Class(
     # * "ARRAY", "GROUP" or "INVALID"
     .object_type = NULL,
 
-    # Contains TileDBURI object
+    # Contains a URI string
     tiledb_uri = NULL,
 
     # Opener-supplied POSIXct timestamp, if any. TileDBArray and TileDBGroup are each responsible
@@ -206,8 +208,7 @@ TileDBObject <- R6::R6Class(
     .tiledb_ctx = NULL,
 
     is_open_for_read = function() {
-      # Pro-tip: it's not enough to check $private.mode != "READ", since logical(0) isn't
-      # the same as FALSE
+
       if (is.null(private$.mode)) {
         FALSE
       } else if (private$.mode != "READ") {
@@ -227,7 +228,7 @@ TileDBObject <- R6::R6Class(
       }
     },
 
-    # read requires open for read mode.
+    # Read methods require to open in read mode.
     check_open_for_read = function() {
 
       if (!private$is_open_for_read()) {
@@ -239,7 +240,7 @@ TileDBObject <- R6::R6Class(
       }
     },
 
-    # write requires open for write mode.
+    # Write methods require to open in write mode.
     check_open_for_write = function() {
 
       if (!private$is_open_for_write()) {
@@ -251,7 +252,7 @@ TileDBObject <- R6::R6Class(
       }
     },
 
-    # get-metadata requires open for read mode or write mode.
+    # Get metadata method requires open for read mode or write mode.
     check_open_for_read_or_write = function() {
 
       if (!self$is_open()) {
@@ -273,7 +274,7 @@ TileDBObject <- R6::R6Class(
       }
     },
 
-    # set-metadata requires named list.
+    # Set-metadata method requires a named list.
     check_metadata = function(x) {
       if (!.is_named_list(x)) {
         cli::cli_abort(

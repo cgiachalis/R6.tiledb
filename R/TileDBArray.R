@@ -1,6 +1,6 @@
-#' @title  TileDB Array Base Class
+#' @title Generate a `TileDBArray` Object
 #'
-#' @description Base class for representing an individual TileDB Array.
+#' @description Base class for representing a `TileDB` Array.
 #'
 #' ## Initialization
 #' A new `TileDBArray` instance is initialized using the `new()` method:
@@ -15,7 +15,7 @@
 #'
 #'  unlink(uri)
 #' ```
-#' @returns An object `TileDBArray` of class `R6`.
+#' @returns An object of class `TileDBArray`, `R6`.
 #'
 #' @export
 TileDBArray <- R6::R6Class(
@@ -90,7 +90,9 @@ TileDBArray <- R6::R6Class(
       private$log_debug("close", "Closing array")
 
       tiledb::tiledb_array_close(self$object)
-      private$.mode = "CLOSED"
+
+      private$.mode <-  "CLOSED"
+
       invisible(self)
     },
 
@@ -412,6 +414,7 @@ TileDBArray <- R6::R6Class(
 
       private$.metadata_cache[[key]] <- value
     },
+    # TODO: do we need it?
     # Check schema names
     # nms: character vector with input names
     # sch: target schema object

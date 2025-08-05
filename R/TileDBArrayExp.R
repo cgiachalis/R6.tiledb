@@ -19,7 +19,7 @@
 #'
 #'  unlink(uri)
 #' ```
-#' @returns An object of class `TileDBArrayExp`.
+#' @returns An object of class `TileDBArrayExp`, `R6`.
 #'
 #' @export
 TileDBArrayExp <- R6::R6Class(

@@ -3,7 +3,7 @@
 #' @description
 #' An R6 object for working with `TileDB` Fragments.
 #'
-#' @returns An object of class `TileDBFragments`.
+#' @returns An object of class `TileDBFragments`, `R6`.
 #'
 #' @export
 TileDBFragments <- R6::R6Class(

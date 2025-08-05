@@ -2,12 +2,12 @@
 % Please edit documentation in R/TileDBGroup.R
 \name{TileDBGroup}
 \alias{TileDBGroup}
-\title{TileDB Group Base Class}
+\title{Generate a \code{TileDBGroup} Object}
 \value{
-An object \code{TileDBGroup} of class \code{R6}.
+An object of class \code{TileDBGroup}, \code{R6}.
 }
 \description{
-Base class for interacting with TileDB Groups.
+Base class for representing a \code{TileDB} Group.
 \subsection{Initialization}{
 
 A new \code{TileDBGroup} instance is initialized using the \code{new()} method:

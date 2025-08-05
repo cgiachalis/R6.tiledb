@@ -4,7 +4,7 @@
 \alias{TileDBFragments}
 \title{Generate a \code{TileDBFragments} Object}
 \value{
-An object of class \code{TileDBFragments}.
+An object of class \code{TileDBFragments}, \code{R6}.
 }
 \description{
 An R6 object for working with \code{TileDB} Fragments.
