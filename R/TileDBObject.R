@@ -262,7 +262,7 @@ TileDBObject <- R6::R6Class(
       }
     },
 
-    # check method is for internal use
+    # Check method for internal use. Useful for child classes.
     check_internal_use = function(x, method) {
       if (is.null(x) || x != "permit") {
         cli::cli_abort(
