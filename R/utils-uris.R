@@ -19,7 +19,7 @@ file_path <- function(..., fsep = .Platform$file.sep) {
 uri_scheme <- function(uri) {
 
   if (isFALSE(rlang::is_scalar_character(uri))) {
-    cli::cli_abort("{.arg uri} must be scalar character vector", call = NULL)
+    cli::cli_abort("{.arg uri} should be scalar character vector", call = NULL)
   }
 
   uri_parts <- strsplit(uri, "://")[[1]]
@@ -43,7 +43,7 @@ uri_scheme_remove <- function(uri) {
 make_uri_relative <- function(uri, relative_to) {
 
   if (isFALSE(rlang::is_scalar_character(uri) && rlang::is_scalar_character(relative_to))) {
-    cli::cli_abort("{.arg uri} and {.arg relative_to} must be scalar character vectors", call = NULL)
+    cli::cli_abort("{.arg uri} and {.arg relative_to} should be scalar character vectors", call = NULL)
   }
 
   uri_scheme <- uri_scheme(uri)
