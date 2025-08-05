@@ -41,7 +41,7 @@ vapply_int <- function(X, FUN, ..., USE.NAMES = TRUE) {
 .has_character_rownames <- function(x) {
 
   if (isFALSE(is.data.frame(x))) {
-    cli::cli_abort("{.emph '{deparse(substitute(x))}' } should be a data.frame, not {.cls {class(x)}}", call = NULL)
+    cli::cli_abort("{.arg {deparse(substitute(x))}} should be a data.frame, not {.cls {class(x)}}", call = NULL)
   }
 
   typeof(attr(x, "row.names")) == "character"

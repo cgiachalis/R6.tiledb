@@ -4,7 +4,7 @@
 \alias{TileDBArrayExp}
 \title{Generate a \code{TileDBArrayExp} Object}
 \value{
-An object of class \code{TileDBArrayExp}.
+An object of class \code{TileDBArrayExp}, \code{R6}.
 }
 \description{
 An enhanced version of \link{TileDBArray} with additional methods to

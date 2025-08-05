@@ -1,6 +1,6 @@
-#' @title TileDB Group Base Class
+#' @title Generate a `TileDBGroup` Object
 #'
-#' @description Base class for interacting with TileDB Groups.
+#' @description Base class for representing a `TileDB` Group.
 #'
 #' ## Initialization
 #' A new `TileDBGroup` instance is initialized using the `new()` method:
@@ -16,7 +16,7 @@
 #'  unlink(uri)
 #' ```
 #'
-#' @returns An object `TileDBGroup` of class `R6`.
+#' @returns An object of class `TileDBGroup`, `R6`.
 #'
 #' @export
 TileDBGroup <- R6::R6Class(
@@ -47,11 +47,11 @@ TileDBGroup <- R6::R6Class(
     #'
     create = function(mode = "WRITE") {
 
+      mode <- match.arg(mode, choices = c("READ", "WRITE"))
+
       private$log_debug("create", "Creating new group with timestamp ({})", self$tiledb_timestamp %||% "now")
 
       tiledb::tiledb_group_create(self$uri, ctx = private$.tiledb_ctx)
-
-      mode <- match.arg(mode, choices = c("READ", "WRITE"))
 
       private$.tiledb_group <- tiledb::tiledb_group(self$uri, type = mode)
       private$.mode <- mode
@@ -138,7 +138,7 @@ TileDBGroup <- R6::R6Class(
 
     #' @description Remove member.
     #'
-    #' Deletes either an array or group from group member list.
+    #' Deletes an array or group resource from `TileDBGroup` member list.
     #'
     #' @param name Name of the member to remove.
     #'
@@ -164,8 +164,7 @@ TileDBGroup <- R6::R6Class(
 
     #' @description Delete member.
     #'
-    #' Deletes either an array or group resource from disk
-    #' and removes it from group member list.
+    #' Deletes a `TileDBGroup`'s member from disk and removes it from its member list.
     #'
     #' @param name Name of the member to delete.
     #'
@@ -180,7 +179,7 @@ TileDBGroup <- R6::R6Class(
       member <- self$members[[name]]$object
 
       if (is.null(member)) {
-        cli::cli_abort("Unknown member: {.emph '{name}'.}", call = NULL)
+        cli::cli_abort("Unknown member: {.arg {name}.}", call = NULL)
       }
 
       private$log_debug("delete", "Deleting '{}' member", name)
@@ -263,12 +262,11 @@ TileDBGroup <- R6::R6Class(
       member <- private$.member_cache[[name]]
 
       if (is.null(member)) {
-        cli::cli_abort("No member named {.emph '{deparse(substitute(name))}'} found", call = NULL)
+        cli::cli_abort("No member named {.arg {deparse(substitute(name))}} found", call = NULL)
       }
 
       # Instantiate member object (i.e ARRAY, GROUP etc.)
       #
-      #   - That needs to get the _actual object which is opened for write_.
       # So here if the object (maybe opened for read or write) was stored,
       # we return it. But if not (e.g. first access on read from storage)
       # then we invoke the appropriate constructor. Note: child classes
@@ -317,7 +315,7 @@ TileDBGroup <- R6::R6Class(
 
       if ( isFALSE(inherits(object, "TileDBGroup") || inherits(object, "TileDBArray")) ) {
         cli::cli_abort(
-          "{.emph '{deparse(substitute(object))}'} should be either
+          "{.arg {deparse(substitute(object))}} should be either
           {.cls TileDBArray} or {.cls TileDBGroup} object, not {.cls {class(object)}}.",
           call = NULL)
       }
@@ -327,7 +325,7 @@ TileDBGroup <- R6::R6Class(
 
       if ( isFALSE(is.null(name) || rlang::is_scalar_character(name)) ) {
         cli::cli_abort(
-          "{.emph '{deparse(substitute(name))}'} argument should be a character name or NULL, not
+          "{.arg {deparse(substitute(name))}} argument should be a character name or NULL, not
           {.cls {class(name)}}.",
           call = NULL
         )
@@ -338,7 +336,7 @@ TileDBGroup <- R6::R6Class(
 
       if (isFALSE(is.null(relative) || rlang::is_scalar_logical(relative)) ) {
         cli::cli_abort(
-          "{.emph '{deparse(substitute(relative))}'} argument should be a logical or NULL value, not
+          "{.arg {deparse(substitute(relative))}} argument should be a logical or NULL value, not
           {.cls {class(relative)}}.",
           call = NULL)
       }
@@ -621,7 +619,7 @@ TileDBGroup <- R6::R6Class(
       constructor <- switch(type,
         ARRAY = TileDBArray$new,
         GROUP = TileDBGroup$new,
-        cli::cli_abort("Unknown member type: {.emph '{deparse(substitute(type))}'.}", call = NULL))
+        cli::cli_abort("Unknown member type: {.arg {deparse(substitute(type))}.}", call = NULL))
 
       obj <- constructor(uri, ctx = self$ctx,
                          tiledb_timestamp = private$.group_open_timestamp)
@@ -634,9 +632,8 @@ TileDBGroup <- R6::R6Class(
     # The caching layer is not solely a performance-enhancer. It's a necessary part of the
     # implementation.
     #
-    # At the SOMA application level, the SOMA spec requires that we allow users to read array schema
-    # and metadata even when the array is opened for write, and it requires that we allow users to
-    # read group members and metadata even when the group is opened for write.
+    # We allow users to read array schema and metadata even when the array is opened for write,
+    # and also to read group members and metadata even when the group is opened for write.
     #
     # At the TileDB implementation level, for arrays, we can read the array schema but not the array
     # metadata if the array is opened for write. For groups in TileDB-R, we can read the group
@@ -717,6 +714,8 @@ TileDBGroup <- R6::R6Class(
 
     add_cached_member = function(name, object) {
 
+      # TODO: Review legacy notes:
+      #
       # We explicitly add the new member to member_cache in order to preserve the
       # original URI. Otherwise TileDB Cloud creation URIs are retrieved from
       # using tiledb_group_member() in the form tiledb://namespace/uuid. In this
@@ -754,10 +753,10 @@ TileDBGroup <- R6::R6Class(
 
       private$log_debug("update_metadata_cache", "Updating metadata cache")
 
-      # See notes above -- at the TileDB implementation level, we cannot read anything about the
-      # group while the group is open for read, but at the SOMA application level we must support
-      # this. Therefore if the group is opened for write and there is no cache populated then
-      # we must open a temporary handle for read, to fill the cache.
+      # See notes above -- at the TileDB implementation level, we cannot read anything
+      # about the group while the group is open for read. Therefore if the group is opened
+      # for write and there is no cache populated then we must open a temporary handle
+      # for read, to fill the cache.
 
       group_handle <- private$.tiledb_group
 

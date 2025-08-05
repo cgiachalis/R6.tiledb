@@ -19,7 +19,7 @@
 #'
 #'  unlink(uri)
 #' ```
-#' @returns An object of class `TileDBArrayExp`.
+#' @returns An object of class `TileDBArrayExp`, `R6`.
 #'
 #' @export
 TileDBArrayExp <- R6::R6Class(
@@ -143,9 +143,7 @@ TileDBArrayExp <- R6::R6Class(
         cfg <- tiledb::config(self$ctx)
       }
 
-      if (!inherits(cfg, "tiledb_config")) {
-        cli::cli_abort("{.arg {deparse(substitute(cfg))}} should be of class {.cls tiledb_config}.", call = NULL)
-      }
+      check_tiledb_config(cfg)
 
       cfg["sm.consolidation.mode"] <- mode
 
@@ -215,9 +213,7 @@ TileDBArrayExp <- R6::R6Class(
         cfg <- tiledb::config(self$ctx)
       }
 
-      if (!inherits(cfg, "tiledb_config")) {
-        cli::cli_abort("{.arg {deparse(substitute(cfg))}} should be of class {.cls tiledb_config}.", call = NULL)
-      }
+      check_tiledb_config(cfg)
 
       cfg["sm.consolidation.mode"] <- mode
 
@@ -293,9 +289,7 @@ TileDBArrayExp <- R6::R6Class(
         cfg <- tiledb::config(self$ctx)
       }
 
-      if (!inherits(cfg, "tiledb_config")) {
-        cli::cli_abort("{.arg {deparse(substitute(cfg))}} should be of class {.cls tiledb_config}.", call = NULL)
-      }
+      check_tiledb_config(cfg)
 
       cfg["sm.vacuum.mode"] <- mode
 
@@ -343,9 +337,7 @@ TileDBArrayExp <- R6::R6Class(
         cfg <- tiledb::config(self$ctx)
       }
 
-      if (!inherits(cfg, "tiledb_config")) {
-        cli::cli_abort("{.arg {deparse(substitute(cfg))}} should be of class {.cls tiledb_config}.", call = NULL)
-      }
+      check_tiledb_config(cfg)
 
       cfg["sm.vacuum.mode"] <- mode
 
@@ -408,9 +400,7 @@ TileDBArrayExp <- R6::R6Class(
         cfg <- tiledb::config(self$ctx)
       }
 
-      if (!inherits(cfg, "tiledb_config")) {
-        cli::cli_abort("{.arg {deparse(substitute(cfg))}} should be of class {.cls tiledb_config}.", call = NULL)
-      }
+      check_tiledb_config(cfg)
 
       cfg["sm.consolidation.mode"] <- mode
       cfg["sm.vacuum.mode"] <- mode
@@ -483,9 +473,7 @@ TileDBArrayExp <- R6::R6Class(
         cfg <- tiledb::config(self$ctx)
       }
 
-      if (!inherits(cfg, "tiledb_config")) {
-        cli::cli_abort("{.arg {deparse(substitute(cfg))}} should be of class {.cls tiledb_config}.", call = NULL)
-      }
+      check_tiledb_config(cfg)
 
       cfg["sm.consolidation.mode"] <- mode
       cfg["sm.vacuum.mode"] <- mode

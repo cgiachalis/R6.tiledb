@@ -2,12 +2,12 @@
 % Please edit documentation in R/TileDBArray.R
 \name{TileDBArray}
 \alias{TileDBArray}
-\title{TileDB Array Base Class}
+\title{Generate a \code{TileDBArray} Object}
 \value{
-An object \code{TileDBArray} of class \code{R6}.
+An object of class \code{TileDBArray}, \code{R6}.
 }
 \description{
-Base class for representing an individual TileDB Array.
+Base class for representing a \code{TileDB} Array.
 \subsection{Initialization}{
 
 A new \code{TileDBArray} instance is initialized using the \code{new()} method:

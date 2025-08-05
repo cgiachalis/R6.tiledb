@@ -4,7 +4,7 @@
 \alias{TileDBFragments}
 \title{Generate a \code{TileDBFragments} Object}
 \value{
-An object of class \code{TileDBFragments}.
+An object of class \code{TileDBFragments}, \code{R6}.
 }
 \description{
 An R6 object for working with \code{TileDB} Fragments.
@@ -14,7 +14,8 @@ An R6 object for working with \code{TileDB} Fragments.
 \describe{
 \item{\code{uri}}{The URI of the TileDB object.}
 
-\item{\code{fragment_info}}{TileDB Fragment Info object.}
+\item{\code{fragment_info}}{Get the TileDB Fragment Info object as returned by
+\link[tiledb:tiledb_fragment_info]{tiledb::tiledb_fragment_info}.}
 }
 \if{html}{\out{</div>}}
 }

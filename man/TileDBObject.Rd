@@ -3,8 +3,11 @@
 \name{TileDBObject}
 \alias{TileDBObject}
 \title{Generate a \code{TileDBObject} Object}
+\value{
+An object of class \code{TileDBObject}, \code{R6}.
+}
 \description{
-A virtual class to implement shared functionality for \link{TileDBArray} and
+An parent class to implement shared functionality for \link{TileDBArray} and
 \link{TileDBGroup} classes.
 
 \strong{This class is not intended to be used directly}.

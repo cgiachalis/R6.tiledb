@@ -3,7 +3,7 @@
 #' @description
 #' An R6 object for working with `TileDB` Fragments.
 #'
-#' @returns An object of class `TileDBFragments`.
+#' @returns An object of class `TileDBFragments`, `R6`.
 #'
 #' @export
 TileDBFragments <- R6::R6Class(
@@ -25,11 +25,11 @@ TileDBFragments <- R6::R6Class(
       private$tiledb_uri <- uri
 
       # Set context
-      if (is.null(ctx)) ctx <- tiledb::tiledb_ctx()
-
-      if (!inherits(ctx, what = 'tiledb_ctx')) {
-        cli::cli_abort("{.arg ctx} must be a {.emph 'tiledb_ctx'} object.", call = NULL)
+      if (is.null(ctx)) {
+        ctx <- tiledb::tiledb_ctx()
       }
+
+      check_tiledb_ctx(ctx)
 
       private$.tiledb_ctx <- ctx
 
@@ -227,7 +227,7 @@ TileDBFragments <- R6::R6Class(
     delete_fragment_list = function(frag_uris) {
 
       if (isFALSE(is.character(frag_uris))) {
-        cli::cli_abort("{.arg {deparse(substitute(frag_uris))}} must be a character vector.", call = NULL)
+        cli::cli_abort("{.arg {deparse(substitute(frag_uris))}} should be a character vector.", call = NULL)
       }
 
       arr <- tiledb::tiledb_array(self$uri, keep_open = FALSE)
@@ -252,7 +252,7 @@ TileDBFragments <- R6::R6Class(
     delete_fragment = function(n) {
 
       if (isFALSE( rlang::is_scalar_double(n))) {
-        cli::cli_abort("{.arg {deparse(substitute(n))}} must be a numeric value.", call = NULL)
+        cli::cli_abort("{.arg {deparse(substitute(n))}} should be a numeric value.", call = NULL)
       }
 
       furis <- self$frag_uris(FALSE)
@@ -299,8 +299,8 @@ TileDBFragments <- R6::R6Class(
       }
       private$tiledb_uri
     },
-    #TODO review
-    #' @field fragment_info TileDB Fragment Info object.
+    #' @field fragment_info Get the TileDB Fragment Info object as returned by
+    #' [tiledb::tiledb_fragment_info].
     #'
     fragment_info = function(value) {
       if (!missing(value)) {

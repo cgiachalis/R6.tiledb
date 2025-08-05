@@ -1,8 +1,6 @@
 
 test_that("'TileDBArrayExp' class works as expected", {
 
-  options(R6.tiledb.internal = NULL)
-
   uri <- file.path(withr::local_tempdir(), "test-TileDBArrayExp")
 
   # write test array on disk
@@ -64,6 +62,7 @@ test_that("'TileDBArrayExp' class works as expected", {
                                                    end_timestamp = numeric(0),
                                                    URI = character(0)))
 
+  ## drop attribute
   expect_invisible(arrObj$drop_attribute("Freq"))
   expect_equal(arrObj$colnames(),  c("Dept", "Gender", "Admit"))
   expect_error(arrObj$drop_attribute("Freq"), label = "`Freq` is not an attribute.")
@@ -73,7 +72,6 @@ test_that("'TileDBArrayExp' class works as expected", {
 })
 
 test_that("Test '$consolidate', '$consolidate_async' and '$vacuum' methods", {
-  options(R6.tiledb.internal = NULL)
 
   uri <- file.path(withr::local_tempdir(), "test-TileDBArrayExp")
 
