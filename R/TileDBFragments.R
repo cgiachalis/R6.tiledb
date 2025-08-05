@@ -25,11 +25,11 @@ TileDBFragments <- R6::R6Class(
       private$tiledb_uri <- uri
 
       # Set context
-      if (is.null(ctx)) ctx <- tiledb::tiledb_ctx()
-
-      if (!inherits(ctx, what = 'tiledb_ctx')) {
-        cli::cli_abort("{.arg ctx} must be a {.emph 'tiledb_ctx'} object.", call = NULL)
+      if (is.null(ctx)) {
+        ctx <- tiledb::tiledb_ctx()
       }
+
+      check_tiledb_ctx(ctx)
 
       private$.tiledb_ctx <- ctx
 

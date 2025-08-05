@@ -36,9 +36,7 @@ TileDBObject <- R6::R6Class(
         ctx <- tiledb::tiledb_ctx()
       }
 
-      if (!inherits(ctx, what = 'tiledb_ctx')) {
-        cli::cli_abort("{.arg ctx}  must be a {.cls tiledb_ctx} object.", call = NULL)
-      }
+     check_tiledb_ctx(ctx)
 
       private$.tiledb_ctx <- ctx
 

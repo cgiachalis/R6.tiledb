@@ -1,8 +1,6 @@
 
 test_that("'TileDBArrayExp' class works as expected", {
 
-  options(R6.tiledb.internal = NULL)
-
   uri <- file.path(withr::local_tempdir(), "test-TileDBArrayExp")
 
   # write test array on disk

@@ -18,8 +18,6 @@ test_that("'TileDBArray' class tests on non-existent array", {
 
 test_that("'TileDBArray' class works as expected", {
 
-  options(R6.tiledb.internal = NULL)
-
   uri <- file.path(withr::local_tempdir(), "test-TileDBArray")
 
   arrObj <- TileDBArray$new(uri = uri)
@@ -148,8 +146,6 @@ test_that("'TileDBArray' class works as expected", {
 })
 
 test_that("Test metadata print method", {
-
-  options(R6.tiledb.internal = NULL)
 
   uri <- file.path(withr::local_tempdir(), "test-TileDBArray")
 
