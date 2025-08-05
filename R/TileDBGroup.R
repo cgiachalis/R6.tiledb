@@ -138,7 +138,7 @@ TileDBGroup <- R6::R6Class(
 
     #' @description Remove member.
     #'
-    #' Deletes either an array or group from group member list.
+    #' Deletes an array or group resource from `TileDBGroup` member list.
     #'
     #' @param name Name of the member to remove.
     #'
@@ -164,8 +164,7 @@ TileDBGroup <- R6::R6Class(
 
     #' @description Delete member.
     #'
-    #' Deletes either an array or group resource from disk
-    #' and removes it from group member list.
+    #' Deletes a `TileDBGroup`'s member from disk and removes it from its member list.
     #'
     #' @param name Name of the member to delete.
     #'
