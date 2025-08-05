@@ -299,8 +299,8 @@ TileDBFragments <- R6::R6Class(
       }
       private$tiledb_uri
     },
-    #TODO review
-    #' @field fragment_info TileDB Fragment Info object.
+    #' @field fragment_info Get the TileDB Fragment Info object as returned by
+    #' [tiledb::tiledb_fragment_info].
     #'
     fragment_info = function(value) {
       if (!missing(value)) {
