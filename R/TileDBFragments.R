@@ -227,7 +227,7 @@ TileDBFragments <- R6::R6Class(
     delete_fragment_list = function(frag_uris) {
 
       if (isFALSE(is.character(frag_uris))) {
-        cli::cli_abort("{.arg {deparse(substitute(frag_uris))}} must be a character vector.", call = NULL)
+        cli::cli_abort("{.arg {deparse(substitute(frag_uris))}} should be a character vector.", call = NULL)
       }
 
       arr <- tiledb::tiledb_array(self$uri, keep_open = FALSE)
@@ -252,7 +252,7 @@ TileDBFragments <- R6::R6Class(
     delete_fragment = function(n) {
 
       if (isFALSE( rlang::is_scalar_double(n))) {
-        cli::cli_abort("{.arg {deparse(substitute(n))}} must be a numeric value.", call = NULL)
+        cli::cli_abort("{.arg {deparse(substitute(n))}} should be a numeric value.", call = NULL)
       }
 
       furis <- self$frag_uris(FALSE)
