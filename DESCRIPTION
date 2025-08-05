@@ -27,7 +27,7 @@ Imports:
     spdl,
     tiledb (>= 0.32.0)
 Suggests:
-    mirai,
+    mirai (>= 2.4.0),
     data.table,
     spelling,
     testthat (>= 3.0.0),
