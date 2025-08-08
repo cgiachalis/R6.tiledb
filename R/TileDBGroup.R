@@ -150,6 +150,8 @@ TileDBGroup <- R6::R6Class(
       private$check_scalar_character(name)
       private$check_open_for_write()
 
+      member <- self$get_member(name)
+
       private$log_debug("remove", "Removing '{}' member", name)
 
        tiledb::tiledb_group_remove_member(private$.tiledb_group, uri = name)
@@ -158,6 +160,8 @@ TileDBGroup <- R6::R6Class(
       if (is.list(private$.member_cache)) {
         private$.member_cache[[name]] <- NULL
       }
+
+      self$reopen("WRITE")
 
       invisible(NULL)
     },
@@ -176,18 +180,19 @@ TileDBGroup <- R6::R6Class(
       private$check_scalar_character(name)
       private$check_open_for_write()
 
-      member <- self$members[[name]]$object
-
-      if (is.null(member)) {
-        cli::cli_abort("Unknown member: {.arg {name}.}", call = NULL)
-      }
+      # get_member instantiates the group member
+      member <- self$get_member(name)
 
       private$log_debug("delete", "Deleting '{}' member", name)
 
       uri_member <- member$uri
 
+      group_handle <- private$.tiledb_group
+
       # Remove group member
-      tiledb::tiledb_group_remove_member(private$.tiledb_group, uri = name)
+      tiledb::tiledb_group_remove_member(group_handle, uri = name)
+
+      tiledb::tiledb_group_close(group_handle)
 
       # Remove TileDB resource
       tiledb::tiledb_object_rm(uri_member, private$.tiledb_ctx)
@@ -196,6 +201,8 @@ TileDBGroup <- R6::R6Class(
       if (is.list(private$.member_cache)) {
         private$.member_cache[[name]] <- NULL
       }
+
+      self$reopen("WRITE")
 
       invisible(NULL)
     },
@@ -217,7 +224,7 @@ TileDBGroup <- R6::R6Class(
     #' @param type Select type member, either`"ALL"`, `"GROUP"`
     #'  or `"ARRAY"`. By default all member types are listed.
     #'
-    #' @return A `data.frame` with columns `uri`, `type`, and `name`.
+    #' @return A `data.frame` with columns `name`, `type`, and `uri`.
     #'
     get_members_df = function(type = c("ALL", "GROUP", "ARRAY")) {
 
@@ -231,8 +238,8 @@ TileDBGroup <- R6::R6Class(
 
       df <- data.frame(
         name = character(count),
-        uri  = character(count),
-        type = character(count)
+        type = character(count),
+        uri  = character(count)
       )
 
       df$type <- vapply_char(member_list, FUN = getElement, name = 1L)

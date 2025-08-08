@@ -337,27 +337,32 @@ test_that("'TileDBGroup' class tests delete members", {
   group$set_member(grp2) # name defaults to uri basename
   expect_equal(group$count_members(), 3)
 
+  group$close()
 
   # Step 5: Delete members
-  group$reopen(mode = "WRITE")
 
-  expect_error(group$delete("Bob"))
+  # open new instance with no cached members
+  group2 <- TileDBGroup$new(uri)
 
-  group$delete("arr1")
-  expect_equal(group$count_members(), 2)
+  group2$reopen(mode = "WRITE")
 
-  group$delete("grp1")
-  expect_equal(group$count_members(), 1)
+  expect_error(group2$delete("Bob"))
 
-  group$reopen()
-  expect_equal(tiledb::tiledb_group_member_count(group$object), 1)
+  group2$delete("arr1")
+  expect_equal(group2$count_members(), 2)
+
+  group2$delete("grp1")
+  expect_equal(group2$count_members(), 1)
+
+  group2$reopen()
+  expect_equal(tiledb::tiledb_group_member_count(group2$object), 1)
 
   # Verify on disk we have only 'grp2' GROUP
-  result <- tiledb::tiledb_object_ls(group$uri)
+  result <- tiledb::tiledb_object_ls(group2$uri)
   expect_equal(result$TYPE, "GROUP")
   expect_equal(basename(result$URI), "grp2")
 
-  group$close()
+  group2$close()
 
 })
 
