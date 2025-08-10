@@ -519,8 +519,7 @@ TileDBGroup <- R6::R6Class(
 
      uri <- self$uri
      bsname <- basename(self$uri)
-     xuri <- self$get_members_df()
-     xuri$bsn <- basename(xuri$uri)
+
      if(isFALSE(is.null(title))) {
        cli::cat_line()
        cli::cat_rule(title)
@@ -529,12 +528,29 @@ TileDBGroup <- R6::R6Class(
      dmp <- tiledb::tiledb_group_member_dump(private$.tiledb_group, recursive = recursive)
      dmp_raw <- dmp
 
-     dmp <- gsub(bsname, paste(cli::col_grey("->"),
-                               cli::col_cyan(bsname)), dmp)
-     dmp <- gsub("GROUP", cli::col_red("GROUP"), dmp)
-     dmp <- gsub("ARRAY", cli::col_br_blue("ARRAY"), dmp)
-     dev_null <- lapply(xuri$bsn, \(.x) {dmp <<- gsub(.x, cli::col_yellow(.x), dmp); invisible(NULL)})
-     cat(dmp)
+     s <- unlist(strsplit(dmp, "\n"))
+
+     temp <- sapply(s[-1], function(.dump_str) {
+       br <- strsplit(.dump_str, split = " ")[[1]][1]
+
+       if (nchar(br) < 4) {
+         .txt <- sub(" GROUP.*", "", .dump_str)
+         .txt <- sub(" ARRAY.*", "", .txt)
+         .txt <- sub(".* ", "", .txt)
+         .txt <- gsub(.txt, cli::col_yellow(.txt), .dump_str)
+         return(.txt)
+       } else {
+         return(.dump_str)
+       }
+     })
+
+     temp <- c(s[1], temp)
+     temp <- gsub(bsname, paste(cli::col_grey("->"),
+                               cli::col_cyan(bsname)), temp)
+     temp <- gsub("GROUP", cli::col_red("GROUP"), temp)
+     temp <- gsub("ARRAY", cli::col_br_blue("ARRAY"), temp)
+     cat(temp, sep = "\n")
+
      invisible(dmp_raw)
    }
   ),
