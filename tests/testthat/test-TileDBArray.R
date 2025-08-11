@@ -94,7 +94,7 @@ test_that("'TileDBArray' class works as expected", {
 
   md <- list(a = "Hi", b = "good", c = 10)
   arrObj$reopen(mode = "WRITE" )
-  arrObj$set_metadata(md)
+  expect_s3_class(arrObj$set_metadata(md), "TileDBArray")
 
   md <- list(d = "Boo", e = 3)
   arrObj$set_metadata(md)

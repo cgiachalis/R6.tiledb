@@ -42,8 +42,6 @@ mode and kept open.}
 \item \href{#method-TileDBArray-open}{\code{TileDBArray$open()}}
 \item \href{#method-TileDBArray-close}{\code{TileDBArray$close()}}
 \item \href{#method-TileDBArray-tiledb_array}{\code{TileDBArray$tiledb_array()}}
-\item \href{#method-TileDBArray-get_metadata}{\code{TileDBArray$get_metadata()}}
-\item \href{#method-TileDBArray-set_metadata}{\code{TileDBArray$set_metadata()}}
 \item \href{#method-TileDBArray-schema}{\code{TileDBArray$schema()}}
 \item \href{#method-TileDBArray-schema_info}{\code{TileDBArray$schema_info()}}
 \item \href{#method-TileDBArray-dimensions}{\code{TileDBArray$dimensions()}}
@@ -56,12 +54,14 @@ mode and kept open.}
 }
 }
 \if{html}{\out{
-<details open><summary>Inherited methods</summary>
+<details><summary>Inherited methods</summary>
 <ul>
 <li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBObject" data-id="class"><a href='../../R6.tiledb/html/TileDBObject.html#method-TileDBObject-class'><code>R6.tiledb::TileDBObject$class()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBObject" data-id="exists"><a href='../../R6.tiledb/html/TileDBObject.html#method-TileDBObject-exists'><code>R6.tiledb::TileDBObject$exists()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBObject" data-id="get_metadata"><a href='../../R6.tiledb/html/TileDBObject.html#method-TileDBObject-get_metadata'><code>R6.tiledb::TileDBObject$get_metadata()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBObject" data-id="is_open"><a href='../../R6.tiledb/html/TileDBObject.html#method-TileDBObject-is_open'><code>R6.tiledb::TileDBObject$is_open()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBObject" data-id="reopen"><a href='../../R6.tiledb/html/TileDBObject.html#method-TileDBObject-reopen'><code>R6.tiledb::TileDBObject$reopen()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBObject" data-id="set_metadata"><a href='../../R6.tiledb/html/TileDBObject.html#method-TileDBObject-set_metadata'><code>R6.tiledb::TileDBObject$set_metadata()</code></a></span></li>
 </ul>
 </details>
 }}
@@ -144,52 +144,6 @@ defaults to \code{"READ"}.
 }
 \subsection{Returns}{
 A \link[tiledb:tiledb_array]{tiledb::tiledb_array} object.
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-TileDBArray-get_metadata"></a>}}
-\if{latex}{\out{\hypertarget{method-TileDBArray-get_metadata}{}}}
-\subsection{Method \code{get_metadata()}}{
-Retrieve metadata from the TileDB array.
-
-The \code{TileDBArray} will be opened for \code{"READ"} to fetch its metadata.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{TileDBArray$get_metadata(key = NULL)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{key}}{The name of the metadata attribute to retrieve.
-The default \code{NULL} returns all metadata.}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-The key metadata value or a \code{list} of all metadata
-values when \code{NULL}.
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-TileDBArray-set_metadata"></a>}}
-\if{latex}{\out{\hypertarget{method-TileDBArray-set_metadata}{}}}
-\subsection{Method \code{set_metadata()}}{
-Add list of metadata to the specified TileDB array.
-
-\code{TileDBArray} should be open for \code{"WRITE"}.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{TileDBArray$set_metadata(metadata)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{metadata}}{Named list of metadata to add.}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-\code{NULL} value, invisibly.
 }
 }
 \if{html}{\out{<hr>}}

@@ -373,79 +373,21 @@ TileDBGroup <- R6::R6Class(
       private$add_cached_member(name, object)
 
       invisible(NULL)
-   },
+    },
 
-   #' @description Retrieve metadata from the TileDB group.
-   #'
-   #' The `TileDBGroup` will be opened for `"READ"` to fetch its metadata.
-   #'
-   #' @param key The name of the metadata attribute to retrieve.
-   #' The default `NULL` returns all metadata.
-   #'
-   #' @return The key metadata value or a `list` of all metadata
-   #'  values when `NULL`.
-   #'
-   get_metadata = function(key = NULL) {
-
-     if (!self$is_open()) {
-       self$open(mode = "READ")
-     }
-
-     private$fill_metadata_cache_if_null()
-     private$log_debug("get_metatdata", "Retrieving metadata")
-
-     if (!is.null(key)) {
-       private$.metadata_cache[[key]]
-     } else {
-       private$.metadata_cache
-     }
-   },
-
-   #' @description Add list of metadata.
-   #'
-   #' `TileDBGroup` should be open for `"WRITE"`.
-   #'
-   #' @param metadata Named list of metadata to add.
-   #'
-   #' @return `NULL` value, invisibly.
-   #'
-   set_metadata = function(metadata) {
-
-     private$check_object_exists()
-     private$check_metadata(metadata)
-     private$check_open_for_write()
-
-     private$log_debug("set_metatdata", "Setting metadata")
-
-     nms <- names(metadata)
-     dev_null <- mapply(
-       FUN = tiledb::tiledb_group_put_metadata,
-       key = nms,
-       val = metadata,
-       MoreArgs = list(grp = private$.tiledb_group),
-       SIMPLIFY = FALSE)
-
-     dev_null <- mapply(
-       FUN = private$add_cached_metadata,
-       key = nms,
-       val = metadata,
-       SIMPLIFY = FALSE )
-
-     invisible(NULL)
-   },
 
     #' @description Retrieve the members' names.
     #'
     #' @return A `character` vector of member names.
     #'
     names = function() {
-
       private$check_object_exists()
       private$check_open_for_read_or_write()
       private$fill_member_cache_if_null()
 
       names(private$.member_cache) %||% character(length = 0L)
     },
+
 
    #' @description Check if a member exists.
    #'
@@ -761,60 +703,6 @@ TileDBGroup <- R6::R6Class(
       # member, the initially empty member_cache will only contain the new
       # member.
       private$update_member_cache()
-    },
-
-    # ----------------------------------------------------------------
-    # Metadata-caching
-
-    fill_metadata_cache_if_null = function() {
-      if (is.null(private$.metadata_cache)) {
-        private$update_metadata_cache()
-      }
-    },
-
-    update_metadata_cache = function() {
-
-      private$log_debug("update_metadata_cache", "Updating metadata cache")
-
-      # See notes above -- at the TileDB implementation level, we cannot read anything
-      # about the group while the group is open for read. Therefore if the group is opened
-      # for write and there is no cache populated then we must open a temporary handle
-      # for read, to fill the cache.
-
-      group_handle <- private$.tiledb_group
-
-      if (private$.mode == "WRITE") {
-        group_handle <- tiledb::tiledb_group(self$uri, type = "READ", ctx = private$.tiledb_ctx)
-      }
-
-      # NOTE: Strip off key attribute; see https://github.com/TileDB-Inc/TileDB-R/issues/775
-      .m <- lapply(tiledb::tiledb_group_get_all_metadata(group_handle),
-                   function(.x) {attr(.x, "key") <- NULL; .x})
-
-      class(.m) <- c("tdb_metadata", "list")
-      attr(.m, "R6.class") <- self$class()
-      attr(.m, "object_type") <- self$object_type
-
-      private$.metadata_cache <- .m
-
-      if (private$.mode == "WRITE") {
-        tiledb::tiledb_group_close(group_handle)
-      }
-
-      invisible(NULL)
-    },
-
-    add_cached_metadata = function(key, value) {
-
-      if (is.null(private$.metadata_cache)) {
-        .m <- list()
-        class(.m) <- c("tdb_metadata", "list")
-        attr(.m, "R6.class") <- self$class()
-        attr(.m, "object_type") <- self$object_type
-        private$.metadata_cache <- .m
-      }
-
-      private$.metadata_cache[[key]] <- value
     }
   )
 )

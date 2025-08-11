@@ -48,8 +48,6 @@ A new \code{TileDBGroup} instance is initialized using the \code{new()} method:
 \item \href{#method-TileDBGroup-get_members_df}{\code{TileDBGroup$get_members_df()}}
 \item \href{#method-TileDBGroup-get_member}{\code{TileDBGroup$get_member()}}
 \item \href{#method-TileDBGroup-set_member}{\code{TileDBGroup$set_member()}}
-\item \href{#method-TileDBGroup-get_metadata}{\code{TileDBGroup$get_metadata()}}
-\item \href{#method-TileDBGroup-set_metadata}{\code{TileDBGroup$set_metadata()}}
 \item \href{#method-TileDBGroup-names}{\code{TileDBGroup$names()}}
 \item \href{#method-TileDBGroup-member_exists}{\code{TileDBGroup$member_exists()}}
 \item \href{#method-TileDBGroup-print}{\code{TileDBGroup$print()}}
@@ -58,12 +56,14 @@ A new \code{TileDBGroup} instance is initialized using the \code{new()} method:
 }
 }
 \if{html}{\out{
-<details open><summary>Inherited methods</summary>
+<details><summary>Inherited methods</summary>
 <ul>
 <li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBObject" data-id="class"><a href='../../R6.tiledb/html/TileDBObject.html#method-TileDBObject-class'><code>R6.tiledb::TileDBObject$class()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBObject" data-id="exists"><a href='../../R6.tiledb/html/TileDBObject.html#method-TileDBObject-exists'><code>R6.tiledb::TileDBObject$exists()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBObject" data-id="get_metadata"><a href='../../R6.tiledb/html/TileDBObject.html#method-TileDBObject-get_metadata'><code>R6.tiledb::TileDBObject$get_metadata()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBObject" data-id="is_open"><a href='../../R6.tiledb/html/TileDBObject.html#method-TileDBObject-is_open'><code>R6.tiledb::TileDBObject$is_open()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBObject" data-id="reopen"><a href='../../R6.tiledb/html/TileDBObject.html#method-TileDBObject-reopen'><code>R6.tiledb::TileDBObject$reopen()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBObject" data-id="set_metadata"><a href='../../R6.tiledb/html/TileDBObject.html#method-TileDBObject-set_metadata'><code>R6.tiledb::TileDBObject$set_metadata()</code></a></span></li>
 </ul>
 </details>
 }}
@@ -147,7 +147,7 @@ The object, invisibly.
 \subsection{Method \code{remove()}}{
 Remove member.
 
-Deletes either an array or group from group member list.
+Deletes an array or group resource from \code{TileDBGroup} member list.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{TileDBGroup$remove(name)}\if{html}{\out{</div>}}
 }
@@ -169,8 +169,7 @@ Deletes either an array or group from group member list.
 \subsection{Method \code{delete()}}{
 Delete member.
 
-Deletes either an array or group resource from disk
-and removes it from group member list.
+Deletes a \code{TileDBGroup}'s member from disk and removes it from its member list.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{TileDBGroup$delete(name)}\if{html}{\out{</div>}}
 }
@@ -217,7 +216,7 @@ or \code{"ARRAY"}. By default all member types are listed.}
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-A \code{data.frame} with columns \code{uri}, \code{type}, and \code{name}.
+A \code{data.frame} with columns \code{name}, \code{type}, and \code{uri}.
 }
 }
 \if{html}{\out{<hr>}}
@@ -262,52 +261,6 @@ the object's URI is used.}
 object's URI is relative to the group's URI. If \code{NULL} (the
 default), the object's URI is assumed to be relative unless it is a
 \verb{tiledb://} URI.}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-\code{NULL} value, invisibly.
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-TileDBGroup-get_metadata"></a>}}
-\if{latex}{\out{\hypertarget{method-TileDBGroup-get_metadata}{}}}
-\subsection{Method \code{get_metadata()}}{
-Retrieve metadata from the TileDB group.
-
-The \code{TileDBGroup} will be opened for \code{"READ"} to fetch its metadata.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{TileDBGroup$get_metadata(key = NULL)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{key}}{The name of the metadata attribute to retrieve.
-The default \code{NULL} returns all metadata.}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-The key metadata value or a \code{list} of all metadata
-values when \code{NULL}.
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-TileDBGroup-set_metadata"></a>}}
-\if{latex}{\out{\hypertarget{method-TileDBGroup-set_metadata}{}}}
-\subsection{Method \code{set_metadata()}}{
-Add list of metadata.
-
-\code{TileDBGroup} should be open for \code{"WRITE"}.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{TileDBGroup$set_metadata(metadata)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{metadata}}{Named list of metadata to add.}
 }
 \if{html}{\out{</div>}}
 }
