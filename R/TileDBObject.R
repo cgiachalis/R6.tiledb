@@ -131,6 +131,7 @@ TileDBObject <- R6::R6Class(
       private$log_debug("get_metatdata", "Retrieving metadata")
 
       private$fill_metadata_cache_if_null()
+
       if (!is.null(key)) {
         val <- private$.metadata_cache[[key]]
         if (is.list(val)) val <- unlist(val)
@@ -176,11 +177,9 @@ TileDBObject <- R6::R6Class(
         }
       }
 
-      nms <- names(metadata)
-
-      mapply(key = nms,
+      mapply(key = names(metadata),
              val = metadata,
-            MoreArgs = list(obj = self$object),
+             MoreArgs = list(obj = self$object),
              FUN = .put_metadata)
 
       invisible(NULL)
@@ -296,8 +295,6 @@ TileDBObject <- R6::R6Class(
     },
 
     update_metadata_cache = function() {
-
-      # private$check_object_exists()
 
       private$log_debug("update_metadata_cache", "Updating metadata cache for class {}", self$class())
 
