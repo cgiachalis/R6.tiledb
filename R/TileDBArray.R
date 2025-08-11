@@ -413,26 +413,6 @@ TileDBArray <- R6::R6Class(
       }
 
       private$.metadata_cache[[key]] <- value
-    },
-    # TODO: do we need it?
-    # Check schema names
-    # nms: character vector with input names
-    # sch: target schema object
-    check_schema_names = function(nms, sch) {
-
-      dims <- vapply_char(tiledb::dimensions(sch), tiledb::name)
-      attrs <- vapply_char(tiledb::attrs(sch), tiledb::name)
-
-      sch_names <- c(dims, unname(attrs))
-
-      .idx <- sch_names %in% nms
-
-      if (!all(.idx)) {
-
-        not_found <- cli::cli_vec(sch_names[!.idx], list("vec-trunc" = 3))
-        cli::cli_abort("Schema names missing or misspecified: {.val {not_found}}", call = NULL)
-      }
     }
-
   )
 )
