@@ -110,6 +110,80 @@ TileDBObject <- R6::R6Class(
         cli::cli_abort("Unknown object type {.cls {self$class()}}", call = NULL)
       }
       self$object_type %in% expected_type
+    },
+
+    #' @description Retrieve metadata from TileDB Object.
+    #'
+    #' The `TileDBArray` / `TileDBGroup` will be opened for `"READ"` to fetch its metadata.
+    #'
+    #' @param key The name of the metadata attribute to retrieve.
+    #'   The default `NULL` returns all metadata.
+    #'
+    #' @return The key metadata value or a `list` of all metadata
+    #'  values when `NULL`.
+    #'
+    get_metadata = function(key = NULL) {
+
+      if (!self$is_open()) {
+        self$open(mode = "READ")
+      }
+
+      private$log_debug("get_metatdata", "Retrieving metadata")
+
+      private$fill_metadata_cache_if_null()
+      if (!is.null(key)) {
+        val <- private$.metadata_cache[[key]]
+        if (is.list(val)) val <- unlist(val)
+        val
+      } else {
+        private$.metadata_cache
+      }
+    },
+    #' @description Add list of metadata.
+    #'
+    #' The `TileDB` object should be open for `"WRITE"`.
+    #'
+    #' @param metadata A named list of metadata.
+    #'
+    #' @return `NULL` value, invisibly.
+    #'
+    set_metadata = function(metadata) {
+
+      private$check_object_exists()
+      private$check_metadata(metadata)
+      private$check_open_for_write()
+
+      private$log_debug("set_metatdata", "Setting metadata")
+
+      if (is.null(private$.metadata_cache)) {
+        .m <- list()
+        class(.m) <- c("tdb_metadata", "list")
+        attr(.m, "R6.class") <- self$class()
+        attr(.m, "object_type") <- self$object_type
+        private$.metadata_cache <- .m
+      }
+
+      if (self$object_type == "ARRAY") {
+        .put_metadata <- function(obj, key, val) {
+          tiledb::tiledb_put_metadata(obj, key, val)
+          private$.metadata_cache[[key]] <- val
+        }
+
+      } else if (self$object_type == "GROUP") {
+        .put_metadata <- function(obj, key, val) {
+          tiledb::tiledb_group_put_metadata(obj, key, val)
+          private$.metadata_cache[[key]] <- val
+        }
+      }
+
+      nms <- names(metadata)
+
+      mapply(key = nms,
+             val = metadata,
+            MoreArgs = list(obj = self$object),
+             FUN = .put_metadata)
+
+      invisible(NULL)
     }
   ),
 
@@ -204,6 +278,101 @@ TileDBObject <- R6::R6Class(
     .tiledb_timestamp = NULL,
 
     .tiledb_ctx = NULL,
+
+    # Initially NULL, once the array is created or opened, this is populated
+    # with a list that's empty or contains the array metadata. Since the spec
+    # requires that we allow readback of array metadata even when the array
+    # is open for write, but the TileDB layer underneath us does not, we must
+    # have this cache.
+    .metadata_cache = NULL,
+
+    # ----------------------------------------------------------------
+    # Metadata-caching for Arrays and Groups
+
+    fill_metadata_cache_if_null = function() {
+      if (is.null(private$.metadata_cache)) {
+        private$update_metadata_cache()
+      }
+    },
+
+    update_metadata_cache = function() {
+
+      # private$check_object_exists()
+
+      private$log_debug("update_metadata_cache", "Updating metadata cache for class {}", self$class())
+
+      # See notes above -- at the TileDB implementation level, we cannot read anything
+      # about the group while the group is open for read. Therefore if the group is opened
+      # for write and there is no cache populated then we must open a temporary handle
+      # for read, to fill the cache.
+
+      switch(self$object_type,
+
+        GROUP = {
+
+          if (private$.mode == "WRITE") {
+            group_handle <- tiledb::tiledb_group(self$uri, type = "READ", ctx = private$.tiledb_ctx)
+            on.exit({ tiledb::tiledb_group_close(group_handle)})
+          } else {
+            group_handle <- private$.tiledb_group
+          }
+
+          # NOTE: Strip off key attribute; see https://github.com/TileDB-Inc/TileDB-R/issues/775
+          .m <- lapply(tiledb::tiledb_group_get_all_metadata(group_handle),
+                       function(.x) {attr(.x, "key") <- NULL; .x})
+
+          class(.m) <- c("tdb_metadata", "list")
+          attr(.m, "R6.class") <- self$class()
+          attr(.m, "object_type") <- self$object_type
+
+          private$.metadata_cache <- .m
+
+          return(invisible(NULL))
+        },
+
+        ARRAY = {
+
+          if (is.null(private$.tiledb_array)) {
+            # NOTE: "initialize_object()" method is defined in TileDBArray
+            array_handle <- private$initialize_object()
+          } else {
+
+            array_handle <- private$.tiledb_array
+          }
+
+          if (private$.mode == "WRITE") {
+
+            private$log_debug("update_metadata_cache", "Getting array object")
+
+            array_object <- tiledb::tiledb_array(self$uri, ctx = private$.tiledb_ctx)
+
+            array_handle <- tiledb::tiledb_array_open(array_object, type = "READ")
+            on.exit({ tiledb::tiledb_array_close(array_handle) })
+          }
+
+          if (isFALSE(tiledb::tiledb_array_is_open(array_handle))) {
+
+            private$log_debug("update_metadata_cache", "Reopening array object")
+
+            array_handle <- tiledb::tiledb_array_open(array_handle, type = "READ")
+
+          }
+
+          .m  <- tiledb::tiledb_get_all_metadata(array_handle)
+
+          class(.m) <- c("tdb_metadata", "list")
+          attr(.m, "R6.class") <- self$class()
+          attr(.m, "object_type") <- self$object_type
+
+          private$.metadata_cache <- .m
+
+          return(invisible(NULL))
+        }
+      )
+    },
+
+    # ----------------------------------------------------------------
+    # Assertion - utilities
 
     is_open_for_read = function() {
 

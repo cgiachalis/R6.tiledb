@@ -42,6 +42,8 @@ An parent class to implement shared functionality for \link{TileDBArray} and
 \item \href{#method-TileDBObject-is_open}{\code{TileDBObject$is_open()}}
 \item \href{#method-TileDBObject-reopen}{\code{TileDBObject$reopen()}}
 \item \href{#method-TileDBObject-exists}{\code{TileDBObject$exists()}}
+\item \href{#method-TileDBObject-get_metadata}{\code{TileDBObject$get_metadata()}}
+\item \href{#method-TileDBObject-set_metadata}{\code{TileDBObject$set_metadata()}}
 \item \href{#method-TileDBObject-clone}{\code{TileDBObject$clone()}}
 }
 }
@@ -122,6 +124,52 @@ Check if the object exists.
 
 \subsection{Returns}{
 \code{TRUE} if the object exists, \code{FALSE} otherwise.
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-TileDBObject-get_metadata"></a>}}
+\if{latex}{\out{\hypertarget{method-TileDBObject-get_metadata}{}}}
+\subsection{Method \code{get_metadata()}}{
+Retrieve metadata from TileDB Object.
+
+The \code{TileDBArray} / \code{TileDBGroup} will be opened for \code{"READ"} to fetch its metadata.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{TileDBObject$get_metadata(key = NULL)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{key}}{The name of the metadata attribute to retrieve.
+The default \code{NULL} returns all metadata.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+The key metadata value or a \code{list} of all metadata
+values when \code{NULL}.
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-TileDBObject-set_metadata"></a>}}
+\if{latex}{\out{\hypertarget{method-TileDBObject-set_metadata}{}}}
+\subsection{Method \code{set_metadata()}}{
+Add list of metadata.
+
+The \code{TileDB} object should be open for \code{"WRITE"}.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{TileDBObject$set_metadata(metadata)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{metadata}}{A named list of metadata.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+\code{NULL} value, invisibly.
 }
 }
 \if{html}{\out{<hr>}}

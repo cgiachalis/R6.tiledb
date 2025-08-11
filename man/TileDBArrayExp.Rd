@@ -70,19 +70,19 @@ array.}
 <ul>
 <li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBObject" data-id="class"><a href='../../R6.tiledb/html/TileDBObject.html#method-TileDBObject-class'><code>R6.tiledb::TileDBObject$class()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBObject" data-id="exists"><a href='../../R6.tiledb/html/TileDBObject.html#method-TileDBObject-exists'><code>R6.tiledb::TileDBObject$exists()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBObject" data-id="get_metadata"><a href='../../R6.tiledb/html/TileDBObject.html#method-TileDBObject-get_metadata'><code>R6.tiledb::TileDBObject$get_metadata()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBObject" data-id="is_open"><a href='../../R6.tiledb/html/TileDBObject.html#method-TileDBObject-is_open'><code>R6.tiledb::TileDBObject$is_open()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBObject" data-id="set_metadata"><a href='../../R6.tiledb/html/TileDBObject.html#method-TileDBObject-set_metadata'><code>R6.tiledb::TileDBObject$set_metadata()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBArray" data-id="attributes"><a href='../../R6.tiledb/html/TileDBArray.html#method-TileDBArray-attributes'><code>R6.tiledb::TileDBArray$attributes()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBArray" data-id="attrnames"><a href='../../R6.tiledb/html/TileDBArray.html#method-TileDBArray-attrnames'><code>R6.tiledb::TileDBArray$attrnames()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBArray" data-id="close"><a href='../../R6.tiledb/html/TileDBArray.html#method-TileDBArray-close'><code>R6.tiledb::TileDBArray$close()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBArray" data-id="colnames"><a href='../../R6.tiledb/html/TileDBArray.html#method-TileDBArray-colnames'><code>R6.tiledb::TileDBArray$colnames()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBArray" data-id="dimensions"><a href='../../R6.tiledb/html/TileDBArray.html#method-TileDBArray-dimensions'><code>R6.tiledb::TileDBArray$dimensions()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBArray" data-id="dimnames"><a href='../../R6.tiledb/html/TileDBArray.html#method-TileDBArray-dimnames'><code>R6.tiledb::TileDBArray$dimnames()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBArray" data-id="get_metadata"><a href='../../R6.tiledb/html/TileDBArray.html#method-TileDBArray-get_metadata'><code>R6.tiledb::TileDBArray$get_metadata()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBArray" data-id="open"><a href='../../R6.tiledb/html/TileDBArray.html#method-TileDBArray-open'><code>R6.tiledb::TileDBArray$open()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBArray" data-id="print"><a href='../../R6.tiledb/html/TileDBArray.html#method-TileDBArray-print'><code>R6.tiledb::TileDBArray$print()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBArray" data-id="schema"><a href='../../R6.tiledb/html/TileDBArray.html#method-TileDBArray-schema'><code>R6.tiledb::TileDBArray$schema()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBArray" data-id="schema_info"><a href='../../R6.tiledb/html/TileDBArray.html#method-TileDBArray-schema_info'><code>R6.tiledb::TileDBArray$schema_info()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBArray" data-id="set_metadata"><a href='../../R6.tiledb/html/TileDBArray.html#method-TileDBArray-set_metadata'><code>R6.tiledb::TileDBArray$set_metadata()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBArray" data-id="tiledb_array"><a href='../../R6.tiledb/html/TileDBArray.html#method-TileDBArray-tiledb_array'><code>R6.tiledb::TileDBArray$tiledb_array()</code></a></span></li>
 </ul>
 </details>
