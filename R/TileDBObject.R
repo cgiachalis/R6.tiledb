@@ -146,7 +146,7 @@ TileDBObject <- R6::R6Class(
     #'
     #' @param metadata A named list of metadata.
     #'
-    #' @return `NULL` value, invisibly.
+    #' @return The object, invisibly.
     #'
     set_metadata = function(metadata) {
 
@@ -182,7 +182,7 @@ TileDBObject <- R6::R6Class(
              MoreArgs = list(obj = self$object),
              FUN = .put_metadata)
 
-      invisible(NULL)
+      invisible(self)
     }
   ),
 

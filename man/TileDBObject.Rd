@@ -169,7 +169,7 @@ The \code{TileDB} object should be open for \code{"WRITE"}.
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-\code{NULL} value, invisibly.
+The object, invisibly.
 }
 }
 \if{html}{\out{<hr>}}
