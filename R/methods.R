@@ -25,3 +25,15 @@ print.tdb_metadata <- function(x,...) {
   cli::cat_line(footer)
   invisible(x)
 }
+
+#' @export
+`[.tdb_metadata` <- function(x, i) {
+
+  xattrs <- attributes(x)
+  out <- unclass(x)[i]
+  attr.names <- names(xattrs)
+  attr.names <- attr.names[attr.names != 'names']
+  attributes(out)[attr.names] <- xattrs[attr.names]
+  class(out) <- c("tdb_metadata", "list")
+  out
+}

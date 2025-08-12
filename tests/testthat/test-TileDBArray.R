@@ -108,7 +108,18 @@ test_that("'TileDBArray' class works as expected", {
 
   expect_equal(arrObj$get_metadata(key = "d"), "Boo")
   expect_equal(arrObj$get_metadata(key = "a"), "Hi")
-  expect_equal(length(arrObj$get_metadata()), 5)
+  md <- arrObj$get_metadata()
+  expect_equal(length(md), 5)
+
+  # test `[` method
+  index_meta <- md[c("a", "d")]
+
+  trg <- structure(list(a = "Hi", d = "Boo"), class = c("tdb_metadata",
+                                                         "list"),
+                   R6.class = "TileDBArray", object_type = "ARRAY")
+
+  expect_equal(index_meta, trg)
+
   arrObj$close()
 
   # We need the ability to read back metadata even when the
