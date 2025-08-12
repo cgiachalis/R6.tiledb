@@ -35,16 +35,7 @@ vapply_int <- function(X, FUN, ..., USE.NAMES = TRUE) {
 }
 
 .is_character_or_null <- function(x) {
-  is.character(x) || is.null(x)
-}
-
-.has_character_rownames <- function(x) {
-
-  if (isFALSE(is.data.frame(x))) {
-    cli::cli_abort("{.arg {deparse(substitute(x))}} should be a data.frame, not {.cls {class(x)}}", call = NULL)
-  }
-
-  typeof(attr(x, "row.names")) == "character"
+  rlang::is_character(x) || is.null(x)
 }
 
 
