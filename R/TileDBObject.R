@@ -112,18 +112,30 @@ TileDBObject <- R6::R6Class(
       self$object_type %in% expected_type
     },
 
-    #' @description Retrieve metadata from TileDB Object.
+    #' @description Retrieve metadata from a `TileDB` Object.
     #'
-    #' The `TileDBArray` / `TileDBGroup` will be opened for `"READ"` to fetch its metadata.
+    #' When A `TileDB` object is in `"CLOSED"` mode, then it (array or group) will be
+    #' opened in `"READ"` mode in order to fetch the metadata; and be kept opened until
+    #' is closed by the user.
     #'
-    #' @param key The name of the metadata attribute to retrieve.
-    #'   The default `NULL` returns all metadata.
+    #' @param keys A character vector of metadata keys to retrieve. For `NULL` (default),
+    #'  it returns all metadata.
     #'
-    #' @return The key metadata value or a `list` of all metadata
-    #'  values when `NULL`.
+    #' @return
+    #'  - For scalar key, it returns the key metadata value; if nothing is found
+    #'   it returns `NULL`
+    #'  - For character vector, it returns `list` of metadata with valid keys only;
+    #'   if nothing is found it returns an empty `list`
+    #'  - For `NULL` (default), it returns a list of all metadata
     #'
-    get_metadata = function(key = NULL) {
+    get_metadata = function(keys = NULL) {
 
+      if (isFALSE(rlang::is_character(keys) | is.null(keys))) {
+        cli::cli_abort(
+          "{.arg {deparse(substitute(keys))}} should be either character vector or {.code NULL}.",
+          call = NULL
+        )
+      }
       if (!self$is_open()) {
         self$open(mode = "READ")
       }
@@ -132,17 +144,30 @@ TileDBObject <- R6::R6Class(
 
       private$fill_metadata_cache_if_null()
 
-      if (!is.null(key)) {
-        val <- private$.metadata_cache[[key]]
-        if (is.list(val)) val <- unlist(val)
-        val
+
+      if (!is.null(keys)) {
+        if (length(keys) == 1) {
+          # return scalar
+          val <- private$.metadata_cache[[keys]]
+          if (is.list(val)) {
+            val <- unlist(val)
+          }
+          val
+        } else {
+
+          idx <- keys %in% names(private$.metadata_cache)
+          # return subset by indexing, only valid keys
+          private$.metadata_cache[keys[idx]]
+        }
+
       } else {
+        # return all
         private$.metadata_cache
       }
     },
-    #' @description Add list of metadata.
+    #' @description Add list of metadata to a `TileDB` Object.
     #'
-    #' The `TileDB` object should be open for `"WRITE"`.
+    #' The `TileDB` object should be open in `"WRITE"` mode.
     #'
     #' @param metadata A named list of metadata.
     #'

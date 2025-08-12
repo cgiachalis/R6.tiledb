@@ -111,6 +111,9 @@ test_that("'TileDBArray' class works as expected", {
   md <- arrObj$get_metadata()
   expect_equal(length(md), 5)
 
+  expect_length(arrObj$get_metadata(c("a", "d")), n = 2)
+
+
   # test `[` method
   index_meta <- md[c("a", "d")]
 
@@ -119,6 +122,11 @@ test_that("'TileDBArray' class works as expected", {
                    R6.class = "TileDBArray", object_type = "ARRAY")
 
   expect_equal(index_meta, trg)
+
+  # omit non valid keys
+  expect_equal(arrObj$get_metadata(c("a", "d", "non-meta")), index_meta)
+  # scalar nob valid key returns null
+  expect_null(arrObj$get_metadata("non-meta"))
 
   arrObj$close()
 
