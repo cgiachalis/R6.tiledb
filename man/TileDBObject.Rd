@@ -130,31 +130,38 @@ Check if the object exists.
 \if{html}{\out{<a id="method-TileDBObject-get_metadata"></a>}}
 \if{latex}{\out{\hypertarget{method-TileDBObject-get_metadata}{}}}
 \subsection{Method \code{get_metadata()}}{
-Retrieve metadata from TileDB Object.
+Retrieve metadata from a \code{TileDB} Object.
 
-The \code{TileDBArray} / \code{TileDBGroup} will be opened for \code{"READ"} to fetch its metadata.
+When A \code{TileDB} object is in \code{CLOSED} mode, then it (array or group) will be
+opened in \code{READ} mode in order to fetch the metadata; and be kept opened until
+is closed by the user.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{TileDBObject$get_metadata(key = NULL)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{TileDBObject$get_metadata(keys = NULL)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{key}}{The name of the metadata attribute to retrieve.
-The default \code{NULL} returns all metadata.}
+\item{\code{keys}}{A character vector of metadata keys to retrieve. For \code{NULL} (default),
+it returns all metadata.}
 }
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-The key metadata value or a \code{list} of all metadata
-values when \code{NULL}.
+\itemize{
+\item For scalar key, it returns the key metadata value; if nothing is found
+it returns \code{NULL}
+\item For character vector, it returns \code{list} of metadata with valid keys only;
+if nothing is found it returns an empty \code{list}
+\item For \code{NULL} (default), it returns a list of all metadata
+}
 }
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-TileDBObject-set_metadata"></a>}}
 \if{latex}{\out{\hypertarget{method-TileDBObject-set_metadata}{}}}
 \subsection{Method \code{set_metadata()}}{
-Add list of metadata.
+Add list of metadata to a \code{TileDB} Object.
 
 The \code{TileDB} object should be open for \code{"WRITE"}.
 \subsection{Usage}{
