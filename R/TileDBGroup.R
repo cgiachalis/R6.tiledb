@@ -559,10 +559,6 @@ TileDBGroup <- R6::R6Class(
     # with a list that's empty or contains the group members.
     .member_cache = NULL,
 
-    # Initially NULL, once the group is created or opened, this is populated
-    # with a list that's empty or contains the group metadata.
-    .metadata_cache = NULL,
-
     # Once the group has been created this initializes the TileDB group object
     # and stores the reference in private$.tiledb_group.
     initialize_object = function() {
