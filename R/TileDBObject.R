@@ -30,7 +30,7 @@ TileDBObject <- R6::R6Class(
 
       check_uri(uri)
 
-      private$tiledb_uri <- uri
+      private$.tiledb_uri <- uri
 
       if (is.null(ctx)) {
         ctx <- tiledb::tiledb_ctx()
@@ -114,7 +114,7 @@ TileDBObject <- R6::R6Class(
 
     #' @description Retrieve metadata from a `TileDB` Object.
     #'
-    #' When A `TileDB` object is in `"CLOSED"` mode, then it (array or group) will be
+    #' When a `TileDB` object (array or group) is in `"CLOSED"` mode, then it will be
     #' opened in `"READ"` mode in order to fetch the metadata; and be kept opened until
     #' is closed by the user.
     #'
@@ -130,7 +130,7 @@ TileDBObject <- R6::R6Class(
     #'
     get_metadata = function(keys = NULL) {
 
-      if (isFALSE(rlang::is_character(keys) | is.null(keys))) {
+      if (isFALSE(.is_character_or_null(keys))) {
         cli::cli_abort(
           "{.arg {deparse(substitute(keys))}} should be either character vector or {.code NULL}.",
           call = NULL
@@ -236,7 +236,7 @@ TileDBObject <- R6::R6Class(
       if (!missing(value)) {
         .emit_read_only_error("uri")
       }
-      private$tiledb_uri
+      private$.tiledb_uri
     },
 
     #' @field mode Get the mode of the object: one of the following:
@@ -291,11 +291,12 @@ TileDBObject <- R6::R6Class(
     #   checking if .mode is non-null.
     .mode = NULL,
 
+    #
     # * "ARRAY", "GROUP" or "INVALID"
     .object_type = NULL,
 
     # Contains a URI string
-    tiledb_uri = NULL,
+    .tiledb_uri = NULL,
 
     # Opener-supplied POSIXct timestamp, if any. TileDBArray and TileDBGroup are each responsible
     # for making this effective, since the methods differ slightly.
@@ -303,64 +304,64 @@ TileDBObject <- R6::R6Class(
 
     .tiledb_ctx = NULL,
 
-    # Initially NULL, once the array is created or opened, this is populated
-    # with a list that's empty or contains the array metadata. Since the spec
-    # requires that we allow readback of array metadata even when the array
-    # is open for write, but the TileDB layer underneath us does not, we must
-    # have this cache.
+    # Initially NULL, once the TileDB object (array or group) is created or opened,
+    # this is populated with a list that's empty or contains the array/group metadata.
+    #
+    # The cache allows to readback of metadata even when the array/group are open for write.
     .metadata_cache = NULL,
 
     # ----------------------------------------------------------------
     # Metadata-caching for Arrays and Groups
 
+    # Fill Metadata Cache
+    #
+    # This will update the metadata cache if null. To force an update
+    # use `private$update_metadata_cache()`
+    #
     fill_metadata_cache_if_null = function() {
       if (is.null(private$.metadata_cache)) {
         private$update_metadata_cache()
       }
     },
 
+    # Update Metadata Cache
+    #
+    # Array/Group must be opened for reading.
+    #
+    #  * NOTE:
+    #     - We cannot read metadata while the object is open for writing so
+    #       we must open a temporary handle for reading, to fill the cache.
+    #
     update_metadata_cache = function() {
 
       private$log_debug("update_metadata_cache", "Updating metadata cache for class {}", self$class())
 
-      # See notes above -- at the TileDB implementation level, we cannot read anything
-      # about the group while the group is open for read. Therefore if the group is opened
-      # for write and there is no cache populated then we must open a temporary handle
-      # for read, to fill the cache.
-
-      switch(self$object_type,
+      out <- switch(self$object_type,
 
         GROUP = {
 
+          group_handle <- private$.tiledb_group
+
           if (private$.mode == "WRITE") {
+
+            private$log_debug("update_metadata_cache", "Getting group object")
+
             group_handle <- tiledb::tiledb_group(self$uri, type = "READ", ctx = private$.tiledb_ctx)
-            on.exit({ tiledb::tiledb_group_close(group_handle)})
-          } else {
-            group_handle <- private$.tiledb_group
+            on.exit({ tiledb::tiledb_group_close(group_handle) })
           }
 
           # NOTE: Strip off key attribute; see https://github.com/TileDB-Inc/TileDB-R/issues/775
-          .m <- lapply(tiledb::tiledb_group_get_all_metadata(group_handle),
-                       function(.x) {attr(.x, "key") <- NULL; .x})
+          meta_list <- tiledb::tiledb_group_get_all_metadata(group_handle)
 
-          class(.m) <- c("tdb_metadata", "list")
-          attr(.m, "R6.class") <- self$class()
-          attr(.m, "object_type") <- self$object_type
+          .m <- lapply(meta_list,  function(.x) {attr(.x, "key") <- NULL; .x})
 
-          private$.metadata_cache <- .m
+          .m
 
-          return(invisible(NULL))
         },
 
         ARRAY = {
 
-          if (is.null(private$.tiledb_array)) {
-            # NOTE: "initialize_object()" method is defined in TileDBArray
-            array_handle <- private$initialize_object()
-          } else {
-
-            array_handle <- private$.tiledb_array
-          }
+           array_handle <- private$.tiledb_array
 
           if (private$.mode == "WRITE") {
 
@@ -372,25 +373,19 @@ TileDBObject <- R6::R6Class(
             on.exit({ tiledb::tiledb_array_close(array_handle) })
           }
 
-          if (isFALSE(tiledb::tiledb_array_is_open(array_handle))) {
-
-            private$log_debug("update_metadata_cache", "Reopening array object")
-
-            array_handle <- tiledb::tiledb_array_open(array_handle, type = "READ")
-
-          }
-
           .m  <- tiledb::tiledb_get_all_metadata(array_handle)
 
-          class(.m) <- c("tdb_metadata", "list")
-          attr(.m, "R6.class") <- self$class()
-          attr(.m, "object_type") <- self$object_type
-
-          private$.metadata_cache <- .m
-
-          return(invisible(NULL))
+          .m
         }
       )
+
+      class(out) <- c("tdb_metadata", "list")
+      attr(out, "R6.class") <- self$class()
+      attr(out, "object_type") <- self$object_type
+
+      private$.metadata_cache <- out
+
+      invisible(NULL)
     },
 
     # ----------------------------------------------------------------

@@ -132,8 +132,8 @@ Check if the object exists.
 \subsection{Method \code{get_metadata()}}{
 Retrieve metadata from a \code{TileDB} Object.
 
-When A \code{TileDB} object is in \code{CLOSED} mode, then it (array or group) will be
-opened in \code{READ} mode in order to fetch the metadata; and be kept opened until
+When a \code{TileDB} object (array or group) is in \code{"CLOSED"} mode, then it will be
+opened in \code{"READ"} mode in order to fetch the metadata; and be kept opened until
 is closed by the user.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{TileDBObject$get_metadata(keys = NULL)}\if{html}{\out{</div>}}
@@ -163,7 +163,7 @@ if nothing is found it returns an empty \code{list}
 \subsection{Method \code{set_metadata()}}{
 Add list of metadata to a \code{TileDB} Object.
 
-The \code{TileDB} object should be open for \code{"WRITE"}.
+The \code{TileDB} object should be open in \code{"WRITE"} mode.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{TileDBObject$set_metadata(metadata)}\if{html}{\out{</div>}}
 }
