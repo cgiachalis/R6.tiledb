@@ -22,7 +22,7 @@ TileDBFragments <- R6::R6Class(
 
       check_uri(uri)
 
-      private$tiledb_uri <- uri
+      private$.tiledb_uri <- uri
 
       # Set context
       if (is.null(ctx)) {
@@ -297,7 +297,7 @@ TileDBFragments <- R6::R6Class(
       if (!missing(value)) {
         .emit_read_only_error("uri")
       }
-      private$tiledb_uri
+      private$.tiledb_uri
     },
     #' @field fragment_info Get the TileDB Fragment Info object as returned by
     #' [tiledb::tiledb_fragment_info].
@@ -313,7 +313,7 @@ TileDBFragments <- R6::R6Class(
 
   private = list(
 
-    tiledb_uri = NULL,
+    .tiledb_uri = NULL,
 
     .tiledb_ctx = NULL,
     .finfo = NULL,
