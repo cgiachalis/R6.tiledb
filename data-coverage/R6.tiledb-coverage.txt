@@ -1,8 +1,8 @@
 # Test Coverage --------------------
-Timestamp: Tue Aug 12 11:54:57 2025
-R6.tiledb Coverage: 92.00%
-R/utils.R: 61.76%
-R/TileDBObject.R: 82.02%
+Timestamp: Wed Aug 13 12:14:45 2025
+R6.tiledb Coverage: 93.18%
+R/utils.R: 70.97%
+R/TileDBObject.R: 85.63%
 R/TileDBArrayExp.R: 88.54%
 R/methods.R: 90.91%
 R/utils-uris.R: 92.00%
