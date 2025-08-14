@@ -38,7 +38,6 @@ mode and kept open.}
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
-\item \href{#method-TileDBArray-new}{\code{TileDBArray$new()}}
 \item \href{#method-TileDBArray-open}{\code{TileDBArray$open()}}
 \item \href{#method-TileDBArray-close}{\code{TileDBArray$close()}}
 \item \href{#method-TileDBArray-tiledb_array}{\code{TileDBArray$tiledb_array()}}
@@ -59,6 +58,7 @@ mode and kept open.}
 <li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBObject" data-id="class"><a href='../../R6.tiledb/html/TileDBObject.html#method-TileDBObject-class'><code>R6.tiledb::TileDBObject$class()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBObject" data-id="exists"><a href='../../R6.tiledb/html/TileDBObject.html#method-TileDBObject-exists'><code>R6.tiledb::TileDBObject$exists()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBObject" data-id="get_metadata"><a href='../../R6.tiledb/html/TileDBObject.html#method-TileDBObject-get_metadata'><code>R6.tiledb::TileDBObject$get_metadata()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBObject" data-id="initialize"><a href='../../R6.tiledb/html/TileDBObject.html#method-TileDBObject-initialize'><code>R6.tiledb::TileDBObject$initialize()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBObject" data-id="is_open"><a href='../../R6.tiledb/html/TileDBObject.html#method-TileDBObject-is_open'><code>R6.tiledb::TileDBObject$is_open()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBObject" data-id="reopen"><a href='../../R6.tiledb/html/TileDBObject.html#method-TileDBObject-reopen'><code>R6.tiledb::TileDBObject$reopen()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBObject" data-id="set_metadata"><a href='../../R6.tiledb/html/TileDBObject.html#method-TileDBObject-set_metadata'><code>R6.tiledb::TileDBObject$set_metadata()</code></a></span></li>
@@ -66,34 +66,18 @@ mode and kept open.}
 </details>
 }}
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-TileDBArray-new"></a>}}
-\if{latex}{\out{\hypertarget{method-TileDBArray-new}{}}}
-\subsection{Method \code{new()}}{
-Create a new \code{TileDBArray} instance.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{TileDBArray$new(uri, ctx = NULL, tiledb_timestamp = NULL)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{uri}}{URI path for the TileDB Array.}
-
-\item{\code{ctx}}{Optional \code{\link[tiledb:tiledb_ctx]{tiledb::tiledb_ctx()}} object.}
-
-\item{\code{tiledb_timestamp}}{Optional Datetime (POSIXct) with TileDB timestamp.}
-}
-\if{html}{\out{</div>}}
-}
-}
-\if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-TileDBArray-open"></a>}}
 \if{latex}{\out{\hypertarget{method-TileDBArray-open}{}}}
 \subsection{Method \code{open()}}{
 Open TileDB array object for read or write.
 
 This methods opens the underlying \code{\link[tiledb:tiledb_array]{tiledb::tiledb_array()}} object in the
-requested mode if it is different from the current mode.
+new mode if it is different from the current mode.
+
+When the new mode and current mode is the same, no action is taken.
+To force close and then open again use \code{reopen()} method.
+
+When a time-stamp is specified, it will be effective in \code{"READ"} mode  only.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{TileDBArray$open(mode = c("READ", "WRITE"))}\if{html}{\out{</div>}}
 }

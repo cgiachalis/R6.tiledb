@@ -22,25 +22,15 @@ TileDBArray <- R6::R6Class(
   classname = "TileDBArray",
   inherit = TileDBObject,
   public = list(
-    #' @description Create a new `TileDBArray` instance.
-    #'
-    #' @param uri URI path for the TileDB Array.
-    #' @param ctx Optional [tiledb::tiledb_ctx()] object.
-    #' @param tiledb_timestamp Optional Datetime (POSIXct) with TileDB timestamp.
-    #'
-    initialize = function(uri,
-                          ctx = NULL,
-                          tiledb_timestamp = NULL) {
-
-      super$initialize(uri = uri,
-                       ctx = ctx,
-                       tiledb_timestamp = tiledb_timestamp)
-
-    },
     #' @description Open TileDB array object for read or write.
     #'
     #' This methods opens the underlying [tiledb::tiledb_array()] object in the
-    #' requested mode if it is different from the current mode.
+    #' new mode if it is different from the current mode.
+    #'
+    #' When the new mode and current mode is the same, no action is taken.
+    #' To force close and then open again use `reopen()` method.
+    #'
+    #' When a time-stamp is specified, it will be effective in `"READ"` mode  only.
     #'
     #' @param mode Mode to open : either `"READ"` or `"WRITE"`.  Default is `"READ"`.
     #'
@@ -56,29 +46,68 @@ TileDBArray <- R6::R6Class(
         private$initialize_object()
       }
 
+      has_tstamp <- !is.null(self$tiledb_timestamp)
+      is_write <- mode == "WRITE"
+
       init_mode <- self$mode
+      is_identical_mode <- init_mode == mode
 
-      identical_mode <- init_mode == mode
+      if (isFALSE(has_tstamp) | isTRUE(has_tstamp & is_write)) {
 
-      private$log_debug0("open", "Requested open mode is {}", ifelse(identical_mode, "identical, no mode switch", "not identical, switch mode"))
+        # Notes:
+        #  - If new mode is different from current mode then switch to new mode, otherwise no action
+        #  - Cases (1) no timestamp or (2) has timestamp but new mode is "WRITE" (here timestamp will no have effect)
 
-      if (isFALSE(identical_mode)) {
+        private$log_debug0("open", "Requested open mode is {}",
+                           ifelse(is_identical_mode, "identical, no mode switch", "not identical, switch mode"))
+
+        if (isFALSE(is_identical_mode)) {
+
+          if (tiledb::tiledb_array_is_open(private$.tiledb_array)) {
+
+            private$log_debug("open", "Closing to switch from {} to {} mode", init_mode, mode)
+
+            tiledb::tiledb_array_close(self$object)
+          }
+
+          private$log_debug("open", "Opening in {} mode", mode)
+
+          private$.tiledb_array <- tiledb::tiledb_array_open(self$object, type = mode)
+          private$.mode <- mode
+          private$update_metadata_cache()
+        }
+
+      } else if (isTRUE(has_tstamp & !is_write)) {
+
+        # Opening array at time-stamp. For READ only.
+        #
+        # Note: If array is open, we must close it and re-opening it at time-stamp.
 
         if (tiledb::tiledb_array_is_open(private$.tiledb_array)) {
 
-          private$log_debug("open", "Closing to switch from {} to {} mode", init_mode, mode)
+          private$log_debug("open", "Closing to re-opening from {} to {} mode", init_mode, mode)
 
           tiledb::tiledb_array_close(self$object)
         }
 
-        private$log_debug("open", "Opening in {} mode", mode)
+        private$log_debug("open", "Opening in {} mode at {}", mode, self$tiledb_timestamp)
 
-        private$.tiledb_array <- tiledb::tiledb_array_open(self$object, type = mode)
+        tstart <- self$tiledb_timestamp$timestamp_start
+        tend <- self$tiledb_timestamp$timestamp_end
+
+        private$.tiledb_array <- tiledb::tiledb_array(self$uri,
+                                                      query_type = mode,
+                                                      query_layout = "UNORDERED",
+                                                      keep_open = TRUE,
+                                                      timestamp_start = tstart,
+                                                      timestamp_end = tend)
         private$.mode <- mode
         private$update_metadata_cache()
-      }
 
+      }
+# libtiledb_array_set_open_timestamp_end
       invisible(self)
+
     },
 
     #' @description Close the object.

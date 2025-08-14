@@ -18,9 +18,21 @@ An parent class to implement shared functionality for \link{TileDBArray} and
 \describe{
 \item{\code{ctx}}{TileDB Context.}
 
-\item{\code{tiledb_timestamp}}{Time that object was opened at.}
+\item{\code{tiledb_timestamp}}{Set or retrieve a \code{TileDB} time-stamp range that
+the resource will be opened at. Effective only for \code{"READ"} mode.
 
-\item{\code{uri}}{The URI of the TileDB object.}
+This is a \strong{mutable} field that allows you to set a time-range for time-travelling.
+Valid options:
+\itemize{
+\item A \code{NULL} value (default)
+\item An \code{R} object coercible to \code{POSIXct}, must be of length 1 and used as end time-stamp
+\item An object of class \code{\link[=tiledb_timestamp]{tiledb_timestamp()}}
+}
+
+Note that upon setting new a time-stamp the object will be reopened if it is in
+\code{"READ"} mode.}
+
+\item{\code{uri}}{The URI of the \code{TileDB} object.}
 
 \item{\code{mode}}{Get the mode of the object: one of the following:
 \code{"CLOSED"}, \code{"READ"} or \code{"WRITE"}.}
@@ -51,7 +63,7 @@ An parent class to implement shared functionality for \link{TileDBArray} and
 \if{html}{\out{<a id="method-TileDBObject-new"></a>}}
 \if{latex}{\out{\hypertarget{method-TileDBObject-new}{}}}
 \subsection{Method \code{new()}}{
-Create a new TileDB object.
+Create a new \code{TileDB} object.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{TileDBObject$new(uri, ctx = NULL, tiledb_timestamp = NULL)}\if{html}{\out{</div>}}
 }
@@ -59,11 +71,20 @@ Create a new TileDB object.
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{uri}}{URI path for the TileDB object.}
+\item{\code{uri}}{URI path for the \code{TileDB} object.}
 
 \item{\code{ctx}}{Optional \code{\link[tiledb:tiledb_ctx]{tiledb::tiledb_ctx()}} object.}
 
-\item{\code{tiledb_timestamp}}{Optional Datetime (POSIXct) with TileDB timestamp.}
+\item{\code{tiledb_timestamp}}{Set a \code{TileDB} time-stamp range that
+the resource will be opened at. Effective only for \code{"READ"} mode.
+Valid options:
+\itemize{
+\item A \code{NULL} value (default)
+\item An \code{R} object coercible to \code{POSIXct}, must be of length 1 and used as end time-stamp
+\item An object of class \code{\link[=tiledb_timestamp]{tiledb_timestamp()}}
+}
+
+Also, it can be set through active field \verb{$tiledb_timestamp}.}
 }
 \if{html}{\out{</div>}}
 }
@@ -97,15 +118,13 @@ Determine if the object is open for reading or writing.
 \subsection{Method \code{reopen()}}{
 Close and reopen the TileDB object in a new mode.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{TileDBObject$reopen(mode = c("READ", "WRITE"), tiledb_timestamp = NULL)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{TileDBObject$reopen(mode = c("READ", "WRITE"))}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
 \item{\code{mode}}{New mode to open the object in; choose from: \code{"READ"} or \code{"WRITE"}.}
-
-\item{\code{tiledb_timestamp}}{Optional Datetime (POSIXct) with TileDB timestamp.}
 }
 \if{html}{\out{</div>}}
 }
