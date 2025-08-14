@@ -4,10 +4,10 @@
 \alias{set_tiledb_timestamp}
 \title{Set a \code{TileDB} time-stamp}
 \usage{
-set_tiledb_timestamp(ts_start, ts_end, tz = "UTC")
+set_tiledb_timestamp(start_time, end_time, tz = "UTC")
 }
 \arguments{
-\item{ts_start, ts_end}{An object coercible to \code{POSIXct} using \code{\link[=as.POSIXct]{as.POSIXct()}}.}
+\item{start_time, end_time}{An object coercible to \code{POSIXct} using \code{\link[=as.POSIXct]{as.POSIXct()}}.}
 
 \item{tz}{A character string for the time zone specification to be used
 for the conversion.}

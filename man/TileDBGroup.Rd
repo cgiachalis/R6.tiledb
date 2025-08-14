@@ -34,10 +34,10 @@ A new \code{TileDBGroup} instance is initialized using the \code{new()} method:
 \item{\code{members}}{Access the \code{list} of group members.}
 
 \item{\code{tiledb_timestamp}}{Set or retrieve a \code{TileDB} time-stamp range that
-the group members will be opened at.  Effective in \code{"READ"} mode only.
+the group members will be opened at.Effective in \code{"READ"} mode only.
 
-This is a \strong{mutable} field that allows you to set a time-range for time-travelling.
-Valid options:
+This is a \strong{mutable} field to set time-stamps dynamically
+for time-travelling. Valid options:
 \itemize{
 \item A \code{NULL} value (default)
 \item An \code{R} object coercible to \code{POSIXct}, must be of length 1 and used as end time-stamp

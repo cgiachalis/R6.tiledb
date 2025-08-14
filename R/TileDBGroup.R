@@ -514,13 +514,14 @@ TileDBGroup <- R6::R6Class(
     },
 
     #'@field tiledb_timestamp Set or retrieve a `TileDB` time-stamp range that
-    #'  the group members will be opened at.  Effective in `"READ"` mode only.
+    #'  the group members will be opened at.Effective in `"READ"` mode only.
     #'
-    #'  This is a **mutable** field that allows you to set a time-range for time-travelling.
-    #'  Valid options:
+    #'  This is a **mutable** field to set time-stamps dynamically
+    #'  for time-travelling. Valid options:
     #'  - A `NULL` value (default)
     #'  - An `R` object coercible to `POSIXct`, must be of length 1 and used as end time-stamp
     #'  - An object of class `tiledb_timestamp`. See [set_tiledb_timestamp()]
+    #'
     #'
     #' **Note:** Setting a new time-stamp will clear the member cache and will reopen
     #' the group resource so as to propage the `TileDB` time-stamp to members.
@@ -532,7 +533,7 @@ TileDBGroup <- R6::R6Class(
         if (is.null(value)) {
           private$.tiledb_timestamp <- set_tiledb_timestamp()
         } else if (length(value) == 1) {
-          private$.tiledb_timestamp <- set_tiledb_timestamp(ts_end = value)
+          private$.tiledb_timestamp <- set_tiledb_timestamp(end_time = value)
         } else if (inherits(value, "tiledb_timestamp")) {
           private$.tiledb_timestamp <- value
         } else {

@@ -144,15 +144,15 @@ test_that("'TileDBArray' class works as expected", {
   expect_s3_class(arrObj$tiledb_timestamp, "tiledb_timestamp")
 
   expect_no_error(arrObj$tiledb_timestamp <- 10)
-  expect_equal(arrObj$tiledb_timestamp, set_tiledb_timestamp(ts_end = 10))
+  expect_equal(arrObj$tiledb_timestamp, set_tiledb_timestamp(end_time = 10))
 
   expect_no_error(arrObj$tiledb_timestamp <- "1990-01-01")
-  expect_equal(arrObj$tiledb_timestamp, set_tiledb_timestamp(ts_end = "1990-01-01"))
+  expect_equal(arrObj$tiledb_timestamp, set_tiledb_timestamp(end_time =  "1990-01-01"))
 
   expect_no_error(arrObj$tiledb_timestamp <- as.POSIXct(10, tz = "UTC"))
-  expect_equal(arrObj$tiledb_timestamp, set_tiledb_timestamp(ts_end = as.POSIXct(10)))
+  expect_equal(arrObj$tiledb_timestamp, set_tiledb_timestamp(end_time = as.POSIXct(10)))
 
-  ts <- set_tiledb_timestamp(ts_start = as.Date("1990-01-01"), ts_end = as.Date("2000-01-01"))
+  ts <- set_tiledb_timestamp(start_time = as.Date("1990-01-01"), end_time = as.Date("2000-01-01"))
   expect_no_error(arrObj$tiledb_timestamp <- ts)
   expect_equal(arrObj$tiledb_timestamp, ts)
 

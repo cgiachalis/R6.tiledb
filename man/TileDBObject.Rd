@@ -21,7 +21,7 @@ An parent class to implement shared functionality for \link{TileDBArray} and
 \item{\code{tiledb_timestamp}}{Set or retrieve a \code{TileDB} time-stamp range that
 the resource will be opened at. Effective in \code{"READ"} mode only.
 
-This is a \strong{mutable} field that allows you to set time-stamps dynamically
+This is a \strong{mutable} field to set time-stamps dynamically
 for time-travelling. Valid options:
 \itemize{
 \item A \code{NULL} value (default)

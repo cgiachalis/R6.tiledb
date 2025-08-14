@@ -3,7 +3,7 @@
 #' Define a list of start,end timestamps intended for opening a `TileDB`
 #' object, either at initialisation or via active field `tiledb_timestamp`.
 #'
-#' @param ts_start,ts_end An object coercible to `POSIXct` using [as.POSIXct()].
+#' @param start_time,end_time An object coercible to `POSIXct` using [as.POSIXct()].
 #' @param tz A character string for the time zone specification to be used
 #' for the conversion.
 #'
@@ -20,29 +20,39 @@
 #' # Numeric input
 #' set_tiledb_timestamp(1000000, 1000000*4)
 #'
-set_tiledb_timestamp <- function(ts_start, ts_end, tz = "UTC") {
+set_tiledb_timestamp <- function(start_time, end_time, tz = "UTC") {
 
-  if (missing(ts_start)) {
-    ts_start <- as.POSIXct(double(), tz = tz)
-  } else if (is.na(ts_start) | is.null(ts_start)) {
-    ts_start <- as.POSIXct(double(), tz = tz)
+  if (missing(start_time)) {
+    start_time <- as.POSIXct(0, tz = tz)
+  } else if (is.na(start_time) | is.null(start_time)) {
+    start_time <- as.POSIXct(0, tz = tz)
   } else {
-    ts_start <- as.POSIXct(ts_start, tz = tz)
+    start_time <- as.POSIXct(start_time, tz = tz)
   }
 
-  if (missing(ts_end)) {
-    ts_end <- as.POSIXct(double(), tz = tz)
-  } else if (is.na(ts_end) | is.null(ts_end)) {
-    ts_end <- as.POSIXct(double(), tz = tz)
+  if (missing(end_time)) {
+    end_time <- as.POSIXct(double(), tz = tz)
+  } else if (is.na(end_time) | is.null(end_time)) {
+    end_time <- as.POSIXct(double(), tz = tz)
   } else {
-    ts_end <- as.POSIXct(ts_end, tz = tz)
+    end_time <- as.POSIXct(end_time, tz = tz)
   }
 
-  start_ok <- length(ts_start) > 0
-  end_ok <- length(ts_end) > 0
+  start_ok <- length(start_time) > 0
+  end_ok <- length(end_time) > 0
 
-  structure(list(timestamp_start = ts_start,
-                 timestamp_end = ts_end),
+  if (end_ok) {
+    if (start_time > end_time) {
+      cli::cli_abort("{.arg start_time} is greater than {.arg end_time}", call = NULL)
+    }
+  } else {
+    if (start_time > Sys.time()) {
+      cli::cli_abort("{.arg start_time} is greater than {.arg end_time}", call = NULL)
+    }
+  }
+
+  structure(list(timestamp_start = start_time,
+                 timestamp_end = end_time),
             class = c("tiledb_timestamp"),
             user_tstamp = start_ok | end_ok)
 }
