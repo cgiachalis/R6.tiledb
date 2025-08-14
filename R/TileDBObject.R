@@ -52,7 +52,7 @@ TileDBObject <- R6::R6Class(
       } else if (length(tiledb_timestamp) == 1) {
         private$.tiledb_timestamp <- set_tiledb_timestamp(ts_end = tiledb_timestamp)
       } else if (inherits(tiledb_timestamp, "tiledb_timestamp")) {
-        private$.tiledb_timestamp <- value
+        private$.tiledb_timestamp <- tiledb_timestamp
       } else {
         cli::cli_abort("Invalid 'tiledb_timestamp' input", call = NULL)
       }
@@ -245,7 +245,7 @@ TileDBObject <- R6::R6Class(
           cli::cli_abort("Invalid 'tiledb_timestamp' input", call = NULL)
         }
 
-        if (self$mode == "READ") {
+        if (self$mode != "WRITE") {
           self$reopen()
         }
 
