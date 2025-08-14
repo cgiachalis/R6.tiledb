@@ -21,15 +21,15 @@ An parent class to implement shared functionality for \link{TileDBArray} and
 \item{\code{tiledb_timestamp}}{Set or retrieve a \code{TileDB} time-stamp range that
 the resource will be opened at. Effective in \code{"READ"} mode only.
 
-This is a \strong{mutable} field that allows you to set a time-range for time-travelling.
-Valid options:
+This is a \strong{mutable} field that allows you to set time-stamps dynamically
+for time-travelling. Valid options:
 \itemize{
 \item A \code{NULL} value (default)
 \item An \code{R} object coercible to \code{POSIXct}, must be of length 1 and used as end time-stamp
 \item An object of class \code{tiledb_timestamp}. See \code{\link[=set_tiledb_timestamp]{set_tiledb_timestamp()}}
 }
 
-\strong{Note:} Setting new a time-stamp the object will be reopened if it is in
+\strong{Note:} When setting new a time-stamp, the object will be reopened only if it is in
 \code{"READ"} mode.}
 
 \item{\code{uri}}{The URI of the \code{TileDB} object.}
@@ -76,15 +76,16 @@ Create a new \code{TileDB} object.
 \item{\code{ctx}}{Optional \code{\link[tiledb:tiledb_ctx]{tiledb::tiledb_ctx()}} object.}
 
 \item{\code{tiledb_timestamp}}{Set a \code{TileDB} time-stamp range that
-the resource will be opened at. Effective only for \code{"READ"} mode.
+the resource will be opened at. Effective in \code{"READ"} mode only.
 Valid options:
 \itemize{
 \item A \code{NULL} value (default)
 \item An \code{R} object coercible to \code{POSIXct}, must be of length 1 and used as end time-stamp
-\item An object of class \code{\link[=tiledb_timestamp]{tiledb_timestamp()}}
+\item An object of class \code{tiledb_timestamp}. See \code{\link[=set_tiledb_timestamp]{set_tiledb_timestamp()}}
 }
 
-Also, it can be set through active field \verb{$tiledb_timestamp}.}
+\strong{Note:} When setting new a time-stamp, the object will be reopened only if it is in
+\code{"READ"} mode.}
 }
 \if{html}{\out{</div>}}
 }

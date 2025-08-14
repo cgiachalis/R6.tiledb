@@ -26,21 +26,6 @@ TileDBArrayExp <- R6::R6Class(
   classname = "TileDBArrayExp",
   inherit = TileDBArray,
   public = list(
-    #' @description Create a new `TileDBArrayExp` instance.
-    #'
-    #' @param uri URI path for the `TileDB` Array.
-    #' @param ctx Optional [tiledb::tiledb_ctx()] object.
-    #' @param tiledb_timestamp Optional Datetime (POSIXct) with TileDB timestamp.
-    #'
-    initialize = function(uri,
-                          ctx = NULL,
-                          tiledb_timestamp = NULL) {
-
-      super$initialize(uri = uri,
-                       ctx = ctx,
-                       tiledb_timestamp = tiledb_timestamp)
-
-    },
     #' @description Close and reopen the TileDB object in a new mode.
     #'
     #' @param mode New mode to open the object in; choose from: `"READ"` or `"WRITE"`.
