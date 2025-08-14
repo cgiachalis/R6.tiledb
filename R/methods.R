@@ -39,15 +39,19 @@ print.tdb_metadata <- function(x,...) {
 }
 
 #' @export
-print.tiledb_timestamp <- function(x, ...) {
+print.tiledb_timestamp <- function(x, tz = "UTC", ...) {
 
+  user_tstamp <-  attr(x, "user_tstamp", exact = TRUE)
+  note <- if(user_tstamp) "(user)" else "(default)"
 
   ts_char <- vector("character", length = 2)
-  ts_char[1] <- if (length(x$timestamp_start) == 0) "origin" else format(x$timestamp_start, tz = "UTC")
-  ts_char[2] <- if (length(x$timestamp_end) == 0) format(Sys.time(), tz = "UTC") else format(x$timestamp_end, tz = "UTC")
+  ts_char[1] <- if (length(x$timestamp_start) == 0) "origin" else format(x$timestamp_start, tz = tz)
+  ts_char[2] <- if (length(x$timestamp_end) == 0) format(Sys.time(), tz = tz) else format(x$timestamp_end, tz = tz)
 
   txt <- paste0(c("start", "end  "), ": ", cli::col_br_blue(ts_char))
   out <- paste0(" ", cli::col_br_cyan(cli::symbol$bullet), " ", txt, collapse = "\n")
-  cli::cat_line(c("TileDB Timestamp", out))
+
+  header <- paste0("TileDB Timestamp ", cli::col_grey(note))
+  cli::cat_line(c(header, out))
   invisible(x)
 }
