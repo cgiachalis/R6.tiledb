@@ -46,13 +46,13 @@ TileDBArray <- R6::R6Class(
         private$initialize_object()
       }
 
-      has_tstamp <- !is.null(self$tiledb_timestamp)
+      user_tstamp <-  attr(self$tiledb_timestamp, "user_tstamp")
       is_write <- mode == "WRITE"
 
       init_mode <- self$mode
       is_identical_mode <- init_mode == mode
 
-      if (isFALSE(has_tstamp) | isTRUE(has_tstamp & is_write)) {
+      if (isFALSE(user_tstamp) | isTRUE(has_tstamp & is_write)) {
 
         # Notes:
         #  - If new mode is different from current mode then switch to new mode, otherwise no action
@@ -77,7 +77,7 @@ TileDBArray <- R6::R6Class(
           private$update_metadata_cache()
         }
 
-      } else if (isTRUE(has_tstamp & !is_write)) {
+      } else if (isTRUE(user_tstamp & !is_write)) {
 
         # Opening array at time-stamp. For READ only.
         #

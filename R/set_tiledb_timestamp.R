@@ -30,7 +30,6 @@ set_tiledb_timestamp <- function(ts_start, ts_end, tz = "UTC") {
     ts_start <- as.POSIXct(ts_start, tz = tz)
   }
 
-
   if (missing(ts_end)) {
     ts_end <- as.POSIXct(double(), tz = tz)
   } else if (is.na(ts_end) | is.null(ts_end)) {
@@ -39,7 +38,11 @@ set_tiledb_timestamp <- function(ts_start, ts_end, tz = "UTC") {
     ts_end <- as.POSIXct(ts_end, tz = tz)
   }
 
+  start_ok <- length(ts_start) > 0
+  end_ok <- length(ts_end) > 0
+
   structure(list(timestamp_start = ts_start,
                  timestamp_end = ts_end),
-            class = c("tiledb_timestamp"))
+            class = c("tiledb_timestamp"),
+            user_tstamp = start_ok | end_ok)
 }
