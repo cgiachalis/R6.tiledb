@@ -52,7 +52,7 @@ TileDBArray <- R6::R6Class(
       init_mode <- self$mode
       is_identical_mode <- init_mode == mode
 
-      if (isFALSE(user_tstamp) | isTRUE(has_tstamp & is_write)) {
+      if (isFALSE(user_tstamp) | isTRUE(user_tstamp & is_write)) {
 
         # Notes:
         #  - If new mode is different from current mode then switch to new mode, otherwise no action
@@ -90,7 +90,7 @@ TileDBArray <- R6::R6Class(
           tiledb::tiledb_array_close(self$object)
         }
 
-        private$log_debug("open", "Opening in {} mode at {}", mode, self$tiledb_timestamp)
+        private$log_debug("open", "Opening in {} mode at {}", mode, self$tiledb_timestamp[[2]])
 
         tstart <- self$tiledb_timestamp$timestamp_start
         tend <- self$tiledb_timestamp$timestamp_end
@@ -105,7 +105,7 @@ TileDBArray <- R6::R6Class(
         private$update_metadata_cache()
 
       }
-# libtiledb_array_set_open_timestamp_end
+
       invisible(self)
 
     },
