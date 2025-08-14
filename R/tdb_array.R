@@ -5,16 +5,13 @@
 #'
 #' @section Active bindings:
 #'
-#' - `ctx` : TileDB Context
-#' - `tiledb_timestamp` : Time that object was opened at
-#' - `uri` : The URI of the TileDB object
+#' - `ctx` : A TileDB Context. See [tiledb::tiledb_ctx()]
+#' - `tiledb_timestamp` : A `TileDB` time-stamp range that
+#'  the resource will be opened at. See [set_tiledb_timestamp()]
+#' - `uri` : The URI of the `TileDB` object
 #' - `mode`: Get the mode of the object: one of the following:
 #'  `"CLOSED"`, `"READ"` or `"WRITE"`
-#' - `object_type` : The TileDB object type:
-#'   - `"ARRAY"`, for dense or sparse array resource
-#'   - `"GROUP"`, for group resource
-#'   - `"INVALID"`, for not a TileDB resource
-#'
+#' - `object_type` : The `TileDB` object type: `"ARRAY"`,`"GROUP"` or `"INVALID"`
 #' - `object` : Access the underlying [tiledb::tiledb_array()] object. When
 #' used before open() method, the underlying array will be initialised at `"READ"`
 #' mode and kept open.
@@ -66,12 +63,19 @@
 #' </ul>
 #' }}
 #'
-#' @param uri URI path for the TileDB Array.
+#' @param uri URI path for the `TileDB` object.
 #' @param mode Mode to open : either `"READ" (default) or "WRITE"`.
 #' @param ctx Optional [tiledb::tiledb_ctx()] object.
-#' @param tiledb_timestamp Optional Datetime (POSIXct) with TileDB timestamp.
+#' @param tiledb_timestamp Set a `TileDB` time-stamp range that
+#'  the resource will be opened at. Effective only for `"READ"` mode.
+#'  Valid options:
+#'  - A `NULL` value (default)
+#'  - An `R` object coercible to `POSIXct`, must be of length 1 and used as end time-stamp
+#'  - An object of class [tiledb_timestamp()]
 #'
-#' @returns An `R6` object.
+#' Also, it can be set through active field `$tiledb_timestamp`.
+#'
+#' @returns An `TileDBArrayExp`, `R6` object.
 #'
 #' @export
 #'
