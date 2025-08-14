@@ -227,7 +227,7 @@ TileDBObject <- R6::R6Class(
     #'  Valid options:
     #'  - A `NULL` value (default)
     #'  - An `R` object coercible to `POSIXct`, must be of length 1 and used as end time-stamp
-    #'  - An object of class [tiledb_timestamp()]
+    #'  - An object of class `tiledb_timestamp`. See [set_tiledb_timestamp()]
     #'
     #' **Note:** Setting new a time-stamp the object will be reopened if it is in
     #' `"READ"` mode.

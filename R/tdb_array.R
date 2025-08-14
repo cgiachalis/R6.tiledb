@@ -71,7 +71,7 @@
 #'  Valid options:
 #'  - A `NULL` value (default)
 #'  - An `R` object coercible to `POSIXct`, must be of length 1 and used as end time-stamp
-#'  - An object of class [tiledb_timestamp()]
+#'  - An object of class `tiledb_timestamp`. See [set_tiledb_timestamp()]
 #'
 #' Also, it can be set through active field `$tiledb_timestamp`.
 #'

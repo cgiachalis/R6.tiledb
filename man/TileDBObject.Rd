@@ -26,7 +26,7 @@ Valid options:
 \itemize{
 \item A \code{NULL} value (default)
 \item An \code{R} object coercible to \code{POSIXct}, must be of length 1 and used as end time-stamp
-\item An object of class \code{\link[=tiledb_timestamp]{tiledb_timestamp()}}
+\item An object of class \code{tiledb_timestamp}. See \code{\link[=set_tiledb_timestamp]{set_tiledb_timestamp()}}
 }
 
 \strong{Note:} Setting new a time-stamp the object will be reopened if it is in

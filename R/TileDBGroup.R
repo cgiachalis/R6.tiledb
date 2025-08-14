@@ -24,21 +24,6 @@ TileDBGroup <- R6::R6Class(
   inherit = TileDBObject,
 
   public = list(
-    #' @description Create a new `TileDBGroup` instance.
-    #'
-    #' @param uri URI path for the TileDB Group.
-    #' @param ctx Optional [tiledb::tiledb_ctx()] object.
-    #' @param tiledb_timestamp Optional Datetime (POSIXct) with TileDB timestamp.
-    #'
-    initialize = function(uri,
-                          ctx = NULL,
-                          tiledb_timestamp = NULL) {
-
-      super$initialize(uri = uri,
-                       ctx = ctx,
-                       tiledb_timestamp = tiledb_timestamp)
-
-    },
     #' @description Create a TileDB Group object given the class URI path.
     #'
     #' @param mode Mode to open : either `"READ"` or `"WRITE"` (default).
@@ -535,10 +520,11 @@ TileDBGroup <- R6::R6Class(
     #'  Valid options:
     #'  - A `NULL` value (default)
     #'  - An `R` object coercible to `POSIXct`, must be of length 1 and used as end time-stamp
-    #'  - An object of class [tiledb_timestamp()]
+    #'  - An object of class `tiledb_timestamp`. See [set_tiledb_timestamp()]
     #'
     #' **Note:** Setting a new time-stamp will clear the member cache and will reopen
     #' the group resource so as to propage the `TileDB` time-stamp to members.
+    #'
     tiledb_timestamp = function(value) {
 
       if (!missing(value)) {
