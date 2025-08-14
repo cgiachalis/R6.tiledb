@@ -221,7 +221,7 @@ TileDBObject <- R6::R6Class(
     },
 
     #'@field tiledb_timestamp Set or retrieve a `TileDB` time-stamp range that
-    #'  the resource will be opened at. Effective only for `"READ"` mode.
+    #'  the resource will be opened at. Effective in `"READ"` mode only.
     #'
     #'  This is a **mutable** field that allows you to set a time-range for time-travelling.
     #'  Valid options:
@@ -229,7 +229,7 @@ TileDBObject <- R6::R6Class(
     #'  - An `R` object coercible to `POSIXct`, must be of length 1 and used as end time-stamp
     #'  - An object of class [tiledb_timestamp()]
     #'
-    #' Note that upon setting new a time-stamp the object will be reopened if it is in
+    #' **Note:** Setting new a time-stamp the object will be reopened if it is in
     #' `"READ"` mode.
     tiledb_timestamp = function(value) {
 
