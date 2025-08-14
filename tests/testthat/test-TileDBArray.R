@@ -138,7 +138,29 @@ test_that("'TileDBArray' class works as expected", {
   expect_equal(length(arrObj$get_metadata()), 5)
   arrObj$close()
 
-  # new instances
+  # Test tiledb_timestamp active field
+
+  expect_no_error(arrObj$tiledb_timestamp <- NULL)
+  expect_s3_class(arrObj$tiledb_timestamp, "tiledb_timestamp")
+
+  expect_no_error(arrObj$tiledb_timestamp <- 10)
+  expect_equal(arrObj$tiledb_timestamp, set_tiledb_timestamp(ts_end = 10))
+
+  expect_no_error(arrObj$tiledb_timestamp <- "1990-01-01")
+  expect_equal(arrObj$tiledb_timestamp, set_tiledb_timestamp(ts_end = "1990-01-01"))
+
+  expect_no_error(arrObj$tiledb_timestamp <- as.POSIXct(10, tz = "UTC"))
+  expect_equal(arrObj$tiledb_timestamp, set_tiledb_timestamp(ts_end = as.POSIXct(10)))
+
+  ts <- set_tiledb_timestamp(ts_start = as.Date("1990-01-01"), ts_end = as.Date("2000-01-01"))
+  expect_no_error(arrObj$tiledb_timestamp <- ts)
+  expect_equal(arrObj$tiledb_timestamp, ts)
+
+  expect_error(arrObj$tiledb_timestamp <- "bob", label = "character string is not in a standard unambiguous format")
+  expect_error(arrObj$tiledb_timestamp <- c(1, 3), label = "Invalid 'tiledb_timestamp' input")
+
+  # new instances ----------------------------------------------------
+
   arrObj_new <- TileDBArray$new(uri = uri)
   expect_invisible(arrObj_new$open())
   expect_equal(arrObj_new$mode, "READ")
@@ -156,6 +178,7 @@ test_that("'TileDBArray' class works as expected", {
   arrObj_new <- TileDBArray$new(uri = uri)
   expect_no_error(arrObj_new$open(mode = "WRITE"))
   expect_true(tiledb::tiledb_array_is_open_for_writing(arrObj_new$object), TRUE)
+
 
   # Print array
   expect_snapshot(arrObj$print())
