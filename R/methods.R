@@ -37,3 +37,17 @@ print.tdb_metadata <- function(x,...) {
   class(out) <- c("tdb_metadata", "list")
   out
 }
+
+#' @export
+print.tiledb_timestamp <- function(x, ...) {
+
+
+  ts_char <- vector("character", length = 2)
+  ts_char[1] <- if (length(x$timestamp_start) == 0) "origin" else format(x$timestamp_start)
+  ts_char[2] <- if (length(x$timestamp_end) == 0) format(Sys.time()) else format(x$timestamp_end)
+
+  txt <- paste0(c("start", "end  "), ": ", cli::col_br_blue(ts_char))
+  out <- paste0(" ", cli::col_br_cyan(cli::symbol$bullet), " ", txt, collapse = "\n")
+  cli::cat_line(c("TileDB Timestamp", out))
+  invisible(x)
+}
