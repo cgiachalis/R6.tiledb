@@ -114,15 +114,13 @@ Create a new \code{TileDBArrayExp} instance.
 \subsection{Method \code{reopen()}}{
 Close and reopen the TileDB object in a new mode.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{TileDBArrayExp$reopen(mode = c("READ", "WRITE"), tiledb_timestamp = NULL)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{TileDBArrayExp$reopen(mode = c("READ", "WRITE"))}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
 \item{\code{mode}}{New mode to open the object in; choose from: \code{"READ"} or \code{"WRITE"}.}
-
-\item{\code{tiledb_timestamp}}{Optional Datetime (POSIXct) with TileDB timestamp.}
 }
 \if{html}{\out{</div>}}
 }

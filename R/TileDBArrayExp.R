@@ -45,16 +45,14 @@ TileDBArrayExp <- R6::R6Class(
     #'
     #' @param mode New mode to open the object in; choose from: `"READ"` or `"WRITE"`.
     #'
-    #' @param tiledb_timestamp Optional Datetime (POSIXct) with TileDB timestamp.
-    #'
     #' @return The object, invisibly.
     #'
-    reopen = function(mode = c('READ', 'WRITE'), tiledb_timestamp = NULL) {
+    reopen = function(mode = c('READ', 'WRITE')) {
 
       # reset fragment object
       private$.fragments_object <- NULL
 
-      super$reopen(mode, tiledb_timestamp = tiledb_timestamp)
+      super$reopen(mode)
     },
     #' @description Checks array for factors (enumerations).
     #'
