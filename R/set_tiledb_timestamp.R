@@ -22,37 +22,42 @@
 #'
 set_tiledb_timestamp <- function(start_time, end_time, tz = "UTC") {
 
+  is_st_default <- is_end_default  <- FALSE
+
   if (missing(start_time)) {
     start_time <- as.POSIXct(0, tz = tz)
-  } else if (is.na(start_time) | is.null(start_time)) {
+    is_st_default <- TRUE
+  } else if (isTRUE(is.na(start_time)) | is.null(start_time)) {
     start_time <- as.POSIXct(0, tz = tz)
+    is_st_default <- TRUE
   } else {
     start_time <- as.POSIXct(start_time, tz = tz)
   }
 
   if (missing(end_time)) {
     end_time <- as.POSIXct(double(), tz = tz)
-  } else if (is.na(end_time) | is.null(end_time)) {
+    is_end_default <- TRUE
+  } else if (isTRUE(is.na(end_time)) | is.null(end_time)) {
     end_time <- as.POSIXct(double(), tz = tz)
+    is_end_default <- TRUE
   } else {
     end_time <- as.POSIXct(end_time, tz = tz)
   }
 
-  start_ok <- length(start_time) > 0
-  end_ok <- length(end_time) > 0
+  is_default <- is_st_default & is_end_default
 
-  if (end_ok) {
+  if ( length(end_time) > 0) {
     if (start_time > end_time) {
-      cli::cli_abort("{.arg start_time} is greater than {.arg end_time}", call = NULL)
+      cli::cli_abort("{.arg start_time} is greater than {.arg end_time}.", call = NULL)
     }
   } else {
     if (start_time > Sys.time()) {
-      cli::cli_abort("{.arg start_time} is greater than {.arg end_time}", call = NULL)
+      cli::cli_abort("{.arg start_time} is greater than {.arg end_time}.", call = NULL)
     }
   }
 
   structure(list(timestamp_start = start_time,
                  timestamp_end = end_time),
             class = c("tiledb_timestamp"),
-            user_tstamp = start_ok | end_ok)
+            user_tstamp = !is_default)
 }
