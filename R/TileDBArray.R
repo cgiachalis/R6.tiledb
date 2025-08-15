@@ -120,7 +120,8 @@ TileDBArray <- R6::R6Class(
 
       tiledb::tiledb_array_close(self$object)
 
-      private$.mode <-  "CLOSED"
+      private$.mode <- "CLOSED"
+      private$.tiledb_timestamp <- set_tiledb_timestamp()
 
       invisible(self)
     },

@@ -26,5 +26,4 @@ test_that("'TileDBObject' abstract class works as expected", {
   expect_error(arrObj$object_type <- "a")
   expect_error(arrObj$mode <- "a")
 
-
 })

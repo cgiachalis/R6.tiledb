@@ -238,17 +238,19 @@ TileDBObject <- R6::R6Class(
       if (!missing(value)) {
 
         if (is.null(value)) {
-          private$.tiledb_timestamp <- set_tiledb_timestamp()
+          .time_stamp <- set_tiledb_timestamp()
         } else if (length(value) == 1) {
-          private$.tiledb_timestamp <- set_tiledb_timestamp(end_time = value)
+          .time_stamp <- set_tiledb_timestamp(end_time = value)
         } else if (inherits(value, "tiledb_timestamp")) {
-          private$.tiledb_timestamp <- value
+          .time_stamp <- value
         } else {
           cli::cli_abort("Invalid 'tiledb_timestamp' input", call = NULL)
         }
 
         if (self$mode != "WRITE") {
-          self$reopen()
+          self$close()
+          private$.tiledb_timestamp <- .time_stamp
+          self$open()
         }
 
       }

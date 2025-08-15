@@ -32,6 +32,11 @@ TileDBGroup <- R6::R6Class(
     #'
     create = function(mode = "WRITE") {
 
+      # TODO: create group using sys.time via config
+      #  Then
+      # TODO: open read @ tiledb_stamp range  via config
+      #       open write @ sys.time via config
+
       mode <- match.arg(mode, choices = c("READ", "WRITE"))
 
       private$log_debug("create", "Creating new group with timestamp ({})", self$tiledb_timestamp %||% "now")
@@ -53,6 +58,8 @@ TileDBGroup <- R6::R6Class(
     #'
     open = function(mode = c("READ", "WRITE")) {
 
+      # TODO: open read @ tiledb_stamp range  via config
+      #       open write @ sys.time via config
       private$check_object_exists()
       mode <- match.arg(mode)
 
@@ -114,7 +121,7 @@ TileDBGroup <- R6::R6Class(
         tiledb::tiledb_group_close(private$.tiledb_group)
 
         private$.mode <- "CLOSED"
-
+        private$.tiledb_timestamp <- set_tiledb_timestamp()
       }
 
       invisible(self)
@@ -531,11 +538,11 @@ TileDBGroup <- R6::R6Class(
       if (!missing(value)) {
 
         if (is.null(value)) {
-          private$.tiledb_timestamp <- set_tiledb_timestamp()
+          .time_stamp <- set_tiledb_timestamp()
         } else if (length(value) == 1) {
-          private$.tiledb_timestamp <- set_tiledb_timestamp(end_time = value)
+          .time_stamp <- set_tiledb_timestamp(end_time = value)
         } else if (inherits(value, "tiledb_timestamp")) {
-          private$.tiledb_timestamp <- value
+          .time_stamp <- value
         } else {
           cli::cli_abort("Invalid 'tiledb_timestamp' input", call = NULL)
         }
@@ -543,7 +550,13 @@ TileDBGroup <- R6::R6Class(
         if (self$mode != "WRITE") {
           # Clear cache in order to reopen members with new timestamps
           private$.member_cache <- NULL
-          self$reopen()
+          # tiledb::tiledb_group_close(private$.tiledb_group)
+          # private$.mode <- "CLOSED"
+          # private$initialize_object()
+
+          self$close()
+          private$.tiledb_timestamp <- .time_stamp
+          self$open()
         }
 
       }
