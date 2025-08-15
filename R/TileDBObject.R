@@ -18,12 +18,14 @@ TileDBObject <- R6::R6Class(
     #'
     #' @param uri URI path for the `TileDB` object.
     #' @param ctx Optional [tiledb::tiledb_ctx()] object.
-    #' @param tiledb_timestamp Set a `TileDB` time-stamp range that
+    #' @param tiledb_timestamp Set a `TileDB` timestamp range that
     #'  the resource will be opened at. Effective in `"READ"` mode only.
     #'  Valid options:
     #'  - A `NULL` value (default)
-    #'  - An `R` object coercible to `POSIXct`, must be of length 1 and used as end time-stamp
+    #'  - An `R` object coercible to `POSIXct` with length 1 which used for end timestamp,
+    #'  or length 2 with start, end timestamps
     #'  - An object of class `tiledb_timestamp`. See [set_tiledb_timestamp()]
+    #'
     #'
     #' **Note:** When setting new a time-stamp, the object will be reopened only if it is in
     #' `"READ"` mode.
@@ -50,8 +52,11 @@ TileDBObject <- R6::R6Class(
 
       if (is.null(tiledb_timestamp)) {
         private$.tiledb_timestamp <- set_tiledb_timestamp()
-      } else if (length(tiledb_timestamp) == 1) {
-        private$.tiledb_timestamp <- set_tiledb_timestamp(end_time= tiledb_timestamp)
+      } else if (length(tiledb_timestamp) == 1L) {
+        private$.tiledb_timestamp <- set_tiledb_timestamp(end_time = tiledb_timestamp)
+      } else if (length(tiledb_timestamp) == 2L & !inherits(tiledb_timestamp, "tiledb_timestamp")) {
+        private$.tiledb_timestamp <- set_tiledb_timestamp(start_time = iledb_timestamp[1],
+                                                          end_time = tiledb_timestamp[2])
       } else if (inherits(tiledb_timestamp, "tiledb_timestamp")) {
         private$.tiledb_timestamp <- tiledb_timestamp
       } else {
@@ -221,16 +226,17 @@ TileDBObject <- R6::R6Class(
       private$.tiledb_ctx
     },
 
-    #'@field tiledb_timestamp Set or retrieve a `TileDB` time-stamp range that
+    #'@field tiledb_timestamp Set or retrieve a `TileDB` timestamp range that
     #'  the resource will be opened at. Effective in `"READ"` mode only.
     #'
-    #'  This is a **mutable** field to set time-stamps dynamically
+    #'  This is a **mutable** field to set timestamps dynamically
     #'  for time-travelling. Valid options:
     #'  - A `NULL` value (default)
-    #'  - An `R` object coercible to `POSIXct`, must be of length 1 and used as end time-stamp
+    #'  - An `R` object coercible to `POSIXct` with length 1 which used for end timestamp,
+    #'  or length 2 with start, end timestamps
     #'  - An object of class `tiledb_timestamp`. See [set_tiledb_timestamp()]
     #'
-    #' **Note:** When setting new a time-stamp, the object will be reopened only if it is in
+    #' **Note:** Setting new a timestamp, the object will be reopened only if it is in
     #' `"READ"` mode.
     #'
     tiledb_timestamp = function(value) {
@@ -239,8 +245,10 @@ TileDBObject <- R6::R6Class(
 
         if (is.null(value)) {
           .time_stamp <- set_tiledb_timestamp()
-        } else if (length(value) == 1) {
+        } else if (length(value) == 1L) {
           .time_stamp <- set_tiledb_timestamp(end_time = value)
+        } else if (length(value) == 2L & !inherits(value, "tiledb_timestamp")) {
+          .time_stamp <- set_tiledb_timestamp(start_time = value[1], end_time = value[2])
         } else if (inherits(value, "tiledb_timestamp")) {
           .time_stamp <- value
         } else {

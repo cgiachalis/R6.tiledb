@@ -13,13 +13,14 @@ tdb_array(uri, mode = "READ", ctx = NULL, tiledb_timestamp = NULL)
 
 \item{ctx}{Optional \code{\link[tiledb:tiledb_ctx]{tiledb::tiledb_ctx()}} object.}
 
-\item{tiledb_timestamp}{Set a \code{TileDB} time-stamp range that
+\item{tiledb_timestamp}{Set a \code{TileDB} timestamp range that
 the resource will be opened at. Effective only for \code{"READ"} mode.
 Valid options:
 \itemize{
 \item A \code{NULL} value (default)
-\item An \code{R} object coercible to \code{POSIXct}, must be of length 1 and used as end time-stamp
-\item An object of class \code{tiledb_timestamp}. See \link{set_tiledb_timestamp}
+\item An \code{R} object coercible to \code{POSIXct} with length 1 which used for end timestamp,
+or length 2 with start, end timestamps
+\item An object of class \code{tiledb_timestamp}. See \code{\link[=set_tiledb_timestamp]{set_tiledb_timestamp()}}
 }
 
 Also, it can be set through active field \verb{$tiledb_timestamp}.}
@@ -35,7 +36,7 @@ array at \code{READ} mode.
 
 \itemize{
 \item \code{ctx} : A TileDB Context. See \code{\link[tiledb:tiledb_ctx]{tiledb::tiledb_ctx()}}
-\item \code{tiledb_timestamp} : A \code{TileDB} time-stamp range that
+\item \code{tiledb_timestamp} : A \code{TileDB} timestamp range that
 the resource will be opened at. See \code{\link[=set_tiledb_timestamp]{set_tiledb_timestamp()}}
 \item \code{uri} : The URI of the \code{TileDB} object
 \item \code{mode}: Get the mode of the object: one of the following:

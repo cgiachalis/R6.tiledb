@@ -146,6 +146,9 @@ test_that("'TileDBArray' class works as expected", {
   expect_no_error(arrObj$tiledb_timestamp <- 10)
   expect_equal(arrObj$tiledb_timestamp, set_tiledb_timestamp(end_time = 10))
 
+  expect_no_error(arrObj$tiledb_timestamp <- c(0, 10))
+  expect_equal(arrObj$tiledb_timestamp, set_tiledb_timestamp(end_time = 10))
+
   expect_no_error(arrObj$tiledb_timestamp <- "1990-01-01")
   expect_equal(arrObj$tiledb_timestamp, set_tiledb_timestamp(end_time =  "1990-01-01"))
 
@@ -157,7 +160,8 @@ test_that("'TileDBArray' class works as expected", {
   expect_equal(arrObj$tiledb_timestamp, ts)
 
   expect_error(arrObj$tiledb_timestamp <- "bob", label = "character string is not in a standard unambiguous format")
-  expect_error(arrObj$tiledb_timestamp <- c(1, 3), label = "Invalid 'tiledb_timestamp' input")
+  expect_error(arrObj$tiledb_timestamp <- c(1, 3, 3), label = "Invalid 'tiledb_timestamp' input")
+  expect_error(arrObj$tiledb_timestamp <- numeric(0), label = "Invalid 'tiledb_timestamp' input")
 
   # new instances ----------------------------------------------------
 

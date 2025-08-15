@@ -6,7 +6,7 @@
 #' @section Active bindings:
 #'
 #' - `ctx` : A TileDB Context. See [tiledb::tiledb_ctx()]
-#' - `tiledb_timestamp` : A `TileDB` time-stamp range that
+#' - `tiledb_timestamp` : A `TileDB` timestamp range that
 #'  the resource will be opened at. See [set_tiledb_timestamp()]
 #' - `uri` : The URI of the `TileDB` object
 #' - `mode`: Get the mode of the object: one of the following:
@@ -66,12 +66,14 @@
 #' @param uri URI path for the `TileDB` object.
 #' @param mode Mode to open : either `"READ" (default) or "WRITE"`.
 #' @param ctx Optional [tiledb::tiledb_ctx()] object.
-#' @param tiledb_timestamp Set a `TileDB` time-stamp range that
+#' @param tiledb_timestamp Set a `TileDB` timestamp range that
 #'  the resource will be opened at. Effective only for `"READ"` mode.
 #'  Valid options:
 #'  - A `NULL` value (default)
-#'  - An `R` object coercible to `POSIXct`, must be of length 1 and used as end time-stamp
-#'  - An object of class `tiledb_timestamp`. See [set_tiledb_timestamp]
+#'  - An `R` object coercible to `POSIXct` with length 1 which used for end timestamp,
+#'  or length 2 with start, end timestamps
+#'  - An object of class `tiledb_timestamp`. See [set_tiledb_timestamp()]
+#'
 #'
 #' Also, it can be set through active field `$tiledb_timestamp`.
 #'
