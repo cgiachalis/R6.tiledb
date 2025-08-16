@@ -46,9 +46,7 @@ TileDBObject <- R6::R6Class(
         ctx <- tiledb::tiledb_ctx()
       }
 
-     check_tiledb_ctx(ctx)
-
-      private$.tiledb_ctx <- ctx
+      check_tiledb_ctx(ctx)
 
       if (is.null(tiledb_timestamp)) {
         private$.tiledb_timestamp <- set_tiledb_timestamp()
@@ -63,7 +61,10 @@ TileDBObject <- R6::R6Class(
         cli::cli_abort("Invalid 'tiledb_timestamp' input", call = NULL)
       }
 
-      tend <- if (length(private$.tiledb_timestamp[[2]]) == 0) NULL else private$.tiledb_timestamp[[2]]
+      private$.tiledb_ctx <- .set_group_timestamps(ctx, private$.tiledb_timestamp)
+
+      tend <- private$.tiledb_timestamp$timestamp_end
+      tend <- if (length(tend) == 0) NULL else tend
       private$log_debug("initialize", "Initialize with timestamp ({})", tend %||% "now")
 
     },
@@ -256,8 +257,13 @@ TileDBObject <- R6::R6Class(
         }
 
         if (self$mode != "WRITE") {
+
           self$close()
+
           private$.tiledb_timestamp <- .time_stamp
+
+          private$.tiledb_ctx <- .set_group_timestamps(private$.tiledb_ctx, .time_stamp)
+
           self$open()
         }
 
