@@ -38,12 +38,45 @@ vapply_int <- function(X, FUN, ..., USE.NAMES = TRUE) {
   rlang::is_character(x) || is.null(x)
 }
 
+.posixct_int64_to_char <- function(x) {
+  stopifnot(inherits(x, "POSIXct"))
+  as.character(bit64::as.integer64(as.numeric(x) * 1000))
+}
+
+.systime_int64_to_char <- function() {
+  as.character(bit64::as.integer64(as.numeric(Sys.time()) * 1000))
+}
 
 # nocov start
 .set_log_level <- function(s = "debug") {
   spdl::set_pattern("[%X] [%L] %v");
   spdl::set_level(s)
 }
+
+# @param ctx TileDB Context
+# @param ts a tiledb_timestamp object
+.set_group_timestamps <- function(ctx, ts) {
+
+  cfg <- tiledb::config(ctx)
+  tstart <- ts$timestamp_start
+  tend <- ts$timestamp_end
+
+  if (length(tstart) > 0) {
+    cfg["sm.group.timestamp_start"] <- .posixct_int64_to_char(tstart)
+  } else {
+    cfg["sm.group.timestamp_start"] <- "0"
+  }
+
+  if (length(tend) > 0) {
+    cfg["sm.group.timestamp_end"] <- .posixct_int64_to_char(tend)
+  } else {
+    cfg["sm.group.timestamp_end"] <- "18446744073709551615"
+  }
+
+  tiledb::tiledb_ctx(cfg, cached = FALSE)
+}
+
+
 # nocov end
 
 # Modified from tiledb:::tiledb_schema_get_dim_attr_status
