@@ -32,7 +32,7 @@ TileDBGroup <- R6::R6Class(
     #'
     create = function(mode = "WRITE") {
 
-      # TODO: create group using sys.time via config
+      # TODO: create group using sys.time via config (done)
       #  Then
       # TODO: open read @ tiledb_stamp range  via config
       #       open write @ sys.time via config
@@ -41,9 +41,29 @@ TileDBGroup <- R6::R6Class(
 
       private$log_debug("create", "Creating new group with timestamp ({})", self$tiledb_timestamp %||% "now")
 
-      tiledb::tiledb_group_create(self$uri, ctx = private$.tiledb_ctx)
+      # tiledb::tiledb_group_create(self$uri, ctx = ctx)
 
-      private$.tiledb_group <- tiledb::tiledb_group(self$uri, type = mode)
+      #cfg <- tiledb::tiledb_config()
+      cfg <- tiledb::config(self$ctx)
+      cfg["sm.group.timestamp_end"] <- .systime_int64_to_char()
+      ctx <- tiledb::tiledb_ctx(cfg, cached = FALSE)
+      grp <- tiledb::tiledb_group_create(self$uri, ctx = ctx)
+
+      private$.tiledb_ctx <- .set_group_timestamps(self$ctx,
+                                                   set_tiledb_timestamp())
+
+      private$.tiledb_group <- tiledb::tiledb_group(self$uri,
+                                                    type = mode,
+                                                    ctx = self$ctx)
+      # private$.tiledb_ctx <- .set_group_timestamps(private$.tiledb_ctx, old_tstamp)
+
+      # if (mode == "READ") {
+      #   private$.tiledb_ctx <- .set_group_timestamps(private$.tiledb_ctx, old_tstamp)
+      # } else {
+      #   # Default timestamp (defensive)
+      #   private$.tiledb_ctx <- .set_group_timestamps(private$.tiledb_ctx, set_tiledb_timestamp(end_time = Sys.time()))
+      # }
+
       private$.mode <- mode
       private$.object_type <- "GROUP"
 
@@ -59,7 +79,8 @@ TileDBGroup <- R6::R6Class(
     open = function(mode = c("READ", "WRITE")) {
 
       # TODO: open read @ tiledb_stamp range  via config
-      #       open write @ sys.time via config
+      #       open write @ sys.time via config (perhaps no, add it
+      #       where it is needed, e.g, set_members, delete)
       private$check_object_exists()
       mode <- match.arg(mode)
 
@@ -68,24 +89,48 @@ TileDBGroup <- R6::R6Class(
         private$initialize_object()
       }
 
+      # NOTE: should we cache at init and changed active field?
+      # user_tstamp <-  attr(self$tiledb_timestamp, "user_tstamp")
+      is_writable <- mode == "WRITE"
       init_mode <- self$mode
-
       is_identical_mode <- init_mode == mode
 
       private$log_debug0("open", "Requested open mode is {}", ifelse(is_identical_mode, "identical, no mode switch", "not identical, switch mode"))
 
-      if (isFALSE(is_identical_mode)) {
+
+      if (is_writable) {
+
+        if (isFALSE(is_identical_mode)) {
+
+          if (tiledb::tiledb_group_is_open(private$.tiledb_group)) {
+            private$log_debug("open", "Closing to switch from {} to {} mode", init_mode, mode)
+
+            tiledb::tiledb_group_close(private$.tiledb_group)
+          }
+
+          private$log_debug("open", "Opening in {} mode", mode)
+
+          private$.tiledb_group <- tiledb::tiledb_group_open(self$object, type = mode)
+          private$.mode <- mode
+          private$update_member_cache()
+          private$update_metadata_cache()
+
+        }
+      } else {
+
 
         if (tiledb::tiledb_group_is_open(private$.tiledb_group)) {
-
           private$log_debug("open", "Closing to switch from {} to {} mode", init_mode, mode)
 
-          tiledb::tiledb_group_close(self$object)
+          tiledb::tiledb_group_close(private$.tiledb_group)
         }
 
         private$log_debug("open", "Opening in {} mode", mode)
 
-        private$.tiledb_group <- tiledb::tiledb_group_open(self$object, type = mode)
+
+        private$.tiledb_group <- tiledb::tiledb_group(self$uri,
+                                                      type = mode,
+                                                      ctx = self$ctx)
         private$.mode <- mode
         private$update_member_cache()
         private$update_metadata_cache()
@@ -122,6 +167,7 @@ TileDBGroup <- R6::R6Class(
 
         private$.mode <- "CLOSED"
         private$.tiledb_timestamp <- set_tiledb_timestamp()
+       # private$.tiledb_ctx <- .set_group_timestamps(self$ctx, set_tiledb_timestamp())
       }
 
       invisible(self)
@@ -145,7 +191,7 @@ TileDBGroup <- R6::R6Class(
 
       private$log_debug("remove", "Removing '{}' member", name)
 
-       tiledb::tiledb_group_remove_member(private$.tiledb_group, uri = name)
+      tiledb::tiledb_group_remove_member(private$.tiledb_group, uri = name)
 
       # Drop member if cache has been initialized
       if (is.list(private$.member_cache)) {
@@ -185,7 +231,7 @@ TileDBGroup <- R6::R6Class(
 
       tiledb::tiledb_group_close(group_handle)
 
-      # Remove TileDB resource
+      # Remove TileDB resource TODO: USE CONFIG?
       tiledb::tiledb_object_rm(uri_member, private$.tiledb_ctx)
 
       # Drop member if cache has been initialized
@@ -307,7 +353,8 @@ TileDBGroup <- R6::R6Class(
     #' @return `NULL` value, invisibly.
     #'
     set_member = function(object, name = NULL, relative = NULL) {
-
+      # NOTE: write method is responsible for setting group timestamp
+      # or if it is write set it here, right before adding member
       private$check_object_exists()
       private$check_open_for_write()
 
@@ -353,6 +400,15 @@ TileDBGroup <- R6::R6Class(
 
       # if NULL default to URI's basename
       name <- name %||% basename(uri)
+
+      # cfg <- tiledb::tiledb_group_get_config(private$.tiledb_group)
+      # cfg["sm.group.timestamp_end"] <- .systime_int64_to_char()
+      # group_handle  <- tiledb::tiledb_group_close(private$.tiledb_group)
+      # group_handle <- tiledb::tiledb_group_set_config(group_handle, cfg)
+
+      group_handle <- private$set_group_timestamp_end()
+
+      private$.tiledb_group <- tiledb::tiledb_group_open(group_handle, type = "WRITE")
 
       tiledb::tiledb_group_add_member(
         grp = private$.tiledb_group,
@@ -551,14 +607,14 @@ TileDBGroup <- R6::R6Class(
         }
 
         if (self$mode != "WRITE") {
-          # Clear cache in order to reopen members with new timestamps
-          private$.member_cache <- NULL
-          # tiledb::tiledb_group_close(private$.tiledb_group)
-          # private$.mode <- "CLOSED"
-          # private$initialize_object()
 
           self$close()
+          # Clear cache in order to reopen members with new timestamps
+          private$.member_cache <- NULL
           private$.tiledb_timestamp <- .time_stamp
+
+          private$.tiledb_ctx <- .set_group_timestamps(private$.tiledb_ctx, .time_stamp)
+
           self$open()
         }
 
@@ -721,6 +777,14 @@ TileDBGroup <- R6::R6Class(
       # member, the initially empty member_cache will only contain the new
       # member.
       private$update_member_cache()
+    },
+
+    set_group_timestamp_end = function() {
+      cfg <- tiledb::tiledb_group_get_config(private$.tiledb_group)
+      cfg["sm.group.timestamp_end"] <- .systime_int64_to_char()
+      group_handle  <- tiledb::tiledb_group_close(private$.tiledb_group)
+      group_handle <- tiledb::tiledb_group_set_config(group_handle, cfg)
+      group_handle
     }
   )
 )
