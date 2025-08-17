@@ -5,7 +5,7 @@
 #'
 #' @param start_time,end_time An object coercible to `POSIXct`. See [as.POSIXct()].
 #' @param tz A character string for the time zone specification to be used
-#' for the conversion.
+#' for the conversion. Defaults to [Sys.timezone()].
 #'
 #' @returns An list object of class `tiledb_timestamp`.
 #'
@@ -15,20 +15,29 @@
 #'
 #' @examples
 #' # Character input
-#' set_tiledb_timestamp("2025-01-01", "2025-08-01")
+#' set_tiledb_timestamp("2025-01-01", "2025-08-01", tz = "UTC")
 #'
 #' # Numeric input
-#' set_tiledb_timestamp(1000000, 1000000*4)
+#' set_tiledb_timestamp(1000000, 1000000*4, tz = "UTC")
 #'
-#' ts1 <- 0
-#' ts2 <- Sys.time() - 100
-#' tstamp <- set_tiledb_timestamp(ts1, ts2)
+#' # Default
+#' set_tiledb_timestamp(tz = "Europe/London")
 #'
-#' print(tstamp, tz = "Europe/London")
+#' # Invalid: start_time > end_time
+#' # set_tiledb_timestamp(start_time = 1, end_time = 0)
+#' # Error: `start_time` is greater than `end_time`.
 #'
-set_tiledb_timestamp <- function(start_time, end_time, tz = "UTC") {
+set_tiledb_timestamp <- function(start_time, end_time, tz = "") {
 
   is_st_default <- is_end_default  <- FALSE
+
+  if (nchar(tz) == 0) {
+    tz <- Sys.timezone()
+  }
+
+  if (isFALSE(tz %in% OlsonNames())) {
+  cli::cli_abort("{.arg tz} should be valid a timezone. See {.help [{.fun OlsonNames}](base::OlsonNames)} for more.")
+  }
 
   if (missing(start_time)) {
     start_time <- as.POSIXct(0, tz = tz)
@@ -64,6 +73,7 @@ set_tiledb_timestamp <- function(start_time, end_time, tz = "UTC") {
 
   structure(list(timestamp_start = start_time,
                  timestamp_end = end_time),
-            class = c("tiledb_timestamp"),
+            class = "tiledb_timestamp",
+            tzone = tz,
             user_tstamp = !is_default)
 }

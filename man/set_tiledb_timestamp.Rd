@@ -4,13 +4,13 @@
 \alias{set_tiledb_timestamp}
 \title{Set a \code{TileDB} time-stamp}
 \usage{
-set_tiledb_timestamp(start_time, end_time, tz = "UTC")
+set_tiledb_timestamp(start_time, end_time, tz = "")
 }
 \arguments{
 \item{start_time, end_time}{An object coercible to \code{POSIXct}. See \code{\link[=as.POSIXct]{as.POSIXct()}}.}
 
 \item{tz}{A character string for the time zone specification to be used
-for the conversion.}
+for the conversion. Defaults to \code{\link[=Sys.timezone]{Sys.timezone()}}.}
 }
 \value{
 An list object of class \code{tiledb_timestamp}.
@@ -21,16 +21,17 @@ object, either at initialisation or via active field \code{tiledb_timestamp}.
 }
 \examples{
 # Character input
-set_tiledb_timestamp("2025-01-01", "2025-08-01")
+set_tiledb_timestamp("2025-01-01", "2025-08-01", tz = "UTC")
 
 # Numeric input
-set_tiledb_timestamp(1000000, 1000000*4)
+set_tiledb_timestamp(1000000, 1000000*4, tz = "UTC")
 
-ts1 <- 0
-ts2 <- Sys.time() - 100
-tstamp <- set_tiledb_timestamp(ts1, ts2)
+# Default
+set_tiledb_timestamp(tz = "Europe/London")
 
-print(tstamp, tz = "Europe/London")
+# Invalid: start_time > end_time
+# set_tiledb_timestamp(start_time = 1, end_time = 0)
+# Error: `start_time` is greater than `end_time`.
 
 }
 \seealso{
