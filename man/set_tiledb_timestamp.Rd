@@ -7,7 +7,7 @@
 set_tiledb_timestamp(start_time, end_time, tz = "UTC")
 }
 \arguments{
-\item{start_time, end_time}{An object coercible to \code{POSIXct} using \code{\link[=as.POSIXct]{as.POSIXct()}}.}
+\item{start_time, end_time}{An object coercible to \code{POSIXct}. See \code{\link[=as.POSIXct]{as.POSIXct()}}.}
 
 \item{tz}{A character string for the time zone specification to be used
 for the conversion.}
@@ -25,6 +25,12 @@ set_tiledb_timestamp("2025-01-01", "2025-08-01")
 
 # Numeric input
 set_tiledb_timestamp(1000000, 1000000*4)
+
+ts1 <- 0
+ts2 <- Sys.time() - 100
+tstamp <- set_tiledb_timestamp(ts1, ts2)
+
+print(tstamp, tz = "Europe/London")
 
 }
 \seealso{

@@ -3,7 +3,7 @@
 #' Define a list of start,end timestamps intended for opening a `TileDB`
 #' object, either at initialisation or via active field `tiledb_timestamp`.
 #'
-#' @param start_time,end_time An object coercible to `POSIXct` using [as.POSIXct()].
+#' @param start_time,end_time An object coercible to `POSIXct`. See [as.POSIXct()].
 #' @param tz A character string for the time zone specification to be used
 #' for the conversion.
 #'
@@ -19,6 +19,12 @@
 #'
 #' # Numeric input
 #' set_tiledb_timestamp(1000000, 1000000*4)
+#'
+#' ts1 <- 0
+#' ts2 <- Sys.time() - 100
+#' tstamp <- set_tiledb_timestamp(ts1, ts2)
+#'
+#' print(tstamp, tz = "Europe/London")
 #'
 set_tiledb_timestamp <- function(start_time, end_time, tz = "UTC") {
 
