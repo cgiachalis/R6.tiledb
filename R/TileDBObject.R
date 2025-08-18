@@ -61,6 +61,7 @@ TileDBObject <- R6::R6Class(
         cli::cli_abort("Invalid 'tiledb_timestamp' input", call = NULL)
       }
 
+      # TODO: REVIEW
       private$.tiledb_ctx <- .set_group_timestamps(ctx, private$.tiledb_timestamp)
 
       tend <- private$.tiledb_timestamp$timestamp_end
@@ -404,15 +405,28 @@ TileDBObject <- R6::R6Class(
 
            array_handle <- private$.tiledb_array
 
-          if (private$.mode == "WRITE") {
+           tstamp <- self$tiledb_timestamp
+           ts_info <- attr(tstamp, which = "ts_info", exact = TRUE)
+           tstart <- tstamp$timestamp_start
+           tend <- tstamp$timestamp_end
+
+          if (private$.mode == "WRITE" | ts_info != "default") {
+
+
+            if (length(tend) == 0) {
+              tend <- Sys.time()
+            }
 
             private$log_debug("update_metadata_cache", "Getting array object")
 
             array_object <- tiledb::tiledb_array(self$uri, ctx = private$.tiledb_ctx)
 
-            array_handle <- tiledb::tiledb_array_open(array_object, type = "READ")
+            array_handle <- tiledb::tiledb_array_open_at(array_object,
+                                                         type = "READ",
+                                                         timestamp = tend)
+
             on.exit({ tiledb::tiledb_array_close(array_handle) })
-          }
+           }
 
           .m  <- tiledb::tiledb_get_all_metadata(array_handle)
 

@@ -45,3 +45,28 @@ write_test_array_tstamps <- function(uri, frags = 3) {
     arr[] <- data.frame(id = 1, val = i)
   }
 }
+
+write_test_array_tstamps2 <- function(uri, frags = 3) {
+
+  ts <- as.POSIXct(c("2025-08-18 16:12:50", "2025-08-18 16:12:55", "2025-08-18 16:13:01"))
+
+  df <- data.frame(id = 1L, val = 1.0)
+  tiledb::fromDataFrame(df, uri, col_index = 1, mode = "schema_only")
+
+  out <- vector("numeric", frags)
+
+  for (i in seq_len(frags) ) {
+
+    tm <- ts[i]
+
+    out[i] <- tm
+
+    arr <- tiledb::tiledb_array(uri)
+    arr <- tiledb::tiledb_array_open_at(arr, "WRITE", timestamp = tm)
+    arr[] <- data.frame(id = 1, val = i)
+    arr <- tiledb::tiledb_array_open_at(arr, "WRITE", timestamp = tm)
+    tiledb::tiledb_put_metadata(arr, paste0("key", i), as.character(tm))
+    arr <- tiledb::tiledb_array_close(arr)
+  }
+  ts
+}
