@@ -59,8 +59,6 @@ set_tiledb_timestamp <- function(start_time, end_time, tz = "") {
     end_time <- as.POSIXct(end_time, tz = tz)
   }
 
-  is_default <- is_st_default & is_end_default
-
   if ( length(end_time) > 0) {
     if (start_time > end_time) {
       cli::cli_abort("{.arg start_time} is greater than {.arg end_time}.", call = NULL)
@@ -71,9 +69,23 @@ set_tiledb_timestamp <- function(start_time, end_time, tz = "") {
     }
   }
 
-  structure(list(timestamp_start = start_time,
-                 timestamp_end = end_time),
-            class = "tiledb_timestamp",
-            tzone = tz,
-            user_tstamp = !is_default)
+  is_default <- is_st_default & is_end_default
+
+  if (is_default) {
+    ts_info <- "default"
+  } else if(is_st_default & !is_end_default) {
+
+    ts_info <- "user tpnt"
+
+  } else {
+    ts_info <- "user trng"
+  }
+
+  structure(
+    list(timestamp_start = start_time, timestamp_end = end_time),
+    class = "tiledb_timestamp",
+    tzone = tz,
+    ts_info = ts_info
+  )
+
 }

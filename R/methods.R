@@ -42,9 +42,9 @@ print.tdb_metadata <- function(x,...) {
 print.tiledb_timestamp <- function(x, ...) {
 
   tzx <-  attr(x, "tzone", exact = TRUE)
-  user_tstamp <-  attr(x, "user_tstamp", exact = TRUE)
-  note <- if(user_tstamp) "user" else "default"
-  note <- paste0("(",tzx, "〡", note, ")")
+  tz_txt <- paste0("(",tzx,")")
+  note <- attr(x, "ts_info", exact = TRUE)
+  note <- paste0("(",note,")")
 
   ts_char <- vector("character", length = 2)
   ts_char[1] <- if (length(x$timestamp_start) == 0) "origin" else format(x$timestamp_start, "%Y-%m-%d %H:%M:%S", tz = tzx)
@@ -53,7 +53,9 @@ print.tiledb_timestamp <- function(x, ...) {
   txt <- paste0(c("start", "end  "), ": ", cli::col_br_blue(ts_char))
   out <- paste0(" ", cli::col_br_cyan(cli::symbol$bullet), " ", txt, collapse = "\n")
 
-  header <- paste0("TileDB Timestamp ", cli::col_grey(note))
-  cli::cat_line(c(header, out))
+  header1 <- paste0("TileDB Timestamp ", cli::col_grey(note))
+  header2 <- paste0("TZ ", cli::col_grey(tz_txt))
+  header <- paste0(header1, cli::col_br_red(", "), header2)
+  cli::cat_line(c(header , out))
   invisible(x)
 }

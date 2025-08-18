@@ -10,7 +10,7 @@ trg_timestamp1 <- structure(
   ),
   class = "tiledb_timestamp",
   tzone = "UTC",
-  user_tstamp = FALSE
+  ts_info = "default"
 )
 
 trg_timestamp2 <- structure(
@@ -20,7 +20,17 @@ trg_timestamp2 <- structure(
   ),
   class = "tiledb_timestamp",
   tzone = "UTC",
-  user_tstamp = TRUE
+  ts_info = "user trng"
+)
+
+trg_timestamp3 <- structure(
+  list(
+    timestamp_start = structure(0, class = c("POSIXct", "POSIXt"), tzone = "Europe/London"),
+    timestamp_end = structure(1, class = c("POSIXct", "POSIXt"), tzone = "Europe/London")
+  ),
+  class = "tiledb_timestamp",
+  tzone = "Europe/London",
+  ts_info = "user tpnt"
 )
 
 
@@ -43,6 +53,9 @@ test_that("'set_tiledb_timestamp()' works as expected", {
   ts2 <- set_tiledb_timestamp(start_time = 0, end_time = 1, tz = "UTC")
   expect_equal(ts2, trg_timestamp2)
 
+  ts3 <- set_tiledb_timestamp(end_time = 1, tz = "Europe/London")
+  expect_equal(ts3, trg_timestamp3)
+
   # identical list but attributes differ (user supplied vs default)
   expect_equal(set_tiledb_timestamp(start_time = 0, end_time = NA, tz = "UTC"),
                trg_timestamp1, ignore_attr = TRUE)
@@ -53,6 +66,8 @@ test_that("'set_tiledb_timestamp()' works as expected", {
   # errors are raised as expected
   expect_error(set_tiledb_timestamp(start_time = "a"))
   expect_error(set_tiledb_timestamp(end_time = "a"))
+
+  expect_error(set_tiledb_timestamp(tz = "Not a TZ"), label = "`tz` should be valid a timezone.")
 
   expect_error(set_tiledb_timestamp(end_time = -1), label = "`start_time` is greater than `end_time`")
   expect_error(set_tiledb_timestamp(start_time = "2025-08-15", end_time = "2025-08-14"), label = "`start_time` is greater than `end_time`")
