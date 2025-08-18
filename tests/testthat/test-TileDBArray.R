@@ -195,19 +195,21 @@ test_that("'TileDBArray' class works as expected", {
 
 test_that("Array, Metadata Time-travelling works", {
 
-  trg <- structure(list(id = c(1L, 1L), val = c(1, 2)), query_status = "COMPLETE")
+  trg <- structure(list(id = c(1L, 1L, 1L), val = c(1, 2, 3)), query_status = "COMPLETE")
   trg_t1 <- structure(list(id = c(1L), val = c(1)), query_status = "COMPLETE")
   trg_t2 <- structure(list(id = c(1L), val = c(2)), query_status = "COMPLETE")
+  trg_t4 <- structure(list(id = c(1L, 1L), val = c(2, 3)), query_status = "COMPLETE")
+  trg_t3 <- structure(list(id = c(1L, 1L), val = c(1, 2)), query_status = "COMPLETE")
 
   trg_meta <- structure(
-    list(key1 = "2025-08-18 16:12:50", key2 = "2025-08-18 16:12:55"),
+    list(key1 = "2025-08-18 16:12:50", key2 = "2025-08-18 16:12:55", key3 = "2025-08-18 16:13:01"),
     class = c("tdb_metadata", "list"),
     R6.class = "TileDBArrayExp",
     object_type = "ARRAY"
   )
 
   uri <- file.path(withr::local_tempdir(), "test-timetravel")
-  tstamps <- write_test_array_tstamps2(uri, 2)
+  tstamps <- write_test_array_tstamps2(uri, 3)
   arrobj <- tdb_array(uri)
 
   expect_equal(arrobj$object[], trg)
@@ -217,8 +219,20 @@ test_that("Array, Metadata Time-travelling works", {
   expect_equal(arrobj$object[], trg_t1)
   expect_equal(arrobj$get_metadata(), trg_meta[1])
 
+  arrobj$tiledb_timestamp <- tstamps[1]
+  expect_equal(arrobj$object[], trg_t1)
+  expect_equal(arrobj$get_metadata(), trg_meta[1])
+  arrobj$tiledb_timestamp <- tstamps[2]
+  expect_equal(arrobj$object[], trg_t3)
+  expect_equal(arrobj$get_metadata(), trg_meta[1:2])
+
   arrobj$tiledb_timestamp <- c(tstamps[2], tstamps[2])
   expect_equal(arrobj$object[], trg_t2)
+  # time range not applicable to metadata
+  expect_equal(arrobj$get_metadata(), trg_meta[1:2])
+
+  arrobj$tiledb_timestamp <- c(tstamps[2], tstamps[3])
+  expect_equal(arrobj$object[], trg_t4)
   # time range not applicable to metadata
   expect_equal(arrobj$get_metadata(), trg_meta)
 
