@@ -38,11 +38,7 @@ TileDBArray <- R6::R6Class(
     #'
     open = function(mode = c("READ", "WRITE")) {
 
-      private$check_object_exists()
-
-      if (self$is_open()) {
-        cli::cli_abort("TileDB Array is already opened.", call = NULL)
-      }
+      private$check_object_is_closed()
 
       mode <- match.arg(mode)
 

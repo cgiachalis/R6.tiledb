@@ -55,14 +55,7 @@ TileDBGroup <- R6::R6Class(
     #'
     open = function(mode = c("READ", "WRITE")) {
 
-      # TODO: open read @ tiledb_stamp range  via config
-      #       open write @ sys.time via config (perhaps no, add it
-      #       where it is needed, e.g, set_members, delete)
-      private$check_object_exists()
-
-      if (self$is_open()) {
-        cli::cli_abort("TileDB Group is already opened.", call = NULL)
-      }
+      private$check_object_is_closed()
 
       mode <- match.arg(mode)
 

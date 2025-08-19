@@ -534,6 +534,20 @@ TileDBObject <- R6::R6Class(
         cli::cli_abort("R6Class: {.cls {self$class()}} object does not exist.", call = NULL)
       }
     },
+    check_object_is_closed = function() {
+
+      private$check_object_exists()
+
+      if (self$is_open()) {
+         tp <- if (self$object_type == "GROUP") {
+           "TileDB Group"
+         } else {
+           "TileDB Array"
+         }
+        cli::cli_abort(c("{.arg {tp}} is already opened.",
+                         "i" = "Use {.code reopen()} method instead."), call = NULL)
+      }
+    },
     log_debug0 = function(method, comment, ...) {
 
       comment <- spdl::fmt(comment, ...)
