@@ -452,7 +452,99 @@ test_that("'TileDBGroup' class tests relative paths", {
   expect_equal(group$count_members(), 1)
 
   group$close()
+
 })
+
+test_that("'TileDBGroup' test active binding tiledb_timestamp", {
+
+  uri <- file.path(withr::local_tempdir(), "test-group")
+
+  group <- TileDBGroup$new(uri)
+  group$create(mode = "READ")
+
+
+  expect_no_error(group$tiledb_timestamp <- NULL)
+  expect_s3_class(group$tiledb_timestamp, "tiledb_timestamp")
+
+  expect_no_error(group$tiledb_timestamp <- 10)
+  expect_equal(group$tiledb_timestamp, set_tiledb_timestamp(end_time = 10))
+
+  expect_no_error(group$tiledb_timestamp <- c(0, 10))
+  expect_equal(group$tiledb_timestamp, set_tiledb_timestamp(0, end_time = 10))
+
+  expect_no_error(group$tiledb_timestamp <- "1990-01-01")
+  expect_equal(group$tiledb_timestamp, set_tiledb_timestamp(end_time =  "1990-01-01"))
+
+  expect_no_error(group$tiledb_timestamp <- as.POSIXct(10, tz = "UTC"))
+  expect_equal(group$tiledb_timestamp, set_tiledb_timestamp(end_time = as.POSIXct(10)))
+
+  # WRITE mode ----
+  group$reopen("WRITE")
+  expect_equal(group$tiledb_timestamp, set_tiledb_timestamp(), label = "reset on reopening in write mode")
+
+  group$tiledb_timestamp <- as.POSIXct(10)
+  expect_equal(group$tiledb_timestamp, set_tiledb_timestamp(), label = "change tstamps has no effect in write mode")
+
+  # End WRITE mode ---
+
+  group$reopen()
+
+  expect_equal(group$tiledb_timestamp, set_tiledb_timestamp(), label = "reset on reopening in read mode")
+
+  group$close()
+  group$tiledb_timestamp <- as.POSIXct(10)
+  expect_true(group$is_open())
+  expect_error(group$open(), label = "Assigning a timestamp trigger reopening")
+
+  ts <- set_tiledb_timestamp(start_time = as.Date("1990-01-01"), end_time = as.Date("2000-01-01"))
+  expect_no_error(group$tiledb_timestamp <- ts)
+  expect_equal(group$tiledb_timestamp, ts)
+
+  expect_error(group$tiledb_timestamp <- "bob", label = "character string is not in a standard unambiguous format")
+  expect_error(group$tiledb_timestamp <- c(1, 3, 3), label = "Invalid 'tiledb_timestamp' input")
+  expect_error(group$tiledb_timestamp <- numeric(0), label = "Invalid 'tiledb_timestamp' input")
+
+  group$close()
+
+})
+
+
+test_that("'TileDBGroup' test time-traveling", {
+
+  uri <- file.path(withr::local_tempdir(), "test-group-timetravel")
+  res <- write_test_group(uri)
+
+  group <- TileDBGroup$new(uri)
+
+  group$open()
+
+  expect_equal(group$count_members(), 2)
+  expect_equal(group$names(), c("testarray2", "testarray1"))
+
+  group$tiledb_timestamp <- 0
+  expect_equal(group$count_members(), 0)
+
+  group$reopen("WRITE")
+  expect_equal(group$count_members(), 2, label = "WRITE mode reset time stamps")
+
+  group$tiledb_timestamp <- 0
+  expect_equal(group$count_members(), 2, label = "WRITE mode no effect of time stamps")
+
+  group$reopen()
+  group$tiledb_timestamp <- res$group_ts$t1
+  expect_equal(group$count_members(), 1)
+  expect_equal(group$names(), "testarray1")
+  marr1 <- group$get_member("testarray1")
+
+  # tiledb timestamp propagates to members
+  expect_equal(marr1$tiledb_timestamp, group$tiledb_timestamp)
+
+  expect_error(group$get_member("testarray2"),
+               label = "arr2 member doesn't exist as it falls out side time range")
+
+  group$close()
+
+  })
 
 
 test_that("'TileDBGroup' class tests metadata print method", {
