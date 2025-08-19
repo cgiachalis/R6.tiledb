@@ -69,8 +69,11 @@ test_that("'TileDBGroup' class tests on existent but empty group", {
   expect_equal(tiledb::tiledb_group_query_type(group2_new$object), "READ")
   group2_new$close()
   expect_equal(group2_new$mode, "CLOSED")
+  expect_false(tiledb::tiledb_group_is_open(group2_new$object))
 
   group2_new <- TileDBGroup$new(uri2)
+  expect_equal(group2_new$mode, "CLOSED")
+
   expect_no_error(group2_new$open(mode = "WRITE"))
   expect_equal(group2_new$mode, "WRITE")
   expect_equal(tiledb::tiledb_group_query_type(group2_new$object), "WRITE")
@@ -105,7 +108,7 @@ test_that("'TileDBGroup' class tests accessors on empty group", {
 
   group$create()
 
-  group$open(mode = "READ")
+  group$reopen(mode = "READ")
 
   # Check exporters
   lst <- group$members
@@ -253,7 +256,7 @@ test_that("'TileDBGroup' class tests add/remove members", {
   # but grp1 is not there because we didn't fetch it via get_member
   expect_true(is.null(lst$grp1$object))
 
-  group2$open("WRITE")
+  group2$reopen("WRITE")
   grp1 <- group2$get_member("grp1")
   expect_s3_class(grp1, "TileDBGroup")
   # mode should be identical to group2
@@ -402,7 +405,7 @@ test_that("'TileDBGroup' class tests print method", {
   expect_snapshot(group$print())
 
   # Remove one by one and print
-  group$open(mode = "WRITE")
+  group$reopen(mode = "WRITE")
   group$remove("arr1")
   expect_snapshot(group$print())
 
