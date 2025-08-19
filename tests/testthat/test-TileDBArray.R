@@ -222,6 +222,7 @@ test_that("Array, Metadata Time-travelling works", {
   arrobj$tiledb_timestamp <- tstamps[1]
   expect_equal(arrobj$object[], trg_t1)
   expect_equal(arrobj$get_metadata(), trg_meta[1])
+
   arrobj$tiledb_timestamp <- tstamps[2]
   expect_equal(arrobj$object[], trg_t3)
   expect_equal(arrobj$get_metadata(), trg_meta[1:2])

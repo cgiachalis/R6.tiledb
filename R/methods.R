@@ -20,9 +20,13 @@ print.tdb_metadata <- function(x,...) {
     out <- character()
   }
 
-  s <- sprintf("TileDB %s: <R6 Class: %s>", attr(x, "object_type"), attr(x, "R6.class"))
-  cli::cat_line(c(s, "Metadata: <key,value>", out))
+  cls <- cli::col_br_blue(sprintf("<R6 Class: %s>", attr(x, "R6.class")))
+  sub1 <- sprintf(paste("TileDB %s:", cls), attr(x, "object_type"))
+  sub2 <- paste0("<key,value> ", cli::col_br_red(cli::symbol$bullet), sprintf(" total %i", n))
+
+  cli::cat_line(c(sub1, paste0("Metadata: ", cli::col_grey(sub2)), out))
   cli::cat_line(footer)
+
   invisible(x)
 }
 
@@ -53,9 +57,11 @@ print.tiledb_timestamp <- function(x, ...) {
   txt <- paste0(c("start", "end  "), ": ", cli::col_br_blue(ts_char))
   out <- paste0(" ", cli::col_br_cyan(cli::symbol$bullet), " ", txt, collapse = "\n")
 
-  header1 <- paste0("TileDB Timestamp ", cli::col_grey(note))
-  header2 <- paste0("TZ ", cli::col_grey(tz_txt))
-  header <- paste0(header1, cli::col_br_red(", "), header2)
+  header1 <- paste0("TileDB Timestamp ", cli::col_grey(note), " ")
+  header2 <- paste0(" TZ ", cli::col_grey(tz_txt))
+  header <- paste0(header1, cli::col_br_red(cli::symbol$bullet), header2)
+
   cli::cat_line(c(header , out))
+
   invisible(x)
 }
