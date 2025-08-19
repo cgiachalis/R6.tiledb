@@ -193,7 +193,7 @@ test_that("'TileDBArray' class works as expected", {
 
 })
 
-test_that("Array, Metadata Time-travelling works", {
+test_that("Array, Metadata test time-traveling works", {
 
   trg <- structure(list(id = c(1L, 1L, 1L), val = c(1, 2, 3)), query_status = "COMPLETE")
   trg_t1 <- structure(list(id = c(1L), val = c(1)), query_status = "COMPLETE")
