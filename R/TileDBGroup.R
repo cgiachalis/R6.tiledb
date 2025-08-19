@@ -717,12 +717,12 @@ TileDBGroup <- R6::R6Class(
       cfg <- tiledb::tiledb_group_get_config(private$.tiledb_group)
 
       if (action == "now") {
-        cfg["sm.group.timestamp_end"] <- .systime_int64_to_char()
+        cfg["sm.group.timestamp_end"] <- .systime_to_int64char()
       } else {
         cfg["sm.group.timestamp_end"] <- "18446744073709551615"
       }
 
-      group_handle  <- tiledb::tiledb_group_close(private$.tiledb_group)
+      group_handle <- tiledb::tiledb_group_close(private$.tiledb_group)
       group_handle <- tiledb::tiledb_group_set_config(group_handle, cfg)
       group_handle <- tiledb::tiledb_group_open(group_handle, type = "WRITE")
       group_handle

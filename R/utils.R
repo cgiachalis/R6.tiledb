@@ -38,12 +38,12 @@ vapply_int <- function(X, FUN, ..., USE.NAMES = TRUE) {
   rlang::is_character(x) || is.null(x)
 }
 
-.posixct_int64_to_char <- function(x) {
+.posixct_to_int64char <- function(x) {
   stopifnot(inherits(x, "POSIXct"))
   as.character(bit64::as.integer64(as.numeric(x) * 1000))
 }
 
-.systime_int64_to_char <- function() {
+.systime_to_int64char <- function() {
   as.character(bit64::as.integer64(as.numeric(Sys.time()) * 1000))
 }
 
@@ -62,18 +62,18 @@ vapply_int <- function(X, FUN, ..., USE.NAMES = TRUE) {
   tend <- ts$timestamp_end
 
   if (length(tstart) > 0) {
-    cfg["sm.group.timestamp_start"] <- .posixct_int64_to_char(tstart)
+    cfg["sm.group.timestamp_start"] <- .posixct_to_int64char(tstart)
   } else {
     cfg["sm.group.timestamp_start"] <- "0"
   }
 
   if (length(tend) > 0) {
-    cfg["sm.group.timestamp_end"] <- .posixct_int64_to_char(tend)
+    cfg["sm.group.timestamp_end"] <- .posixct_to_int64char(tend)
   } else {
     cfg["sm.group.timestamp_end"] <- "18446744073709551615"
   }
 
-  tiledb::tiledb_ctx(cfg, cached = FALSE)
+  tiledb::tiledb_ctx(cfg)
 }
 
 
