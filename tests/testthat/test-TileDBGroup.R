@@ -540,7 +540,7 @@ test_that("'TileDBGroup' test time-traveling", {
   expect_equal(marr1$tiledb_timestamp, group$tiledb_timestamp)
 
   expect_error(group$get_member("testarray2"),
-               label = "arr2 member doesn't exist as it falls out side time range")
+               label = "arr2 member doesn't exist as it falls outside time range")
 
   group$close()
 
