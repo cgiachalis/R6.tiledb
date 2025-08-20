@@ -340,7 +340,7 @@ test_that("'TileDBGroup' class tests delete members", {
   group$set_member(grp2) # name defaults to uri basename
   expect_equal(group$count_members(), 3)
 
-  group$close()
+  group$close(); rm(group)
 
   # Step 5: Delete members
 
@@ -349,7 +349,7 @@ test_that("'TileDBGroup' class tests delete members", {
 
   group2$reopen(mode = "WRITE")
 
-  expect_error(group2$delete("Bob"))
+  expect_error(group2$delete("Bob"), label = "No member named `bob` found.")
 
   group2$delete("arr1")
   expect_equal(group2$count_members(), 2)
