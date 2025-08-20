@@ -2,7 +2,7 @@
 % Please edit documentation in R/set_tiledb_timestamp.R
 \name{set_tiledb_timestamp}
 \alias{set_tiledb_timestamp}
-\title{Set a \code{TileDB} time-stamp}
+\title{Set a \code{TileDB} timestamp}
 \usage{
 set_tiledb_timestamp(start_time, end_time, tz = "")
 }
@@ -25,6 +25,9 @@ set_tiledb_timestamp("2025-01-01", "2025-08-01", tz = "UTC")
 
 # Numeric input
 set_tiledb_timestamp(1000000, 1000000*4, tz = "UTC")
+
+# Date end point
+set_tiledb_timestamp(end_time = as.Date("1990-01-01"), tz = "UTC")
 
 # Default
 set_tiledb_timestamp(tz = "Europe/London")

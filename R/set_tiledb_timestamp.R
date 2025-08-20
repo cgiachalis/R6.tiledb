@@ -1,4 +1,4 @@
-#' Set a `TileDB` time-stamp
+#' Set a `TileDB` timestamp
 #'
 #' Define a list of start,end timestamps intended for opening a `TileDB`
 #' object, either at initialisation or via active field `tiledb_timestamp`.
@@ -19,6 +19,9 @@
 #'
 #' # Numeric input
 #' set_tiledb_timestamp(1000000, 1000000*4, tz = "UTC")
+#'
+#' # Date end point
+#' set_tiledb_timestamp(end_time = as.Date("1990-01-01"), tz = "UTC")
 #'
 #' # Default
 #' set_tiledb_timestamp(tz = "Europe/London")
