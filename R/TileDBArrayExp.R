@@ -132,16 +132,12 @@ TileDBArrayExp <- R6::R6Class(
 
       if (!is.null(start_time)) {
 
-        check_timestamp_posixt(start_time)
-
-        cfg["sm.consolidation.timestamp_start"] <-  .posixct_to_int64char(start_time)
+        cfg["sm.consolidation.timestamp_start"] <- .posixt_to_int64char(start_time)
       }
 
       if (!is.null(end_time)) {
 
-        check_timestamp_posixt(end_time)
-
-        cfg["sm.consolidation.timestamp_end"] <- .posixct_to_int64char(end_time)
+        cfg["sm.consolidation.timestamp_end"] <- .posixt_to_int64char(end_time)
 
       }
 
@@ -199,17 +195,13 @@ TileDBArrayExp <- R6::R6Class(
 
       if (!is.null(start_time)) {
 
-        check_timestamp_posixt(start_time)
-
-        cfg["sm.consolidation.timestamp_start"] <- .posixct_to_int64char(start_time)
+        cfg["sm.consolidation.timestamp_start"] <- .posixt_to_int64char(start_time)
 
         }
 
       if (!is.null(end_time)) {
 
-        check_timestamp_posixt(end_time)
-
-        cfg["sm.consolidation.timestamp_end"] <- .posixct_to_int64char(end_time)
+        cfg["sm.consolidation.timestamp_end"] <- .posixt_to_int64char(end_time)
 
       }
 
@@ -385,17 +377,13 @@ TileDBArrayExp <- R6::R6Class(
 
       if (!is.null(start_time)) {
 
-        check_timestamp_posixt(start_time)
-
-        cfg["sm.consolidation.timestamp_start"] <- .posixct_to_int64char(start_time)
+        cfg["sm.consolidation.timestamp_start"] <- .posixt_to_int64char(start_time)
 
       }
 
       if (!is.null(end_time)) {
 
-        check_timestamp_posixt(end_time)
-
-        cfg["sm.consolidation.timestamp_end"] <- .posixct_to_int64char(end_time)
+        cfg["sm.consolidation.timestamp_end"] <- .posixt_to_int64char(end_time)
 
       }
 
@@ -456,17 +444,13 @@ TileDBArrayExp <- R6::R6Class(
 
       if (!is.null(start_time)) {
 
-        check_timestamp_posixt(start_time)
-
-        cfg["sm.consolidation.timestamp_start"] <- .posixct_to_int64char(start_time)
+        cfg["sm.consolidation.timestamp_start"] <- .posixt_to_int64char(start_time)
 
       }
 
       if (!is.null(end_time)) {
 
-        check_timestamp_posixt(end_time)
-
-        cfg["sm.consolidation.timestamp_end"] <- .posixct_to_int64char(end_time)
+        cfg["sm.consolidation.timestamp_end"] <- .posixt_to_int64char(end_time)
 
       }
 
