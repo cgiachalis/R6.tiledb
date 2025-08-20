@@ -36,7 +36,7 @@ set_tiledb_timestamp <- function(start_time, end_time, tz = "") {
   }
 
   if (isFALSE(tz %in% OlsonNames())) {
-  cli::cli_abort("{.arg tz} should be valid a timezone. See {.help [{.fun OlsonNames}](base::OlsonNames)} for more.")
+  cli::cli_abort("{.arg tz} should be valid a timezone. See {.help [{.fun OlsonNames}](base::OlsonNames)} for details.")
   }
 
   if (missing(start_time)) {
