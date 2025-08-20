@@ -45,6 +45,14 @@ array_timestamps.tiledb_array <- function(object, tz = "", ...) {
   otstart <- tiledb:::libtiledb_array_open_timestamp_start(object@ptr)
   otend <- tiledb:::libtiledb_array_open_timestamp_end(object@ptr)
 
+  if (tiledb::tiledb_array_is_open_for_reading(object)) {
+    mode <- "read"
+  } else if ( tiledb::tiledb_array_is_open_for_writing(object)){
+    mode <- "write"
+  } else {
+    mode <- "closed"
+  }
+
 
   structure(
     list(
@@ -52,6 +60,7 @@ array_timestamps.tiledb_array <- function(object, tz = "", ...) {
       open_array = list(timestamp_start = otstart, timestamp_end = otend)
     ),
     class = "array_timestamps",
+    mode = mode,
     tzone = tz
   )
 }
@@ -60,10 +69,6 @@ array_timestamps.tiledb_array <- function(object, tz = "", ...) {
 #' @rdname array_timestamps
 array_timestamps.TileDBArray <- function(object, tz = "", ...) {
 
-  # if (object$is_open()) {
-  #   object$open("READ") # ??
-  #   on.exit({object$close()})
-  # }
 
   array_timestamps(object$object, tz = tz)
 
@@ -72,8 +77,9 @@ array_timestamps.TileDBArray <- function(object, tz = "", ...) {
 #' @export
 print.array_timestamps <- function(x, ...) {
 
-  tzx <-  attr(x, "tzone", exact = TRUE)
-  tz_txt <- paste0("(",tzx,")")
+  tzx <- attr(x, "tzone", exact = TRUE)
+  tz_txt <- paste0("(", tzx ,")")
+  mode_txt <-  paste0("(", attr(x, "mode", exact = TRUE) ,")")
 
   user_query <- x$user_query
   ts_user <- vector("character", length = 2)
@@ -111,13 +117,15 @@ print.array_timestamps <- function(x, ...) {
   txt <- c(txt1, txt2)
   out <- paste0(" ", cli::col_br_cyan(cli::symbol$bullet), " ", txt, collapse = "\n")
 
-  header <- paste0("TileDB Array Timestamps ",
+  header <- paste0("Array Timestamps ",
+                   cli::col_br_red(cli::symbol$bullet),
+                   paste0(" Mode ", cli::col_grey(mode_txt), " "),
                    cli::col_br_red(cli::symbol$bullet),
                    paste0(" TZ ", cli::col_grey(tz_txt)))
 
   cli::cat_line(c(header,
                   cli::col_green(" User Query"), out1,
-                  cli::col_green(" Open Array"), out2))
+                  cli::col_green(" Array Open Range"), out2))
 
   invisible(x)
 }
