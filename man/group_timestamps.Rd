@@ -14,8 +14,8 @@
 
 \method{group_timestamps}{tiledb_config}(object, tz = "", ...)
 
-\method{group_timestamps}{TileDBGroup}(object, from = c("ctx", "cfg"),
-  tz = "", ...)
+\method{group_timestamps}{TileDBGroup}(object, tz = "", from = c("ctx",
+  "cfg"), ...)
 }
 \arguments{
 \item{object}{An \code{R} object that contains a \code{TileDB} resource pointer.}

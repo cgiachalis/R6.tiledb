@@ -23,7 +23,7 @@ array_timestamps <- function(object, tz = "", ...) {
 NULL
 
 #' @export
-array_timestamps.default <- function(object) {
+array_timestamps.default <- function(object, tz = "", ...) {
   stop(sprintf("No method for object %s. See ?array_timestamps for details.",
                sQuote(deparse(substitute(object)))), call. = FALSE)
 }
@@ -70,8 +70,8 @@ array_timestamps.tiledb_array <- function(object, tz = "", ...) {
 #' @rdname array_timestamps
 array_timestamps.TileDBArray <- function(object, tz = "", ...) {
 
-  if (!self$exists()) {
-    cli::cli_abort("R6Class: {.cls {self$class()}} object does not exist.", call = NULL)
+  if (!object$exists()) {
+    cli::cli_abort("R6Class: {.cls {object$class()}} object does not exist.", call = NULL)
   }
 
   array_timestamps(object$object, tz = tz)

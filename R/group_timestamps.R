@@ -23,7 +23,7 @@ group_timestamps <- function(object, tz = "", ...) {
 NULL
 
 #' @export
-group_timestamps.default <- function(object) {
+group_timestamps.default <- function(object, tz = "", ...) {
   stop(sprintf("No method for object %s. See ?group_timestamps for details.",
                sQuote(deparse(substitute(object)))), call. = FALSE)
 }
@@ -125,10 +125,10 @@ group_timestamps.tiledb_config <- function(object, tz = "", ...) {
 
 #' @export
 #' @rdname group_timestamps
-group_timestamps.TileDBGroup <- function(object, from = c("ctx", "cfg"),  tz = "", ...) {
+group_timestamps.TileDBGroup <- function(object, tz = "", from = c("ctx", "cfg"), ...) {
 
-  if (!self$exists()) {
-    cli::cli_abort("R6Class: {.cls {self$class()}} object does not exist.", call = NULL)
+  if (!object$exists()) {
+    cli::cli_abort("R6Class: {.cls {object$class()}} object does not exist.", call = NULL)
   }
 
   from <- match.arg(from)
