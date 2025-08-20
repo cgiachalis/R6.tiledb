@@ -57,6 +57,7 @@ group_timestamps.tiledb_ctx <- function(object, tz = "", ...) {
     list(timestamp_start = tstart,
          timestamp_end = tend),
     class = "group_timestamps",
+    mode = "N/A",
     tzone = tz,
     tdbsrc = "ctx"
   )
@@ -85,10 +86,17 @@ group_timestamps.tiledb_group <- function(object,  tz = "", ...) {
 
   tend <-  as.POSIXct(tend / 1000)
 
+  if (tiledb::tiledb_group_is_open(object)) {
+    mode <- tolower(tiledb::tiledb_group_query_type(object))
+  } else {
+    mode <- "closed"
+  }
+
   structure(
     list(timestamp_start = tstart,
          timestamp_end = tend),
     class = "group_timestamps",
+    mode = mode,
     tzone = tz,
     tdbsrc = "group_config"
   )
@@ -118,6 +126,7 @@ group_timestamps.tiledb_config <- function(object, tz = "", ...) {
     list(timestamp_start = tstart,
          timestamp_end = tend),
     class = "group_timestamps",
+    mode = "N/A",
     tzone = tz,
     tdbsrc = "config"
   )
@@ -134,10 +143,12 @@ group_timestamps.TileDBGroup <- function(object, tz = "", from = c("ctx", "cfg")
   from <- match.arg(from)
 
   if (from == "ctx") {
-    group_timestamps(object$ctx, tz = tz)
+    out <- group_timestamps(object$ctx, tz = tz)
+    attr(out, "mode") <- tolower(object$mode)
   } else {
-    group_timestamps(object$object, tz = tz)
+    out <- group_timestamps(object$object, tz = tz)
   }
+  out
 }
 
 
@@ -148,6 +159,7 @@ print.group_timestamps <- function(x,...) {
   tdbsrc <-  attr(x, "tdbsrc", exact = TRUE)
   tzx <-  attr(x, "tzone", exact = TRUE)
 
+  mode_txt <-  paste0("(", attr(x, "mode", exact = TRUE) ,")")
 
   if (tdbsrc == "group_config") {
     tdbsrc <- "group config"
@@ -164,15 +176,20 @@ print.group_timestamps <- function(x,...) {
       format(x$timestamp_end,"%Y-%m-%d %H:%M:%S", tz = tzx)
     }
 
-
   txt <- paste0(c("start", "end  "), ": ", cli::col_br_blue(ts_char))
   out <- paste0(" ", cli::col_br_cyan(cli::symbol$bullet), " ", txt, collapse = "\n")
 
-  header1 <- paste0("Group Timestamps ", cli::col_grey(note), " ")
-  header2 <- paste0(" TZ ", cli::col_grey(tz_txt))
-  header <- paste0(header1, cli::col_br_red(cli::symbol$bullet), header2)
+  header <- paste0(
+    "Group Timestamps ",
+    cli::col_grey(note),
+    " ",
+    cli::col_br_red(cli::symbol$bullet),
+    " Mode ", cli::col_grey(mode_txt), " ",
+    cli::col_br_red(cli::symbol$bullet),
+    " TZ ",
+    cli::col_grey(tz_txt))
 
-  cli::cat_line(c(header , out))
+  cli::cat_line(c(header, out))
 
   invisible(x)
 }
