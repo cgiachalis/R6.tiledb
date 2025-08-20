@@ -40,3 +40,5 @@ reference:
   contents:
   - demo_UCBAdmissions_array
   - set_tiledb_timestamp
+  - array_timestamps
+  - group_timestamps
