@@ -210,6 +210,19 @@ test_that("Array, Metadata test time-traveling works", {
 
   uri <- file.path(withr::local_tempdir(), "test-timetravel")
   tstamps <- write_test_array_tstamps2(uri, 3)
+
+  # Test that init and store the tiledb array with reading or
+  # writing @ time point
+  expect_no_error(arrobj <- TileDBArray$new(uri, tiledb_timestamp = tstamps[1]))
+  expect_equal(arrobj$mode, "CLOSED")
+  expect_no_error(arrobj$open())
+  arrobj$close(); rm(arrobj)
+
+  arrobj <- TileDBArray$new(uri, tiledb_timestamp = tstamps[1])
+  expect_no_error(arrobj$open(mode = "WRITE"))
+  arrobj$close(); rm(arrobj)
+
+  # Time - traveling
   arrobj <- tdb_array(uri)
 
   expect_equal(arrobj$object[], trg)
