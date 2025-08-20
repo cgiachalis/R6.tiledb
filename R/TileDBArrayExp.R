@@ -134,17 +134,14 @@ TileDBArrayExp <- R6::R6Class(
 
         check_timestamp_posixt(start_time)
 
-        start_time_int64 <- as.character(bit64::as.integer64(as.numeric(start_time) * 1000))
-        cfg["sm.consolidation.timestamp_start"] <- start_time_int64
-
+        cfg["sm.consolidation.timestamp_start"] <-  .posixct_to_int64char(start_time)
       }
 
       if (!is.null(end_time)) {
 
         check_timestamp_posixt(end_time)
 
-        end_time_int64 <- as.character(bit64::as.integer64(as.numeric(end_time) * 1000))
-        cfg["sm.consolidation.timestamp_end"] <- end_time_int64
+        cfg["sm.consolidation.timestamp_end"] <- .posixct_to_int64char(end_time)
 
       }
 
@@ -204,8 +201,7 @@ TileDBArrayExp <- R6::R6Class(
 
         check_timestamp_posixt(start_time)
 
-        start_time_int64 <- as.character(bit64::as.integer64(as.numeric(start_time) * 1000))
-        cfg["sm.consolidation.timestamp_start"] <- start_time_int64
+        cfg["sm.consolidation.timestamp_start"] <- .posixct_to_int64char(start_time)
 
         }
 
@@ -213,8 +209,7 @@ TileDBArrayExp <- R6::R6Class(
 
         check_timestamp_posixt(end_time)
 
-        end_time_int64 <- as.character(bit64::as.integer64(as.numeric(end_time) * 1000))
-        cfg["sm.consolidation.timestamp_end"] <- end_time_int64
+        cfg["sm.consolidation.timestamp_end"] <- .posixct_to_int64char(end_time)
 
       }
 
@@ -392,8 +387,7 @@ TileDBArrayExp <- R6::R6Class(
 
         check_timestamp_posixt(start_time)
 
-        start_time_int64 <- as.character(bit64::as.integer64(as.numeric(start_time) * 1000))
-        cfg["sm.consolidation.timestamp_start"] <- start_time_int64
+        cfg["sm.consolidation.timestamp_start"] <- .posixct_to_int64char(start_time)
 
       }
 
@@ -401,8 +395,7 @@ TileDBArrayExp <- R6::R6Class(
 
         check_timestamp_posixt(end_time)
 
-        end_time_int64 <- as.character(bit64::as.integer64(as.numeric(end_time) * 1000))
-        cfg["sm.consolidation.timestamp_end"] <- end_time_int64
+        cfg["sm.consolidation.timestamp_end"] <- .posixct_to_int64char(end_time)
 
       }
 
@@ -465,8 +458,7 @@ TileDBArrayExp <- R6::R6Class(
 
         check_timestamp_posixt(start_time)
 
-        start_time_int64 <- as.character(bit64::as.integer64(as.numeric(start_time) * 1000))
-        cfg["sm.consolidation.timestamp_start"] <- start_time_int64
+        cfg["sm.consolidation.timestamp_start"] <- .posixct_to_int64char(start_time)
 
       }
 
@@ -474,8 +466,7 @@ TileDBArrayExp <- R6::R6Class(
 
         check_timestamp_posixt(end_time)
 
-        end_time_int64 <- as.character(bit64::as.integer64(as.numeric(end_time) * 1000))
-        cfg["sm.consolidation.timestamp_end"] <- end_time_int64
+        cfg["sm.consolidation.timestamp_end"] <- .posixct_to_int64char(end_time)
 
       }
 
