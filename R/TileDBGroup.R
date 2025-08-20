@@ -246,7 +246,7 @@ TileDBGroup <- R6::R6Class(
       member <- private$.member_cache[[name]]
 
       if (is.null(member)) {
-        cli::cli_abort("No member named {.arg {deparse(substitute(name))}} found", call = NULL)
+        cli::cli_abort("No member named {.val {name}} found.", call = NULL)
       }
 
       # Instantiate member object (i.e ARRAY, GROUP etc.)
@@ -257,20 +257,19 @@ TileDBGroup <- R6::R6Class(
       # may override construct_member.
       #
       obj <- if (is.null(member$object)) {
-        private$log_debug0("get_member", "Construct member with uri {} and type '{}'", member$uri, member$type)
+        private$log_debug0("get_member", "Construct member with uri '{}' and type '{}'", member$uri, member$type)
         obj <- private$construct_member(member$uri, member$type)
       } else {
         member$object
       }
 
-      private$log_debug0("get_member", "Check is open,  mode is {}", self$mode)
+      private$log_debug0("get_member", "The mode of constructed member is: '{}'", obj$mode)
 
       if (!obj$is_open()) {
-        switch(
-          EXPR = (mode <- self$mode),
-          READ = obj$open(mode),
-          WRITE = obj$reopen(mode)
-        )
+        obj$open(self$mode)
+
+      } else {
+        obj$reopen(self$mode)
       }
 
       # Explicitly add the new member to member_cache, see comments on
@@ -306,9 +305,11 @@ TileDBGroup <- R6::R6Class(
       }
 
       # sanitise NA
-      if (isTRUE(is.na(name))) name <- NULL
+      if (isTRUE(is.na(name))) {
+        name <- NULL
+      }
 
-      if ( isFALSE(is.null(name) || rlang::is_scalar_character(name)) ) {
+      if ( isFALSE(.is_character_or_null(name)) ) {
         cli::cli_abort(
           "{.arg {deparse(substitute(name))}} argument should be a character name or NULL, not
           {.cls {class(name)}}.",
