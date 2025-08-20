@@ -410,8 +410,8 @@ TileDBObject <- R6::R6Class(
            tstart <- tstamp$timestamp_start
            tend <- tstamp$timestamp_end
 
+           # NOTE: we should open new handle only when WRITE mode?
           if (private$.mode == "WRITE" | ts_info != "default") {
-
 
             if (length(tend) == 0) {
               tend <- Sys.time()
@@ -421,11 +421,9 @@ TileDBObject <- R6::R6Class(
 
             array_object <- tiledb::tiledb_array(self$uri, ctx = private$.tiledb_ctx)
 
-            array_handle <- tiledb::tiledb_array_open_at(array_object,
-                                                         type = "READ",
-                                                         timestamp = tend)
+            array_handle <- .tiledb_array_open_at2(array_object, type = "READ", timestamp = tend)
 
-            on.exit({ tiledb::tiledb_array_close(array_handle) })
+            on.exit({.tiledb_array_close2(array_handle)})
            }
 
           .m  <- tiledb::tiledb_get_all_metadata(array_handle)

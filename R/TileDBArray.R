@@ -42,15 +42,14 @@ TileDBArray <- R6::R6Class(
 
       mode <- match.arg(mode)
 
-      # TODO: review as we might not needed it after all
-      # if (is.null(private$.tiledb_array)) {
-      #
-      #   # Tip: Creating a new instance will not initialise the object
-      #   #      until we open it. Here, we open, close and store the array handle.
-      #
-      #   private$log_debug("open", "Opening with initialisation")
-      #   private$initialize_object(keep_open = FALSE)
-      # }
+      if (is.null(private$.tiledb_array)) {
+
+        # Tip: Creating a new instance will not initialise the object
+        #      until we open it. Here, we open, close and store the array handle.
+
+        private$log_debug("open", "Opening with initialisation")
+        private$initialize_object(keep_open = FALSE)
+      }
 
         tstamp <- self$tiledb_timestamp
         ts_info <- attr(tstamp, which = "ts_info", exact = TRUE)
@@ -61,7 +60,12 @@ TileDBArray <- R6::R6Class(
           tend <- Sys.time()
         }
 
-        if (mode == "WRITE" | ts_info == "default") {
+        if (ts_info == "default") {
+
+          # NOTE: We could have used tiledb_array_open() but because of time-traveling
+          # the time range of array layer need to be reset; either we use a new handle
+          # as via tiledb_array, or set the range via libtiledb functionality and then
+          # use the cached handled.
 
           private$log_debug("open", "Opening in {} mode", mode)
 
@@ -70,7 +74,7 @@ TileDBArray <- R6::R6Class(
                                                         query_layout = "UNORDERED",
                                                         keep_open = TRUE)
 
-        } else {
+        } else if (mode == "READ" & ts_info == "user trng") {
 
           private$log_debug("open",
                             "Opening in {} mode with time range '{}', '{}'",
@@ -79,12 +83,15 @@ TileDBArray <- R6::R6Class(
                             tend)
 
           private$.tiledb_array <- tiledb::tiledb_array(self$uri,
-                                                        query_type = mode,
+                                                        query_type = "READ",
                                                         query_layout = "UNORDERED",
                                                         keep_open = TRUE,
                                                         timestamp_start = tstart,
-                                                        timestamp_end = tend
-          )
+                                                        timestamp_end = tend)
+
+        } else if (mode == "READ" & ts_info == "user tpnt") {
+
+          private$.tiledb_array <- .tiledb_array_open_at2(private$.tiledb_array, "READ", tend)
 
         }
 
@@ -103,7 +110,7 @@ TileDBArray <- R6::R6Class(
 
       private$log_debug("close", "Closing array")
 
-      private$.tiledb_array <- .tiledb_array_close2(self$object)
+      private$.tiledb_array <- .tiledb_array_close2(private$.tiledb_array)
 
       private$.mode <- "CLOSED"
 

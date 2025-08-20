@@ -15,3 +15,12 @@
   .libtiledb_array_close(arr@ptr)
   arr
 }
+
+# This reset timestamps slots
+.tiledb_array_open_at2 <- function(arr, type, timestamp) {
+
+  arr <- tiledb::tiledb_array_open_at(arr, type = type, timestamp = timestamp)
+  arr@timestamp_start <- as.POSIXct(double())
+  arr@timestamp_end <- timestamp
+  arr
+}
