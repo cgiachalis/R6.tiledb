@@ -103,8 +103,6 @@ TileDBArray <- R6::R6Class(
 
       private$log_debug("close", "Closing array")
 
-      #private$.tiledb_array <- tiledb::tiledb_array_close(self$object)
-
       private$.tiledb_array <- .tiledb_array_close2(self$object)
 
       private$.mode <- "CLOSED"
