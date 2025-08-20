@@ -11,10 +11,10 @@
 \method{array_timestamps}{TileDBArray}(object, tz = "", ...)
 }
 \arguments{
-\item{object}{An \code{R} object with \code{TileDB} array pointer.}
+\item{object}{An \code{R} object that contains a \code{TileDB} resource pointer.}
 
 \item{tz}{A character string for the time zone specification to be used
-for the conversion. Defaults to \code{\link[=Sys.timezone]{Sys.timezone()}}.}
+for the conversion in print method only. Defaults to \code{\link[=Sys.timezone]{Sys.timezone()}}.}
 
 \item{...}{Other arguments passed to methods. Not used.}
 }

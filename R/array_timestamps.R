@@ -6,8 +6,9 @@ array_timestamps <- function(object, tz = "", ...) {
 
 #' Get Array Timestamps
 #'
-#' @param object An `R` object with `TileDB` array pointer.
-#' @inheritParams set_tiledb_timestamp
+#' @param object An `R` object that contains a `TileDB` resource pointer.
+#' @param tz A character string for the time zone specification to be used
+#' for the conversion in print method only. Defaults to [Sys.timezone()].
 #' @param ... Other arguments passed to methods. Not used.
 #'
 #' @returns An object of class `array_timestamps` that is a list that
@@ -42,12 +43,12 @@ array_timestamps.tiledb_array <- function(object, tz = "", ...) {
   qtstart <- object@timestamp_start
   qtend <- object@timestamp_end
 
-  otstart <- tiledb:::libtiledb_array_open_timestamp_start(object@ptr)
-  otend <- tiledb:::libtiledb_array_open_timestamp_end(object@ptr)
+  otstart <- .libtiledb_array_open_timestamp_start(object@ptr)
+  otend <- .libtiledb_array_open_timestamp_end(object@ptr)
 
   if (tiledb::tiledb_array_is_open_for_reading(object)) {
     mode <- "read"
-  } else if ( tiledb::tiledb_array_is_open_for_writing(object)){
+  } else if (tiledb::tiledb_array_is_open_for_writing(object)) {
     mode <- "write"
   } else {
     mode <- "closed"
@@ -69,6 +70,9 @@ array_timestamps.tiledb_array <- function(object, tz = "", ...) {
 #' @rdname array_timestamps
 array_timestamps.TileDBArray <- function(object, tz = "", ...) {
 
+  if (!self$exists()) {
+    cli::cli_abort("R6Class: {.cls {self$class()}} object does not exist.", call = NULL)
+  }
 
   array_timestamps(object$object, tz = tz)
 

@@ -4,6 +4,8 @@
 }
 
 .libtiledb_array_close <- utils::getFromNamespace("libtiledb_array_close", "tiledb")
+.libtiledb_array_open_timestamp_start <- utils::getFromNamespace("libtiledb_array_open_timestamp_start", "tiledb")
+.libtiledb_array_open_timestamp_end <- utils::getFromNamespace("libtiledb_array_open_timestamp_end", "tiledb")
 
 
 # This reset timestamps slots

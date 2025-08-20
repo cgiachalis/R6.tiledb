@@ -6,10 +6,9 @@ group_timestamps <- function(object, tz = "", ...) {
 
 #' Get Group Timestamps
 #'
-#' @param object An `R` object with `TileDB` group pointer.
+#' @inheritParams array_timestamps
 #' @param from TileDBGroup's source of timestamps: either from context `ctx`, or
 #'  group object configuration `cfg`.
-#' @inheritParams set_tiledb_timestamp
 #' @param ... Other arguments passed to methods. Not used.
 #'
 #' @returns An object of class `group_timestamps` that is a list with
@@ -128,6 +127,10 @@ group_timestamps.tiledb_config <- function(object, tz = "", ...) {
 #' @rdname group_timestamps
 group_timestamps.TileDBGroup <- function(object, from = c("ctx", "cfg"),  tz = "", ...) {
 
+  if (!self$exists()) {
+    cli::cli_abort("R6Class: {.cls {self$class()}} object does not exist.", call = NULL)
+  }
+
   from <- match.arg(from)
 
   if (from == "ctx") {
@@ -165,7 +168,7 @@ print.group_timestamps <- function(x,...) {
   txt <- paste0(c("start", "end  "), ": ", cli::col_br_blue(ts_char))
   out <- paste0(" ", cli::col_br_cyan(cli::symbol$bullet), " ", txt, collapse = "\n")
 
-  header1 <- paste0("TileDB Group Timestamps ", cli::col_grey(note), " ")
+  header1 <- paste0("Group Timestamps ", cli::col_grey(note), " ")
   header2 <- paste0(" TZ ", cli::col_grey(tz_txt))
   header <- paste0(header1, cli::col_br_red(cli::symbol$bullet), header2)
 
