@@ -509,7 +509,7 @@ test_that("'TileDBGroup' test active binding tiledb_timestamp", {
 })
 
 
-test_that("'TileDBGroup' test time-traveling", {
+test_that("'TileDBGroup' class tests time-traveling", {
 
   uri <- file.path(withr::local_tempdir(), "test-group-timetravel")
   res <- write_test_group(uri)
@@ -541,6 +541,63 @@ test_that("'TileDBGroup' test time-traveling", {
 
   expect_error(group$get_member("testarray2"),
                label = "arr2 member doesn't exist as it falls outside time range")
+
+  # reset time stamps
+  group$tiledb_timestamp <- NULL
+  expect_equal(group$count_members(), 2)
+  expect_equal(tiledb::tiledb_group_member_count(group$object), 2)
+
+  # remove member arr1 that was added @ t1
+  group$reopen("WRITE")
+  group$remove("testarray1")
+  group$reopen()
+  group$tiledb_timestamp <- res$group_ts$t1
+  expect_equal(group$count_members(), 1)
+  expect_equal(group$names(), "testarray1")
+  name <- tiledb::tiledb_group_member(group$object, 0)[3]
+  expect_equal(name, "testarray1")
+
+  # reset again, check we left with arr2
+  group$tiledb_timestamp <- NULL
+  expect_equal(group$count_members(), 1)
+  expect_equal(group$names(), "testarray2")
+  name <- tiledb::tiledb_group_member(group$object, 0)[3]
+  expect_equal(name, "testarray2")
+
+  # delete arr2 and time travel
+  group$reopen("WRITE")
+  group$delete("testarray2")
+  expect_equal(group$count_members(), 0)
+  group$reopen()
+  expect_equal(tiledb::tiledb_group_member_count(group$object), 0)
+  expect_equal(group$names(), character(0))
+
+  group$tiledb_timestamp <- res$group_ts$t2
+  # Time travel while we deleted arr2 and remove arr1;
+  # both should be reflected as there were members
+  expect_equal(group$count_members(), 2)
+  expect_equal(tiledb::tiledb_group_member_count(group$object), 2)
+  expect_equal(group$names(), c("testarray2", "testarray1"))
+
+  # but arr2 doesn't exist
+  expect_error(group$get_member("testarray2"))
+  objw <- tiledb::tiledb_object_walk(uri)
+
+  # on disk we have arr1 which back then was a member, check
+  expect_equal(nrow(objw), 1)
+  expect_equal(basename(objw$URI), "testarray1")
+
+  # timestamp reset and check once again
+  group$tiledb_timestamp <- NULL
+  expect_equal(group$names(),  character(0))
+  expect_equal(group$count_members(), 0)
+  expect_equal(tiledb::tiledb_group_member_count(group$object), 0)
+
+  # check disk again we a non member arr1
+  objw <- tiledb::tiledb_object_walk(uri)
+  # on disk we have arr1 which back then was a member
+  expect_equal(nrow(objw), 1)
+  expect_equal(basename(objw$URI), "testarray1")
 
   group$close()
 
