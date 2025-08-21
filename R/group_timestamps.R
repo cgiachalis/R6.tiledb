@@ -3,7 +3,6 @@ group_timestamps <- function(object, tz = "", ...) {
   UseMethod("group_timestamps")
 }
 
-
 #' Get Group Timestamps
 #'
 #' @inheritParams array_timestamps
@@ -150,8 +149,6 @@ group_timestamps.TileDBGroup <- function(object, tz = "", from = c("ctx", "cfg")
   }
   out
 }
-
-
 
 #' @export
 print.group_timestamps <- function(x,...) {

@@ -133,4 +133,3 @@ print.array_timestamps <- function(x, ...) {
 
   invisible(x)
 }
-
