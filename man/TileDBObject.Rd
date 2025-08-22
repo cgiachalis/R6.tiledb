@@ -30,7 +30,7 @@ or length 2 with start, end timestamps
 \item An object of class \code{tiledb_timestamp}. See \code{\link[=set_tiledb_timestamp]{set_tiledb_timestamp()}}
 }
 
-\strong{Note:} Setting new a timestamp, the object will be reopened only if it is in
+\strong{Note:} Setting a new timestamp, the object will be reopened only if it is in
 \code{"READ"} mode. For \code{TileDBGroup} objects will clear the member cache and will reopen
 the group resource so as to propagate the \code{TileDB} time-stamp to members.}
 

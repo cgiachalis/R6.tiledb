@@ -238,7 +238,7 @@ TileDBObject <- R6::R6Class(
     #'  or length 2 with start, end timestamps
     #'  - An object of class `tiledb_timestamp`. See [set_tiledb_timestamp()]
     #'
-    #' **Note:** Setting new a timestamp, the object will be reopened only if it is in
+    #' **Note:** Setting a new timestamp, the object will be reopened only if it is in
     #' `"READ"` mode. For `TileDBGroup` objects will clear the member cache and will reopen
     #' the group resource so as to propagate the `TileDB` time-stamp to members.
     #'
@@ -347,10 +347,11 @@ TileDBObject <- R6::R6Class(
     # Contains a URI string
     .tiledb_uri = NULL,
 
-    # Opener-supplied POSIXct timestamp, if any. TileDBArray and TileDBGroup are each responsible
-    # for making this effective, since the methods differ slightly.
+
+    # Store the object from set_tiledb_timestamp
     .tiledb_timestamp = NULL,
 
+    # TileDB Context
     .tiledb_ctx = NULL,
 
     # Initially NULL, once the TileDB object (array or group) is created or opened,
