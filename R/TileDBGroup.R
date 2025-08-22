@@ -711,7 +711,7 @@ TileDBGroup <- R6::R6Class(
       private$update_member_cache()
     },
 
-    # Currently unused
+    # TODO: review, currently unused
     set_group_timestamp_end = function(action  = c("now", "reset")) {
 
       action <- match.arg(action)
