@@ -37,8 +37,15 @@ reference:
 
 - title: Utilities
   desc: ~
+
+- subtitle: Demo Arrays
+  desc: Create demo arrays
   contents:
   - demo_UCBAdmissions_array
+
+- subtitle: Timestamps
+  desc: Helpers to work with timestamps
+  contents:
   - set_tiledb_timestamp
   - array_timestamps
   - group_timestamps
