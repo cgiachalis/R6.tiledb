@@ -18,7 +18,7 @@ group_timestamps <- function(object, tz = "", ...) {
 #' @export
 #'
 #' @name group_timestamps
-# @examples
+#'
 NULL
 
 #' @export
@@ -38,7 +38,7 @@ group_timestamps.tiledb_ctx <- function(object, tz = "", ...) {
   }
 
   if (isFALSE(tz %in% OlsonNames())) {
-    cli::cli_abort("{.arg tz} should be valid a timezone. See {.help [{.fun OlsonNames}](base::OlsonNames)} for details.")
+    cli::cli_abort("{.arg tz} should be valid a timezone. See {.help [{.fun OlsonNames}](base::OlsonNames)} for details.", call = NULL)
   }
 
 
@@ -74,7 +74,7 @@ group_timestamps.tiledb_group <- function(object,  tz = "", ...) {
   }
 
   if (isFALSE(tz %in% OlsonNames())) {
-    cli::cli_abort("{.arg tz} should be valid a timezone. See {.help [{.fun OlsonNames}](base::OlsonNames)} for details.")
+    cli::cli_abort("{.arg tz} should be valid a timezone. See {.help [{.fun OlsonNames}](base::OlsonNames)} for details.", call = NULL)
   }
 
   tstart <- as.POSIXct(as.numeric(cfg["sm.group.timestamp_start"]) / 1000)
@@ -83,7 +83,7 @@ group_timestamps.tiledb_group <- function(object,  tz = "", ...) {
     tend <- NA
   }
 
-  tend <-  as.POSIXct(tend / 1000)
+  tend <-  as.POSIXct(as.numeric(tend) / 1000)
 
   if (tiledb::tiledb_group_is_open(object)) {
     mode <- tolower(tiledb::tiledb_group_query_type(object))
@@ -110,7 +110,7 @@ group_timestamps.tiledb_config <- function(object, tz = "", ...) {
   }
 
   if (isFALSE(tz %in% OlsonNames())) {
-    cli::cli_abort("{.arg tz} should be valid a timezone. See {.help [{.fun OlsonNames}](base::OlsonNames)} for details.")
+    cli::cli_abort("{.arg tz} should be valid a timezone. See {.help [{.fun OlsonNames}](base::OlsonNames)} for details.", call = NULL)
   }
 
   tstart <- as.POSIXct(as.numeric(object["sm.group.timestamp_start"]) / 1000)
@@ -119,7 +119,7 @@ group_timestamps.tiledb_config <- function(object, tz = "", ...) {
     tend <- NA
   }
 
-  tend <-  as.POSIXct(tend / 1000)
+  tend <-  as.POSIXct(as.numeric(tend) / 1000)
 
   structure(
     list(timestamp_start = tstart,
