@@ -1,13 +1,13 @@
-# Test array timestamps
+# Test 'array_timestamps()' works as expected
 
     Code
       array_timestamps(arrobj)
     Output
       Array Timestamps * Mode (read) * TZ (Europe/London)
-       User Query
+       Temporal Range
         * start: none
         * end  : 2020-08-20 21:00:00
-       Array Open Range
+       Open Range
         * start: 1970-01-01 01:00:00
         * end  : 2020-08-20 21:00:00
 
@@ -17,10 +17,10 @@
       array_timestamps(arrobj)
     Output
       Array Timestamps * Mode (closed) * TZ (Europe/London)
-       User Query
+       Temporal Range
         * start: none
         * end  : none
-       Array Open Range
+       Open Range
         * start: 1970-01-01 01:00:00
         * end  : 2020-08-20 21:00:00
 

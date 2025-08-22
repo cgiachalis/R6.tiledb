@@ -20,7 +20,8 @@ for the conversion in print method only. Defaults to \code{\link[=Sys.timezone]{
 }
 \value{
 An object of class \code{array_timestamps} that is a list that
-holds user's query timestamps and the time range the array is opened at.
+holds the user supplied temporal timestamps and the time range the array
+is opened at.
 }
 \description{
 Get Array Timestamps

@@ -12,14 +12,15 @@ array_timestamps <- function(object, tz = "", ...) {
 #' @param ... Other arguments passed to methods. Not used.
 #'
 #' @returns An object of class `array_timestamps` that is a list that
-#' holds user's query timestamps and the time range the array is opened at.
+#' holds the user supplied temporal timestamps and the time range the array
+#' is opened at.
 #'
 #' @seealso [group_timestamps()], [set_tiledb_timestamp()]
 #'
 #' @export
 #'
 #' @name array_timestamps
-# @examples
+#'
 NULL
 
 #' @export
@@ -37,7 +38,7 @@ array_timestamps.tiledb_array <- function(object, tz = "", ...) {
   }
 
   if (isFALSE(tz %in% OlsonNames())) {
-    cli::cli_abort("{.arg tz} should be valid a timezone. See {.help [{.fun OlsonNames}](base::OlsonNames)} for details.")
+    cli::cli_abort("{.arg tz} should be valid a timezone. See {.help [{.fun OlsonNames}](base::OlsonNames)} for details.", call = NULL)
   }
 
   qtstart <- object@timestamp_start
@@ -128,8 +129,8 @@ print.array_timestamps <- function(x, ...) {
                    paste0(" TZ ", cli::col_grey(tz_txt)))
 
   cli::cat_line(c(header,
-                  cli::col_green(" User Query"), out1,
-                  cli::col_green(" Array Open Range"), out2))
+                  cli::col_green(" Temporal Range"), out1,
+                  cli::col_green(" Open Range"), out2))
 
   invisible(x)
 }

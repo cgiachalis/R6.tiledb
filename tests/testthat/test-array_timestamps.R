@@ -1,6 +1,6 @@
 
 
-test_that("Test array timestamps", {
+test_that("Test 'array_timestamps()' works as expected", {
 
 
   tz <- "Europe/London"
@@ -43,7 +43,21 @@ test_that("Test array timestamps", {
   mode = "read",
   tzone = tz)
 
+  # check class first, although we're checking identical object further below
+  expect_s3_class(array_timestamps(arrobj), "array_timestamps")
+  expect_s3_class(array_timestamps(arrobj$object), "array_timestamps")
 
+  # errors are raised
+  expect_error(array_timestamps(arrobj, tz = "invalid"))
+  expect_error(array_timestamps(arrobj$object, tz = "invalid"))
+
+  expect_error(array_timestamps(data.frame(1)))
+
+  uri_none <- file.path(withr::local_tempdir(), "test-array-none")
+  arrobj_none <- TileDBArray$new(uri_none)
+  expect_error(array_timestamps(arrobj_none), label = "Object does not exist")
+
+  # check equality
   expect_equal(array_timestamps(arrobj, tz), trg1)
   expect_equal(array_timestamps(arrobj$object), trg1)
 
@@ -86,6 +100,5 @@ test_that("Test array timestamps", {
   expect_snapshot(array_timestamps(arrobj))
   arrobj$close()
   expect_snapshot(array_timestamps(arrobj))
-
 
 })
