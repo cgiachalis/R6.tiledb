@@ -506,52 +506,6 @@ TileDBGroup <- R6::R6Class(
       private$fill_member_cache_if_null()
 
       private$.member_cache
-    },
-
-    #'@field tiledb_timestamp Set or retrieve a `TileDB` timestamp range that
-    #'  the group members will be opened at.Effective in `"READ"` mode only.
-    #'
-    #'  This is a **mutable** field to set timestamps dynamically
-    #'  for time-travelling. Valid options:
-    #'  - A `NULL` value (default)
-    #'  - An `R` object coercible to `POSIXct` with length 1 which used for end timestamp,
-    #'  or length 2 with start, end timestamps
-    #'  - An object of class `tiledb_timestamp`. See [set_tiledb_timestamp()]
-    #'
-    #'
-    #' **Note:** Setting a new timestamp will clear the member cache and will reopen
-    #' the group resource so as to propagate the `TileDB` time-stamp to members.
-    #'
-    tiledb_timestamp = function(value) {
-
-      if (!missing(value)) {
-
-        if (is.null(value)) {
-          .time_stamp <- set_tiledb_timestamp()
-        } else if (length(value) == 1L) {
-          .time_stamp <- set_tiledb_timestamp(end_time = value)
-        } else if (length(value) == 2L & !inherits(value, "tiledb_timestamp")) {
-          .time_stamp <- set_tiledb_timestamp(start_time = value[1], end_time = value[2])
-        } else if (inherits(value, "tiledb_timestamp")) {
-          .time_stamp <- value
-        } else {
-          cli::cli_abort("Invalid 'tiledb_timestamp' input", call = NULL)
-        }
-
-        if (self$mode != "WRITE") {
-
-          self$close()
-          # Clear cache in order to reopen members with new timestamps
-          private$.member_cache <- NULL
-          private$.tiledb_timestamp <- .time_stamp
-
-          private$.tiledb_ctx <- .set_group_timestamps(private$.tiledb_ctx, .time_stamp)
-
-          self$open()
-        }
-
-      }
-      private$.tiledb_timestamp
     }
   ),
 

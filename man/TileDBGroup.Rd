@@ -32,21 +32,6 @@ A new \code{TileDBGroup} instance is initialized using the \code{new()} method:
 \item{\code{object}}{Access the underlying \code{\link[tiledb:tiledb_group]{tiledb::tiledb_group()}} object.}
 
 \item{\code{members}}{Access the \code{list} of group members.}
-
-\item{\code{tiledb_timestamp}}{Set or retrieve a \code{TileDB} timestamp range that
-the group members will be opened at.Effective in \code{"READ"} mode only.
-
-This is a \strong{mutable} field to set timestamps dynamically
-for time-travelling. Valid options:
-\itemize{
-\item A \code{NULL} value (default)
-\item An \code{R} object coercible to \code{POSIXct} with length 1 which used for end timestamp,
-or length 2 with start, end timestamps
-\item An object of class \code{tiledb_timestamp}. See \code{\link[=set_tiledb_timestamp]{set_tiledb_timestamp()}}
-}
-
-\strong{Note:} Setting a new timestamp will clear the member cache and will reopen
-the group resource so as to propagate the \code{TileDB} time-stamp to members.}
 }
 \if{html}{\out{</div>}}
 }

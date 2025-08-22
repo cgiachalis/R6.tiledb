@@ -31,7 +31,8 @@ or length 2 with start, end timestamps
 }
 
 \strong{Note:} Setting new a timestamp, the object will be reopened only if it is in
-\code{"READ"} mode.}
+\code{"READ"} mode. For \code{TileDBGroup} objects will clear the member cache and will reopen
+the group resource so as to propagate the \code{TileDB} time-stamp to members.}
 
 \item{\code{uri}}{The URI of the \code{TileDB} object.}
 
