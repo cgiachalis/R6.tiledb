@@ -498,7 +498,7 @@ TileDBObject <- R6::R6Class(
     },
 
     # Get metadata method requires open for read mode or write mode.
-    check_open_for_read_or_write = function() {
+    check_open = function() {
 
       if (!self$is_open()) {
 

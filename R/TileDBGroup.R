@@ -191,7 +191,7 @@ TileDBGroup <- R6::R6Class(
     count_members = function() {
 
       private$check_object_exists()
-      private$check_open_for_read_or_write()
+      private$check_open()
       private$fill_member_cache_if_null()
       length(private$.member_cache)
     },
@@ -240,7 +240,7 @@ TileDBGroup <- R6::R6Class(
 
       private$check_object_exists()
       private$check_scalar_character(name)
-      private$check_open_for_read_or_write()
+      private$check_open()
       private$fill_member_cache_if_null()
 
       member <- private$.member_cache[[name]]
@@ -361,7 +361,7 @@ TileDBGroup <- R6::R6Class(
     #'
     names = function() {
       private$check_object_exists()
-      private$check_open_for_read_or_write()
+      private$check_open()
       private$fill_member_cache_if_null()
 
       names(private$.member_cache) %||% character(length = 0L)
@@ -436,7 +436,7 @@ TileDBGroup <- R6::R6Class(
    dump = function(title = "TileDB Directory", recursive = TRUE) {
 
      private$check_object_exists()
-     private$check_open_for_read_or_write()
+     private$check_open()
 
      uri <- self$uri
      bsname <- basename(self$uri)
