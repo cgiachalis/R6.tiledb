@@ -92,7 +92,7 @@
       group$get_metadata()
     Output
       TileDB GROUP: <R6 Class: TileDBGroup>
-      Metadata: <key,value>
+      Metadata: <key,value> * total 0
       
 
 # 'TileDBGroup' class tests metadata
@@ -101,7 +101,7 @@
       group$get_metadata()
     Output
       TileDB GROUP: <R6 Class: TileDBGroup>
-      Metadata: <key,value>
+      Metadata: <key,value> * total 2
        * a: 'a'
        * b: 100
       
@@ -112,7 +112,7 @@
       group$get_metadata()
     Output
       TileDB GROUP: <R6 Class: TileDBGroup>
-      Metadata: <key,value>
+      Metadata: <key,value> * total 22
        * a: 'a'
        * b: 100
        * av: 1

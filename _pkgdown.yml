@@ -17,7 +17,7 @@ navbar:
       href: index.html
       icon: fa-home fa-lg
       aria-label: R6.tiledb
-    - text: "R6 Classes"
+    - text: "Functions"
       href: reference/index.html
     - text: "News"
       href: news/index.html
@@ -37,5 +37,15 @@ reference:
 
 - title: Utilities
   desc: ~
+
+- subtitle: Demo Arrays
+  desc: Create demo arrays
   contents:
   - demo_UCBAdmissions_array
+
+- subtitle: Timestamps
+  desc: Helpers to work with timestamps
+  contents:
+  - set_tiledb_timestamp
+  - array_timestamps
+  - group_timestamps

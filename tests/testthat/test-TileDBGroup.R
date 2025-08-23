@@ -69,8 +69,11 @@ test_that("'TileDBGroup' class tests on existent but empty group", {
   expect_equal(tiledb::tiledb_group_query_type(group2_new$object), "READ")
   group2_new$close()
   expect_equal(group2_new$mode, "CLOSED")
+  expect_false(tiledb::tiledb_group_is_open(group2_new$object))
 
   group2_new <- TileDBGroup$new(uri2)
+  expect_equal(group2_new$mode, "CLOSED")
+
   expect_no_error(group2_new$open(mode = "WRITE"))
   expect_equal(group2_new$mode, "WRITE")
   expect_equal(tiledb::tiledb_group_query_type(group2_new$object), "WRITE")
@@ -105,7 +108,7 @@ test_that("'TileDBGroup' class tests accessors on empty group", {
 
   group$create()
 
-  group$open(mode = "READ")
+  group$reopen(mode = "READ")
 
   # Check exporters
   lst <- group$members
@@ -253,7 +256,7 @@ test_that("'TileDBGroup' class tests add/remove members", {
   # but grp1 is not there because we didn't fetch it via get_member
   expect_true(is.null(lst$grp1$object))
 
-  group2$open("WRITE")
+  group2$reopen("WRITE")
   grp1 <- group2$get_member("grp1")
   expect_s3_class(grp1, "TileDBGroup")
   # mode should be identical to group2
@@ -337,7 +340,7 @@ test_that("'TileDBGroup' class tests delete members", {
   group$set_member(grp2) # name defaults to uri basename
   expect_equal(group$count_members(), 3)
 
-  group$close()
+  group$close(); rm(group)
 
   # Step 5: Delete members
 
@@ -346,7 +349,7 @@ test_that("'TileDBGroup' class tests delete members", {
 
   group2$reopen(mode = "WRITE")
 
-  expect_error(group2$delete("Bob"))
+  expect_error(group2$delete("Bob"), label = "No member named `bob` found.")
 
   group2$delete("arr1")
   expect_equal(group2$count_members(), 2)
@@ -402,7 +405,7 @@ test_that("'TileDBGroup' class tests print method", {
   expect_snapshot(group$print())
 
   # Remove one by one and print
-  group$open(mode = "WRITE")
+  group$reopen(mode = "WRITE")
   group$remove("arr1")
   expect_snapshot(group$print())
 
@@ -449,7 +452,156 @@ test_that("'TileDBGroup' class tests relative paths", {
   expect_equal(group$count_members(), 1)
 
   group$close()
+
 })
+
+test_that("'TileDBGroup' test active binding tiledb_timestamp", {
+
+  uri <- file.path(withr::local_tempdir(), "test-group")
+
+  group <- TileDBGroup$new(uri)
+  group$create(mode = "READ")
+
+
+  expect_no_error(group$tiledb_timestamp <- NULL)
+  expect_s3_class(group$tiledb_timestamp, "tiledb_timestamp")
+
+  expect_no_error(group$tiledb_timestamp <- 10)
+  expect_equal(group$tiledb_timestamp, set_tiledb_timestamp(end_time = 10))
+
+  expect_no_error(group$tiledb_timestamp <- c(0, 10))
+  expect_equal(group$tiledb_timestamp, set_tiledb_timestamp(0, end_time = 10))
+
+  expect_no_error(group$tiledb_timestamp <- "1990-01-01")
+  expect_equal(group$tiledb_timestamp, set_tiledb_timestamp(end_time =  "1990-01-01"))
+
+  expect_no_error(group$tiledb_timestamp <- as.POSIXct(10, tz = "UTC"))
+  expect_equal(group$tiledb_timestamp, set_tiledb_timestamp(end_time = as.POSIXct(10)))
+
+  # WRITE mode ----
+  group$reopen("WRITE")
+  expect_equal(group$tiledb_timestamp, set_tiledb_timestamp(), label = "reset on reopening in write mode")
+
+  group$tiledb_timestamp <- as.POSIXct(10)
+  expect_equal(group$tiledb_timestamp, set_tiledb_timestamp(), label = "change tstamps has no effect in write mode")
+
+  # End WRITE mode ---
+
+  group$reopen()
+
+  expect_equal(group$tiledb_timestamp, set_tiledb_timestamp(), label = "reset on reopening in read mode")
+
+  group$close()
+  group$tiledb_timestamp <- as.POSIXct(10)
+  expect_true(group$is_open())
+  expect_error(group$open(), label = "Assigning a timestamp trigger reopening")
+
+  ts <- set_tiledb_timestamp(start_time = as.Date("1990-01-01"), end_time = as.Date("2000-01-01"))
+  expect_no_error(group$tiledb_timestamp <- ts)
+  expect_equal(group$tiledb_timestamp, ts)
+
+  expect_error(group$tiledb_timestamp <- "bob", label = "character string is not in a standard unambiguous format")
+  expect_error(group$tiledb_timestamp <- c(1, 3, 3), label = "Invalid 'tiledb_timestamp' input")
+  expect_error(group$tiledb_timestamp <- numeric(0), label = "Invalid 'tiledb_timestamp' input")
+
+  group$close()
+
+})
+
+
+test_that("'TileDBGroup' class tests time-traveling", {
+
+  uri <- file.path(withr::local_tempdir(), "test-group-timetravel")
+  res <- write_test_group(uri)
+
+  group <- TileDBGroup$new(uri)
+
+  group$open()
+
+  expect_equal(group$count_members(), 2)
+  expect_equal(group$names(), c("testarray2", "testarray1"))
+
+  group$tiledb_timestamp <- 0
+  expect_equal(group$count_members(), 0)
+
+  group$reopen("WRITE")
+  expect_equal(group$count_members(), 2, label = "WRITE mode reset time stamps")
+
+  group$tiledb_timestamp <- 0
+  expect_equal(group$count_members(), 2, label = "WRITE mode no effect of time stamps")
+
+  group$reopen()
+  group$tiledb_timestamp <- res$group_ts$t1
+  expect_equal(group$count_members(), 1)
+  expect_equal(group$names(), "testarray1")
+  marr1 <- group$get_member("testarray1")
+
+  # tiledb timestamp propagates to members
+  expect_equal(marr1$tiledb_timestamp, group$tiledb_timestamp)
+
+  expect_error(group$get_member("testarray2"),
+               label = "arr2 member doesn't exist as it falls outside time range")
+
+  # reset time stamps
+  group$tiledb_timestamp <- NULL
+  expect_equal(group$count_members(), 2)
+  expect_equal(tiledb::tiledb_group_member_count(group$object), 2)
+
+  # remove member arr1 that was added @ t1
+  group$reopen("WRITE")
+  group$remove("testarray1")
+  group$reopen()
+  group$tiledb_timestamp <- res$group_ts$t1
+  expect_equal(group$count_members(), 1)
+  expect_equal(group$names(), "testarray1")
+  name <- tiledb::tiledb_group_member(group$object, 0)[3]
+  expect_equal(name, "testarray1")
+
+  # reset again, check we left with arr2
+  group$tiledb_timestamp <- NULL
+  expect_equal(group$count_members(), 1)
+  expect_equal(group$names(), "testarray2")
+  name <- tiledb::tiledb_group_member(group$object, 0)[3]
+  expect_equal(name, "testarray2")
+
+  # delete arr2 and time travel
+  group$reopen("WRITE")
+  group$delete("testarray2")
+  expect_equal(group$count_members(), 0)
+  group$reopen()
+  expect_equal(tiledb::tiledb_group_member_count(group$object), 0)
+  expect_equal(group$names(), character(0))
+
+  group$tiledb_timestamp <- res$group_ts$t2
+  # Time travel while we deleted arr2 and remove arr1;
+  # both should be reflected as there were members
+  expect_equal(group$count_members(), 2)
+  expect_equal(tiledb::tiledb_group_member_count(group$object), 2)
+  expect_equal(group$names(), c("testarray2", "testarray1"))
+
+  # but arr2 doesn't exist
+  expect_error(group$get_member("testarray2"))
+  objw <- tiledb::tiledb_object_walk(uri)
+
+  # on disk we have arr1 which back then was a member, check
+  expect_equal(nrow(objw), 1)
+  expect_equal(basename(objw$URI), "testarray1")
+
+  # timestamp reset and check once again
+  group$tiledb_timestamp <- NULL
+  expect_equal(group$names(),  character(0))
+  expect_equal(group$count_members(), 0)
+  expect_equal(tiledb::tiledb_group_member_count(group$object), 0)
+
+  # check disk again we a non member arr1
+  objw <- tiledb::tiledb_object_walk(uri)
+  # on disk we have arr1 which back then was a member
+  expect_equal(nrow(objw), 1)
+  expect_equal(basename(objw$URI), "testarray1")
+
+  group$close()
+
+  })
 
 
 test_that("'TileDBGroup' class tests metadata print method", {

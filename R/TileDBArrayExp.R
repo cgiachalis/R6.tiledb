@@ -26,35 +26,18 @@ TileDBArrayExp <- R6::R6Class(
   classname = "TileDBArrayExp",
   inherit = TileDBArray,
   public = list(
-    #' @description Create a new `TileDBArrayExp` instance.
-    #'
-    #' @param uri URI path for the `TileDB` Array.
-    #' @param ctx Optional [tiledb::tiledb_ctx()] object.
-    #' @param tiledb_timestamp Optional Datetime (POSIXct) with TileDB timestamp.
-    #'
-    initialize = function(uri,
-                          ctx = NULL,
-                          tiledb_timestamp = NULL) {
-
-      super$initialize(uri = uri,
-                       ctx = ctx,
-                       tiledb_timestamp = tiledb_timestamp)
-
-    },
     #' @description Close and reopen the TileDB object in a new mode.
     #'
     #' @param mode New mode to open the object in; choose from: `"READ"` or `"WRITE"`.
     #'
-    #' @param tiledb_timestamp Optional Datetime (POSIXct) with TileDB timestamp.
-    #'
     #' @return The object, invisibly.
     #'
-    reopen = function(mode = c('READ', 'WRITE'), tiledb_timestamp = NULL) {
+    reopen = function(mode = c('READ', 'WRITE')) {
 
       # reset fragment object
       private$.fragments_object <- NULL
 
-      super$reopen(mode, tiledb_timestamp = tiledb_timestamp)
+      super$reopen(mode)
     },
     #' @description Checks array for factors (enumerations).
     #'
@@ -149,19 +132,12 @@ TileDBArrayExp <- R6::R6Class(
 
       if (!is.null(start_time)) {
 
-        check_timestamp_posixt(start_time)
-
-        start_time_int64 <- as.character(bit64::as.integer64(as.numeric(start_time) * 1000))
-        cfg["sm.consolidation.timestamp_start"] <- start_time_int64
-
+        cfg["sm.consolidation.timestamp_start"] <- .posixt_to_int64char(start_time)
       }
 
       if (!is.null(end_time)) {
 
-        check_timestamp_posixt(end_time)
-
-        end_time_int64 <- as.character(bit64::as.integer64(as.numeric(end_time) * 1000))
-        cfg["sm.consolidation.timestamp_end"] <- end_time_int64
+        cfg["sm.consolidation.timestamp_end"] <- .posixt_to_int64char(end_time)
 
       }
 
@@ -219,19 +195,13 @@ TileDBArrayExp <- R6::R6Class(
 
       if (!is.null(start_time)) {
 
-        check_timestamp_posixt(start_time)
-
-        start_time_int64 <- as.character(bit64::as.integer64(as.numeric(start_time) * 1000))
-        cfg["sm.consolidation.timestamp_start"] <- start_time_int64
+        cfg["sm.consolidation.timestamp_start"] <- .posixt_to_int64char(start_time)
 
         }
 
       if (!is.null(end_time)) {
 
-        check_timestamp_posixt(end_time)
-
-        end_time_int64 <- as.character(bit64::as.integer64(as.numeric(end_time) * 1000))
-        cfg["sm.consolidation.timestamp_end"] <- end_time_int64
+        cfg["sm.consolidation.timestamp_end"] <- .posixt_to_int64char(end_time)
 
       }
 
@@ -407,19 +377,13 @@ TileDBArrayExp <- R6::R6Class(
 
       if (!is.null(start_time)) {
 
-        check_timestamp_posixt(start_time)
-
-        start_time_int64 <- as.character(bit64::as.integer64(as.numeric(start_time) * 1000))
-        cfg["sm.consolidation.timestamp_start"] <- start_time_int64
+        cfg["sm.consolidation.timestamp_start"] <- .posixt_to_int64char(start_time)
 
       }
 
       if (!is.null(end_time)) {
 
-        check_timestamp_posixt(end_time)
-
-        end_time_int64 <- as.character(bit64::as.integer64(as.numeric(end_time) * 1000))
-        cfg["sm.consolidation.timestamp_end"] <- end_time_int64
+        cfg["sm.consolidation.timestamp_end"] <- .posixt_to_int64char(end_time)
 
       }
 
@@ -480,19 +444,13 @@ TileDBArrayExp <- R6::R6Class(
 
       if (!is.null(start_time)) {
 
-        check_timestamp_posixt(start_time)
-
-        start_time_int64 <- as.character(bit64::as.integer64(as.numeric(start_time) * 1000))
-        cfg["sm.consolidation.timestamp_start"] <- start_time_int64
+        cfg["sm.consolidation.timestamp_start"] <- .posixt_to_int64char(start_time)
 
       }
 
       if (!is.null(end_time)) {
 
-        check_timestamp_posixt(end_time)
-
-        end_time_int64 <- as.character(bit64::as.integer64(as.numeric(end_time) * 1000))
-        cfg["sm.consolidation.timestamp_end"] <- end_time_int64
+        cfg["sm.consolidation.timestamp_end"] <- .posixt_to_int64char(end_time)
 
       }
 

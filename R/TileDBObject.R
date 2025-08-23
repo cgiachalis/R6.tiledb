@@ -14,11 +14,21 @@
 TileDBObject <- R6::R6Class(
   classname = "TileDBObject",
   public = list(
-    #' @description Create a new TileDB object.
+    #' @description Create a new `TileDB` object.
     #'
-    #' @param uri URI path for the TileDB object.
+    #' @param uri URI path for the `TileDB` object.
     #' @param ctx Optional [tiledb::tiledb_ctx()] object.
-    #' @param tiledb_timestamp Optional Datetime (POSIXct) with TileDB timestamp.
+    #' @param tiledb_timestamp Set a `TileDB` timestamp range that
+    #'  the resource will be opened at. Effective in `"READ"` mode only.
+    #'  Valid options:
+    #'  - A `NULL` value (default)
+    #'  - An `R` object coercible to `POSIXct` with length 1 which used for end timestamp,
+    #'  or length 2 with start, end timestamps
+    #'  - An object of class `tiledb_timestamp`. See [set_tiledb_timestamp()]
+    #'
+    #'
+    #' **Note:** When setting new a time-stamp, the object will be reopened only if it is in
+    #' `"READ"` mode.
     #'
     initialize = function(uri,
                           ctx = NULL,
@@ -36,19 +46,27 @@ TileDBObject <- R6::R6Class(
         ctx <- tiledb::tiledb_ctx()
       }
 
-     check_tiledb_ctx(ctx)
+      check_tiledb_ctx(ctx)
 
-      private$.tiledb_ctx <- ctx
-
-
-      if (!is.null(tiledb_timestamp)) {
-
-        check_timestamp(tiledb_timestamp)
-
+      if (is.null(tiledb_timestamp)) {
+        private$.tiledb_timestamp <- set_tiledb_timestamp()
+      } else if (length(tiledb_timestamp) == 1L) {
+        private$.tiledb_timestamp <- set_tiledb_timestamp(end_time = tiledb_timestamp)
+      } else if (length(tiledb_timestamp) == 2L & !inherits(tiledb_timestamp, "tiledb_timestamp")) {
+        private$.tiledb_timestamp <- set_tiledb_timestamp(start_time = iledb_timestamp[1],
+                                                          end_time = tiledb_timestamp[2])
+      } else if (inherits(tiledb_timestamp, "tiledb_timestamp")) {
         private$.tiledb_timestamp <- tiledb_timestamp
+      } else {
+        cli::cli_abort("Invalid 'tiledb_timestamp' input", call = NULL)
       }
 
-      private$log_debug("initialize", "Initialize with timestamp ({})", self$tiledb_timestamp %||% "now")
+      # TODO: REVIEW
+      private$.tiledb_ctx <- .set_group_timestamps(ctx, private$.tiledb_timestamp)
+
+      tend <- private$.tiledb_timestamp$timestamp_end
+      tend <- if (length(tend) == 0) NULL else tend
+      private$log_debug("initialize", "Initialize with timestamp ({})", tend %||% "now")
 
     },
 
@@ -69,26 +87,15 @@ TileDBObject <- R6::R6Class(
     #'
     #' @param mode New mode to open the object in; choose from: `"READ"` or `"WRITE"`.
     #'
-    #' @param tiledb_timestamp Optional Datetime (POSIXct) with TileDB timestamp.
-    #'
     #' @return The object, invisibly.
     #'
-    reopen = function(mode = c('READ', 'WRITE'), tiledb_timestamp = NULL) {
+    reopen = function(mode = c('READ', 'WRITE')) {
 
       private$check_object_exists()
 
       mode <- match.arg(mode)
 
-      if (!is.null(tiledb_timestamp)) {
-
-        check_timestamp(tiledb_timestamp)
-
-        private$.tiledb_timestamp <- tiledb_timestamp
-      }
-
       self$close()
-
-      private$.tiledb_timestamp <- tiledb_timestamp
 
       self$open(mode)
 
@@ -221,16 +228,58 @@ TileDBObject <- R6::R6Class(
       private$.tiledb_ctx
     },
 
-    #' @field tiledb_timestamp Time that object was opened at.
+    #'@field tiledb_timestamp Set or retrieve a `TileDB` timestamp range that
+    #'  the resource will be opened at. Effective in `"READ"` mode only.
+    #'
+    #'  This is a **mutable** field to set timestamps dynamically
+    #'  for time-travelling. Valid options:
+    #'  - A `NULL` value (default)
+    #'  - An `R` object coercible to `POSIXct` with length 1 which used for end timestamp,
+    #'  or length 2 with start, end timestamps
+    #'  - An object of class `tiledb_timestamp`. See [set_tiledb_timestamp()]
+    #'
+    #' **Note:** Setting a new timestamp, the object will be reopened only if it is in
+    #' `"READ"` mode. For `TileDBGroup` objects will clear the member cache and will reopen
+    #' the group resource so as to propagate the `TileDB` time-stamp to members.
     #'
     tiledb_timestamp = function(value) {
+
       if (!missing(value)) {
-        .emit_read_only_error("tiledb_timestamp")
+
+        if (is.null(value)) {
+          .time_stamp <- set_tiledb_timestamp()
+        } else if (length(value) == 1L) {
+          .time_stamp <- set_tiledb_timestamp(end_time = value)
+        } else if (length(value) == 2L & !inherits(value, "tiledb_timestamp")) {
+          .time_stamp <- set_tiledb_timestamp(start_time = value[1], end_time = value[2])
+        } else if (inherits(value, "tiledb_timestamp")) {
+          .time_stamp <- value
+        } else {
+          cli::cli_abort("Invalid 'tiledb_timestamp' input", call = NULL)
+        }
+
+        if (self$mode != "WRITE") {
+
+          self$close()
+
+          # .member cache is only applicable to TileDBGroup
+          if (!is.null(private$.member_cache )) {
+            # Clear cache in order to reopen members with new timestamps
+            private$.member_cache <- NULL
+          }
+
+          private$.tiledb_timestamp <- .time_stamp
+
+          private$.tiledb_ctx <- .set_group_timestamps(private$.tiledb_ctx, .time_stamp)
+
+          self$open()
+        }
+
       }
       private$.tiledb_timestamp
     },
 
-    #' @field uri The URI of the TileDB object.
+    #' @field uri The URI of the `TileDB` object.
     #'
     uri = function(value) {
       if (!missing(value)) {
@@ -298,10 +347,11 @@ TileDBObject <- R6::R6Class(
     # Contains a URI string
     .tiledb_uri = NULL,
 
-    # Opener-supplied POSIXct timestamp, if any. TileDBArray and TileDBGroup are each responsible
-    # for making this effective, since the methods differ slightly.
+
+    # Store the object from set_tiledb_timestamp
     .tiledb_timestamp = NULL,
 
+    # TileDB Context
     .tiledb_ctx = NULL,
 
     # Initially NULL, once the TileDB object (array or group) is created or opened,
@@ -333,7 +383,7 @@ TileDBObject <- R6::R6Class(
     #       we must open a temporary handle for reading, to fill the cache.
     #
     update_metadata_cache = function() {
-
+      # TODO: support metadata timetravelling
       private$log_debug("update_metadata_cache", "Updating metadata cache for class {}", self$class())
 
       out <- switch(self$object_type,
@@ -363,15 +413,26 @@ TileDBObject <- R6::R6Class(
 
            array_handle <- private$.tiledb_array
 
-          if (private$.mode == "WRITE") {
+           tstamp <- self$tiledb_timestamp
+           ts_info <- attr(tstamp, which = "ts_info", exact = TRUE)
+           tstart <- tstamp$timestamp_start
+           tend <- tstamp$timestamp_end
+
+           # NOTE: we should open new handle only when WRITE mode?
+          if (private$.mode == "WRITE" | ts_info != "default") {
+
+            if (length(tend) == 0) {
+              tend <- Sys.time()
+            }
 
             private$log_debug("update_metadata_cache", "Getting array object")
 
             array_object <- tiledb::tiledb_array(self$uri, ctx = private$.tiledb_ctx)
 
-            array_handle <- tiledb::tiledb_array_open(array_object, type = "READ")
-            on.exit({ tiledb::tiledb_array_close(array_handle) })
-          }
+            array_handle <- .tiledb_array_open_at2(array_object, type = "READ", timestamp = tend)
+
+            on.exit({.tiledb_array_close2(array_handle)})
+           }
 
           .m  <- tiledb::tiledb_get_all_metadata(array_handle)
 
@@ -437,7 +498,7 @@ TileDBObject <- R6::R6Class(
     },
 
     # Get metadata method requires open for read mode or write mode.
-    check_open_for_read_or_write = function() {
+    check_open = function() {
 
       if (!self$is_open()) {
 
@@ -477,6 +538,20 @@ TileDBObject <- R6::R6Class(
     check_object_exists = function() {
       if (!self$exists()) {
         cli::cli_abort("R6Class: {.cls {self$class()}} object does not exist.", call = NULL)
+      }
+    },
+    check_object_is_closed = function() {
+
+      private$check_object_exists()
+
+      if (self$is_open()) {
+         tp <- if (self$object_type == "GROUP") {
+           "TileDB Group"
+         } else {
+           "TileDB Array"
+         }
+        cli::cli_abort(c("{.arg {tp}} is already opened.",
+                         "i" = "Use {.code reopen()} method instead."), call = NULL)
       }
     },
     log_debug0 = function(method, comment, ...) {

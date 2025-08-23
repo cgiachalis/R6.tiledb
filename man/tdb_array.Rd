@@ -7,16 +7,26 @@
 tdb_array(uri, mode = "READ", ctx = NULL, tiledb_timestamp = NULL)
 }
 \arguments{
-\item{uri}{URI path for the TileDB Array.}
+\item{uri}{URI path for the \code{TileDB} object.}
 
 \item{mode}{Mode to open : either \verb{"READ" (default) or "WRITE"}.}
 
 \item{ctx}{Optional \code{\link[tiledb:tiledb_ctx]{tiledb::tiledb_ctx()}} object.}
 
-\item{tiledb_timestamp}{Optional Datetime (POSIXct) with TileDB timestamp.}
+\item{tiledb_timestamp}{Set a \code{TileDB} timestamp range that
+the resource will be opened at. Effective only for \code{"READ"} mode.
+Valid options:
+\itemize{
+\item A \code{NULL} value (default)
+\item An \code{R} object coercible to \code{POSIXct} with length 1 which used for end timestamp,
+or length 2 with start, end timestamps
+\item An object of class \code{tiledb_timestamp}. See \code{\link[=set_tiledb_timestamp]{set_tiledb_timestamp()}}
+}
+
+Also, it can be set through active field \verb{$tiledb_timestamp}.}
 }
 \value{
-An \code{R6} object.
+An \code{TileDBArrayExp}, \code{R6} object.
 }
 \description{
 Functional interface that initialise a \code{TileDBArrayExp} instance and opens the
@@ -25,17 +35,13 @@ array at \code{READ} mode.
 \section{Active bindings}{
 
 \itemize{
-\item \code{ctx} : TileDB Context
-\item \code{tiledb_timestamp} : Time that object was opened at
-\item \code{uri} : The URI of the TileDB object
+\item \code{ctx} : A TileDB Context. See \code{\link[tiledb:tiledb_ctx]{tiledb::tiledb_ctx()}}
+\item \code{tiledb_timestamp} : A \code{TileDB} timestamp range that
+the resource will be opened at. See \code{\link[=set_tiledb_timestamp]{set_tiledb_timestamp()}}
+\item \code{uri} : The URI of the \code{TileDB} object
 \item \code{mode}: Get the mode of the object: one of the following:
 \code{"CLOSED"}, \code{"READ"} or \code{"WRITE"}
-\item \code{object_type} : The TileDB object type:
-\itemize{
-\item \code{"ARRAY"}, for dense or sparse array resource
-\item \code{"GROUP"}, for group resource
-\item \code{"INVALID"}, for not a TileDB resource
-}
+\item \code{object_type} : The \code{TileDB} object type: \code{"ARRAY"},\code{"GROUP"} or \code{"INVALID"}
 \item \code{object} : Access the underlying \code{\link[tiledb:tiledb_array]{tiledb::tiledb_array()}} object. When
 used before open() method, the underlying array will be initialised at \code{"READ"}
 mode and kept open.

@@ -20,9 +20,13 @@ print.tdb_metadata <- function(x,...) {
     out <- character()
   }
 
-  s <- sprintf("TileDB %s: <R6 Class: %s>", attr(x, "object_type"), attr(x, "R6.class"))
-  cli::cat_line(c(s, "Metadata: <key,value>", out))
+  cls <- cli::col_br_blue(sprintf("<R6 Class: %s>", attr(x, "R6.class")))
+  sub1 <- sprintf(paste("TileDB %s:", cls), attr(x, "object_type"))
+  sub2 <- paste0("<key,value> ", cli::col_br_red(cli::symbol$bullet), sprintf(" total %i", n))
+
+  cli::cat_line(c(sub1, paste0("Metadata: ", cli::col_grey(sub2)), out))
   cli::cat_line(footer)
+
   invisible(x)
 }
 
@@ -36,4 +40,28 @@ print.tdb_metadata <- function(x,...) {
   attributes(out)[attr.names] <- xattrs[attr.names]
   class(out) <- c("tdb_metadata", "list")
   out
+}
+
+#' @export
+print.tiledb_timestamp <- function(x, ...) {
+
+  tzx <-  attr(x, "tzone", exact = TRUE)
+  tz_txt <- paste0("(",tzx,")")
+  note <- attr(x, "ts_info", exact = TRUE)
+  note <- paste0("(",note,")")
+
+  ts_char <- vector("character", length = 2)
+  ts_char[1] <- if (length(x$timestamp_start) == 0) "origin" else format(x$timestamp_start, "%Y-%m-%d %H:%M:%S", tz = tzx)
+  ts_char[2] <- if (length(x$timestamp_end) == 0) format(Sys.time(), tz = tzx) else format(x$timestamp_end,"%Y-%m-%d %H:%M:%S", tz = tzx)
+
+  txt <- paste0(c("start", "end  "), ": ", cli::col_br_blue(ts_char))
+  out <- paste0(" ", cli::col_br_cyan(cli::symbol$bullet), " ", txt, collapse = "\n")
+
+  header1 <- paste0("TileDB Timestamp ", cli::col_grey(note), " ")
+  header2 <- paste0(" TZ ", cli::col_grey(tz_txt))
+  header <- paste0(header1, cli::col_br_red(cli::symbol$bullet), header2)
+
+  cli::cat_line(c(header , out))
+
+  invisible(x)
 }

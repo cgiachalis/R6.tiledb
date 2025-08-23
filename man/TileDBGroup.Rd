@@ -38,7 +38,6 @@ A new \code{TileDBGroup} instance is initialized using the \code{new()} method:
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
-\item \href{#method-TileDBGroup-new}{\code{TileDBGroup$new()}}
 \item \href{#method-TileDBGroup-create}{\code{TileDBGroup$create()}}
 \item \href{#method-TileDBGroup-open}{\code{TileDBGroup$open()}}
 \item \href{#method-TileDBGroup-close}{\code{TileDBGroup$close()}}
@@ -61,33 +60,13 @@ A new \code{TileDBGroup} instance is initialized using the \code{new()} method:
 <li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBObject" data-id="class"><a href='../../R6.tiledb/html/TileDBObject.html#method-TileDBObject-class'><code>R6.tiledb::TileDBObject$class()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBObject" data-id="exists"><a href='../../R6.tiledb/html/TileDBObject.html#method-TileDBObject-exists'><code>R6.tiledb::TileDBObject$exists()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBObject" data-id="get_metadata"><a href='../../R6.tiledb/html/TileDBObject.html#method-TileDBObject-get_metadata'><code>R6.tiledb::TileDBObject$get_metadata()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBObject" data-id="initialize"><a href='../../R6.tiledb/html/TileDBObject.html#method-TileDBObject-initialize'><code>R6.tiledb::TileDBObject$initialize()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBObject" data-id="is_open"><a href='../../R6.tiledb/html/TileDBObject.html#method-TileDBObject-is_open'><code>R6.tiledb::TileDBObject$is_open()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBObject" data-id="reopen"><a href='../../R6.tiledb/html/TileDBObject.html#method-TileDBObject-reopen'><code>R6.tiledb::TileDBObject$reopen()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBObject" data-id="set_metadata"><a href='../../R6.tiledb/html/TileDBObject.html#method-TileDBObject-set_metadata'><code>R6.tiledb::TileDBObject$set_metadata()</code></a></span></li>
 </ul>
 </details>
 }}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-TileDBGroup-new"></a>}}
-\if{latex}{\out{\hypertarget{method-TileDBGroup-new}{}}}
-\subsection{Method \code{new()}}{
-Create a new \code{TileDBGroup} instance.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{TileDBGroup$new(uri, ctx = NULL, tiledb_timestamp = NULL)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{uri}}{URI path for the TileDB Group.}
-
-\item{\code{ctx}}{Optional \code{\link[tiledb:tiledb_ctx]{tiledb::tiledb_ctx()}} object.}
-
-\item{\code{tiledb_timestamp}}{Optional Datetime (POSIXct) with TileDB timestamp.}
-}
-\if{html}{\out{</div>}}
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-TileDBGroup-create"></a>}}
 \if{latex}{\out{\hypertarget{method-TileDBGroup-create}{}}}

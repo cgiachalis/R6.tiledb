@@ -22,7 +22,6 @@ test_that("'TileDBObject' abstract class works as expected", {
 
   # Test read only active fields ---
   expect_error(arrObj$uri <- "a")
-  expect_error(arrObj$tiledb_timestamp <- "a")
   expect_error(arrObj$ctx <- "a")
   expect_error(arrObj$object_type <- "a")
   expect_error(arrObj$mode <- "a")

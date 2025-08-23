@@ -44,7 +44,6 @@ array.}
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
-\item \href{#method-TileDBArrayExp-new}{\code{TileDBArrayExp$new()}}
 \item \href{#method-TileDBArrayExp-reopen}{\code{TileDBArrayExp$reopen()}}
 \item \href{#method-TileDBArrayExp-any_enums}{\code{TileDBArrayExp$any_enums()}}
 \item \href{#method-TileDBArrayExp-enum_columns}{\code{TileDBArrayExp$enum_columns()}}
@@ -71,6 +70,7 @@ array.}
 <li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBObject" data-id="class"><a href='../../R6.tiledb/html/TileDBObject.html#method-TileDBObject-class'><code>R6.tiledb::TileDBObject$class()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBObject" data-id="exists"><a href='../../R6.tiledb/html/TileDBObject.html#method-TileDBObject-exists'><code>R6.tiledb::TileDBObject$exists()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBObject" data-id="get_metadata"><a href='../../R6.tiledb/html/TileDBObject.html#method-TileDBObject-get_metadata'><code>R6.tiledb::TileDBObject$get_metadata()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBObject" data-id="initialize"><a href='../../R6.tiledb/html/TileDBObject.html#method-TileDBObject-initialize'><code>R6.tiledb::TileDBObject$initialize()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBObject" data-id="is_open"><a href='../../R6.tiledb/html/TileDBObject.html#method-TileDBObject-is_open'><code>R6.tiledb::TileDBObject$is_open()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBObject" data-id="set_metadata"><a href='../../R6.tiledb/html/TileDBObject.html#method-TileDBObject-set_metadata'><code>R6.tiledb::TileDBObject$set_metadata()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBArray" data-id="attributes"><a href='../../R6.tiledb/html/TileDBArray.html#method-TileDBArray-attributes'><code>R6.tiledb::TileDBArray$attributes()</code></a></span></li>
@@ -88,41 +88,18 @@ array.}
 </details>
 }}
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-TileDBArrayExp-new"></a>}}
-\if{latex}{\out{\hypertarget{method-TileDBArrayExp-new}{}}}
-\subsection{Method \code{new()}}{
-Create a new \code{TileDBArrayExp} instance.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{TileDBArrayExp$new(uri, ctx = NULL, tiledb_timestamp = NULL)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{uri}}{URI path for the \code{TileDB} Array.}
-
-\item{\code{ctx}}{Optional \code{\link[tiledb:tiledb_ctx]{tiledb::tiledb_ctx()}} object.}
-
-\item{\code{tiledb_timestamp}}{Optional Datetime (POSIXct) with TileDB timestamp.}
-}
-\if{html}{\out{</div>}}
-}
-}
-\if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-TileDBArrayExp-reopen"></a>}}
 \if{latex}{\out{\hypertarget{method-TileDBArrayExp-reopen}{}}}
 \subsection{Method \code{reopen()}}{
 Close and reopen the TileDB object in a new mode.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{TileDBArrayExp$reopen(mode = c("READ", "WRITE"), tiledb_timestamp = NULL)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{TileDBArrayExp$reopen(mode = c("READ", "WRITE"))}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
 \item{\code{mode}}{New mode to open the object in; choose from: \code{"READ"} or \code{"WRITE"}.}
-
-\item{\code{tiledb_timestamp}}{Optional Datetime (POSIXct) with TileDB timestamp.}
 }
 \if{html}{\out{</div>}}
 }

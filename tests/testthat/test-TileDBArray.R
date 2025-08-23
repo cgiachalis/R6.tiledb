@@ -106,8 +106,8 @@ test_that("'TileDBArray' class works as expected", {
   expect_error(arrObj$set_metadata(md))
   arrObj$close()
 
-  expect_equal(arrObj$get_metadata(key = "d"), "Boo")
-  expect_equal(arrObj$get_metadata(key = "a"), "Hi")
+  expect_equal(arrObj$get_metadata(keys = "d"), "Boo")
+  expect_equal(arrObj$get_metadata(keys = "a"), "Hi")
   md <- arrObj$get_metadata()
   expect_equal(length(md), 5)
 
@@ -133,12 +133,38 @@ test_that("'TileDBArray' class works as expected", {
   # We need the ability to read back metadata even when the
   # array is opened for write.
   arrObj$open(mode = "WRITE")
-  expect_equal(arrObj$get_metadata(key = "d"), "Boo")
-  expect_equal(arrObj$get_metadata(key = "a"), "Hi")
+  expect_equal(arrObj$get_metadata(keys = "d"), "Boo")
+  expect_equal(arrObj$get_metadata(keys = "a"), "Hi")
   expect_equal(length(arrObj$get_metadata()), 5)
   arrObj$close()
 
-  # new instances
+  # Test tiledb_timestamp active field
+
+  expect_no_error(arrObj$tiledb_timestamp <- NULL)
+  expect_s3_class(arrObj$tiledb_timestamp, "tiledb_timestamp")
+
+  expect_no_error(arrObj$tiledb_timestamp <- 10)
+  expect_equal(arrObj$tiledb_timestamp, set_tiledb_timestamp(end_time = 10))
+
+  expect_no_error(arrObj$tiledb_timestamp <- c(0, 10))
+  expect_equal(arrObj$tiledb_timestamp, set_tiledb_timestamp(0, end_time = 10))
+
+  expect_no_error(arrObj$tiledb_timestamp <- "1990-01-01")
+  expect_equal(arrObj$tiledb_timestamp, set_tiledb_timestamp(end_time =  "1990-01-01"))
+
+  expect_no_error(arrObj$tiledb_timestamp <- as.POSIXct(10, tz = "UTC"))
+  expect_equal(arrObj$tiledb_timestamp, set_tiledb_timestamp(end_time = as.POSIXct(10)))
+
+  ts <- set_tiledb_timestamp(start_time = as.Date("1990-01-01"), end_time = as.Date("2000-01-01"))
+  expect_no_error(arrObj$tiledb_timestamp <- ts)
+  expect_equal(arrObj$tiledb_timestamp, ts)
+
+  expect_error(arrObj$tiledb_timestamp <- "bob", label = "character string is not in a standard unambiguous format")
+  expect_error(arrObj$tiledb_timestamp <- c(1, 3, 3), label = "Invalid 'tiledb_timestamp' input")
+  expect_error(arrObj$tiledb_timestamp <- numeric(0), label = "Invalid 'tiledb_timestamp' input")
+
+  # new instances ----------------------------------------------------
+
   arrObj_new <- TileDBArray$new(uri = uri)
   expect_invisible(arrObj_new$open())
   expect_equal(arrObj_new$mode, "READ")
@@ -147,10 +173,13 @@ test_that("'TileDBArray' class works as expected", {
   expect_true(tiledb::tiledb_array_is_open_for_reading(arrObj_new$object), TRUE)
   arrObj_new$close()
   expect_equal(arrObj_new$mode, "CLOSED")
+  expect_false(tiledb::tiledb_array_is_open(arrObj_new$object))
 
   # Verify that object is kept open in READ mode (not using open method) (2/2)
   arrObj_new <- TileDBArray$new(uri = uri)
   expect_true(tiledb::tiledb_array_is_open_for_reading(arrObj_new$object), TRUE)
+  expect_equal(arrObj_new$mode, "READ")
+  arrObj_new$close()
 
   # Verify that array is open in WRITE mode
   arrObj_new <- TileDBArray$new(uri = uri)
@@ -161,6 +190,82 @@ test_that("'TileDBArray' class works as expected", {
   expect_snapshot(arrObj$print())
 
   arrObj_new$close()
+
+})
+
+test_that("Array, Metadata test time-traveling works", {
+
+  trg <- structure(list(id = c(1L, 1L, 1L), val = c(1, 2, 3)), query_status = "COMPLETE")
+  trg_t1 <- structure(list(id = c(1L), val = c(1)), query_status = "COMPLETE")
+  trg_t2 <- structure(list(id = c(1L), val = c(2)), query_status = "COMPLETE")
+  trg_t4 <- structure(list(id = c(1L, 1L), val = c(2, 3)), query_status = "COMPLETE")
+  trg_t3 <- structure(list(id = c(1L, 1L), val = c(1, 2)), query_status = "COMPLETE")
+
+  trg_meta <- structure(
+    list(key1 = "2025-08-18 16:12:50", key2 = "2025-08-18 16:12:55", key3 = "2025-08-18 16:13:01"),
+    class = c("tdb_metadata", "list"),
+    R6.class = "TileDBArrayExp",
+    object_type = "ARRAY"
+  )
+
+  uri <- file.path(withr::local_tempdir(), "test-timetravel")
+  tstamps <- write_test_array_tstamps2(uri, 3)
+
+  # Test that init and store the tiledb array with reading or
+  # writing @ time point
+  expect_no_error(arrobj <- TileDBArray$new(uri, tiledb_timestamp = tstamps[1]))
+  expect_equal(arrobj$mode, "CLOSED")
+  expect_no_error(arrobj$open())
+  arrobj$close(); rm(arrobj)
+
+  arrobj <- TileDBArray$new(uri, tiledb_timestamp = tstamps[1])
+  expect_no_error(arrobj$open(mode = "WRITE"))
+  arrobj$close(); rm(arrobj)
+
+  # Time - traveling
+  arrobj <- tdb_array(uri)
+
+  expect_equal(arrobj$object[], trg)
+  expect_equal(arrobj$get_metadata(), trg_meta)
+
+  arrobj$tiledb_timestamp <- tstamps[1]
+  expect_equal(arrobj$object[], trg_t1)
+  expect_equal(arrobj$get_metadata(), trg_meta[1])
+
+  arrobj$tiledb_timestamp <- tstamps[1]
+  expect_equal(arrobj$object[], trg_t1)
+  expect_equal(arrobj$get_metadata(), trg_meta[1])
+
+  arrobj$tiledb_timestamp <- tstamps[2]
+  expect_equal(arrobj$object[], trg_t3)
+  expect_equal(arrobj$get_metadata(), trg_meta[1:2])
+
+  arrobj$tiledb_timestamp <- c(tstamps[2], tstamps[2])
+  expect_equal(arrobj$object[], trg_t2)
+  # time range not applicable to metadata
+  expect_equal(arrobj$get_metadata(), trg_meta[1:2])
+
+  arrobj$tiledb_timestamp <- c(tstamps[2], tstamps[3])
+  expect_equal(arrobj$object[], trg_t4)
+  # time range not applicable to metadata
+  expect_equal(arrobj$get_metadata(), trg_meta)
+
+  # reset
+  arrobj$tiledb_timestamp <- NULL
+  expect_equal(arrobj$object[], trg)
+  expect_equal(arrobj$get_metadata(), trg_meta)
+
+  # no effect on "WRITE" mode
+  arrobj$reopen("WRITE")
+  arrobj$tiledb_timestamp <- tstamps[1]
+  expect_equal(arrobj$mode, "WRITE")
+  expect_equal(arrobj$object[], trg)
+  expect_equal(arrobj$get_metadata(), trg_meta)
+
+  arrobj$close()
+  arrobj$tiledb_timestamp <- tstamps[1]
+  # active field 'tiledb_timestamp' triggers opening
+  expect_error(arrobj$open("WRITE"), label = "TileDB Array is already opened.")
 
 })
 
