@@ -28,6 +28,7 @@ reference:
   desc: ~
   contents:
   - tdb_array
+  - open_write
 
 - title: R6 Interface
   desc: ~
