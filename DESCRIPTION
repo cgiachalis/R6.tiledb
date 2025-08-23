@@ -1,7 +1,7 @@
 Package: R6.tiledb
 Title: R6 Classes for TileDB Arrays and Groups
-Version: 0.2.0.11
-Date: 2025-08-13
+Version: 0.2.0.12
+Date: 2025-08-23
 Authors@R: c(
     person("Constantinos", "Giachalis", , "cgiachalis@outlook.com", role = c("aut", "cre")),
     person("TileDB, Inc", role = "ctb",
@@ -19,6 +19,7 @@ BugReports: https://github.com/cgiachalis/R6.tiledb/issues
 Depends:
     R (>= 4.4.0)
 Imports:
+    bit64,
     cli,
     fs,
     methods,
