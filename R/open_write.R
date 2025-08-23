@@ -31,8 +31,7 @@ open_write <- function(object, ...) {
 NULL
 #' @export
 open_write.default <- function(object, timestamp = NULL, ...) {
-  stop(sprintf("No method for object %s. See ?open_write for details.",
-               sQuote(deparse(substitute(object)))), call. = FALSE)
+  cli::cli_abort("No method for class {.cls {class(object)[1]}}. See {.help [{.fun open_write}](R6.tiledb::open_write)} for details.", call = NULL)
 }
 
 
