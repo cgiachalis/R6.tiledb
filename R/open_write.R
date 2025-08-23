@@ -38,7 +38,7 @@ open_write.default <- function(object, timestamp = NULL, ...) {
 
 #' @export
 #' @rdname open_write
-open_write.TileDBArray <- function(object, timestamp = NULL) {
+open_write.TileDBArray <- function(object, timestamp = NULL, ...) {
 
   if (!object$exists()) {
     cli::cli_abort("R6Class: {.cls {object$class()}} object does not exist.", call = NULL)
@@ -60,7 +60,7 @@ open_write.TileDBArray <- function(object, timestamp = NULL) {
 
 #' @export
 #' @rdname open_write
-open_write.tiledb_array <- function(object, timestamp = NULL) {
+open_write.tiledb_array <- function(object, timestamp = NULL, ...) {
 
 
   if (tiledb::tiledb_array_is_open(object)) {
@@ -78,7 +78,7 @@ open_write.tiledb_array <- function(object, timestamp = NULL) {
 
 #' @export
 #' @rdname open_write
-open_write.TileDBGroup <- function(object, timestamp = NULL) {
+open_write.TileDBGroup <- function(object, timestamp = NULL, ...) {
 
   if (!object$exists()) {
     cli::cli_abort("R6Class: {.cls {object$class()}} object does not exist.", call = NULL)
@@ -113,7 +113,7 @@ open_write.TileDBGroup <- function(object, timestamp = NULL) {
 
 #' @export
 #' @rdname open_write
-open_write.tiledb_group <- function(object, timestamp = NULL) {
+open_write.tiledb_group <- function(object, timestamp = NULL, ...) {
 
    uri <- tiledb::tiledb_group_uri(object)
    grp <- TileDBGroup$new(uri)
@@ -122,7 +122,7 @@ open_write.tiledb_group <- function(object, timestamp = NULL) {
 
 #' @export
 #' @rdname open_write
-open_write.character <- function(object, timestamp = NULL) {
+open_write.character <- function(object, timestamp = NULL, ...) {
 
   check_uri(object)
 

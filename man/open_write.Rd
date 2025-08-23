@@ -9,15 +9,15 @@
 \alias{open_write.character}
 \title{Open a TileDB Array or Group at Write Mode}
 \usage{
-\method{open_write}{TileDBArray}(object, timestamp = NULL)
+\method{open_write}{TileDBArray}(object, timestamp = NULL, ...)
 
-\method{open_write}{tiledb_array}(object, timestamp = NULL)
+\method{open_write}{tiledb_array}(object, timestamp = NULL, ...)
 
-\method{open_write}{TileDBGroup}(object, timestamp = NULL)
+\method{open_write}{TileDBGroup}(object, timestamp = NULL, ...)
 
-\method{open_write}{tiledb_group}(object, timestamp = NULL)
+\method{open_write}{tiledb_group}(object, timestamp = NULL, ...)
 
-\method{open_write}{character}(object, timestamp = NULL)
+\method{open_write}{character}(object, timestamp = NULL, ...)
 }
 \arguments{
 \item{object}{An \code{R} object that contains a \code{TileDB} resource pointer.}
