@@ -104,11 +104,8 @@ TileDBGroup <- R6::R6Class(
         private$log_debug("close", "Closing group")
 
         private$.tiledb_group <- tiledb::tiledb_group_close(private$.tiledb_group)
-
         private$.mode <- "CLOSED"
-
         private$.tiledb_timestamp <- set_tiledb_timestamp()
-
       }
 
       invisible(self)
