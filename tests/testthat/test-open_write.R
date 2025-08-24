@@ -34,7 +34,8 @@ test_that("'open_write' method for Arrays works OK", {
   tstamps <- array_timestamps(arr)
   expect_equal(tstamps$open_array, trg_tstamps_t1)
 
-  arr <- .tiledb_array_close2(arr)
+  expect_true(close(arr))
+  expect_false(tiledb::tiledb_array_is_open(arr))
 
   # 'tiledb_array' method ---
   arrobj <- TileDBArray$new(uri)
@@ -51,7 +52,11 @@ test_that("'open_write' method for Arrays works OK", {
   tstamps <- array_timestamps(arr)
   expect_equal(tstamps$open_array, trg_tstamps_t1)
 
-  arr <- .tiledb_array_close2(arr)
+  expect_true(close(arr))
+  expect_false(tiledb::tiledb_array_is_open(arr))
+
+  expect_true(close(arrobj))
+  expect_false(arrobj$is_open())
 
 
   # 'TileDBArray' method ---
@@ -150,6 +155,10 @@ test_that("'open_write' method for Groups works OK", {
   end_time <- .get_group_timestamp_end(grp)
   expect_equal(end_time, ts[1])
 
-  grp <- tiledb::tiledb_group_close(grp)
+  expect_true(close(grp))
+  expect_false(tiledb::tiledb_group_is_open(grp))
+
+  expect_true(close(group))
+  expect_false(group$is_open())
 
 })
