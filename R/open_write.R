@@ -14,6 +14,11 @@ open_write <- function(object, ...) {
 #' Objects other than a URI character are implicitly closed if found opened and
 #' then opened again at write mode.
 #'
+#' `TileDBArray`, `TileDBGroup` or their subclasses will return the underlying
+#'  TileDB object (`tiledb_array` or `tiledb_group`) and their timestamps will
+#'  differ from the objects in the R6 class as writing at timestamp is not
+#'  applicable.
+#'
 #'
 #' @param object An `R` object that contains a `TileDB` resource pointer.
 #' @param timestamp Optional datetime object of class `"POSIXct"` to write
@@ -88,23 +93,18 @@ open_write.TileDBGroup <- function(object, timestamp = NULL, ...) {
     object$close()
   }
 
+  object$open("WRITE")
+
   if (is.null(timestamp)) {
-    grp <- object$open("WRITE")$object
-  } else {
 
     grp <- object$object
+  } else {
 
-    if (tiledb::tiledb_group_is_open(grp)) {
-      grp <- tiledb::tiledb_group_close(grp)
-    }
-
-    cfg <- tiledb::tiledb_group_get_config(grp)
-
+    ctx <- object$ctx
+    cfg <- tiledb::config(ctx)
     cfg["sm.group.timestamp_end"] <- .posixt_to_int64char(timestamp)
 
-    grp <- tiledb::tiledb_group_set_config(grp, cfg)
-    grp <- tiledb::tiledb_group_open(grp, type = "WRITE")
-    grp
+    grp <- tiledb::tiledb_group(object$uri, type = "WRITE", ctx = ctx, cfg = cfg)
 
   }
 

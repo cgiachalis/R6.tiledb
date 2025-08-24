@@ -40,4 +40,9 @@ Opening a character string should be a valid URI path for a TileDB resource.
 
 Objects other than a URI character are implicitly closed if found opened and
 then opened again at write mode.
+
+\code{TileDBArray}, \code{TileDBGroup} or their subclasses will return the underlying
+TileDB object (\code{tiledb_array} or \code{tiledb_group}) and their timestamps will
+differ from the objects in the R6 class as writing at timestamp is not
+applicable.
 }

@@ -11,11 +11,11 @@ trg_tstamps_t1 <- list(
 test_that("'open_write' method for Arrays works OK", {
 
   uri <- file.path(withr::local_tempdir(), "test-open_write")
-
   ts <- as.POSIXct("2025-08-18 13:12:50 UTC", tz = "UTC")
-
   df <- data.frame(id = 1L, val = 1.0)
   tiledb::fromDataFrame(df, uri, col_index = 1, mode = "schema_only")
+
+  # -----------------------------------------------------------------
 
   # default method
   expect_error(open_write(list(1)), label = " No method for object ‘list(1)’.")
@@ -67,6 +67,7 @@ test_that("'open_write' method for Arrays works OK", {
   arrobj <- TileDBArray$new(uri)
   expect_no_error(arr <- open_write(arrobj))
   expect_true(tiledb::tiledb_array_is_open_for_writing(arr))
+  expect_equal(arrobj$mode,"WRITE")
 
   tstamps <- array_timestamps(arr)
   expect_equal(tstamps$open_array, trg_tstamps)
@@ -74,14 +75,21 @@ test_that("'open_write' method for Arrays works OK", {
   expect_no_error(arr <- open_write(arrobj, timestamp = ts[1]))
   expect_true(tiledb::tiledb_array_is_open_for_writing(arr))
 
+
   tstamps <- array_timestamps(arr)
   expect_equal(tstamps$open_array, trg_tstamps_t1)
 
-  arr <- .tiledb_array_close2(arr)
+  # ensure we didn't change arrobj timestamps
+  cls_open <- array_timestamps(arrobj)$open_array
+  expect_false(identical(cls_open, trg_tstamps_t1))
+
+  close(arr)
+  close(arrobj)
 
   })
 
 test_that("'open_write' method for Groups works OK", {
+
 
   .get_group_timestamp_end <- function(x) {
     cfg <- tiledb::tiledb_group_get_config(x)
@@ -136,6 +144,10 @@ test_that("'open_write' method for Groups works OK", {
 
   grp <- tiledb::tiledb_group_close(grp)
 
+  # Call gc() as we get
+  # what():  [TileDB::C++API] Error: Non-retrievable error occurred
+  # Exited with status -1073740791.
+  gc()
 
   # 'TileDBGroup' method ---
   uri_no <- file.path(withr::local_tempdir(), "test-group-no")
@@ -144,6 +156,7 @@ test_that("'open_write' method for Groups works OK", {
 
   group <- TileDBGroup$new(uri)
   expect_no_error(grp <- open_write(group))
+  expect_equal(group$mode, "WRITE")
   expect_equal(tiledb::tiledb_group_query_type(grp), "WRITE")
 
   end_time <- .get_group_timestamp_end(grp)
@@ -154,6 +167,9 @@ test_that("'open_write' method for Groups works OK", {
 
   end_time <- .get_group_timestamp_end(grp)
   expect_equal(end_time, ts[1])
+
+  # ensure class object has intact timestamp end
+  expect_equal(.get_group_timestamp_end(group$object), as.POSIXct(NA, tz = "UTC"))
 
   expect_true(close(grp))
   expect_false(tiledb::tiledb_group_is_open(grp))
