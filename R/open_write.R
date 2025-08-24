@@ -4,12 +4,12 @@ open_write <- function(object, ...) {
 }
 
 
-#' Open a TileDB Array or Group at Write Mode
+#' Open a TileDB Resource at Write Mode
 #'
 #' Open a URI, [tiledb::tiledb_array()], [tiledb::tiledb_group()], [TileDBArray]
-#' or [TileDBGroup] at write mode with optional timestamp.
+#' or [TileDBGroup] at write mode with an optional timestamp.
 #'
-#' Opening a character should be a valid URI path for a TileDB resource.
+#' Opening a character string should be a valid URI path for a TileDB resource.
 #'
 #' Objects other than a URI character are implicitly closed if found opened and
 #' then opened again at write mode.
@@ -20,8 +20,8 @@ open_write <- function(object, ...) {
 #'  at this timestamp.
 #' @param ... Other arguments passed to methods. Not used.
 #'
-#' @returns An object of class `tiledb_array` or `tiledb_group` depending on the method
-#' opened at write mode.
+#' @returns An object of class `tiledb_array` or `tiledb_group` depending on
+#' the method.
 #'
 #'
 #' @export

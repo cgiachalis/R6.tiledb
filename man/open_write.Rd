@@ -7,7 +7,7 @@
 \alias{open_write.TileDBGroup}
 \alias{open_write.tiledb_group}
 \alias{open_write.character}
-\title{Open a TileDB Array or Group at Write Mode}
+\title{Open a TileDB Resource at Write Mode}
 \usage{
 \method{open_write}{TileDBArray}(object, timestamp = NULL, ...)
 
@@ -28,15 +28,15 @@ at this timestamp.}
 \item{...}{Other arguments passed to methods. Not used.}
 }
 \value{
-An object of class \code{tiledb_array} or \code{tiledb_group} depending on the method
-opened at write mode.
+An object of class \code{tiledb_array} or \code{tiledb_group} depending on
+the method.
 }
 \description{
 Open a URI, \code{\link[tiledb:tiledb_array]{tiledb::tiledb_array()}}, \code{\link[tiledb:tiledb_group]{tiledb::tiledb_group()}}, \link{TileDBArray}
-or \link{TileDBGroup} at write mode with optional timestamp.
+or \link{TileDBGroup} at write mode with an optional timestamp.
 }
 \details{
-Opening a character should be a valid URI path for a TileDB resource.
+Opening a character string should be a valid URI path for a TileDB resource.
 
 Objects other than a URI character are implicitly closed if found opened and
 then opened again at write mode.

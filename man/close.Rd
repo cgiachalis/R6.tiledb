@@ -17,8 +17,7 @@
 \method{close}{TileDBGroup}(con, ...)
 }
 \arguments{
-\item{con}{An \code{R} object of class \code{\link[tiledb:tiledb_array]{tiledb::tiledb_array()}}, \code{\link[tiledb:tiledb_group]{tiledb::tiledb_group()}}, \link{TileDBArray}
-or \link{TileDBGroup}.}
+\item{con}{An \code{R} object that contains a \code{TileDB} resource pointer.}
 
 \item{...}{Other arguments passed to methods. Not used.}
 }

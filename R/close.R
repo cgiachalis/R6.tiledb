@@ -5,8 +5,7 @@
 #' or [TileDBGroup] object.
 #'
 #'
-#' @param con An `R` object of class [tiledb::tiledb_array()], [tiledb::tiledb_group()], [TileDBArray]
-#' or [TileDBGroup].
+#' @param con An `R` object that contains a `TileDB` resource pointer.
 #' @param ... Other arguments passed to methods. Not used.
 #'
 #' @returns Invisibly, a logical `TRUE` on success.
