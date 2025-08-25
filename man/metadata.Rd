@@ -12,7 +12,7 @@
 \alias{metadata<-.tiledb_array}
 \alias{metadata<-.tiledb_group}
 \alias{metadata<-.character}
-\title{\code{TileDB} Object Metadata}
+\title{TileDB Object Metadata}
 \usage{
 \method{metadata}{TileDBArray}(x, which)
 
@@ -49,7 +49,7 @@ For the extractor, the key value of the metadata matched, or \code{NULL}
 if no exact match is found.
 }
 \description{
-Get or set a metadata key for a  \code{TileDB} array or group.
+Get or set a metadata key for a \code{TileDB} array or group.
 }
 \details{
 These functions work similar to \code{\link[=attr]{attr()}} and provide access to a
@@ -58,4 +58,14 @@ puts a metadata key with the value specified or creates a new metadata
 with the value given.
 
 The character method is intended for a valid URI path.
+
+The methods will not alter the mode of the \code{TileDB} object.
+
+For the extractor the object will be opened temporarily to access the
+metadata if it is closed.
+
+For the replacement, the object will be opened in write mode temporarily
+and on exit will revert back to previous mode; in the case where the object
+is already in write mode then it will be reopened at the same mode in order
+to flush the metadata on disk.
 }

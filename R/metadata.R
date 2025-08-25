@@ -9,9 +9,9 @@ metadata <- function(x, which) {
 }
 
 
-#' `TileDB` Object Metadata
+#' TileDB Object Metadata
 #'
-#' Get or set a metadata key for a  `TileDB` array or group.
+#' Get or set a metadata key for a `TileDB` array or group.
 #'
 #' These functions work similar to [attr()] and provide access to a
 #' single metadata key on an TileDB object. The replacement form (setter)
@@ -19,6 +19,16 @@ metadata <- function(x, which) {
 #' with the value given.
 #'
 #' The character method is intended for a valid URI path.
+#'
+#' The methods will not alter the mode of the `TileDB` object.
+#'
+#'  For the extractor the object will be opened temporarily to access the
+#'  metadata if it is closed.
+#'
+#' For the replacement, the object will be opened in write mode temporarily
+#' and on exit will revert back to previous mode; in the case where the object
+#' is already in write mode then it will be reopened at the same mode in order
+#' to flush the metadata on disk.
 #'
 #' @param x An `R` object that points to a `TileDB` resource whose
 #'  metadata are to accessed.
