@@ -23,8 +23,8 @@ NULL
 
 #' @export
 group_timestamps.default <- function(object, tz = "", ...) {
-  stop(sprintf("No method for object %s. See ?group_timestamps for details.",
-               sQuote(deparse(substitute(object)))), call. = FALSE)
+  cli::cli_abort("No method for class {.cls {class(object)[1]}}.
+                 See {.help [{.fun group_timestamps}](R6.tiledb::group_timestamps)} for details.", call = NULL)
 }
 
 #' @export

@@ -25,8 +25,8 @@ NULL
 
 #' @export
 array_timestamps.default <- function(object, tz = "", ...) {
-  stop(sprintf("No method for object %s. See ?array_timestamps for details.",
-               sQuote(deparse(substitute(object)))), call. = FALSE)
+  cli::cli_abort("No method for class {.cls {class(object)[1]}}.
+                 See {.help [{.fun array_timestamps}](R6.tiledb::array_timestamps)} for details.", call = NULL)
 }
 
 #' @export

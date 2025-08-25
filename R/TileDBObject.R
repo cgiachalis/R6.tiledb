@@ -258,19 +258,24 @@ TileDBObject <- R6::R6Class(
           cli::cli_abort("Invalid 'tiledb_timestamp' input", call = NULL)
         }
 
+
+
         if (self$mode != "WRITE") {
+
+          objtype <- self$object_type
 
           self$close()
 
-          # .member cache is only applicable to TileDBGroup
-          if (!is.null(private$.member_cache )) {
-            # Clear cache in order to reopen members with new timestamps
-            private$.member_cache <- NULL
+          if (objtype == "GROUP") {
+            # .member cache is only applicable to TileDBGroup
+            if (!is.null(private$.member_cache)) {
+              # Clear cache in order to reopen members with new timestamps
+              private$.member_cache <- NULL
+            }
+            private$.tiledb_ctx <- .set_group_timestamps(private$.tiledb_ctx, .time_stamp)
           }
 
           private$.tiledb_timestamp <- .time_stamp
-
-          private$.tiledb_ctx <- .set_group_timestamps(private$.tiledb_ctx, .time_stamp)
 
           self$open()
         }
