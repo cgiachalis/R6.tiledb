@@ -479,7 +479,7 @@ TileDBGroup <- R6::R6Class(
     #' @field object Access the underlying [tiledb::tiledb_group()] object.
     object = function(value) {
       if (!missing(value)) {
-        .emit_read_only_error("object")
+        private$check_read_only("object")
       }
       # If the group was created after the object was instantiated, we need to
       # initialize private$.tiledb_group
@@ -492,7 +492,7 @@ TileDBGroup <- R6::R6Class(
     members = function(value) {
 
       if (!missing(value)) {
-        .emit_read_only_error("members")
+        private$check_read_only("members")
       }
 
       private$check_object_exists()

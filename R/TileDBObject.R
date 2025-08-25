@@ -137,7 +137,7 @@ TileDBObject <- R6::R6Class(
     #'
     get_metadata = function(keys = NULL) {
 
-      if (isFALSE(.is_character_or_null(keys))) {
+      if (isFALSE(.is_character(keys) || is.null(keys))) {
         cli::cli_abort(
           "{.arg {deparse(substitute(keys))}} should be either character vector or {.code NULL}.",
           call = NULL
@@ -223,7 +223,7 @@ TileDBObject <- R6::R6Class(
     #' @field ctx TileDB Context.
     ctx = function(value) {
       if (!missing(value)) {
-        .emit_read_only_error("ctx")
+        private$check_read_only("ctx")
       }
       private$.tiledb_ctx
     },
@@ -288,7 +288,7 @@ TileDBObject <- R6::R6Class(
     #'
     uri = function(value) {
       if (!missing(value)) {
-        .emit_read_only_error("uri")
+        private$check_read_only("uri")
       }
       private$.tiledb_uri
     },
@@ -299,7 +299,7 @@ TileDBObject <- R6::R6Class(
     mode = function(value) {
 
       if (!missing(value)) {
-        .emit_read_only_error("mode")
+        private$check_read_only("mode")
       }
 
       if (is.null(private$.mode)) {
@@ -317,7 +317,7 @@ TileDBObject <- R6::R6Class(
     object_type = function(value) {
 
       if (!missing(value)) {
-        .emit_read_only_error("object_type")
+        private$check_read_only("object_type")
       }
 
       # For NULL or "INVALID" state we are re-checking
@@ -454,6 +454,7 @@ TileDBObject <- R6::R6Class(
       invisible(NULL)
     },
 
+
     # ----------------------------------------------------------------
     # Assertion - utilities
 
@@ -478,6 +479,11 @@ TileDBObject <- R6::R6Class(
       }
     },
 
+    # Check read-only for active bindings
+    check_read_only = function(x) {
+      cli::cli_abort(paste0(cli::style_italic("{.val {x}}"), " is a read-only field."), call = NULL)
+
+    },
     # Read methods require to open in read mode.
     check_open_for_read = function() {
 

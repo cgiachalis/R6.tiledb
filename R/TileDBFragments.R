@@ -295,7 +295,7 @@ TileDBFragments <- R6::R6Class(
     #'
     uri = function(value) {
       if (!missing(value)) {
-        .emit_read_only_error("uri")
+        private$check_read_only("uri")
       }
       private$.tiledb_uri
     },
@@ -304,10 +304,9 @@ TileDBFragments <- R6::R6Class(
     #'
     fragment_info = function(value) {
       if (!missing(value)) {
-        .emit_read_only_error("fragment_info")
+        private$check_read_only("fragment_info")
       }
       private$finfo()
-
     }
   ),
 
