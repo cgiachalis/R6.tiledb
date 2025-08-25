@@ -35,8 +35,36 @@ vapply_int <- function(X, FUN, ..., USE.NAMES = TRUE) {
 }
 
 .is_character_or_null <- function(x) {
-  rlang::is_character(x) || is.null(x)
+  .is_character(x) || is.null(x)
 }
+
+.is_logical_or_null <- function(x) {
+  .is_logical(x) || is.null(x)
+}
+
+.is_scalar <- function(x, type) {
+  (typeof(x) == type) && is.atomic(x) && length(x) == 1L
+}
+
+.is_character <- function(x) {
+  typeof(x) == "character"
+}
+
+.is_scalar_character <- function(x) {
+
+  .is_scalar(x, "character")
+}
+
+.is_scalar_logical <- function(x) {
+
+  .is_scalar(x, "logical")
+}
+
+.is_scalar_double <- function(x) {
+
+  .is_scalar(x, "double")
+}
+
 
 .posixt_to_int64char <- function(x) {
   check_timestamp_posixt(x)

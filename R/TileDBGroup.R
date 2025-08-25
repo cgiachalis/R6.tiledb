@@ -315,9 +315,11 @@ TileDBGroup <- R6::R6Class(
       }
 
       # sanitise NA
-      if (isTRUE(is.na(relative))) relative <- NULL
+      if (isTRUE(is.na(relative))) {
+        relative <- NULL
+      }
 
-      if (isFALSE(is.null(relative) || rlang::is_scalar_logical(relative)) ) {
+      if (isFALSE(.is_logical_or_null(relative))) {
         cli::cli_abort(
           "{.arg {deparse(substitute(relative))}} argument should be a logical or NULL value, not
           {.cls {class(relative)}}.",

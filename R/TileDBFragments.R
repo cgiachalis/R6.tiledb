@@ -251,7 +251,7 @@ TileDBFragments <- R6::R6Class(
     #'
     delete_fragment = function(n) {
 
-      if (isFALSE( rlang::is_scalar_double(n))) {
+      if (isFALSE(.is_scalar_double(n))) {
         cli::cli_abort("{.arg {deparse(substitute(n))}} should be a numeric value.", call = NULL)
       }
 

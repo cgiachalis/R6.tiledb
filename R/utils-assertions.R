@@ -1,18 +1,11 @@
-# @importFrom rlang is_scalar_character
-NULL
-# is_scalar_integerish is_scalar_logical
 
 string_starts_with <- function(x, prefix) {
   prefix <- paste0("^", prefix)
   grepl(prefix, x)
 }
 
-is_remote_uri <- function(x) {
-  string_starts_with(x, "s3://") | string_starts_with(x, "tiledb://")
-}
-
 check_uri <- function(x) {
-  if (isFALSE(rlang::is_scalar_character(x))) {
+  if (isFALSE(.is_scalar_character(x))) {
     cli::cli_abort(
       "{.arg {deparse(substitute(x))}} should be a character string for URI path",
       call = NULL
