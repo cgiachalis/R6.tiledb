@@ -535,7 +535,7 @@ TileDBObject <- R6::R6Class(
     },
 
     check_scalar_character = function(x) {
-      if (isFALSE(rlang::is_scalar_character(x))) {
+      if (isFALSE(.is_scalar_character(x))) {
         cli::cli_abort("{.arg {deparse(substitute(x))}} should be a single character string.", call = NULL)
       }
     },

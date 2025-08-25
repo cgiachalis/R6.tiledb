@@ -14,11 +14,18 @@ file_path <- function(..., fsep = .Platform$file.sep) {
   file.path(..., fsep = fsep)
 }
 
+# TODO: add azure/gcs when supported
+#' Checks for remote URI
+#' @noRd
+is_remote_uri <- function(x) {
+  string_starts_with(x, "s3://") | string_starts_with(x, "tiledb://")
+}
+
 #' Return the scheme of a URI
 #' @noRd
 uri_scheme <- function(uri) {
 
-  if (isFALSE(rlang::is_scalar_character(uri))) {
+  if (isFALSE(.is_scalar_character(uri))) {
     cli::cli_abort("{.arg uri} should be scalar character vector", call = NULL)
   }
 
@@ -42,7 +49,7 @@ uri_scheme_remove <- function(uri) {
 #' @noRd
 make_uri_relative <- function(uri, relative_to) {
 
-  if (isFALSE(rlang::is_scalar_character(uri) && rlang::is_scalar_character(relative_to))) {
+  if (isFALSE(.is_scalar_character(uri) && .is_scalar_character(relative_to))) {
     cli::cli_abort("{.arg uri} and {.arg relative_to} should be scalar character vectors", call = NULL)
   }
 
