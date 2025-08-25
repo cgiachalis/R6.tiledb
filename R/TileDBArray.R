@@ -255,7 +255,7 @@ TileDBArray <- R6::R6Class(
     #' mode and kept open.
     object = function(value) {
       if (!missing(value)) {
-        .emit_read_only_error("object")
+        private$check_read_only("object")
       }
       # If the array was created after the object was instantiated, we need to
       # initialize private$.tiledb_array

@@ -1,8 +1,3 @@
-# For use in read-only R6 active bindings
-.emit_read_only_error = function(x) {
-
-   cli::cli_abort(paste0(cli::style_italic("{.val {x}}"), " is a read-only field."), call = NULL)
-}
 
 .string_collapse <- function(x, sep = ", ") {
   paste0(x, collapse = sep)

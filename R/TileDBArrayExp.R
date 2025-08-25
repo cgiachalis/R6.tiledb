@@ -593,7 +593,7 @@ TileDBArrayExp <- R6::R6Class(
     fragments_object = function(value) {
 
       if (!missing(value)) {
-        .emit_read_only_error("fragment_object")
+        private$check_read_only("fragment_object")
       }
 
       if (is.null(private$.fragments_object)) {
@@ -608,7 +608,7 @@ TileDBArrayExp <- R6::R6Class(
     schema_version = function(value) {
 
       if (!missing(value)) {
-        .emit_read_only_error("schema_version")
+        private$check_read_only("schema_version")
       }
 
       tiledb::tiledb_array_schema_version(self$schema())
@@ -618,7 +618,7 @@ TileDBArrayExp <- R6::R6Class(
     is_sparse = function(value) {
 
       if (!missing(value)) {
-        .emit_read_only_error("is_sparse")
+        private$check_read_only("is_sparse")
       }
       sch <- self$schema()
 
