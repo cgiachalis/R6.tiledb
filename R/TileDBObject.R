@@ -137,7 +137,7 @@ TileDBObject <- R6::R6Class(
     #'
     get_metadata = function(keys = NULL) {
 
-      if (isFALSE(.is_character_or_null(keys))) {
+      if (isFALSE(.is_character(keys) || is.null(keys))) {
         cli::cli_abort(
           "{.arg {deparse(substitute(keys))}} should be either character vector or {.code NULL}.",
           call = NULL

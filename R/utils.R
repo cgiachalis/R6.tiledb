@@ -30,11 +30,11 @@ vapply_int <- function(X, FUN, ..., USE.NAMES = TRUE) {
 }
 
 .is_character_or_null <- function(x) {
-  .is_character(x) || is.null(x)
+  .is_scalar_character(x) || is.null(x)
 }
 
 .is_logical_or_null <- function(x) {
-  .is_logical(x) || is.null(x)
+  .is_scalar_logical(x) || is.null(x)
 }
 
 .is_scalar <- function(x, type) {
