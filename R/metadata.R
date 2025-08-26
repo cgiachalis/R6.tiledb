@@ -388,7 +388,7 @@ set_metadata.TileDBArray <- function(x, keys, timestamp = NULL) {
     }
 
 
-    if (mode == "CLOSE") {
+    if (mode == "CLOSED") {
       on.exit({x$close()})
     } else {
       on.exit({x$reopen(mode)})
