@@ -7,6 +7,6 @@
 metadata(x, which) <- value
 }
 \description{
-Replacement method
+See \code{\link[=metadata]{metadata()}} documentation.
 }
 \keyword{internal}

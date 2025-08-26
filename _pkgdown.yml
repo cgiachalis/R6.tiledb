@@ -38,6 +38,8 @@ reference:
   desc: Metadata methods
   contents:
   - metadata
+  - fetch_metadata
+  - set_metadata
 
 - title: R6 Interface
   desc: ~

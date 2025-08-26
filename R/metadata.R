@@ -1,5 +1,7 @@
 #' Replacement method
 #'
+#' See [metadata()] documentation.
+#'
 #' @export
 #' @keywords internal
 `metadata<-` <- function(x, which, value) {
@@ -42,6 +44,9 @@ metadata <- function(x, which) {
 #'
 #' @returns For the extractor, the key value of the metadata matched, or `NULL`
 #' if no exact match is found.
+#'
+#' @seealso For a list of metadata and time-travelling use [set_metadata()] and
+#'  [fetch_metadata()].
 #'
 #' @export
 #'
@@ -128,12 +133,9 @@ metadata.character <- function(x, which) {
 
   object_type <- tiledb::tiledb_object_type(x)
 
-  if (object_type == "INVALID") {
-    cli::cli_abort(c("Invalid TileDB resource.",
-                     "i" = "Please check {.arg uri} is a valid path."), call = NULL)
-  }
-
-  cstor <- switch(object_type, ARRAY = TileDBArray, GROUP = TileDBGroup)
+  cstor <- switch(object_type, ARRAY = TileDBArray, GROUP = TileDBGroup, {
+    cli::cli_abort(c("Invalid TileDB resource.", "i" = "Please check {.arg uri} is a valid path."),  call = NULL)
+  })
 
   obj <- cstor$new(x)
 
@@ -293,3 +295,281 @@ metadata.character <- function(x, which) {
 
   return(x)
 }
+
+# * Set_metadata ----
+
+#' Set TileDB Metadata
+#'
+#' Set metadata as a list of key-value pairs for a `TileDB` array or group.
+#' Optionally, you can write metadata at specific point in time
+#' (time-travelling).
+#'
+#' This functions work similar to [`metadata<-()`] but works with
+#' a list of key value pairs and always returns a list.
+#'
+#' The optional argument `timestamp` can be used to set metadata at specific
+#' point in time.
+#'
+#' The character method is intended for a valid URI path.
+#'
+#' The methods will not alter the mode of the `TileDB` object.
+#'
+#' The object will be opened in write mode temporarily and on exit will
+#' revert back to previous mode; in the case where the object is already
+#' in write mode then it will be reopened at the same mode in order
+#' to flush the metadata on disk.
+#'
+#' @param x An `R` object that points to a `TileDB` resource whose
+#'  metadata are to written.
+#' @param keys A named list of key value metadata.
+#' @inheritParams open_write
+#'
+#' @returns A named list of class `tdb_metadata`.
+#'
+#' @seealso [fetch_metadata()] and [metadata()].
+#'
+#' @export
+#'
+#' @name set_metadata
+#'
+NULL
+
+#' @export
+set_metadata <- function(x, keys, timestamp) {
+  UseMethod("set_metadata")
+}
+
+
+#' @export
+set_metadata.default <- function(x, keys, timestamp = NULL) {
+  cli::cli_abort("No method for class {.cls {class(x)[1]}}.
+                 See {.help [{.fun set_metadata}](R6.tiledb::set_metadata)} for details.",
+                 call = NULL)
+}
+
+#' @export
+#' @rdname set_metadata
+set_metadata.TileDBArray <- function(x, keys, timestamp = NULL) {
+
+  mode <- x$mode
+
+  if (is.null(timestamp)) {
+
+    if (mode == "CLOSED") {
+
+      x$open("WRITE")
+
+      on.exit({x$close()})
+
+    } else if (mode == "READ") {
+
+      x$reopen("WRITE")
+      on.exit({x$reopen(mode)})
+    } else {
+
+      on.exit({x$reopen(mode)})
+    }
+
+    x$set_metadata(keys)
+
+  } else {
+
+    check_timestamp_posixt(timestamp)
+
+    if (x$object_type == "ARRAY") {
+      .put_metadata <- function(obj, key, val) {
+        tiledb::tiledb_put_metadata(obj, key, val)
+      }
+
+    } else if (x$object_type == "GROUP") {
+      .put_metadata <- function(obj, key, val) {
+        tiledb::tiledb_group_put_metadata(obj, key, val)
+      }
+    }
+
+
+    if (mode == "CLOSE") {
+      on.exit({x$close()})
+    } else {
+      on.exit({x$reopen(mode)})
+    }
+
+    obj <- open_write(x, timestamp = timestamp)
+
+    dev_null <-  mapply(
+      key = names(keys),
+      val = keys,
+      MoreArgs = list(obj = obj),
+      FUN = .put_metadata
+    )
+
+    close(obj)
+
+  }
+}
+
+
+#' @export
+#' @rdname set_metadata
+set_metadata.TileDBGroup <- set_metadata.TileDBArray
+
+
+#' @export
+#' @rdname set_metadata
+set_metadata.tiledb_array <- function(x, keys, timestamp = NULL) {
+
+  uri <- x@uri
+  obj <- TileDBArray$new(uri)
+
+  set_metadata(obj, keys, timestamp)
+
+}
+
+#' @export
+#' @rdname set_metadata
+set_metadata.tiledb_group <- function(x, keys, timestamp = NULL) {
+
+  uri <- x@uri
+  obj <- TileDBGroup$new(uri)
+
+  set_metadata(obj, keys, timestamp)
+
+}
+
+#' @export
+#' @rdname set_metadata
+set_metadata.character <- function(x, keys, timestamp = NULL) {
+
+  check_uri(x)
+
+  object_type <- tiledb::tiledb_object_type(x)
+
+  cstor <- switch(object_type, ARRAY = TileDBArray, GROUP = TileDBGroup, {
+    cli::cli_abort(c("Invalid TileDB resource.", "i" = "Please check {.arg uri} is a valid path."),  call = NULL)
+  })
+
+  obj <- cstor$new(x)
+
+  set_metadata(obj, keys, timestamp)
+
+}
+
+
+# * fetch_metadata ----
+
+#' Fetch TileDB Metadata
+#'
+#' Fetch metadata as a list of key-value pairs for a `TileDB` array or group.
+#' Optionally, you can access metadata at specific point in time
+#' (time-travelling).
+#'
+#' This functions work similar to [metadata()] but works with
+#' a list of key value pairs and always returns a list.
+#'
+#' The character method is intended for a valid URI path.
+#'
+#' The methods will not alter the mode of the `TileDB` object; also, the object
+#'  will be opened temporarily to access the metadata if it is closed.
+#'
+#' @param x An `R` object that points to a `TileDB` resource whose
+#'  metadata are to accessed.
+#' @inheritParams set_metadata
+#'
+#' @returns A named list of class `tdb_metadata`.
+#'
+#' @seealso [set_metadata()] and [metadata()].
+#'
+#' @export
+#'
+#' @name fetch_metadata
+#'
+NULL
+
+#' @export
+fetch_metadata <- function(x, keys, timestamp) {
+  UseMethod("fetch_metadata")
+}
+
+#' @export
+fetch_metadata.default <- function(x, keys, timestamp = NULL) {
+  cli::cli_abort("No method for class {.cls {class(x)[1]}}.
+                 See {.help [{.fun fetch_metadata}](R6.tiledb::fetch_metadata)} for details.",
+                 call = NULL)
+}
+
+
+#' @export
+#' @rdname fetch_metadata
+fetch_metadata.TileDBArray <- function(x, keys, timestamp = NULL) {
+
+
+
+  mode <- x$mode
+
+  if (is.null(timestamp)) {
+    if (mode == "CLOSED") {
+      on.exit({ x$close() })
+    }
+    x$get_metadata(keys)
+  } else {
+
+    check_timestamp_posixt(timestamp)
+
+    if (mode == "WRITE") {
+      on.exit({x$reopen(mode)})
+      x$reopen("READ")
+    }
+
+    x$timestamp <- timestamp
+    x$get_metadata(keys)
+  }
+}
+
+
+#' @export
+#' @rdname fetch_metadata
+fetch_metadata.TileDBGroup <- fetch_metadata.TileDBArray
+
+
+#' @export
+#' @rdname fetch_metadata
+fetch_metadata.tiledb_array <- function(x, keys, timestamp = NULL) {
+
+  uri <- x@uri
+  obj <- TileDBArray$new(uri)
+
+  fetch_metadata(obj, keys, timestamp)
+
+}
+
+
+#' @export
+#' @rdname fetch_metadata
+fetch_metadata.tiledb_group <- function(x, keys, timestamp = NULL) {
+
+  uri <- x@uri
+  obj <- TileDBGroup$new(uri)
+
+  fetch_metadata(obj, keys, timestamp)
+
+}
+
+
+#' @export
+#' @rdname fetch_metadata
+fetch_metadata.character <- function(x, keys, timestamp = NULL) {
+
+  check_uri(x)
+
+  object_type <- tiledb::tiledb_object_type(x)
+
+  cstor <- switch(object_type, ARRAY = TileDBArray, GROUP = TileDBGroup, {
+    cli::cli_abort(c("Invalid TileDB resource.", "i" = "Please check {.arg uri} is a valid path."),  call = NULL)
+  })
+
+  obj <- cstor$new(x)
+
+  fetch_metadata(obj, keys, timestamp)
+
+}
+
