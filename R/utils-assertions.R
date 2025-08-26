@@ -7,7 +7,7 @@ string_starts_with <- function(x, prefix) {
 check_uri <- function(x) {
   if (isFALSE(.is_scalar_character(x))) {
     cli::cli_abort(
-      "{.arg {deparse(substitute(x))}} should be a character string for URI path",
+      "{.arg {deparse(substitute(x))}} should be a character string for URI path.",
       call = NULL
     )
   }

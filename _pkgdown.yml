@@ -4,9 +4,9 @@ template:
   bslib:
     base_font: {google: "Roboto"}
     heading_font: {google: "Rubik"}
-    primary: "#070f1d"
-    link-color: "#8b0202"
-    code-color: "#8b0202"
+    primary: "#121b2b"
+    link-color: "#1c4bc4ed"
+    code-color: "#161923" ##101527
     text-decoration-color: "#151b21"
     body-color: "#1B222B" # Black Perl
 
@@ -28,8 +28,16 @@ reference:
   desc: ~
   contents:
   - tdb_array
+
+- subtitle: Open,Close
+  desc: Open, close methods
+  contents:
   - open_write
   - close
+- subtitle: Metadata
+  desc: Metadata methods
+  contents:
+  - metadata
 
 - title: R6 Interface
   desc: ~

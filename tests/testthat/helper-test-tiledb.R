@@ -13,6 +13,16 @@ create_empty_test_array <- function(uri) {
   invisible(uri)
 }
 
+create_empty_test_group <- function(uri) {
+
+  stopifnot(!dir.exists(uri))
+
+  tiledb::tiledb_group_create(uri)
+
+  invisible(uri)
+}
+
+
 write_test_array <- function(uri) {
 
   # Create an array
