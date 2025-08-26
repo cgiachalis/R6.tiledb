@@ -1,9 +1,13 @@
 #' @export
+#' @usage metadata(x, which)
+#' @rdname metadata
 metadata <- function(x, which) {
   UseMethod("metadata")
 }
 
 #' @export
+#' @usage metadata(x, which) <- value
+#' @rdname metadata
 `metadata<-` <- function(x, which, value) {
   UseMethod('metadata<-', x)
 }
@@ -94,7 +98,7 @@ metadata.tiledb_array <- function(x, which) {
 
   obj <- TileDBArray$new(uri)
 
-  metatdata(obj, which)
+  metadata(obj, which)
 
 }
 
@@ -110,7 +114,7 @@ metadata.tiledb_group <- function(x, which) {
 
   obj <- TileDBGroup$new(uri)
 
-  metatdata(obj, which)
+  metadata(obj, which)
 
 }
 
@@ -135,7 +139,7 @@ metadata.character <- function(x, which) {
 
   obj <- cstor$new(x)
 
-  metatdata(obj, which)
+  metadata(obj, which)
 }
 
 # Setters -----------------------------------------------------------
@@ -148,8 +152,8 @@ metadata.character <- function(x, which) {
     cli::cli_abort("{.arg {deparse(substitute(which))}} should be a single character string.", call = NULL)
   }
 
-  if (isFALSE(.is_scalar(value, typeof(value)))) {
-    cli::cli_abort("Replacement value: {.arg {deparse(substitute(value))}} should be a scalar.", call = NULL)
+  if (isFALSE(.is_scalar(value, typeof(value)) | is.null(value))) {
+    cli::cli_abort("Replacement value: {.arg {deparse(substitute(value))}} should be a scalar or NULL.", call = NULL)
   }
 
   mode <- x$mode
@@ -191,8 +195,8 @@ metadata.character <- function(x, which) {
     cli::cli_abort("{.arg {deparse(substitute(which))}} should be a single character string.", call = NULL)
   }
 
-  if (isFALSE(.is_scalar(value, typeof(value)))) {
-    cli::cli_abort("Replacement value: {.arg {deparse(substitute(value))}} should be a scalar.", call = NULL)
+  if (isFALSE(.is_scalar(value, typeof(value)) | is.null(value))) {
+    cli::cli_abort("Replacement value: {.arg {deparse(substitute(value))}} should be a scalar or NULL.", call = NULL)
   }
 
   mode <- x$mode
@@ -233,15 +237,15 @@ metadata.character <- function(x, which) {
     cli::cli_abort("{.arg {deparse(substitute(which))}} should be a single character string.", call = NULL)
   }
 
-  if (isFALSE(.is_scalar(value, typeof(value)))) {
-    cli::cli_abort("Replacement value: {.arg {deparse(substitute(value))}} should be a scalar.", call = NULL)
+  if (isFALSE(.is_scalar(value, typeof(value)) | is.null(value))) {
+    cli::cli_abort("Replacement value: {.arg {deparse(substitute(value))}} should be a scalar or NULL.", call = NULL)
   }
 
   uri <- x@uri
 
   obj <- TileDBArray$new(uri)
 
-  metatdata(obj, which) <- value
+  metadata(obj, which) <- value
 
 }
 
@@ -253,15 +257,15 @@ metadata.character <- function(x, which) {
     cli::cli_abort("{.arg {deparse(substitute(which))}} should be a single character string.", call = NULL)
   }
 
-  if (isFALSE(.is_scalar(value, typeof(value)))) {
-    cli::cli_abort("Replacement value: {.arg {deparse(substitute(value))}} should be a scalar.", call = NULL)
+  if (isFALSE(.is_scalar(value, typeof(value)) | is.null(value))) {
+    cli::cli_abort("Replacement value: {.arg {deparse(substitute(value))}} should be a scalar or NULL.", call = NULL)
   }
 
   uri <- tiledb::tiledb_group_uri(x)
 
   obj <- TileDBGroup$new(uri)
 
-  metatdata(obj, which) <- value
+  metadata(obj, which) <- value
 }
 
 
@@ -275,8 +279,8 @@ metadata.character <- function(x, which) {
     cli::cli_abort("{.arg {deparse(substitute(which))}} should be a single character string.", call = NULL)
   }
 
-  if (isFALSE(.is_scalar(value, typeof(value)))) {
-    cli::cli_abort("Replacement value: {.arg {deparse(substitute(value))}} should be a scalar.", call = NULL)
+  if (isFALSE(.is_scalar(value, typeof(value)) | is.null(value))) {
+    cli::cli_abort("Replacement value: {.arg {deparse(substitute(value))}} should be a scalar or NULL.", call = NULL)
   }
 
   object_type <- tiledb::tiledb_object_type(x)
@@ -290,5 +294,7 @@ metadata.character <- function(x, which) {
 
   obj <- cstor$new(x)
 
-  metatdata(obj, which) <- value
+  metadata(obj, which) <- value
+
+  return(x)
 }

@@ -2,6 +2,7 @@
 % Please edit documentation in R/metadata.R
 \name{metadata}
 \alias{metadata}
+\alias{metadata<-}
 \alias{metadata.TileDBArray}
 \alias{metadata.TileDBGroup}
 \alias{metadata.tiledb_array}
@@ -14,6 +15,10 @@
 \alias{metadata<-.character}
 \title{TileDB Object Metadata}
 \usage{
+metadata(x, which)
+
+metadata(x, which) <- value
+
 \method{metadata}{TileDBArray}(x, which)
 
 \method{metadata}{TileDBGroup}(x, which)
