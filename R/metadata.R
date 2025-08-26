@@ -285,12 +285,9 @@ metadata.character <- function(x, which) {
 
   object_type <- tiledb::tiledb_object_type(x)
 
-  if (object_type == "INVALID") {
-    cli::cli_abort(c("Invalid TileDB resource.",
-                     "i" = "Please check {.arg uri} is a valid path."), call = NULL)
-  }
-
-  cstor <- switch(object_type, ARRAY = TileDBArray, GROUP = TileDBGroup)
+  cstor <- switch(object_type, ARRAY = TileDBArray, GROUP = TileDBGroup, {
+    cli::cli_abort(c("Invalid TileDB resource.", "i" = "Please check {.arg uri} is a valid path."),  call = NULL)
+  })
 
   obj <- cstor$new(x)
 
