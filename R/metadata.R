@@ -1,15 +1,14 @@
+#' Replacement method
+#'
 #' @export
-#' @usage metadata(x, which)
-#' @rdname metadata
-metadata <- function(x, which) {
-  UseMethod("metadata")
+#' @keywords internal
+`metadata<-` <- function(x, which, value) {
+  UseMethod("metadata<-", x)
 }
 
 #' @export
-#' @usage metadata(x, which) <- value
-#' @rdname metadata
-`metadata<-` <- function(x, which, value) {
-  UseMethod('metadata<-', x)
+metadata <- function(x, which) {
+  UseMethod("metadata")
 }
 
 
@@ -26,8 +25,8 @@ metadata <- function(x, which) {
 #'
 #' The methods will not alter the mode of the `TileDB` object.
 #'
-#'  For the extractor the object will be opened temporarily to access the
-#'  metadata if it is closed.
+#' For the extractor the object will be opened temporarily to access the
+#' metadata if it is closed.
 #'
 #' For the replacement, the object will be opened in write mode temporarily
 #' and on exit will revert back to previous mode; in the case where the object
@@ -49,7 +48,6 @@ metadata <- function(x, which) {
 #' @name metadata
 #'
 NULL
-
 
 # Getters -----------------------------------------------------------
 
