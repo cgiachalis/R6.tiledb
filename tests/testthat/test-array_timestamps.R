@@ -102,3 +102,4 @@ test_that("Test 'array_timestamps()' works as expected", {
   expect_snapshot(array_timestamps(arrobj))
 
 })
+gc()
