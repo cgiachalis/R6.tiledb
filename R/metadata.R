@@ -396,7 +396,7 @@ set_metadata.TileDBArray <- function(x, keys, timestamp = NULL) {
 
     obj <- open_write(x, timestamp = timestamp)
 
-    dev_null <-  mapply(
+    dev_null <- mapply(
       key = names(keys),
       val = keys,
       MoreArgs = list(obj = obj),
@@ -429,7 +429,7 @@ set_metadata.tiledb_array <- function(x, keys, timestamp = NULL) {
 #' @rdname set_metadata
 set_metadata.tiledb_group <- function(x, keys, timestamp = NULL) {
 
-  uri <- x@uri
+  uri <- tiledb::tiledb_group_uri(x)
   obj <- TileDBGroup$new(uri)
 
   set_metadata(obj, keys, timestamp)
@@ -491,7 +491,7 @@ fetch_metadata <- function(x, keys, timestamp) {
 }
 
 #' @export
-fetch_metadata.default <- function(x, keys, timestamp = NULL) {
+fetch_metadata.default <- function(x, keys = NULL, timestamp = NULL) {
   cli::cli_abort("No method for class {.cls {class(x)[1]}}.
                  See {.help [{.fun fetch_metadata}](R6.tiledb::fetch_metadata)} for details.",
                  call = NULL)
@@ -500,9 +500,7 @@ fetch_metadata.default <- function(x, keys, timestamp = NULL) {
 
 #' @export
 #' @rdname fetch_metadata
-fetch_metadata.TileDBArray <- function(x, keys, timestamp = NULL) {
-
-
+fetch_metadata.TileDBArray <- function(x, keys = NULL, timestamp = NULL) {
 
   mode <- x$mode
 
@@ -520,7 +518,7 @@ fetch_metadata.TileDBArray <- function(x, keys, timestamp = NULL) {
       x$reopen("READ")
     }
 
-    x$timestamp <- timestamp
+    x$tiledb_timestamp <- timestamp
     x$get_metadata(keys)
   }
 }
@@ -533,7 +531,7 @@ fetch_metadata.TileDBGroup <- fetch_metadata.TileDBArray
 
 #' @export
 #' @rdname fetch_metadata
-fetch_metadata.tiledb_array <- function(x, keys, timestamp = NULL) {
+fetch_metadata.tiledb_array <- function(x, keys = NULL, timestamp = NULL) {
 
   uri <- x@uri
   obj <- TileDBArray$new(uri)
@@ -545,9 +543,9 @@ fetch_metadata.tiledb_array <- function(x, keys, timestamp = NULL) {
 
 #' @export
 #' @rdname fetch_metadata
-fetch_metadata.tiledb_group <- function(x, keys, timestamp = NULL) {
+fetch_metadata.tiledb_group <- function(x, keys = NULL, timestamp = NULL) {
 
-  uri <- x@uri
+  uri <- tiledb::tiledb_group_uri(x)
   obj <- TileDBGroup$new(uri)
 
   fetch_metadata(obj, keys, timestamp)
@@ -557,7 +555,7 @@ fetch_metadata.tiledb_group <- function(x, keys, timestamp = NULL) {
 
 #' @export
 #' @rdname fetch_metadata
-fetch_metadata.character <- function(x, keys, timestamp = NULL) {
+fetch_metadata.character <- function(x, keys = NULL, timestamp = NULL) {
 
   check_uri(x)
 
