@@ -473,7 +473,9 @@ set_metadata.character <- function(x, keys, timestamp = NULL) {
 #'
 #' @param x An `R` object that points to a `TileDB` resource whose
 #'  metadata are to accessed.
-#' @inheritParams set_metadata
+#' @param keys A character vector of metadata key names to be accessed. When
+#' `NULL` (default) all metadata will be accessed.
+#' @inheritParams open_write
 #'
 #' @returns A named list of class `tdb_metadata`.
 #'
@@ -519,7 +521,19 @@ fetch_metadata.TileDBArray <- function(x, keys = NULL, timestamp = NULL) {
     }
 
     x$tiledb_timestamp <- timestamp
-    x$get_metadata(keys)
+
+    if (length(keys) == 1) {
+
+      val <-  list(x$get_metadata(keys))
+      names(val) <- keys
+      class(val) <- c("tdb_metadata", "list")
+
+      val
+
+    } else {
+
+      x$get_metadata(keys)
+    }
   }
 }
 

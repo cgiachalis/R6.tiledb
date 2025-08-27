@@ -9,21 +9,22 @@
 \alias{fetch_metadata.character}
 \title{Fetch TileDB Metadata}
 \usage{
-\method{fetch_metadata}{TileDBArray}(x, keys, timestamp = NULL)
+\method{fetch_metadata}{TileDBArray}(x, keys = NULL, timestamp = NULL)
 
-\method{fetch_metadata}{TileDBGroup}(x, keys, timestamp = NULL)
+\method{fetch_metadata}{TileDBGroup}(x, keys = NULL, timestamp = NULL)
 
-\method{fetch_metadata}{tiledb_array}(x, keys, timestamp = NULL)
+\method{fetch_metadata}{tiledb_array}(x, keys = NULL, timestamp = NULL)
 
-\method{fetch_metadata}{tiledb_group}(x, keys, timestamp = NULL)
+\method{fetch_metadata}{tiledb_group}(x, keys = NULL, timestamp = NULL)
 
-\method{fetch_metadata}{character}(x, keys, timestamp = NULL)
+\method{fetch_metadata}{character}(x, keys = NULL, timestamp = NULL)
 }
 \arguments{
 \item{x}{An \code{R} object that points to a \code{TileDB} resource whose
 metadata are to accessed.}
 
-\item{keys}{A named list of key value metadata.}
+\item{keys}{A character vector of metadata key names to be accessed. When
+\code{NULL} (default) all metadata will be accessed.}
 
 \item{timestamp}{Optional datetime object of class \code{"POSIXct"} to write
 at this timestamp.}
