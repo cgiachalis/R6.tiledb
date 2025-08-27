@@ -69,3 +69,7 @@ and on exit will revert back to previous mode; in the case where the object
 is already in write mode then it will be reopened at the same mode in order
 to flush the metadata on disk.
 }
+\seealso{
+For a list of metadata and time-travelling use \code{\link[=set_metadata]{set_metadata()}} and
+\code{\link[=fetch_metadata]{fetch_metadata()}}.
+}

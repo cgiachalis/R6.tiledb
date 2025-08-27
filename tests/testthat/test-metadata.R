@@ -54,7 +54,7 @@ test_that("'metadata' methods getters/setters for arrays work as expected", {
   expect_no_error(metadata(uri, "key3") <- 100)
   expect_equal(metadata(uri, "key3"), 100)
 
-  gc()
+
 })
 
 test_that("'metadata' methods getters/setters for group work as expected", {

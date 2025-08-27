@@ -258,8 +258,6 @@ TileDBObject <- R6::R6Class(
           cli::cli_abort("Invalid 'tiledb_timestamp' input", call = NULL)
         }
 
-
-
         if (self$mode != "WRITE") {
 
           objtype <- self$object_type
@@ -388,7 +386,7 @@ TileDBObject <- R6::R6Class(
     #       we must open a temporary handle for reading, to fill the cache.
     #
     update_metadata_cache = function() {
-      # TODO: support metadata timetravelling
+
       private$log_debug("update_metadata_cache", "Updating metadata cache for class {}", self$class())
 
       out <- switch(self$object_type,
