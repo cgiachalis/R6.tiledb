@@ -43,7 +43,6 @@ TileDBArray <- R6::R6Class(
       mode <- match.arg(mode)
 
       if (is.null(private$.tiledb_array)) {
-
         # Tip: Creating a new instance will not initialise the object
         #      until we open it. Here, we open, close and store the array handle.
 
@@ -108,14 +107,17 @@ TileDBArray <- R6::R6Class(
     #'
     close = function() {
 
-      private$log_debug("close", "Closing array")
+      if (self$is_open()) {
 
-      private$.tiledb_array <- .tiledb_array_close2(private$.tiledb_array)
+        private$log_debug("close", "Closing array")
 
-      private$.mode <- "CLOSED"
+        private$.tiledb_array <- .tiledb_array_close2(private$.tiledb_array)
 
-      # Reset to default
-      private$.tiledb_timestamp <- set_tiledb_timestamp()
+        private$.mode <- "CLOSED"
+
+        # Reset to default
+        private$.tiledb_timestamp <- set_tiledb_timestamp()
+      }
 
       invisible(self)
     },
