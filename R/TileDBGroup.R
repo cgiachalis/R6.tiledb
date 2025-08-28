@@ -326,6 +326,10 @@ TileDBGroup <- R6::R6Class(
           call = NULL)
       }
 
+      # TODO: reconsider in 2.29:
+      # 1. https://github.com/TileDB-Inc/TileDB/pull/5621
+      # 2. https://github.com/TileDB-Inc/TileDB/pull/5625
+      # 3. https://github.com/TileDB-Inc/TileDB/pull/5623
       if (is.null(relative)) {
         relative <- !startsWith(object$uri, "tiledb://")
       }
