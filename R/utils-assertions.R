@@ -1,9 +1,4 @@
 
-string_starts_with <- function(x, prefix) {
-  prefix <- paste0("^", prefix)
-  grepl(prefix, x)
-}
-
 check_uri <- function(x) {
   if (isFALSE(.is_scalar_character(x))) {
     cli::cli_abort(
@@ -36,4 +31,3 @@ check_tiledb_ctx <- function(x) {
     cli::cli_abort("{.arg {deparse(substitute(x))}} should be a {.help [{.fun tiledb_ctx}](tiledb::tiledb_ctx)} object.", call = NULL)
   }
 }
-

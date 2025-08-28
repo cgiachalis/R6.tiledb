@@ -18,7 +18,7 @@ file_path <- function(..., fsep = .Platform$file.sep) {
 #' Checks for remote URI
 #' @noRd
 is_remote_uri <- function(x) {
-  string_starts_with(x, "s3://") | string_starts_with(x, "tiledb://")
+  .string_starts_with(x, "s3://") | .string_starts_with(x, "tiledb://")
 }
 
 #' Return the scheme of a URI
