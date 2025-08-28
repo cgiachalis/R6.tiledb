@@ -2,6 +2,8 @@
 
 test_that("Test 'group_timestamps()' works as expected", {
 
+  ctx <- tiledb::tiledb_ctx(cached = FALSE)
+
   tz <- "Europe/London"
   Sys.setenv(TZ = tz)
   on.exit({Sys.setenv(TZ = "")})

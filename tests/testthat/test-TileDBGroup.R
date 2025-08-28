@@ -1,3 +1,6 @@
+
+gc()
+
 test_that("'TileDBGroup' class tests on non-existent group", {
 
   uri <- file.path(withr::local_tempdir(), "test-group")

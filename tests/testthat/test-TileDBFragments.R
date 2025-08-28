@@ -1,6 +1,7 @@
 
 test_that("'TileDBFragments' class works as expected", {
 
+  ctx <- tiledb::tiledb_ctx(cached = FALSE)
   uri <- file.path(withr::local_tempdir(), "test-TileDBFragments")
 
   expect_error(TileDBFragments$new())
@@ -82,4 +83,3 @@ test_that("'TileDBFragments' class works as expected", {
   expect_false(val)
 
 })
-

@@ -10,6 +10,7 @@ trg_tstamps_t1 <- list(
 
 test_that("'open_write' method for Arrays works OK", {
 
+  ctx <- tiledb::tiledb_ctx(cached = FALSE)
   uri <- file.path(withr::local_tempdir(), "test-open_write")
   ts <- as.POSIXct("2025-08-18 13:12:50 UTC", tz = "UTC")
   df <- data.frame(id = 1L, val = 1.0)
@@ -90,7 +91,7 @@ test_that("'open_write' method for Arrays works OK", {
 
 test_that("'open_write' method for Groups works OK", {
 
-
+  ctx <- tiledb::tiledb_ctx(cached = FALSE)
   .get_group_timestamp_end <- function(x) {
     cfg <- tiledb::tiledb_group_get_config(x)
 
@@ -147,7 +148,9 @@ test_that("'open_write' method for Groups works OK", {
   # Call gc() as we get
   # what():  [TileDB::C++API] Error: Non-retrievable error occurred
   # Exited with status -1073740791.
-  gc()
+  # gc()
+  # Now, we create a new context and seems to resolve it
+  ctx <- tiledb::tiledb_ctx(cached = FALSE)
 
   # 'TileDBGroup' method ---
   uri_no <- file.path(withr::local_tempdir(), "test-group-no")

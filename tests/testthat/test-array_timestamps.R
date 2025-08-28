@@ -2,7 +2,6 @@
 
 test_that("Test 'array_timestamps()' works as expected", {
 
-
   tz <- "Europe/London"
   Sys.setenv(TZ = tz)
   on.exit({Sys.setenv(TZ = "")})
@@ -90,7 +89,6 @@ test_that("Test 'array_timestamps()' works as expected", {
   mode = "closed",
   tzone = tz)
 
-
   expect_equal(array_timestamps(arrobj), trg2)
   expect_equal(array_timestamps(arrobj$object), trg2)
 
@@ -102,4 +100,4 @@ test_that("Test 'array_timestamps()' works as expected", {
   expect_snapshot(array_timestamps(arrobj))
 
 })
-gc()
+

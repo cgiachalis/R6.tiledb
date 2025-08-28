@@ -1,6 +1,8 @@
 
 test_that("'fetch_metadata' methods for arrays work as expected", {
 
+  ctx <- tiledb::tiledb_ctx(cached = FALSE)
+
   uri <- file.path(withr::local_tempdir(), "test-array")
   create_empty_test_array(uri)
 
@@ -77,6 +79,8 @@ test_that("'fetch_metadata' methods for arrays work as expected", {
 
 test_that("'fetch_metadata' methods for groups work as expected", {
 
+  ctx <- tiledb::tiledb_ctx(cached = FALSE)
+
   uri <- file.path(withr::local_tempdir(), "test-group")
   create_empty_test_group(uri)
 
@@ -140,5 +144,5 @@ test_that("'fetch_metadata' methods for groups work as expected", {
   expect_false(tiledb::tiledb_group_is_open(grp))
 
   close(grpobj)
-  gc()
+
 })
