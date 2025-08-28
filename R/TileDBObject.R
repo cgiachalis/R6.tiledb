@@ -244,6 +244,8 @@ TileDBObject <- R6::R6Class(
     #'
     tiledb_timestamp = function(value) {
 
+      private$check_object_exists()
+
       if (!missing(value)) {
 
         if (is.null(value)) {
