@@ -99,6 +99,10 @@ test_that("'TileDBArray' class works as expected", {
   md <- list(d = "Boo", e = 3)
   arrObj$set_metadata(md)
 
+  # test character vector as key, not allowed
+  md <- list(invalid = c("Boo", "foo"))
+  expect_error(arrObj$set_metadata(md))
+
   arrObj$close()
 
   md <- list(1)

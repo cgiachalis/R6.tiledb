@@ -458,6 +458,8 @@ TileDBObject <- R6::R6Class(
     # ----------------------------------------------------------------
     # Assertion - utilities
 
+    # Assert a TileDB object if it is open in 'READ' mode
+    #
     is_open_for_read = function() {
 
       if (is.null(private$.mode)) {
@@ -469,6 +471,8 @@ TileDBObject <- R6::R6Class(
       }
     },
 
+    # Assert a TileDB object if it is open in 'WRITE' mode
+    #
     is_open_for_write = function() {
       if (is.null(private$.mode)) {
         FALSE
@@ -479,12 +483,15 @@ TileDBObject <- R6::R6Class(
       }
     },
 
-    # Check read-only for active bindings
+    # Errors for read-only value for intended for active bindings
+    #
     check_read_only = function(x) {
       cli::cli_abort(paste0(cli::style_italic("{.val {x}}"), " is a read-only field."), call = NULL)
 
     },
-    # Read methods require to open in read mode.
+
+    # Checks a TileDB object if it is open in 'WRITE' mode
+    #
     check_open_for_read = function() {
 
       if (!private$is_open_for_read()) {
@@ -508,7 +515,8 @@ TileDBObject <- R6::R6Class(
       }
     },
 
-    # Get metadata method requires open for read mode or write mode.
+    # Checks a TileDB object if it is open, 'READ' or WRITE' mode
+    #
     check_open = function() {
 
       if (!self$is_open()) {
@@ -520,7 +528,11 @@ TileDBObject <- R6::R6Class(
       }
     },
 
-    # Check method for internal use. Useful for child classes.
+    # Checks a method for internal use, useful for child classes.
+    #
+    # param x status flag, use "permit" to escape abort
+    # param method A character describing the method
+    #
     check_internal_use = function(x, method) {
       if (is.null(x) || x != "permit") {
         cli::cli_abort(
@@ -530,7 +542,10 @@ TileDBObject <- R6::R6Class(
       }
     },
 
-    # Set-metadata method requires a named list.
+    # Checks metadata input list. Intended for set_metadata()
+    #
+    # param x A named list of key value pairs of metadata.
+    #
     check_metadata = function(x) {
       if (!.is_named_list(x)) {
         cli::cli_abort(
@@ -538,19 +553,40 @@ TileDBObject <- R6::R6Class(
           call = NULL
         )
       }
+
+      # keys should have only character strings
+      idx <- vapply_lgl(x,\(.x) .is_character(.x) & !.is_scalar_character(.x))
+
+      if (any(idx)) {
+        invalid_keys <- .string_collapse(names(which(idx)))
+        cli::cli_abort(
+          c("{.arg metadata} with character values should be scalar strings only, not vectors.",
+            "i" = "Consider concacate or serialise them: {.val {invalid_keys}}"),
+          call = NULL
+        )
+      }
     },
 
+    # Checks for scalar character
+    #
+    # param x An R object
+    #
     check_scalar_character = function(x) {
       if (isFALSE(.is_scalar_character(x))) {
         cli::cli_abort("{.arg {deparse(substitute(x))}} should be a single character string.", call = NULL)
       }
     },
 
+    # Checks TileDB object exists
+    #
     check_object_exists = function() {
       if (!self$exists()) {
         cli::cli_abort("R6Class: {.cls {self$class()}} object does not exist.", call = NULL)
       }
     },
+
+    # Checks a TileDB object is closed
+    #
     check_object_is_closed = function() {
 
       private$check_object_exists()
@@ -565,6 +601,15 @@ TileDBObject <- R6::R6Class(
                          "i" = "Use {.code reopen()} method instead."), call = NULL)
       }
     },
+
+    # Debug logging
+    #
+    # param method A character string describing the method you're calling from.
+    # param comments Logging message
+    # param ... Supplementary arguments for the logging string, passed into
+    # `spdl::fmt`
+    #
+    # This function does not include uri in the logging message
     log_debug0 = function(method, comment, ...) {
 
       comment <- spdl::fmt(comment, ...)
@@ -576,6 +621,15 @@ TileDBObject <- R6::R6Class(
                   comment)
 
     },
+    # Debug logging
+    #
+    # param method A character string describing the method you're calling from.
+    # param comments Logging message
+    # param ... Supplementary arguments for the logging string, passed into
+    # `spdl::fmt`
+    #
+    # This function does includes uri in the logging message
+    #
     log_debug = function(method, comment, ...) {
 
       comment <- spdl::fmt(comment, ...)
