@@ -53,9 +53,9 @@ make_uri_relative <- function(uri, relative_to) {
     cli::cli_abort("{.arg uri} and {.arg relative_to} should be scalar character vectors", call = NULL)
   }
 
-  uri_scheme <- uri_scheme(uri)
+  uri_in <- uri_scheme(uri)
   relative_to_scheme <- uri_scheme(relative_to)
-  if (uri_scheme %||% "file" != relative_to_scheme %||% "file") {
+  if (uri_in %||% "file" != relative_to_scheme %||% "file") {
     cli::cli_abort("Unable to make relative path between URIs with different schemes", call = NULL)
   }
 
