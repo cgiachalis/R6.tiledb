@@ -68,9 +68,6 @@ make_uri_relative <- function(uri, relative_to) {
     # stop(sprintf("uri %s and relative to %s", uri, relative_to))
   }
 
-  fs::path_rel(
-    path = uri_scheme_remove(uri),
-    start = uri_scheme_remove(relative_to)
-  )
+  fs::path_rel(path = uri, start = relative_to)
 }
 
