@@ -31,7 +31,10 @@ A new \code{TileDBGroup} instance is initialized using the \code{new()} method:
 \describe{
 \item{\code{object}}{Access the underlying \code{\link[tiledb:tiledb_group]{tiledb::tiledb_group()}} object.}
 
-\item{\code{members}}{Access the \code{list} of group members.}
+\item{\code{members}}{Access the \code{list} of group members.
+
+If TileDB group object is closed, it will be opened to get members and
+close on exit.}
 }
 \if{html}{\out{</div>}}
 }
@@ -139,7 +142,7 @@ Deletes an array or group resource from \code{TileDBGroup} member list.
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-\code{NULL} value, invisibly.
+The object, invisibly.
 }
 }
 \if{html}{\out{<hr>}}
@@ -161,7 +164,7 @@ Deletes a \code{TileDBGroup}'s member from disk and removes it from its member l
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-\code{NULL} value, invisibly.
+The object, invisibly.
 }
 }
 \if{html}{\out{<hr>}}

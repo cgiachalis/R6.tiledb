@@ -3,6 +3,10 @@
   paste0(x, collapse = sep)
 }
 
+.string_starts_with <- function(x, prefix) {
+  prefix <- paste0("^", prefix)
+  grepl(prefix, x)
+}
 
 vapply_char <- function(X, FUN, ..., USE.NAMES = TRUE) {
   vapply(X, FUN, FUN.VALUE = character(1L), ..., USE.NAMES = USE.NAMES)

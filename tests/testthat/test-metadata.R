@@ -1,3 +1,4 @@
+gc()
 
 test_that("'metadata' methods getters/setters for arrays work as expected", {
 
@@ -54,11 +55,11 @@ test_that("'metadata' methods getters/setters for arrays work as expected", {
   expect_no_error(metadata(uri, "key3") <- 100)
   expect_equal(metadata(uri, "key3"), 100)
 
+  rm(arr); rm(arrobj)
 
 })
 
 test_that("'metadata' methods getters/setters for group work as expected", {
-
 
   uri <- file.path(withr::local_tempdir(), "test-group")
   create_empty_test_group(uri)
@@ -113,6 +114,6 @@ test_that("'metadata' methods getters/setters for group work as expected", {
   expect_no_error(metadata(uri, "key3") <- 100)
   expect_equal(metadata(uri, "key3"), 100)
 
-  gc()
-
-  })
+  rm(grp)
+  rm(grpobj)
+})

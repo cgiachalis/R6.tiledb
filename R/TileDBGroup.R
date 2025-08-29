@@ -64,11 +64,6 @@ TileDBGroup <- R6::R6Class(
         private$initialize_object()
       }
 
-      if (mode == "WRITE") {
-        # Reset group timestamps (start,end) @ WRITE mode
-        private$.tiledb_ctx <- .set_group_timestamps(self$ctx, self$tiledb_timestamp)
-      }
-
       private$log_debug("open", "Opening in {} mode", mode)
 
       private$.tiledb_group <- tiledb::tiledb_group(self$uri, type = mode, ctx = self$ctx)
@@ -105,7 +100,16 @@ TileDBGroup <- R6::R6Class(
 
         private$.tiledb_group <- tiledb::tiledb_group_close(private$.tiledb_group)
         private$.mode <- "CLOSED"
-        private$.tiledb_timestamp <- set_tiledb_timestamp()
+
+        # * NOTE: we revert any user defined timestamps. Ctx and config timestamps
+        #   might be out of sync in closed mode; which is not important as in open
+        #   mode we open a new handle with cached ctx.
+        tm <- set_tiledb_timestamp()
+        if (attr(private$.tiledb_timestamp, "ts_info") != "default") {
+          private$.tiledb_ctx <- .set_group_timestamps(self$ctx, tm)
+        }
+
+        private$.tiledb_timestamp <- tm
       }
 
       invisible(self)
@@ -117,7 +121,7 @@ TileDBGroup <- R6::R6Class(
     #'
     #' @param name Name of the member to remove.
     #'
-    #' @return `NULL` value, invisibly.
+    #' @return The object, invisibly.
     #'
     remove = function(name) {
 
@@ -137,7 +141,7 @@ TileDBGroup <- R6::R6Class(
 
       self$reopen("WRITE")
 
-      invisible(NULL)
+      invisible(self)
     },
 
     #' @description Delete member.
@@ -146,7 +150,7 @@ TileDBGroup <- R6::R6Class(
     #'
     #' @param name Name of the member to delete.
     #'
-    #' @return `NULL` value, invisibly.
+    #' @return The object, invisibly.
     #'
     delete = function(name) {
 
@@ -178,7 +182,7 @@ TileDBGroup <- R6::R6Class(
 
       self$reopen("WRITE")
 
-      invisible(NULL)
+      invisible(self)
     },
 
     #' @description Count the number of members in the group.
@@ -326,6 +330,10 @@ TileDBGroup <- R6::R6Class(
           call = NULL)
       }
 
+      # TODO: reconsider in 2.29:
+      # 1. https://github.com/TileDB-Inc/TileDB/pull/5621
+      # 2. https://github.com/TileDB-Inc/TileDB/pull/5625
+      # 3. https://github.com/TileDB-Inc/TileDB/pull/5623
       if (is.null(relative)) {
         relative <- !startsWith(object$uri, "tiledb://")
       }
@@ -350,7 +358,7 @@ TileDBGroup <- R6::R6Class(
 
       private$add_cached_member(name, object)
 
-      invisible(NULL)
+      invisible(self)
     },
 
 
@@ -489,6 +497,10 @@ TileDBGroup <- R6::R6Class(
       private$.tiledb_group
     },
     #' @field members Access the `list` of group members.
+    #'
+    #' If TileDB group object is closed, it will be opened to get members and
+    #' close on exit.
+    #'
     members = function(value) {
 
       if (!missing(value)) {

@@ -1,4 +1,5 @@
 
+gc()
 
 trg_tstamps <- list(timestamp_start = structure(0, class = c("POSIXct", "POSIXt")),
                     timestamp_end = structure(0, class = c("POSIXct", "POSIXt")))
@@ -75,7 +76,6 @@ test_that("'open_write' method for Arrays works OK", {
   expect_no_error(arr <- open_write(arrobj, timestamp = ts[1]))
   expect_true(tiledb::tiledb_array_is_open_for_writing(arr))
 
-
   tstamps <- array_timestamps(arr)
   expect_equal(tstamps$open_array, trg_tstamps_t1)
 
@@ -83,13 +83,13 @@ test_that("'open_write' method for Arrays works OK", {
   cls_open <- array_timestamps(arrobj)$open_array
   expect_false(identical(cls_open, trg_tstamps_t1))
 
-  close(arr)
-  close(arrobj)
+  rm(arr)
+  rm(arrobj)
+  rm(arrobj_no)
 
-  })
+})
 
 test_that("'open_write' method for Groups works OK", {
-
 
   .get_group_timestamp_end <- function(x) {
     cfg <- tiledb::tiledb_group_get_config(x)
@@ -108,6 +108,7 @@ test_that("'open_write' method for Groups works OK", {
 
   uri <- file.path(withr::local_tempdir(), "test-group")
   group <- TileDBGroup$new(uri)
+
   # Create a group object on disk
   group$create()
 
@@ -143,11 +144,13 @@ test_that("'open_write' method for Groups works OK", {
   expect_equal(end_time, ts[1])
 
   grp <- tiledb::tiledb_group_close(grp)
+  rm(grp)
 
   # Call gc() as we get
   # what():  [TileDB::C++API] Error: Non-retrievable error occurred
   # Exited with status -1073740791.
-  gc()
+  # gc()
+  # Now, we create a new context and seems to resolve it
 
   # 'TileDBGroup' method ---
   uri_no <- file.path(withr::local_tempdir(), "test-group-no")
@@ -177,4 +180,7 @@ test_that("'open_write' method for Groups works OK", {
   expect_true(close(group))
   expect_false(group$is_open())
 
+  rm(group)
+  rm(group_no)
+  rm(grp)
 })

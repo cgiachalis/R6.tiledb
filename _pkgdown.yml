@@ -6,7 +6,7 @@ template:
     heading_font: {google: "Rubik"}
     primary: "#121b2b"
     link-color: "#1c4bc4ed"
-    code-color: "#161923" ##101527
+    code-color: "#8a2d2d" ##101527
     text-decoration-color: "#151b21"
     body-color: "#1B222B" # Black Perl
 

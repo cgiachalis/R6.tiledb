@@ -18,7 +18,7 @@ file_path <- function(..., fsep = .Platform$file.sep) {
 #' Checks for remote URI
 #' @noRd
 is_remote_uri <- function(x) {
-  string_starts_with(x, "s3://") | string_starts_with(x, "tiledb://")
+  .string_starts_with(x, "s3://") | .string_starts_with(x, "tiledb://")
 }
 
 #' Return the scheme of a URI
@@ -53,9 +53,9 @@ make_uri_relative <- function(uri, relative_to) {
     cli::cli_abort("{.arg uri} and {.arg relative_to} should be scalar character vectors", call = NULL)
   }
 
-  uri_scheme <- uri_scheme(uri)
+  uri_in <- uri_scheme(uri)
   relative_to_scheme <- uri_scheme(relative_to)
-  if (uri_scheme %||% "file" != relative_to_scheme %||% "file") {
+  if (uri_in %||% "file" != relative_to_scheme %||% "file") {
     cli::cli_abort("Unable to make relative path between URIs with different schemes", call = NULL)
   }
 
@@ -68,9 +68,6 @@ make_uri_relative <- function(uri, relative_to) {
     # stop(sprintf("uri %s and relative to %s", uri, relative_to))
   }
 
-  fs::path_rel(
-    path = uri_scheme_remove(uri),
-    start = uri_scheme_remove(relative_to)
-  )
+  fs::path_rel(path = uri, start = relative_to)
 }
 
