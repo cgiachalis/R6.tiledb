@@ -1,7 +1,6 @@
+gc()
 
 test_that("'fetch_metadata' methods for arrays work as expected", {
-
-  ctx <- tiledb::tiledb_ctx(cached = FALSE)
 
   uri <- file.path(withr::local_tempdir(), "test-array")
   create_empty_test_array(uri)
@@ -71,15 +70,15 @@ test_that("'fetch_metadata' methods for arrays work as expected", {
   expect_false(tiledb::tiledb_array_is_open_for_reading(arr))
   expect_no_error(fetch_metadata(arr, keys = "c", timestamp = as.POSIXct(1000, tz = "UTC")))
   expect_false(tiledb::tiledb_array_is_open_for_reading(arr))
+
   close(arr)
   close(arrobj)
-  gc()
+
 })
 
 
 test_that("'fetch_metadata' methods for groups work as expected", {
 
-  ctx <- tiledb::tiledb_ctx(cached = FALSE)
 
   uri <- file.path(withr::local_tempdir(), "test-group")
   create_empty_test_group(uri)

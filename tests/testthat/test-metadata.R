@@ -1,7 +1,7 @@
+gc()
 
 test_that("'metadata' methods getters/setters for arrays work as expected", {
 
-  ctx <- tiledb::tiledb_ctx(cached = FALSE)
   uri <- file.path(withr::local_tempdir(), "test-array")
   create_empty_test_array(uri)
 
@@ -55,12 +55,12 @@ test_that("'metadata' methods getters/setters for arrays work as expected", {
   expect_no_error(metadata(uri, "key3") <- 100)
   expect_equal(metadata(uri, "key3"), 100)
 
+  rm(arr); rm(arrobj)
 
 })
 
 test_that("'metadata' methods getters/setters for group work as expected", {
 
-  ctx <- tiledb::tiledb_ctx(cached = FALSE)
   uri <- file.path(withr::local_tempdir(), "test-group")
   create_empty_test_group(uri)
 
@@ -114,4 +114,6 @@ test_that("'metadata' methods getters/setters for group work as expected", {
   expect_no_error(metadata(uri, "key3") <- 100)
   expect_equal(metadata(uri, "key3"), 100)
 
-  })
+  rm(grp)
+  rm(grpobj)
+})

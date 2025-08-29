@@ -1,3 +1,4 @@
+gc()
 
 test_that("'TileDBArrayExp' class works as expected", {
 

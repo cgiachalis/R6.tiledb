@@ -1,3 +1,4 @@
+gc()
 
 test_that("'TileDBFragments' class works as expected", {
 
@@ -82,4 +83,5 @@ test_that("'TileDBFragments' class works as expected", {
   expect_snapshot(val <- fragObj$delete_fragment(1))
   expect_false(val)
 
+  rm(fragObj)
 })

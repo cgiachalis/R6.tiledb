@@ -1,4 +1,5 @@
 
+
 gc()
 
 test_that("'TileDBGroup' class tests on non-existent group", {
@@ -18,6 +19,8 @@ test_that("'TileDBGroup' class tests on non-existent group", {
                label = "Group does not exist.")
 
   expect_message(group$print())
+
+  rm(group)
 })
 
 test_that("'TileDBGroup' class tests on existent but empty group", {
@@ -48,6 +51,8 @@ test_that("'TileDBGroup' class tests on existent but empty group", {
   group$close()
   expect_equal(group$mode, "CLOSED")
 
+  rm(group)
+
   uri2 <- file.path(withr::local_tempdir(), "test-group2")
   group2 <- TileDBGroup$new(uri2)
 
@@ -62,6 +67,8 @@ test_that("'TileDBGroup' class tests on existent but empty group", {
 
   # Verify that group reference is CLOSED
   expect_false(tiledb::tiledb_group_is_open(group2$object))
+
+  rm(group2)
 
   # New instance
   group2_new <- TileDBGroup$new(uri2)
@@ -81,7 +88,7 @@ test_that("'TileDBGroup' class tests on existent but empty group", {
   expect_equal(group2_new$mode, "WRITE")
   expect_equal(tiledb::tiledb_group_query_type(group2_new$object), "WRITE")
 
-  group2_new$close()
+  rm(group2_new)
 
   group3_new <- TileDBGroup$new(uri2)
 
@@ -99,10 +106,9 @@ test_that("'TileDBGroup' class tests on existent but empty group", {
   # Check is ready only field
   expect_error(group3_new$object <- "a")
 
-  group3_new$close()
-
-
+  rm(group3_new)
 })
+
 
 test_that("'TileDBGroup' class tests accessors on empty group", {
 
@@ -132,7 +138,7 @@ test_that("'TileDBGroup' class tests accessors on empty group", {
   # Raw dump (no header)
   expect_snapshot(group$dump(NULL))
 
-  group$close()
+  rm(group)
 })
 
 test_that("'TileDBGroup' class tests add/remove members", {
@@ -146,15 +152,13 @@ test_that("'TileDBGroup' class tests add/remove members", {
 
   # Test opening on new instance that correctly initialises the object
 
+  group_new0 <- TileDBGroup$new(uri)
+  expect_invisible(group_new0$open())
+  rm(group_new0)
+
   group_new <- TileDBGroup$new(uri)
-
-  expect_invisible(group_new$open())
-  group_new$close()
-
-  group_new <- TileDBGroup$new(uri)
-
   expect_invisible(group_new$open(mode = "WRITE"))
-  group_new$close()
+  rm(group_new)
 
   # Step 2: Create array and subgroups that will be
   #           added later to test-group
@@ -211,6 +215,7 @@ test_that("'TileDBGroup' class tests add/remove members", {
   group$reopen()
   expect_identical(tiledb::tiledb_group_member_count(group$object), 3)
 
+
   # Test member 'grp1' exists in group
   expect_true(group$member_exists("grp1"))
 
@@ -218,6 +223,9 @@ test_that("'TileDBGroup' class tests add/remove members", {
   expect_false(group$member_exists("foo-grp1"))
 
   group$close()
+  rm(grp1)
+  rm(grp2)
+  rm(arr1)
 
   # Step 5: Read back
   group$open(mode = "READ")
@@ -272,10 +280,6 @@ test_that("'TileDBGroup' class tests add/remove members", {
   # get_member() instantiates members when adding to cache (again for group)
   expect_true(!is.null(lst$grp1$object))
 
-  arr1$close(); grp1$close()
-
-  group2$close()
-
   # Step 5: Remove members
   group$open(mode = "WRITE")
 
@@ -306,7 +310,14 @@ test_that("'TileDBGroup' class tests add/remove members", {
 
   # Print that group is closed
   expect_snapshot(group$print())
+
+  rm(group)
+  rm(grp1)
+  rm(group2)
+  rm(arr1)
+
 })
+
 
 test_that("'TileDBGroup' class tests delete members", {
 
@@ -343,7 +354,13 @@ test_that("'TileDBGroup' class tests delete members", {
   group$set_member(grp2) # name defaults to uri basename
   expect_equal(group$count_members(), 3)
 
-  group$close(); rm(group)
+  # close to write members on disk
+  group$close()
+
+  rm(group)
+  rm(arr1)
+  rm(grp1)
+  rm(grp2)
 
   # Step 5: Delete members
 
@@ -368,7 +385,7 @@ test_that("'TileDBGroup' class tests delete members", {
   expect_equal(result$TYPE, "GROUP")
   expect_equal(basename(result$URI), "grp2")
 
-  group2$close()
+  rm(group2)
 
 })
 
@@ -418,15 +435,18 @@ test_that("'TileDBGroup' class tests print method", {
   group$remove("grp2")
   expect_snapshot(group$print())
 
-  group$close()
+  rm(group)
 
-
+  # Test snapshot print for empty group
   uri <- file.path(withr::local_tempdir(), "test-group")
   group <- TileDBGroup$new(uri)
 
   expect_snapshot(group$print())
 
-  group$close()
+  rm(group)
+  rm(arr1)
+  rm(grp1)
+  rm(grp2)
 
   })
 
@@ -454,9 +474,13 @@ test_that("'TileDBGroup' class tests relative paths", {
   expect_no_error(group$set_member(g2, name = "g2b", relative = FALSE))
   expect_equal(group$count_members(), 1)
 
-  group$close()
+  rm(group)
+  rm(g2)
 
 })
+
+# Do not remove.
+gc()
 
 test_that("'TileDBGroup' test active binding tiledb_timestamp", {
 
@@ -464,7 +488,6 @@ test_that("'TileDBGroup' test active binding tiledb_timestamp", {
 
   group <- TileDBGroup$new(uri)
   group$create(mode = "READ")
-
 
   expect_no_error(group$tiledb_timestamp <- NULL)
   expect_s3_class(group$tiledb_timestamp, "tiledb_timestamp")
@@ -507,10 +530,11 @@ test_that("'TileDBGroup' test active binding tiledb_timestamp", {
   expect_error(group$tiledb_timestamp <- c(1, 3, 3), label = "Invalid 'tiledb_timestamp' input")
   expect_error(group$tiledb_timestamp <- numeric(0), label = "Invalid 'tiledb_timestamp' input")
 
-  group$close()
+  rm(group)
 
 })
 
+gc()
 
 test_that("'TileDBGroup' class tests time-traveling", {
 
@@ -602,9 +626,10 @@ test_that("'TileDBGroup' class tests time-traveling", {
   expect_equal(nrow(objw), 1)
   expect_equal(basename(objw$URI), "testarray1")
 
-  group$close()
+  rm(group)
+  rm(marr1)
 
-  })
+})
 
 
 test_that("'TileDBGroup' class tests metadata print method", {
@@ -615,6 +640,8 @@ test_that("'TileDBGroup' class tests metadata print method", {
   group$create() # mode is WRITE now
 
   expect_snapshot(group$get_metadata())
+
+  rm(group)
 })
 
 
@@ -651,6 +678,5 @@ test_that("'TileDBGroup' class tests metadata", {
   group$set_metadata(new_md)
   expect_snapshot(group$get_metadata())
 
-  group$close()
+  rm(group)
 })
-
