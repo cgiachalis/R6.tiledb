@@ -31,7 +31,10 @@ A new \code{TileDBGroup} instance is initialized using the \code{new()} method:
 \describe{
 \item{\code{object}}{Access the underlying \code{\link[tiledb:tiledb_group]{tiledb::tiledb_group()}} object.}
 
-\item{\code{members}}{Access the \code{list} of group members.}
+\item{\code{members}}{Access the \code{list} of group members.
+
+If TileDB group object is closed, it will be opened to get members and
+close on exit.}
 }
 \if{html}{\out{</div>}}
 }

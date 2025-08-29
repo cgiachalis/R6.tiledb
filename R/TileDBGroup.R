@@ -497,6 +497,10 @@ TileDBGroup <- R6::R6Class(
       private$.tiledb_group
     },
     #' @field members Access the `list` of group members.
+    #'
+    #' If TileDB group object is closed, it will be opened to get members and
+    #' close on exit.
+    #'
     members = function(value) {
 
       if (!missing(value)) {
