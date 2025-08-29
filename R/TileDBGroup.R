@@ -64,11 +64,6 @@ TileDBGroup <- R6::R6Class(
         private$initialize_object()
       }
 
-      if (mode == "WRITE") {
-        # Reset group timestamps (start,end) @ WRITE mode
-        private$.tiledb_ctx <- .set_group_timestamps(self$ctx, self$tiledb_timestamp)
-      }
-
       private$log_debug("open", "Opening in {} mode", mode)
 
       private$.tiledb_group <- tiledb::tiledb_group(self$uri, type = mode, ctx = self$ctx)
@@ -105,7 +100,16 @@ TileDBGroup <- R6::R6Class(
 
         private$.tiledb_group <- tiledb::tiledb_group_close(private$.tiledb_group)
         private$.mode <- "CLOSED"
-        private$.tiledb_timestamp <- set_tiledb_timestamp()
+
+        # * NOTE: we revert any user defined timestamps. Ctx and config timestamps
+        #   might be out of sync in closed mode; which is not important as in open
+        #   mode we open a new handle with cached ctx.
+        tm <- set_tiledb_timestamp()
+        if (attr(private$.tiledb_timestamp, "ts_info") != "default") {
+          private$.tiledb_ctx <- .set_group_timestamps(self$ctx, tm)
+        }
+
+        private$.tiledb_timestamp <- tm
       }
 
       invisible(self)
