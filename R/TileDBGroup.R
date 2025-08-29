@@ -121,7 +121,7 @@ TileDBGroup <- R6::R6Class(
     #'
     #' @param name Name of the member to remove.
     #'
-    #' @return `NULL` value, invisibly.
+    #' @return The object, invisibly.
     #'
     remove = function(name) {
 
@@ -141,7 +141,7 @@ TileDBGroup <- R6::R6Class(
 
       self$reopen("WRITE")
 
-      invisible(NULL)
+      invisible(self)
     },
 
     #' @description Delete member.
@@ -150,7 +150,7 @@ TileDBGroup <- R6::R6Class(
     #'
     #' @param name Name of the member to delete.
     #'
-    #' @return `NULL` value, invisibly.
+    #' @return The object, invisibly.
     #'
     delete = function(name) {
 
@@ -182,7 +182,7 @@ TileDBGroup <- R6::R6Class(
 
       self$reopen("WRITE")
 
-      invisible(NULL)
+      invisible(self)
     },
 
     #' @description Count the number of members in the group.
@@ -358,7 +358,7 @@ TileDBGroup <- R6::R6Class(
 
       private$add_cached_member(name, object)
 
-      invisible(NULL)
+      invisible(self)
     },
 
 

@@ -139,7 +139,7 @@ Deletes an array or group resource from \code{TileDBGroup} member list.
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-\code{NULL} value, invisibly.
+The object, invisibly.
 }
 }
 \if{html}{\out{<hr>}}
@@ -161,7 +161,7 @@ Deletes a \code{TileDBGroup}'s member from disk and removes it from its member l
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-\code{NULL} value, invisibly.
+The object, invisibly.
 }
 }
 \if{html}{\out{<hr>}}
