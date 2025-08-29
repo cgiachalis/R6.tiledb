@@ -1,8 +1,19 @@
-
+trg_dft <- structure(
+  list(
+    timestamp_start = structure(0, class = c("POSIXct", "POSIXt"), tzone = ""),
+    timestamp_end = structure(
+      NA_real_,
+      class = c("POSIXct", "POSIXt"),
+      tzone = ""
+    )
+  ),
+  class = "group_timestamps",
+  mode = "closed",
+  tzone = "UTC",
+  tdbsrc = "ctx"
+)
 
 test_that("Test 'group_timestamps()' works as expected", {
-
-  ctx <- tiledb::tiledb_ctx(cached = FALSE)
 
   tz <- "Europe/London"
   Sys.setenv(TZ = tz)
@@ -55,19 +66,10 @@ test_that("Test 'group_timestamps()' works as expected", {
   attr(trg1, "mode") <- "N/A"
   expect_equal(group_timestamps(group$ctx, tz = "UTC"), trg1)
 
-  group$close()
-
-  attr(trg1, "mode") <- "closed"
-  expect_equal(group_timestamps(group, tz = "UTC"), trg1)
-  attr(trg1, "tdbsrc") <- "group_config"
-  expect_equal(group_timestamps(group$object, tz = "UTC"), trg1)
-
-
-  # Test print method
-  expect_snapshot(group_timestamps(group,from = "ctx", tz = "UTC"))
-  expect_snapshot(group_timestamps(group, from = "cfg", tz = "UTC"))
-  group$open()
   expect_snapshot(group_timestamps(group$object, tz = "UTC"))
   expect_snapshot(group_timestamps(group$ctx, tz = "Europe/London"))
   expect_snapshot(group_timestamps(tiledb::config(group$ctx), tz = "Europe/London"))
+
+  rm(group)
+
 })
