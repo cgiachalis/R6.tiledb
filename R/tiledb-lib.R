@@ -3,6 +3,7 @@
   methods::is(arr, "tiledb_sparse") || methods::is(arr, "tiledb_dense") || methods::is(arr, "tiledb_array")
 }
 
+.libtiledb_array_consolidate <- utils::getFromNamespace("libtiledb_array_consolidate", "tiledb")
 .libtiledb_array_close <- utils::getFromNamespace("libtiledb_array_close", "tiledb")
 .libtiledb_array_open_timestamp_start <- utils::getFromNamespace("libtiledb_array_open_timestamp_start", "tiledb")
 .libtiledb_array_open_timestamp_end <- utils::getFromNamespace("libtiledb_array_open_timestamp_end", "tiledb")
