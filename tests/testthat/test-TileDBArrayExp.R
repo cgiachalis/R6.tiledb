@@ -87,9 +87,17 @@ test_that("Test '$consolidate', '$consolidate_async' and '$vacuum' methods", {
     as.POSIXct(x /1000, tz = "UTC", origin = "1970-01-01")
   }
 
+  # get config from tiledb cache
+  origcfg <- tiledb::config(tiledb::tiledb_get_context())
+
   # consolidate
   trg_range <- c(ts(3), ts(4))
   expect_true(arrobj$consolidate(mode = "fragments", start_time = trg_range[1], end_time = trg_range[2]))
+
+  # check we didn't alter consolidation config values from tiledb cache
+  cfg <- tiledb::config(tiledb::tiledb_get_context())
+  expect_equal(cfg["sm.consolidation.timestamp_start"], origcfg["sm.consolidation.timestamp_start"])
+  expect_equal(cfg["sm.consolidation.timestamp_end"], origcfg["sm.consolidation.timestamp_end"])
 
   # Visual check, see frag #4
   # options("digits.secs" = 6)
