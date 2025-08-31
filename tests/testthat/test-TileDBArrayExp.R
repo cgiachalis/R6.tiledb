@@ -47,7 +47,7 @@ test_that("'TileDBArrayExp' class works as expected", {
 
   ## consolidate and vacuum
 
-  expect_error(arrObj$consolidate(mode = "fragments", cfg = "nope"), label = "cfg should 'tiledb_config'")
+  expect_error(arrObj$consolidate(mode = "fragments", cfg = "nope"), label = "cfg should be 'tiledb_config'")
   expect_true(arrObj$consolidate(mode = "fragments")) # default
 
   expect_identical(arrObj$frag_num(), 1)
@@ -56,7 +56,7 @@ test_that("'TileDBArrayExp' class works as expected", {
   expect_equal(dim(dfrags), c(3,4))
   expect_equal(colnames(dfrags), c("Fragment", "start_timestamp", "end_timestamp", "URI"))
 
-  expect_error(arrObj$vacuum(mode = "fragments", cfg = "nope"), label = "cfg should 'tiledb_config'")
+  expect_error(arrObj$vacuum(mode = "fragments", cfg = "nope"), label = "cfg should be'tiledb_config'")
   expect_true(arrObj$vacuum(mode = "fragments")) # default
   expect_equal(arrObj$frag_to_vacuum(), data.frame(Fragment = character(0),
                                                    start_timestamp = numeric(0),
@@ -110,10 +110,18 @@ test_that("Test '$consolidate', '$consolidate_async' and '$vacuum' methods", {
  expect_equal(ts_range, trg_range)
 
  # consolidate async
- expect_error(arrobj$consolidate_async(cfg = "nope"), label = "cfg should 'tiledb_config'")
+ # get config from tiledb cache
+ origcfg <- tiledb::config(tiledb::tiledb_get_context())
+ expect_error(arrobj$consolidate_async(cfg = "nope"), label = "cfg should be 'tiledb_config'")
 
  trg_range <- c(ts(2), ts(4))
  expect_true(arrobj$consolidate_async(start_time = trg_range[1], end_time = trg_range[2])[])
+
+ # check we didn't alter consolidation config values from tiledb cache
+ cfg <- tiledb::config(tiledb::tiledb_get_context())
+ expect_equal(cfg["sm.consolidation.timestamp_start"], origcfg["sm.consolidation.timestamp_start"])
+ expect_equal(cfg["sm.consolidation.timestamp_end"], origcfg["sm.consolidation.timestamp_end"])
+
 
  expect_equal(nrow(arrobj$frag_to_vacuum()), 4)
  finfo <- arrobj$fragments_object$fragment_info
@@ -121,11 +129,20 @@ test_that("Test '$consolidate', '$consolidate_async' and '$vacuum' methods", {
  ts_range <- as.POSIXct(ts_range, tz = "UTC")
  expect_equal(ts_range, trg_range)
 
- # vacuum
- expect_error(arrobj$vacuum(cfg = "nope"), label = "cfg should 'tiledb_config'")
- expect_true(arrobj$vacuum())
- expect_equal(nrow(arrobj$frag_to_vacuum()), 0)
 
+ # vacuum
+ expect_error(arrobj$vacuum(cfg = "nope"), label = "cfg should be 'tiledb_config'")
+
+ origcfg <- tiledb::config(tiledb::tiledb_get_context())
+
+ expect_true(arrobj$vacuum(mode = "commits"))
+
+ # check we didn't alter vacuum mode config values from tiledb cache
+ cfg <- tiledb::config(tiledb::tiledb_get_context())
+ expect_equal( cfg["sm.vacuum.mode"],  origcfg["sm.vacuum.mode"])
+
+ expect_true(arrobj$vacuum(mode = "fragments"))
+ expect_equal(nrow(arrobj$frag_to_vacuum()), 0)
 
 })
 
@@ -137,7 +154,14 @@ test_that("Test '$vacuum_async' method", {
   arrobj <- tdb_array(uri)
   arrobj$consolidate()
 
-  expect_error(arrobj$vacuum_async(cfg = "nope"), label = "cfg should 'tiledb_config'")
+  expect_error(arrobj$vacuum_async(cfg = "nope"), label = "cfg should be 'tiledb_config'")
+
+  origcfg <- tiledb::config(tiledb::tiledb_get_context())
+  expect_true(arrobj$vacuum_async(mode = "commits")[])
+  # check we didn't alter vacuum mode config values from tiledb cache
+  cfg <- tiledb::config(tiledb::tiledb_get_context())
+  expect_equal( cfg["sm.vacuum.mode"],  origcfg["sm.vacuum.mode"])
+
   expect_true(arrobj$vacuum_async()[])
   expect_equal(nrow(arrobj$frag_to_vacuum()), 0)
 
