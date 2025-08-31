@@ -184,3 +184,19 @@ set_consolidation_tstamps <- function(cfg, start_time = NULL, end_time = NULL) {
   cfg
 
 }
+
+#'@export
+new_context <- function(cfg = NULL) {
+
+  if (is.null(cfg)) {
+    ptr <- libtiledb_ctx()
+  } else if (is(cfg, "tiledb_config")) {
+    ptr <- .libtiledb_ctx(cfg@ptr)
+  } else{
+    cli::cli_abort("{.arg {deparse(substitute(cfg))}} should be of class {.help [{.fun tiledb_config}](tiledb::tiledb_config)}.", call = NULL)
+  }
+
+  ctx <- new("tiledb_ctx", ptr = ptr)
+
+  ctx
+}
