@@ -176,12 +176,20 @@ test_that("Test '$consolidate_and_vacuum' method", {
   expect_error(arrobj$consolidate_and_vacuum(cfg = "nope"), label = "cfg should 'tiledb_config'")
 
   ts <- function(x) {
-    as.POSIXct(x  /1000, tz = "UTC", origin = "1970-01-01")
+    as.POSIXct(x  / 1000, tz = "UTC", origin = "1970-01-01")
   }
+
+  # get config from tiledb cache
+  origcfg <- tiledb::config(tiledb::tiledb_get_context())
 
   # consolidate
   trg_range <- c(ts(1), ts(3))
   expect_true(arrobj$consolidate_and_vacuum(start_time = trg_range[1], end_time = trg_range[2])[])
+
+  # check we didn't alter consolidation config values from tiledb cache
+  cfg <- tiledb::config(tiledb::tiledb_get_context())
+  expect_equal(cfg["sm.consolidation.timestamp_start"], origcfg["sm.consolidation.timestamp_start"])
+  expect_equal(cfg["sm.consolidation.timestamp_end"], origcfg["sm.consolidation.timestamp_end"])
 
   expect_equal(nrow(arrobj$frag_to_vacuum()), 0)
   expect_equal(nrow(arrobj$frag_uris()), 1)
@@ -204,9 +212,18 @@ test_that("Test '$consolidate_and_vacuum_async' method", {
     as.POSIXct(x  /1000, tz = "UTC", origin = "1970-01-01")
   }
 
+  # get config from tiledb cache
+  origcfg <- tiledb::config(tiledb::tiledb_get_context())
+
   # consolidate
   trg_range <- c(ts(1), ts(3))
   expect_true(arrobj$consolidate_and_vacuum_async(start_time = trg_range[1], end_time = trg_range[2])[])
+
+  # check we didn't alter consolidation config values from tiledb cache
+  cfg <- tiledb::config(tiledb::tiledb_get_context())
+  expect_equal(cfg["sm.consolidation.timestamp_start"], origcfg["sm.consolidation.timestamp_start"])
+  expect_equal(cfg["sm.consolidation.timestamp_end"], origcfg["sm.consolidation.timestamp_end"])
+
 
   expect_equal(nrow(arrobj$frag_to_vacuum()), 0)
   expect_equal(nrow(arrobj$frag_uris()), 1)

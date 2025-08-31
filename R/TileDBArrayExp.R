@@ -359,20 +359,13 @@ TileDBArrayExp <- R6::R6Class(
       cfg["sm.consolidation.mode"] <- mode
       cfg["sm.vacuum.mode"] <- mode
 
-      if (!is.null(start_time)) {
-
-        cfg["sm.consolidation.timestamp_start"] <- .posixt_to_int64char(start_time)
-
+      # set consolidation time stamps
+      if (!is.null(start_time) || !is.null(end_time)) {
+        cfg <- set_consolidation_tstamps(cfg, start_time, end_time)
       }
 
-      if (!is.null(end_time)) {
-
-        cfg["sm.consolidation.timestamp_end"] <- .posixt_to_int64char(end_time)
-
-      }
-
-      tiledb::array_consolidate(self$uri, cfg = cfg)
-      tiledb::array_vacuum(self$uri, cfg = cfg)
+      .libtiledb_array_consolidate(ctx = self$ctx@ptr, uri = self$uri, cfgptr = cfg@ptr)
+      .libtiledb_array_vacuum(ctx = self$ctx@ptr, uri = self$uri, cfgptr = cfg@ptr)
 
       # reset fragment object
       private$.fragments_object <- NULL
@@ -426,16 +419,9 @@ TileDBArrayExp <- R6::R6Class(
       cfg["sm.consolidation.mode"] <- mode
       cfg["sm.vacuum.mode"] <- mode
 
-      if (!is.null(start_time)) {
-
-        cfg["sm.consolidation.timestamp_start"] <- .posixt_to_int64char(start_time)
-
-      }
-
-      if (!is.null(end_time)) {
-
-        cfg["sm.consolidation.timestamp_end"] <- .posixt_to_int64char(end_time)
-
+      # set consolidation time stamps
+      if (!is.null(start_time) || !is.null(end_time)) {
+        cfg <- set_consolidation_tstamps(cfg, start_time, end_time)
       }
 
       # mirai namespace compute profile
@@ -453,10 +439,9 @@ TileDBArrayExp <- R6::R6Class(
         #   from R session
         cfg <- tiledb::tiledb_config(config_params)
 
-        ctx <- tiledb::tiledb_ctx(cfg)
-
-        tiledb::array_consolidate(uri = uri, ctx = ctx)
-        tiledb::array_vacuum(uri = uri, ctx = ctx)
+        ctx <- R6.tiledb::new_context(cfg)
+        R6.tiledb:::.libtiledb_array_consolidate(ctx = ctx@ptr, uri = uri)
+        R6.tiledb:::.libtiledb_array_vacuum(ctx = ctx@ptr, uri = uri)
 
         return(TRUE)
 
