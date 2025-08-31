@@ -185,11 +185,17 @@ set_consolidation_tstamps <- function(cfg, start_time = NULL, end_time = NULL) {
 
 }
 
-#'@export
+#' Create a new TileDB Context
+#'
+#' @param cfg  A configuration object [tiledb::tiledb_config()].
+#'
+#' @keywords internal
+#'
+#' @export
 new_context <- function(cfg = NULL) {
 
   if (is.null(cfg)) {
-    ptr <- libtiledb_ctx()
+    ptr <- .libtiledb_ctx()
   } else if (is(cfg, "tiledb_config")) {
     ptr <- .libtiledb_ctx(cfg@ptr)
   } else{
