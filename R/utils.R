@@ -152,39 +152,6 @@ demo_UCBAdmissions_array <- function(uri) {
 }
 
 
-set_consolidation_tstamps <- function(cfg, start_time = NULL, end_time = NULL) {
-
-
-  check_tiledb_config(cfg)
-
-  # set consolidation time stamps
-  if (!is.null(start_time)) {
-
-    start_time <- .posixt_to_int64char(start_time)
-    cfg["sm.consolidation.timestamp_start"] <- start_time
-
-  }
-
-  if (!is.null(end_time)) {
-
-    end_time <- .posixt_to_int64char(end_time)
-
-    if (is.null(start_time)) {
-      start_time <- as.POSIXct(as.numeric(cfg["sm.consolidation.timestamp_start"]) / 1000)
-    }
-
-    if (start_time > end_time) {
-      cli::cli_abort("{.arg start_time} is greater than {.arg end_time}.", call = NULL)
-    }
-
-    cfg["sm.consolidation.timestamp_end"] <- end_time
-
-  }
-
-  cfg
-
-}
-
 #' Create a new TileDB Context
 #'
 #' @param cfg  A configuration object [tiledb::tiledb_config()].
