@@ -14,7 +14,6 @@
 #' @export
 #'
 #' @examples
-#' \dontrun{
 #' origparams <- c("sm.consolidation.timestamp_start" = "100",
 #'                 "sm.consolidation.timestamp_end" = "20000")
 #'
@@ -49,7 +48,6 @@
 #' # Update context with modified config object
 #' ctx <- tiledb::tiledb_ctx(config = cfg)
 #'
-#'}
 #' @name set_config_params
 set_config_params <- function(cfg, keyval) {
 

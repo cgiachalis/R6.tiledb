@@ -23,7 +23,6 @@ Set or unset group opening start, end timestamps to the given
 configuration object.
 }
 \examples{
-\dontrun{
 cfg <- tiledb::tiledb_config()
 cfg <- set_group_tstamps(cfg, as.POSIXct(1), as.POSIXct(1000))
 cfg["sm.group.timestamp_start"] # 1000 (ms)
@@ -31,7 +30,7 @@ cfg["sm.group.timestamp_start"] # 1000 (ms)
 # reset
 cfg <- unset_group_tstamps(cfg)
 cfg["sm.group.timestamp_start"] # 0
-}
+
 }
 \seealso{
 \code{\link[=set_config_params]{set_config_params()}}

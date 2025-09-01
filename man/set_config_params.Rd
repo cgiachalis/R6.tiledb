@@ -24,7 +24,6 @@ These functions will set or unset the parameters of TileDB Config object
 and return the modified configuration object.
 }
 \examples{
-\dontrun{
 origparams <- c("sm.consolidation.timestamp_start" = "100",
                 "sm.consolidation.timestamp_end" = "20000")
 
@@ -59,7 +58,6 @@ cfg["sm.consolidation.timestamp_end"]   # "18446744073709551615"
 # Update context with modified config object
 ctx <- tiledb::tiledb_ctx(config = cfg)
 
-}
 }
 \seealso{
 \code{\link[tiledb:tiledb_config]{tiledb::tiledb_config()}}

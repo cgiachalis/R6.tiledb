@@ -22,7 +22,6 @@ The modified \code{tiledb_config} object.
 Set or unset consolidation timestamps to the given configuration object.
 }
 \examples{
-\dontrun{
 cfg <- tiledb::tiledb_config()
 cfg <- set_consolidation_tstamps(cfg, as.POSIXct(1), as.POSIXct(1000))
 cfg["sm.consolidation.timestamp_start"] # 1000 (ms)
@@ -30,7 +29,7 @@ cfg["sm.consolidation.timestamp_start"] # 1000 (ms)
 # reset
 cfg <- unset_consolidation_tstamps(cfg)
 cfg["sm.consolidation.timestamp_start"] # 0
-}
+
 }
 \seealso{
 \code{\link[=set_config_params]{set_config_params()}}
