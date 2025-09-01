@@ -38,9 +38,10 @@ set_consolidation_tstamps <- function(cfg, start_time = NULL, end_time = NULL) {
     end_time <- .posixt_to_int64char(end_time)
 
     if (is.null(start_time)) {
-      start_time <- as.POSIXct(as.numeric(cfg["sm.consolidation.timestamp_start"]) / 1000)
+      start_time <- cfg["sm.consolidation.timestamp_start"]
     }
 
+    # ops will convert char to nums
     if (start_time > end_time) {
       cli::cli_abort("{.arg start_time} is greater than {.arg end_time}.", call = NULL)
     }
