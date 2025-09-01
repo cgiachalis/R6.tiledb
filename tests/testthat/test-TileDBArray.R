@@ -1,3 +1,4 @@
+gc()
 
 test_that("'TileDBArray' class tests on non-existent array", {
 

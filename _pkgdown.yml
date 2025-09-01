@@ -28,6 +28,7 @@ reference:
   desc: ~
   contents:
   - tdb_array
+  - set_config_params
 
 - subtitle: Open,Close
   desc: Open, close methods
@@ -59,5 +60,7 @@ reference:
   desc: Helpers to work with timestamps
   contents:
   - set_tiledb_timestamp
+  - set_consolidation_tstamps
+  - set_group_tstamps
   - array_timestamps
   - group_timestamps
