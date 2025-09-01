@@ -56,8 +56,12 @@ set_config_params <- function(cfg, keyval) {
 
   check_tiledb_config(cfg)
 
-  if (isFALSE(.is_named(keyval, allow_empty = FALSE) || .is_character(keyval))) {
-    cli::cli_abort("{.arg {deparse(substitute(keyval))}} should be a named character vector.", call = NULL)
+  if (isFALSE(.is_named(keyval, allow_empty = FALSE))) {
+    cli::cli_abort("{.arg {deparse(substitute(keyval))}} should be a named vector.", call = NULL)
+  }
+
+  if (isFALSE(.is_character(keyval))) {
+    cli::cli_abort("{.arg {deparse(substitute(keyval))}} should be a character vector.", call = NULL)
   }
 
   keys <- names(keyval)
