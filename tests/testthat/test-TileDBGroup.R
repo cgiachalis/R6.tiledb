@@ -531,10 +531,9 @@ test_that("'TileDBGroup' test active binding tiledb_timestamp", {
   expect_error(group$tiledb_timestamp <- numeric(0), label = "Invalid 'tiledb_timestamp' input")
 
   rm(group)
-
+  gc()
 })
 
-gc()
 
 test_that("'TileDBGroup' class tests time-traveling", {
 
@@ -628,7 +627,7 @@ test_that("'TileDBGroup' class tests time-traveling", {
 
   rm(group)
   rm(marr1)
-
+  gc()
 })
 
 

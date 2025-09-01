@@ -1,3 +1,4 @@
+gc()
 
 cfg <- tiledb::tiledb_config()
 
