@@ -25,7 +25,6 @@ and return the modified configuration object.
 }
 \examples{
 \dontrun{
-
 origparams <- c("sm.consolidation.timestamp_start" = "100",
                 "sm.consolidation.timestamp_end" = "20000")
 
