@@ -328,11 +328,15 @@ test_that("'TileDBGroup' class tests delete members", {
   group$create()
   group$close()
 
-  # Step 1: Create array and subgroups that will be
+  # Step 1: Create arrays and subgroups that will be
   #           added later to test-group
   arr_uri <- file.path(uri, "arr_a1")
   create_empty_test_array(arr_uri)
   arr1 <- TileDBArray$new(arr_uri)
+
+  arr_uri2 <- file.path(uri, "arr_a2")
+  create_empty_test_array(arr_uri2)
+  arr2 <- TileDBArray$new(arr_uri2)
 
   grp_uri <- file.path(uri, "grp_g1")
   tiledb::tiledb_group_create(grp_uri)
@@ -345,20 +349,24 @@ test_that("'TileDBGroup' class tests delete members", {
   # Step 2: Add array and subgroup as members
   group$open(mode = "WRITE")
 
-  # add array
+  # add array 1
   group$set_member(arr1, name = "arr1")
+
+  # add array 2
+  group$set_member(arr2, name = "arr2")
+
   # add group 1
   group$set_member(grp1, name = "grp1")
 
   # add group 2
   group$set_member(grp2) # name defaults to uri basename
-  expect_equal(group$count_members(), 3)
+  expect_equal(group$count_members(), 4)
 
   # close to write members on disk
   group$close()
 
-  rm(group)
   rm(arr1)
+  rm(arr2)
   rm(grp1)
   rm(grp2)
 
@@ -366,9 +374,22 @@ test_that("'TileDBGroup' class tests delete members", {
 
   # open new instance with no cached members
   group2 <- TileDBGroup$new(uri)
-
   group2$reopen(mode = "WRITE")
 
+  # Delete one member so we can open the previous instance to check if
+  # it will pick the deletion
+  group2$delete("arr2")
+  group2$close()
+
+  # Now the initial instance 'group' on reopening should have 3 members
+  # as from 'group2' we deleted 'arr2' member
+  group$open()
+  expect_equal(group$count_members(), 3)
+  expect_false(group$member_exists("arr2"))
+  group$close()
+  rm(group)
+
+  group2$reopen("WRITE")
   expect_error(group2$delete("Bob"), label = "No member named `bob` found.")
 
   group2$delete("arr1")

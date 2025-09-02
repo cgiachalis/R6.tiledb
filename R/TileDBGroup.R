@@ -69,6 +69,9 @@ TileDBGroup <- R6::R6Class(
       private$.tiledb_group <- tiledb::tiledb_group(self$uri, type = mode, ctx = self$ctx)
 
       private$.mode <- mode
+
+      # force member cache update
+      private$.member_cache <- NULL
       private$update_member_cache()
       private$update_metadata_cache()
 
