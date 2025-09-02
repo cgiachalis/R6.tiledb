@@ -267,11 +267,7 @@ TileDBObject <- R6::R6Class(
           self$close()
 
           if (objtype == "GROUP") {
-            # .member cache is only applicable to TileDBGroup
-            if (!is.null(private$.member_cache)) {
-              # Clear cache in order to reopen members with new timestamps
-              private$.member_cache <- NULL
-            }
+
             private$.tiledb_ctx <- .set_group_timestamps(private$.tiledb_ctx, .time_stamp)
           }
 
