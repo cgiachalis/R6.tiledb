@@ -50,7 +50,8 @@ TileDBFragments <- R6::R6Class(
     #' @description Return a `data.frame` with  time stamps and
     #' fragments uris.
     #'
-    #' @param trunc_uri `TRUE` to truncate uri path.
+    #' @param trunc_uri `TRUE` for fragment name in the form:  *`__ts1_ts2_<label>_<ver>`*,
+    #' otherwise `FALSE` for full path.
     #'
     #' @return An object of class `data.frame` with four columns:
     #'
@@ -117,7 +118,8 @@ TileDBFragments <- R6::R6Class(
     },
     #' @description Consolidated fragments to be removed.
     #'
-    #' @param trunc_uri `TRUE` to truncate uri path.
+    #' @param trunc_uri `TRUE` for fragment name in the form:  *`__ts1_ts2_<label>_<ver>`*,
+    #' otherwise `FALSE` for full path.
     #'
     #' @return An object of class `data.frame` with four columns:
     #'
