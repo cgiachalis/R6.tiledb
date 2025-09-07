@@ -32,6 +32,7 @@ Suggests:
     spelling,
     testthat (>= 3.0.0),
     withr
+Remotes: TileDB-Inc/TileDB-R
 Config/testthat/edition: 3
 Encoding: UTF-8
 Language: en-GB
