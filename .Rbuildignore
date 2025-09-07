@@ -12,3 +12,4 @@
 ^inst\WORDLIST\.txt$
 ^tests/data-tests$
 ^LICENSE\.md$
+^\.github$
