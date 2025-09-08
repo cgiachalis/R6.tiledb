@@ -74,11 +74,11 @@ jobs:
           run: ./.github/r-ci.sh run_tests
 
         - name: Show install log
-          run: cat $HOME/work/TileDB-R/TileDB-R/tiledb.Rcheck/00install.out
+          run: cat $HOME/work/R6.tiledb/R6.tiledb/R6.tiledb.Rcheck/00install.out
           if: failure()
 
         - name: Show test log
-          run: cat $HOME/work/TileDB-R/TileDB-R/tiledb.Rcheck/00check.log
+          run: cat $HOME/work/R6.tiledb/R6.tiledb/R6.tiledb.Rcheck/00check.log
           if: failure()
 
         #- name: Coverage
