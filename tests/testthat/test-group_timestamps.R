@@ -16,8 +16,7 @@ trg_dft <- structure(
 test_that("Test 'group_timestamps()' works as expected", {
 
   tz <- "Europe/London"
-  Sys.setenv(TZ = tz)
-  on.exit({Sys.setenv(TZ = "")})
+  withr::local_timezone(tz = tz)
 
   uri <- file.path(withr::local_tempdir(), "test-group")
 

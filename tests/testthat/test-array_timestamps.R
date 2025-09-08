@@ -3,9 +3,7 @@
 test_that("Test 'array_timestamps()' works as expected", {
 
   tz <- "Europe/London"
-  Sys.setenv(TZ = tz)
-  on.exit({Sys.setenv(TZ = "")})
-
+  withr::local_timezone(tz = tz)
   uri <- file.path(withr::local_tempdir(), "test-array")
 
   idx_cols <- c("Dept", "Gender")
