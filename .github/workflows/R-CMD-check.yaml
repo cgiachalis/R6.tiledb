@@ -56,14 +56,14 @@ jobs:
 # Run CI for R based on copy of https://eddelbuettel.github.io/r-ci/
   ci-2:
       runs-on: ${{ matrix.os }}
-      name: ${{ matrix.config.os }} (${{ matrix.config.r }})
+      name: ${{ matrix.config.os }}
 
       strategy:
         fail-fast: false
         matrix:
           config:
-            - {os: macOS-latest, r: '4.5.1' }
-            - {os: ubuntu-latest, r: 'release'}
+            - {os: macOS-latest}
+            - {os: ubuntu-latest}
       steps:
         - uses: actions/checkout@v4
 
