@@ -5,6 +5,7 @@ on:
 
 env:
   _R_CHECK_FORCE_SUGGESTS_: "FALSE"
+  _R_CHECK_SYSTEM_CLOCK_: 0
   RVER: "4.5.1" # Set latest R release for macos only
 
 name: R-CMD-check.yaml
@@ -55,13 +56,14 @@ jobs:
 # Run CI for R based on copy of https://eddelbuettel.github.io/r-ci/
   ci-2:
       runs-on: ${{ matrix.os }}
+      name: ${{ matrix.config.os }} (${{ matrix.config.r }})
 
       strategy:
         fail-fast: false
         matrix:
-          include:
-            - {os: macOS-latest}
-            - {os: ubuntu-latest}
+          config:
+            - {os: macOS-latest, r: '${{ env.RVER }}' }
+            - {os: ubuntu-latest, r: 'release'}
       steps:
         - uses: actions/checkout@v4
 
