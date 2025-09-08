@@ -62,7 +62,7 @@ jobs:
         fail-fast: false
         matrix:
           config:
-            - {os: macOS-latest, r: ${{ env.RVER }} }
+            - {os: macOS-latest, r: '4.5.1' }
             - {os: ubuntu-latest, r: 'release'}
       steps:
         - uses: actions/checkout@v4
