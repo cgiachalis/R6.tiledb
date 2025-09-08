@@ -33,15 +33,15 @@ at this timestamp.}
 A named list of class \code{tdb_metadata}.
 }
 \description{
-Fetch metadata as a list of key-value pairs for a \code{TileDB} array or group.
+Fetch metadata using a list of key-value pairs for a \code{TileDB} array or group.
 Optionally, you can access metadata at specific point in time
 (time-travelling).
 }
 \details{
-This functions work similar to \code{\link[=metadata]{metadata()}} but works with
-a list of key value pairs and always returns a list.
+\code{fetch_metadata()} works similar to \code{\link[=metadata]{metadata()}} but works with
+a list of key value pairs and returns a list always.
 
-The character method is intended for a valid URI path.
+The character method requires a valid URI path.
 
 The methods will not alter the mode of the \code{TileDB} object; also, the object
 will be opened temporarily to access the metadata if it is closed.

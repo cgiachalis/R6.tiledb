@@ -88,7 +88,8 @@ fragments uris.
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{trunc_uri}}{\code{TRUE} to truncate uri path.}
+\item{\code{trunc_uri}}{\code{TRUE} for fragment name in the form:  \emph{\verb{__ts1_ts2_<label>_<ver>}},
+otherwise \code{FALSE} for full path.}
 }
 \if{html}{\out{</div>}}
 }
@@ -131,7 +132,8 @@ Consolidated fragments to be removed.
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{trunc_uri}}{\code{TRUE} to truncate uri path.}
+\item{\code{trunc_uri}}{\code{TRUE} for fragment name in the form:  \emph{\verb{__ts1_ts2_<label>_<ver>}},
+otherwise \code{FALSE} for full path.}
 }
 \if{html}{\out{</div>}}
 }

@@ -300,17 +300,17 @@ metadata.character <- function(x, which) {
 
 #' Set TileDB Metadata
 #'
-#' Set metadata as a list of key-value pairs for a `TileDB` array or group.
+#' Set metadata using a list of key-value pairs for a `TileDB` array or group.
 #' Optionally, you can write metadata at specific point in time
 #' (time-travelling).
 #'
-#' This functions work similar to [`metadata<-()`] but works with
-#' a list of key value pairs and always returns a list.
+#' `set_metadata()` works similar to [`metadata<-()`] but works with
+#' a list of key value pairs and returns a list always.
 #'
 #' The optional argument `timestamp` can be used to set metadata at specific
 #' point in time.
 #'
-#' The character method is intended for a valid URI path.
+#' The character method requires a valid URI path.
 #'
 #' The methods will not alter the mode of the `TileDB` object.
 #'
@@ -459,14 +459,14 @@ set_metadata.character <- function(x, keys, timestamp = NULL) {
 
 #' Fetch TileDB Metadata
 #'
-#' Fetch metadata as a list of key-value pairs for a `TileDB` array or group.
+#' Fetch metadata using a list of key-value pairs for a `TileDB` array or group.
 #' Optionally, you can access metadata at specific point in time
 #' (time-travelling).
 #'
-#' This functions work similar to [metadata()] but works with
-#' a list of key value pairs and always returns a list.
+#' `fetch_metadata()` works similar to [metadata()] but works with
+#' a list of key value pairs and returns a list always.
 #'
-#' The character method is intended for a valid URI path.
+#' The character method requires a valid URI path.
 #'
 #' The methods will not alter the mode of the `TileDB` object; also, the object
 #'  will be opened temporarily to access the metadata if it is closed.
@@ -584,4 +584,3 @@ fetch_metadata.character <- function(x, keys = NULL, timestamp = NULL) {
   fetch_metadata(obj, keys, timestamp)
 
 }
-
