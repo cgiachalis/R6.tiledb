@@ -67,9 +67,10 @@ jobs:
 
         - name: System
           if: ${{ matrix.os == 'macOS-latest' }}
-          run: sysctl -a
-          run: echo "RVER=${{matrix.r}}" >> $GITHUB_ENV
-          run: echo "_R_CHECK_SYSTEM_CLOCK_:0" >> $GITHUB_ENV
+          run: |
+           sysctl -a;
+           echo "RVER=${{matrix.r}}" >> $GITHUB_ENV;
+           echo "_R_CHECK_SYSTEM_CLOCK_:0" >> $GITHUB_ENV
 
         - name: Bootstrap
           run: ./.github/r-ci.sh bootstrap
