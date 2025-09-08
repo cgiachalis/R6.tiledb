@@ -3,6 +3,9 @@
 on:
   workflow_dispatch:
 
+env:
+  _R_CHECK_FORCE_SUGGESTS_: "FALSE"
+
 name: R-CMD-check.yaml
 
 permissions: read-all
@@ -53,9 +56,10 @@ jobs:
       runs-on: ${{ matrix.os }}
 
       strategy:
+        fail-fast: false
         matrix:
           include:
-            # - {os: macOS-latest}
+            - {os: macOS-latest}
             - {os: ubuntu-latest}
       steps:
         - uses: actions/checkout@v4
