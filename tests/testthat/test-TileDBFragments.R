@@ -55,7 +55,7 @@ test_that("'TileDBFragments' class works as expected", {
   expect_identical(fragObj$frag_num(), 2)
 
   ts <- function(x) {
-    as.POSIXct(x / 1000, tz = "UTC", origin = "1970-01-01")
+    as.POSIXct(x, tz = "UTC", origin = "1970-01-01")
   }
 
 

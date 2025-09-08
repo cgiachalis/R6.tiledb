@@ -84,7 +84,7 @@ test_that("Test '$consolidate', '$consolidate_async' and '$vacuum' methods", {
   expect_equal(arrobj$frag_num(), 4) # sanity check
 
   ts <- function(x) {
-    as.POSIXct(x /1000, tz = "UTC", origin = "1970-01-01")
+    as.POSIXct(x, tz = "UTC", origin = "1970-01-01")
   }
 
   # get config from tiledb cache
@@ -176,7 +176,7 @@ test_that("Test '$consolidate_and_vacuum' method", {
   expect_error(arrobj$consolidate_and_vacuum(cfg = "nope"), label = "cfg should 'tiledb_config'")
 
   ts <- function(x) {
-    as.POSIXct(x  / 1000, tz = "UTC", origin = "1970-01-01")
+    as.POSIXct(x, tz = "UTC", origin = "1970-01-01")
   }
 
   # get config from tiledb cache
@@ -209,7 +209,7 @@ test_that("Test '$consolidate_and_vacuum_async' method", {
   expect_error(arrobj$consolidate_and_vacuum_async(cfg = "nope"), label = "cfg should 'tiledb_config'")
 
   ts <- function(x) {
-    as.POSIXct(x  /1000, tz = "UTC", origin = "1970-01-01")
+    as.POSIXct(x, tz = "UTC", origin = "1970-01-01")
   }
 
   # get config from tiledb cache
@@ -241,7 +241,7 @@ test_that("Test '$reopen' method resets fragment info object", {
   arrobj <- tdb_array(uri)
   expect_equal(arrobj$frag_num(), 1)
   arr <- arrobj$tiledb_array()
-  arr[] <- data.frame(id = 1, val = as.POSIXct(10/ 1000, tz = "UTC", origin = "1970-01-01"))
+  arr[] <- data.frame(id = 1, val = as.POSIXct(10, tz = "UTC", origin = "1970-01-01"))
 
   # still one frag
   expect_equal(arrobj$frag_num(), 1)

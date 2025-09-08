@@ -44,7 +44,7 @@ write_test_array <- function(uri) {
 write_test_array_tstamps <- function(uri, frags = 3) {
 
   ts <- function(x) {
-    as.POSIXct(x / 1000, tz = "UTC", origin = "1970-01-01")
+    as.POSIXct(x, tz = "UTC", origin = "1970-01-01")
   }
 
   df <- data.frame(id = 1L, val = 1.0)
