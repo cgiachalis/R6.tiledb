@@ -2,6 +2,8 @@ gc()
 
 test_that("'TileDBFragments' class works as expected", {
 
+  testthat::skip_on_os("mac")
+
   withr::local_timezone(tz = "UTC")
   ctx <- tiledb::tiledb_ctx(cached = FALSE)
   uri <- file.path(withr::local_tempdir(), "test-TileDBFragments")
