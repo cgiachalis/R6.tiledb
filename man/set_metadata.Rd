@@ -21,7 +21,7 @@
 }
 \arguments{
 \item{x}{An \code{R} object that points to a \code{TileDB} resource whose
-metadata are to written.}
+metadata are to be written.}
 
 \item{keys}{A named list of key value metadata.}
 

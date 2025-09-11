@@ -36,7 +36,7 @@ metadata <- function(x, which) {
 #' to flush the metadata on disk.
 #'
 #' @param x An `R` object that points to a `TileDB` resource whose
-#'  metadata are to accessed.
+#'  metadata are to be accessed.
 #' @param which A non-empty character string specifying which metadata key
 #' is to be accessed.
 #' @param value An object, the new value of the metadata, or `NULL` to remove
@@ -320,7 +320,7 @@ metadata.character <- function(x, which) {
 #' to flush the metadata on disk.
 #'
 #' @param x An `R` object that points to a `TileDB` resource whose
-#'  metadata are to written.
+#'  metadata are to be written.
 #' @param keys A named list of key value metadata.
 #' @inheritParams open_write
 #'
@@ -472,7 +472,7 @@ set_metadata.character <- function(x, keys, timestamp = NULL) {
 #'  will be opened temporarily to access the metadata if it is closed.
 #'
 #' @param x An `R` object that points to a `TileDB` resource whose
-#'  metadata are to accessed.
+#'  metadata are to be accessed.
 #' @param keys A character vector of metadata key names to be accessed. When
 #' `NULL` (default) all metadata will be accessed.
 #' @inheritParams open_write

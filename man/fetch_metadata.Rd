@@ -21,7 +21,7 @@
 }
 \arguments{
 \item{x}{An \code{R} object that points to a \code{TileDB} resource whose
-metadata are to accessed.}
+metadata are to be accessed.}
 
 \item{keys}{A character vector of metadata key names to be accessed. When
 \code{NULL} (default) all metadata will be accessed.}

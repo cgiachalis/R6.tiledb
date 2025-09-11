@@ -36,7 +36,7 @@
 }
 \arguments{
 \item{x}{An \code{R} object that points to a \code{TileDB} resource whose
-metadata are to accessed.}
+metadata are to be accessed.}
 
 \item{which}{A non-empty character string specifying which metadata key
 is to be accessed.}
