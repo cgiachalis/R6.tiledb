@@ -14,7 +14,8 @@ test_that("'set_metadata' methods for arrays work as expected", {
   arrobj <- TileDBArray$new(uri)
   origmode <- arrobj$mode
 
-  expect_no_error(set_metadata(arrobj, keys = list(a = 1, b = 2)))
+  expect_no_error(out <- set_metadata(arrobj, keys = list(a = 1, b = 2)))
+  expect_true(out)
   expect_equal(arrobj$mode, origmode)
   expect_equal(unlist(arrobj$get_metadata()), c(a = 1, b = 2))
 
