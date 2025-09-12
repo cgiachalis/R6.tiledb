@@ -12,7 +12,7 @@
 \alias{metadata<-.tiledb_array}
 \alias{metadata<-.tiledb_group}
 \alias{metadata<-.character}
-\title{TileDB Object Metadata}
+\title{Get, Set a TileDB Metadata Key}
 \usage{
 \method{metadata}{TileDBArray}(x, which)
 

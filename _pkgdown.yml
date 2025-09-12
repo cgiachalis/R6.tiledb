@@ -41,6 +41,7 @@ reference:
   - metadata
   - fetch_metadata
   - set_metadata
+  - delete_metadata
 
 - title: R6 Interface
   desc: ~

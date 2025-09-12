@@ -29,7 +29,7 @@ metadata are to be written.}
 at this timestamp.}
 }
 \value{
-A named list of class \code{tdb_metadata}.
+A logical \code{TRUE}, invisibly.
 }
 \description{
 Set metadata using a list of key-value pairs for a \code{TileDB} array or group.
@@ -38,7 +38,7 @@ Optionally, you can write metadata at specific point in time
 }
 \details{
 \code{set_metadata()} works similar to \code{\link[=metadata<-]{metadata<-()}} but works with
-a list of key value pairs and returns a list always.
+a list of key value pairs.
 
 The optional argument \code{timestamp} can be used to set metadata at specific
 point in time.
