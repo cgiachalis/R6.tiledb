@@ -12,7 +12,7 @@
 \alias{metadata<-.tiledb_array}
 \alias{metadata<-.tiledb_group}
 \alias{metadata<-.character}
-\title{TileDB Object Metadata}
+\title{Get, Set a TileDB Metadata Key}
 \usage{
 \method{metadata}{TileDBArray}(x, which)
 
@@ -36,7 +36,7 @@
 }
 \arguments{
 \item{x}{An \code{R} object that points to a \code{TileDB} resource whose
-metadata are to accessed.}
+metadata are to be accessed.}
 
 \item{which}{A non-empty character string specifying which metadata key
 is to be accessed.}

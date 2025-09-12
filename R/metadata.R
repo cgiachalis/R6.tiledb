@@ -14,7 +14,7 @@ metadata <- function(x, which) {
 }
 
 
-#' TileDB Object Metadata
+#' Get, Set a TileDB Metadata Key
 #'
 #' Get or set a metadata key for a `TileDB` array or group.
 #'
@@ -36,7 +36,7 @@ metadata <- function(x, which) {
 #' to flush the metadata on disk.
 #'
 #' @param x An `R` object that points to a `TileDB` resource whose
-#'  metadata are to accessed.
+#'  metadata are to be accessed.
 #' @param which A non-empty character string specifying which metadata key
 #' is to be accessed.
 #' @param value An object, the new value of the metadata, or `NULL` to remove
@@ -47,8 +47,6 @@ metadata <- function(x, which) {
 #'
 #' @seealso For a list of metadata and time-travelling use [set_metadata()] and
 #'  [fetch_metadata()].
-#'
-#' @export
 #'
 #' @name metadata
 #'
@@ -195,7 +193,7 @@ metadata.character <- function(x, which) {
     cli::cli_abort("{.arg {deparse(substitute(which))}} should be a single character string.", call = NULL)
   }
 
-  if (isFALSE(.is_scalar(value, typeof(value)) | is.null(value))) {
+  if (isFALSE(.is_scalar(value, typeof(value)) || is.null(value))) {
     cli::cli_abort("Replacement value: {.arg {deparse(substitute(value))}} should be a scalar or NULL.", call = NULL)
   }
 
@@ -237,7 +235,7 @@ metadata.character <- function(x, which) {
     cli::cli_abort("{.arg {deparse(substitute(which))}} should be a single character string.", call = NULL)
   }
 
-  if (isFALSE(.is_scalar(value, typeof(value)) | is.null(value))) {
+  if (isFALSE(.is_scalar(value, typeof(value)) || is.null(value))) {
     cli::cli_abort("Replacement value: {.arg {deparse(substitute(value))}} should be a scalar or NULL.", call = NULL)
   }
 
@@ -257,7 +255,7 @@ metadata.character <- function(x, which) {
     cli::cli_abort("{.arg {deparse(substitute(which))}} should be a single character string.", call = NULL)
   }
 
-  if (isFALSE(.is_scalar(value, typeof(value)) | is.null(value))) {
+  if (isFALSE(.is_scalar(value, typeof(value)) || is.null(value))) {
     cli::cli_abort("Replacement value: {.arg {deparse(substitute(value))}} should be a scalar or NULL.", call = NULL)
   }
 
@@ -279,7 +277,7 @@ metadata.character <- function(x, which) {
     cli::cli_abort("{.arg {deparse(substitute(which))}} should be a single character string.", call = NULL)
   }
 
-  if (isFALSE(.is_scalar(value, typeof(value)) | is.null(value))) {
+  if (isFALSE(.is_scalar(value, typeof(value)) || is.null(value))) {
     cli::cli_abort("Replacement value: {.arg {deparse(substitute(value))}} should be a scalar or NULL.", call = NULL)
   }
 
@@ -305,7 +303,7 @@ metadata.character <- function(x, which) {
 #' (time-travelling).
 #'
 #' `set_metadata()` works similar to [`metadata<-()`] but works with
-#' a list of key value pairs and returns a list always.
+#' a list of key value pairs.
 #'
 #' The optional argument `timestamp` can be used to set metadata at specific
 #' point in time.
@@ -320,15 +318,13 @@ metadata.character <- function(x, which) {
 #' to flush the metadata on disk.
 #'
 #' @param x An `R` object that points to a `TileDB` resource whose
-#'  metadata are to written.
+#'  metadata are to be written.
 #' @param keys A named list of key value metadata.
 #' @inheritParams open_write
 #'
-#' @returns A named list of class `tdb_metadata`.
+#' @returns A logical `TRUE`, invisibly.
 #'
 #' @seealso [fetch_metadata()] and [metadata()].
-#'
-#' @export
 #'
 #' @name set_metadata
 #'
@@ -404,8 +400,9 @@ set_metadata.TileDBArray <- function(x, keys, timestamp = NULL) {
     )
 
     close(obj)
-
   }
+
+  invisible(TRUE)
 }
 
 
@@ -472,7 +469,7 @@ set_metadata.character <- function(x, keys, timestamp = NULL) {
 #'  will be opened temporarily to access the metadata if it is closed.
 #'
 #' @param x An `R` object that points to a `TileDB` resource whose
-#'  metadata are to accessed.
+#'  metadata are to be accessed.
 #' @param keys A character vector of metadata key names to be accessed. When
 #' `NULL` (default) all metadata will be accessed.
 #' @inheritParams open_write
@@ -480,8 +477,6 @@ set_metadata.character <- function(x, keys, timestamp = NULL) {
 #' @returns A named list of class `tdb_metadata`.
 #'
 #' @seealso [set_metadata()] and [metadata()].
-#'
-#' @export
 #'
 #' @name fetch_metadata
 #'
@@ -582,5 +577,127 @@ fetch_metadata.character <- function(x, keys = NULL, timestamp = NULL) {
   obj <- cstor$new(x)
 
   fetch_metadata(obj, keys, timestamp)
+
+}
+
+# * delete_metadata ----
+
+#' Delete TileDB Metadata
+#'
+#' Delete metadata using keys names for a `TileDB` array or group.
+#'
+#' `delete_metadata()` works similar to [`metadata<-()`] with `NULL` value
+#' but works with a character vector of keys.
+#'
+#' The character method requires a valid URI path.
+#'
+#' The methods will not alter the mode of the `TileDB` object; also, the object
+#'  will be opened temporarily to access the metadata if it is closed.
+#'
+#' @param x An `R` object that points to a `TileDB` resource whose
+#'  metadata are to be accessed.
+#' @param keys A character vector of metadata key names to be accessed.
+#'
+#' @returns A logical `TRUE`, invisibly.
+#'
+#' @seealso [set_metadata()] and [metadata()].
+#'
+#' @name delete_metadata
+#'
+NULL
+#' @export
+delete_metadata <- function(x, keys) {
+  UseMethod("delete_metadata")
+}
+
+
+#' @export
+delete_metadata.default <- function(x, keys) {
+  cli::cli_abort("No method for class {.cls {class(x)[1]}}.
+                 See {.help [{.fun delete_metadata}](R6.tiledb::delete_metadata)} for details.",
+                 call = NULL)
+}
+
+#' @export
+#' @rdname delete_metadata
+delete_metadata.TileDBArray <- function(x, keys) {
+
+  mode <- x$mode
+
+    if (mode == "CLOSED") {
+
+      x$open("WRITE")
+
+      on.exit({x$close()})
+
+    } else if (mode == "READ") {
+
+      x$reopen("WRITE")
+      on.exit({x$reopen(mode)})
+    } else {
+
+      on.exit({x$reopen(mode)})
+    }
+
+    if (x$object_type == "ARRAY") {
+      .delete_metadata <- function(obj, key) {
+        tiledb::tiledb_delete_metadata(obj, key)
+      }
+
+    } else if (x$object_type == "GROUP") {
+      .delete_metadata <- function(obj, key) {
+        grp <- tiledb::tiledb_group_delete_metadata(obj, key)
+        TRUE
+      }
+    }
+
+   dev_bool <- vapply_lgl(keys, FUN = .delete_metadata, obj = x$object)
+
+   invisible(TRUE)
+}
+
+
+#' @export
+#' @rdname delete_metadata
+delete_metadata.TileDBGroup <- delete_metadata.TileDBArray
+
+
+#' @export
+#' @rdname delete_metadata
+delete_metadata.tiledb_array <- function(x, keys) {
+
+  uri <- x@uri
+  obj <- TileDBArray$new(uri)
+
+  delete_metadata(obj, keys)
+
+}
+
+#' @export
+#' @rdname delete_metadata
+delete_metadata.tiledb_group <- function(x, keys) {
+
+  uri <- tiledb::tiledb_group_uri(x)
+  obj <- TileDBGroup$new(uri)
+
+  delete_metadata(obj, keys)
+
+}
+
+#' @export
+#' @rdname delete_metadata
+delete_metadata.character <- function(x, keys) {
+
+  check_uri(x)
+
+  object_type <- tiledb::tiledb_object_type(x)
+
+  cstor <- switch(object_type, ARRAY = TileDBArray, GROUP = TileDBGroup, {
+    cli::cli_abort(c("Invalid TileDB resource.", "i" = "Please check {.arg uri} is a valid path."),  call = NULL)
+  })
+
+  obj <- cstor$new(x)
+
+  delete_metadata(obj, keys)
 
 }

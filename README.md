@@ -4,7 +4,7 @@
 <!-- badges: start -->
 [![repo-status](https://img.shields.io/badge/repo%20status-stable-brightgreen.svg)](#)
 [![CRAN status](https://www.r-pkg.org/badges/version/R6.tiledb)](https://CRAN.R-project.org/package=R6.tiledb)
-[![coverage](https://img.shields.io/badge/coverage-94.5%25-blue.svg)](#)
+[![coverage](https://img.shields.io/badge/coverage-94.9%25-blue.svg)](#)
 <!-- badges: end -->
 
 `R6.tiledb` is an extension of [TileDB-R](https://cran.r-project.org/web/packages/tiledb/index.html) client built on top of [R6](https://cloud.r-project.org/web/packages/R6/index.html) object-oriented system. It includes base classes that represent `TileDB` arrays and groups with minimum integrated functionality so that can be extended with focus on building domain specific applications. Also, it provides convenient functional wrappers with additional methods that make it easier to work with arrays.
