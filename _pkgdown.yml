@@ -28,6 +28,7 @@ reference:
   desc: ~
   contents:
   - tdb_array
+  - tdb_group
   - set_config_params
 
 - subtitle: Open,Close
@@ -46,7 +47,6 @@ reference:
 - title: R6 Interface
   desc: ~
   contents:
-  - TileDBObject
   - starts_with("TileDB")
 
 - title: Utilities
