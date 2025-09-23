@@ -74,6 +74,10 @@ test_that("'fetch_metadata' methods for arrays work as expected", {
   close(arr)
   close(arrobj)
 
+  rm(arr)
+  rm(arrobj)
+  gc()
+
 })
 
 
@@ -142,6 +146,7 @@ test_that("'fetch_metadata' methods for groups work as expected", {
   expect_no_error(fetch_metadata(grp, keys = "c", timestamp = as.POSIXct(1000, tz = "UTC")))
   expect_false(tiledb::tiledb_group_is_open(grp))
 
-  close(grpobj)
-
+  rm(grpobj)
+  rm(grp)
+  gc()
 })
