@@ -65,6 +65,7 @@ test_that("'set_metadata' methods for arrays work as expected", {
 
   rm(arr)
   rm(arrobj)
+  gc()
 
 })
 
@@ -126,5 +127,6 @@ test_that("'set_metadata' methods for groups work as expected", {
 
   rm(grp)
   rm(grpobj)
+  gc()
 })
 

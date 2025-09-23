@@ -87,4 +87,5 @@ test_that("'TileDBFragments' class works as expected", {
   expect_false(val)
 
   rm(fragObj)
+  gc()
 })

@@ -69,6 +69,8 @@ test_that("'TileDBArrayExp' class works as expected", {
   expect_error(arrObj$drop_attribute("Freq"), label = "`Freq` is not an attribute.")
 
   expect_null(arrObj$schema_upgrade())
+  rm(arrObj)
+  gc()
 
 })
 
@@ -143,6 +145,10 @@ test_that("Test '$consolidate', '$consolidate_async' and '$vacuum' methods", {
 
  expect_true(arrobj$vacuum(mode = "fragments"))
  expect_equal(nrow(arrobj$frag_to_vacuum()), 0)
+
+ rm(arrobj)
+ rm(cfg)
+ gc()
 
 })
 
