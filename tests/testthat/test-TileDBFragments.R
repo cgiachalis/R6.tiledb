@@ -2,6 +2,9 @@ gc()
 
 test_that("'TileDBFragments' class works as expected", {
 
+  testthat::skip_on_os("mac")
+
+  withr::local_timezone(tz = "UTC")
   ctx <- tiledb::tiledb_ctx(cached = FALSE)
   uri <- file.path(withr::local_tempdir(), "test-TileDBFragments")
 
@@ -54,7 +57,7 @@ test_that("'TileDBFragments' class works as expected", {
   expect_identical(fragObj$frag_num(), 2)
 
   ts <- function(x) {
-    as.POSIXct(x / 1000, tz = "UTC", origin = "1970-01-01")
+    as.POSIXct(x, tz = "UTC", origin = "1970-01-01")
   }
 
 

@@ -3,12 +3,15 @@
 on:
   workflow_dispatch:
 
+env:
+  _R_CHECK_FORCE_SUGGESTS_: "FALSE"
+
 name: R-CMD-check.yaml
 
-permissions: read-all
+permissions: read
 
 jobs:
-  ci-windows:
+  ci-1:
     runs-on: ${{ matrix.config.os }}
 
     name: ${{ matrix.config.os }} (${{ matrix.config.r }})
@@ -49,20 +52,25 @@ jobs:
           build_args: 'c("--no-manual","--compact-vignettes=gs+qpdf")'
 
 # Run CI for R based on copy of https://eddelbuettel.github.io/r-ci/
-  ci-linux-mac:
+  ci-2:
       runs-on: ${{ matrix.os }}
+      name: ${{ matrix.os }} (${{ matrix.r }})
 
       strategy:
+        fail-fast: false
         matrix:
           include:
-            - {os: macOS-latest}
-            - {os: ubuntu-latest}
+            - {os: macOS-latest, r: '4.5.1' }
+            - {os: ubuntu-latest, r: 'release'}
       steps:
         - uses: actions/checkout@v4
 
         - name: System
-          run: sysctl -a
           if: ${{ matrix.os == 'macOS-latest' }}
+          run:  sysctl -a
+          env:
+            RVER: ${{matrix.r}}
+            _R_CHECK_SYSTEM_CLOCK_: "0"
 
         - name: Bootstrap
           run: ./.github/r-ci.sh bootstrap
@@ -73,13 +81,13 @@ jobs:
         - name: Test
           run: ./.github/r-ci.sh run_tests
 
-        - name: Show install log
-          run: cat $HOME/work/TileDB-R/TileDB-R/tiledb.Rcheck/00install.out
-          if: failure()
-
-        - name: Show test log
-          run: cat $HOME/work/TileDB-R/TileDB-R/tiledb.Rcheck/00check.log
-          if: failure()
+        # - name: Show install log
+        #   run: cat $HOME/work/R6.tiledb/R6.tiledb/R6.tiledb.Rcheck/00install.out
+        #   if: failure()
+        #
+        # - name: Show test log
+        #   run: cat $HOME/work/R6.tiledb/R6.tiledb/R6.tiledb.Rcheck/00check.log
+        #   if: failure()
 
         #- name: Coverage
         #  if: ${{ matrix.os == 'ubuntu-latest' }}

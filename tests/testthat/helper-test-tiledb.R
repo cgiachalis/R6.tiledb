@@ -44,7 +44,7 @@ write_test_array <- function(uri) {
 write_test_array_tstamps <- function(uri, frags = 3) {
 
   ts <- function(x) {
-    as.POSIXct(x / 1000, tz = "UTC", origin = "1970-01-01")
+    as.POSIXct(x, tz = "UTC", origin = "1970-01-01")
   }
 
   df <- data.frame(id = 1L, val = 1.0)
@@ -123,5 +123,41 @@ write_test_group <- function(uri) {
        group_ts = list(t0 = t0, t1 = t1, t2 = t2),
        arr1_ts = arr1,
        arr2_ts = arr2)
+}
+
+
+write_test_group2 <- function(uri) {
+
+  ctx <- tiledb::tiledb_ctx(cached = FALSE)
+
+  group_uri <- uri
+  uri1 <- R6.tiledb:::file_path(group_uri, "testarray1")
+  uri2 <- R6.tiledb:::file_path(group_uri, "testarray2")
+
+  # create group @ t0
+  grp <- tiledb::tiledb_group_create(group_uri, ctx = ctx)
+
+  arr1 <- create_empty_test_array(uri1)
+  grp <- tiledb::tiledb_group(group_uri, type = "WRITE", ctx = ctx)
+  tiledb::tiledb_group_add_member(
+    grp = grp,
+    uri = uri1,
+    relative = FALSE,
+    name = basename(uri1)
+  )
+  grp <- tiledb::tiledb_group_close(grp)
+
+  arr2 <- create_empty_test_array(uri2)
+
+  grp <- tiledb::tiledb_group_open(grp, type = "WRITE")
+  tiledb::tiledb_group_add_member(
+    grp = grp,
+    uri = uri2,
+    relative = FALSE,
+    name = basename(uri2)
+  )
+  grp <- tiledb::tiledb_group_close(grp)
+
+  invisible(NULL)
 }
 
