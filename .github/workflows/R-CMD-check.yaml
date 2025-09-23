@@ -62,7 +62,7 @@ jobs:
         fail-fast: false
         matrix:
           include:
-            - {os: macOS-latest, r: '4.5.1' }
+            - {os: macOS-latest, r: '4.5.0' }
             - {os: ubuntu-latest, r: 'release'}
       steps:
         - uses: actions/checkout@v4
