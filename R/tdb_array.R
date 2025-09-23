@@ -1,7 +1,7 @@
 #' Open `TileDBArrayExp`
 #'
-#' Functional interface that initialise a `TileDBArrayExp` instance and opens the
-#' array at `READ` mode.
+#' Functional interface that initialises a [TileDBArrayExp] instance and opens
+#' an array object at `READ` or `WRITE` mode.
 #'
 #' @section Active bindings:
 #'
@@ -31,6 +31,7 @@
 #' <li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBObject" data-id="exists"><a href='../../R6.tiledb/html/TileDBObject.html#method-TileDBObject-exists'><code>$exists()</code></a></span></li>
 #' <li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBObject" data-id="get_metadata"><a href='../../R6.tiledb/html/TileDBObject.html#method-TileDBObject-get_metadata'><code>$get_metadata()</code></a></span></li>
 #' <li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBObject" data-id="set_metadata"><a href='../../R6.tiledb/html/TileDBObject.html#method-TileDBObject-set_metadata'><code>$set_metadata()</code></a></span></li>
+#' <li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBArray" data-id="new"><a href='../../R6.tiledb/html/TileDBArray.html#method-TileDBArray-new'><code>$new()</code></a></span></li>
 #' <li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBArray" data-id="open"><a href='../../R6.tiledb/html/TileDBArray.html#method-TileDBArray-open'><code>$open()</code></a></span></li>
 #' <li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBArray" data-id="close"><a href='../../R6.tiledb/html/TileDBArray.html#method-TileDBArray-close'><code>$close()</code></a></span></li>
 #' <li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBArray" data-id="tiledb_array"><a href='../../R6.tiledb/html/TileDBArray.html#method-TileDBArray-tiledb_array'><code>$tiledb_array()</code></a></span></li>
@@ -42,7 +43,6 @@
 #' <li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBArray" data-id="attrnames"><a href='../../R6.tiledb/html/TileDBArray.html#method-TileDBArray-attrnames'><code>$attrnames()</code></a></span></li>
 #' <li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBArray" data-id="colnames"><a href='../../R6.tiledb/html/TileDBArray.html#method-TileDBArray-colnames'><code>$colnames()</code></a></span></li>
 #' <li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBArray" data-id="print"><a href='../../R6.tiledb/html/TileDBArray.html#method-TileDBArray-print'><code>$print()</code></a></span></li>
-#' <li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBArrayExp" data-id="new"><a href='../../R6.tiledb/html/TileDBArrayExp.html#method-TileDBArrayExp-new'><code>$new()</code></a></span></li>
 #' <li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBArrayExp" data-id="reopen"><a href='../../R6.tiledb/html/TileDBArrayExp.html#method-TileDBArrayExp-reopen'><code>$reopen()</code></a></span></li>
 #' <li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBArrayExp" data-id="any_enums"><a href='../../R6.tiledb/html/TileDBArrayExp.html#method-TileDBArrayExp-any_enums'><code>$any_enums()</code></a></span></li>
 #' <li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBArrayExp" data-id="enum_columns"><a href='../../R6.tiledb/html/TileDBArrayExp.html#method-TileDBArrayExp-enum_columns'><code>$enum_columns()</code></a></span></li>
@@ -77,7 +77,7 @@
 #'
 #' Also, it can be set through active field `$tiledb_timestamp`.
 #'
-#' @returns An `TileDBArrayExp`, `R6` object.
+#' @returns A `TileDBArrayExp`, `R6` object.
 #'
 #' @export
 #'
