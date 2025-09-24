@@ -1,5 +1,3 @@
-# TODO: demo group, list public method, unit tests
-
 #' Open `TileDBGroupExp`
 #'
 #' Functional interface that initialises a [TileDBGroupExp] instance and opens
@@ -58,25 +56,21 @@
 #'
 #' @examples
 #' \dontrun{
+#'  # uri path
 #'  uri <- tempdir()
 #'
-#'  # create demo array on disk
-#'  demo_create_array(uri)
+#'  obj <- TileDBGroup$new(uri)
 #'
-#'  arrobj <- tdb_array(uri)
+#'  obj$create()
 #'
-#'  arrobj$object_type
-#'  #> "ARRAY"
+#'  obj$close()
 #'
-#'  arrobj$frag_num()
-#'  #> 3
+#'  # new instance
+#'  newobj <- tdb_group(uri)
 #'
-#'  arrobj$colnames()
-#'  #> "Dept"   "Gender" "Admit"  "Freq"
+#'  newobj$is_open() # TRUE
 #'
-#'  arrobj$has_enumeration()
-#'  #> Admit  Freq
-#'  #> TRUE FALSE
+#'  newobj$mode # "READ"
 #'}
 #'
 tdb_group <- function(uri,

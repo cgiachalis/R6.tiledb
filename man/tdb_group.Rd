@@ -84,25 +84,21 @@ the resource will be opened at. See \code{\link[=set_tiledb_timestamp]{set_tiled
 
 \examples{
 \dontrun{
+ # uri path
  uri <- tempdir()
 
- # create demo array on disk
- demo_create_array(uri)
+ obj <- TileDBGroup$new(uri)
 
- arrobj <- tdb_array(uri)
+ obj$create()
 
- arrobj$object_type
- #> "ARRAY"
+ obj$close()
 
- arrobj$frag_num()
- #> 3
+ # new instance
+ newobj <- tdb_group(uri)
 
- arrobj$colnames()
- #> "Dept"   "Gender" "Admit"  "Freq"
+ newobj$is_open() # TRUE
 
- arrobj$has_enumeration()
- #> Admit  Freq
- #> TRUE FALSE
+ newobj$mode # "READ"
 }
 
 }
