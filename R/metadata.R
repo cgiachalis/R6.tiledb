@@ -150,7 +150,7 @@ metadata.character <- function(x, which) {
     cli::cli_abort("{.arg {deparse(substitute(which))}} should be a single character string.", call = NULL)
   }
 
-  if (isFALSE(.is_scalar(value, typeof(value)) | is.null(value))) {
+  if (isFALSE(.is_scalar(value, typeof(value)) || is.null(value))) {
     cli::cli_abort("Replacement value: {.arg {deparse(substitute(value))}} should be a scalar or NULL.", call = NULL)
   }
 
