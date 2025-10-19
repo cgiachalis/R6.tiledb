@@ -552,6 +552,15 @@ TileDBArrayExp <- R6::R6Class(
         ctx <- self$ctx
       }
       tiledb::tiledb_array_upgrade_version(self$object, config = cfg, ctx = self$ctx)
+    },
+
+    #' @description Print directory contents.
+    #'
+    #' @return A character vector with file paths, invisibly.
+    dir_tree = function() {
+
+      vfs_dir_tree(self$uri, vfs = private$vfs())
+
     }
   ),
 
@@ -599,6 +608,20 @@ TileDBArrayExp <- R6::R6Class(
   private = list(
 
     # Contains TileDBFragments object
-    .fragments_object = NULL
+    .fragments_object = NULL,
+
+    # Cache a tiledb_vfs object
+    .vfs = NULL,
+
+    # Get the tiledb_vfs object
+    vfs = function() {
+
+      if (is.null(private$.vfs)) {
+        private$.vfs <- tiledb::tiledb_vfs(ctx = self$ctx)
+      }
+
+      private$.vfs
+
+    }
   )
 )
