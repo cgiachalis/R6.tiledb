@@ -25,7 +25,7 @@ Imports:
     methods,
     R6,
     spdl,
-    tiledb (>= 0.32.0)
+    tiledb (>= 0.33.0)
 Suggests:
     mirai (>= 2.4.0),
     data.table,
