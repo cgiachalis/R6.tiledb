@@ -1,5 +1,12 @@
 gc()
 
+is_mirai_installed <- requireNamespace("mirai", quietly = TRUE)
+
+if (is_mirai_installed) {
+  on.exit({mirai::daemons(NULL, dispatcher = FALSE, autoexit = tools::SIGINT, .compute = "r6.tiledb")})
+}
+
+
 test_that("'TileDBArrayExp' class works as expected", {
 
   uri <- file.path(withr::local_tempdir(), "test-TileDBArrayExp")
@@ -49,7 +56,7 @@ test_that("'TileDBArrayExp' class works as expected", {
 
   expect_error(arrObj$consolidate(mode = "fragments", cfg = "nope"), label = "cfg should be 'tiledb_config'")
   expect_true(arrObj$consolidate(mode = "fragments")) # default
-
+  # testthat::skip()
   expect_identical(arrObj$frag_num(), 1)
   expect_no_error(dfrags <- arrObj$frag_to_vacuum())
   expect_s3_class(dfrags, "data.frame")
@@ -62,7 +69,6 @@ test_that("'TileDBArrayExp' class works as expected", {
                                                    start_timestamp = numeric(0),
                                                    end_timestamp = numeric(0),
                                                    URI = character(0)))
-
   ## drop attribute
   expect_invisible(arrObj$drop_attribute("Freq"))
   expect_equal(arrObj$colnames(),  c("Dept", "Gender", "Admit"))
@@ -73,6 +79,7 @@ test_that("'TileDBArrayExp' class works as expected", {
   gc()
 
 })
+
 
 test_that("Test '$consolidate', '$consolidate_async' and '$vacuum' methods", {
 
@@ -112,6 +119,9 @@ test_that("Test '$consolidate', '$consolidate_async' and '$vacuum' methods", {
  expect_equal(ts_range, trg_range)
 
  # consolidate async
+
+ if (is_mirai_installed) {
+
  # get config from tiledb cache
  origcfg <- tiledb::config(tiledb::tiledb_get_context())
  expect_error(arrobj$consolidate_async(cfg = "nope"), label = "cfg should be 'tiledb_config'")
@@ -131,7 +141,6 @@ test_that("Test '$consolidate', '$consolidate_async' and '$vacuum' methods", {
  ts_range <- as.POSIXct(ts_range, tz = "UTC")
  expect_equal(ts_range, trg_range)
 
-
  # vacuum
  expect_error(arrobj$vacuum(cfg = "nope"), label = "cfg should be 'tiledb_config'")
 
@@ -146,14 +155,19 @@ test_that("Test '$consolidate', '$consolidate_async' and '$vacuum' methods", {
  expect_true(arrobj$vacuum(mode = "fragments"))
  expect_equal(nrow(arrobj$frag_to_vacuum()), 0)
 
+ }
+
  rm(arrobj)
  rm(cfg)
+ rm(origcfg)
+ rm(finfo)
  gc()
 
 })
 
-
 test_that("Test '$vacuum_async' method", {
+
+  skip_if_not_installed("mirai")
 
   uri <- file.path(withr::local_tempdir(), "test-TileDBArrayExp")
   write_test_array_tstamps(uri, 2)
@@ -171,6 +185,10 @@ test_that("Test '$vacuum_async' method", {
   expect_true(arrobj$vacuum_async()[])
   expect_equal(nrow(arrobj$frag_to_vacuum()), 0)
 
+  rm(arrobj)
+  rm(cfg)
+  rm(origcfg)
+  gc()
 })
 
 
@@ -179,6 +197,7 @@ test_that("Test '$consolidate_and_vacuum' method", {
   uri <- file.path(withr::local_tempdir(), "test-TileDBArrayExp")
   write_test_array_tstamps(uri, 3)
   arrobj <- tdb_array(uri)
+
   expect_error(arrobj$consolidate_and_vacuum(cfg = "nope"), label = "cfg should 'tiledb_config'")
 
   ts <- function(x) {
@@ -204,10 +223,17 @@ test_that("Test '$consolidate_and_vacuum' method", {
   ts_range <- as.POSIXct(ts_range, tz = "UTC")
   expect_equal(ts_range, trg_range)
 
+  rm(arrobj)
+  rm(cfg)
+  rm(origcfg)
+  rm(finfo)
+  gc()
+
 })
 
-
 test_that("Test '$consolidate_and_vacuum_async' method", {
+
+  skip_if_not_installed("mirai")
 
   uri <- file.path(withr::local_tempdir(), "test-TileDBArrayExp")
   write_test_array_tstamps(uri, 3)
@@ -238,6 +264,11 @@ test_that("Test '$consolidate_and_vacuum_async' method", {
   ts_range <- as.POSIXct(ts_range, tz = "UTC")
   expect_equal(ts_range, trg_range)
 
+  rm(arrobj)
+  rm(cfg)
+  rm(origcfg)
+  rm(finfo)
+  gc()
 })
 
 test_that("Test '$reopen' method resets fragment info object", {
@@ -256,4 +287,6 @@ test_that("Test '$reopen' method resets fragment info object", {
   # now it works
   expect_equal(arrobj$frag_num(), 2)
 
+  rm(arrobj)
+  gc()
 })
