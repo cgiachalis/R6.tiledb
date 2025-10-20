@@ -45,6 +45,7 @@
 #' <li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBGroupExp" data-id="prune_non_members"><a href='../../R6.tiledb/html/TileDBGroupExp.html#method-TileDBGroupExp-prune_non_members'><code>$prune_non_members()</code></a></span></li>
 #' <li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBGroupExp" data-id="delete_group"><a href='../../R6.tiledb/html/TileDBGroupExp.html#method-TileDBGroupExp-delete_group'><code>$delete_group()</code></a></span></li>
 #' <li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBGroupExp" data-id="walk_group"><a href='../../R6.tiledb/html/TileDBGroupExp.html#method-TileDBGroupExp-walk_group'><code>$walk_group()</code></a></span></li>
+#' <li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBGroupExp" data-id="dir_tree"><a href='../../R6.tiledb/html/TileDBGroupExp.html#method-TileDBGroupExp-dir_tree'><code>$dir_tree()</code></a></span></li>
 #' </ul>
 #' }}
 #'

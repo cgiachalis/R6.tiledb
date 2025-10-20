@@ -116,6 +116,28 @@ TileDBGroupExp <- R6::R6Class(
       xi <- c(pre = "PREORDER", post = "POSTORDER")
       tiledb::tiledb_object_walk(self$uri, order = xi[[order]], ctx = private$.tiledb_ctx)
 
+    },
+
+    #' @description Print directory contents.
+    #'
+    #' @return A character vector with file paths, invisibly.
+    dir_tree = function() {
+
+      vfs_dir_tree(self$uri, vfs = private$vfs())
+
+    }
+  ),
+  private = list(
+    # Cache a tiledb_vfs object
+    .vfs = NULL,
+
+    # Get the tiledb_vfs object
+    vfs = function() {
+
+      if (is.null(private$.vfs)) {
+        private$.vfs <- tiledb::tiledb_vfs(ctx = self$ctx)
+      }
+      private$.vfs
     }
   )
 

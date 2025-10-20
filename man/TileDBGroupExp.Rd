@@ -37,6 +37,7 @@ at \code{READ} mode.
 \item \href{#method-TileDBGroupExp-prune_non_members}{\code{TileDBGroupExp$prune_non_members()}}
 \item \href{#method-TileDBGroupExp-delete_group}{\code{TileDBGroupExp$delete_group()}}
 \item \href{#method-TileDBGroupExp-walk_group}{\code{TileDBGroupExp$walk_group()}}
+\item \href{#method-TileDBGroupExp-dir_tree}{\code{TileDBGroupExp$dir_tree()}}
 \item \href{#method-TileDBGroupExp-clone}{\code{TileDBGroupExp$clone()}}
 }
 }
@@ -156,6 +157,19 @@ List all \code{TileDB} resources at group's uri path.
 \subsection{Returns}{
 An object of class \code{data.frame} with columns \code{TYPE}
 and \code{URI} with all \code{TileDB} resources under group's uri path.
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-TileDBGroupExp-dir_tree"></a>}}
+\if{latex}{\out{\hypertarget{method-TileDBGroupExp-dir_tree}{}}}
+\subsection{Method \code{dir_tree()}}{
+Print directory contents.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{TileDBGroupExp$dir_tree()}\if{html}{\out{</div>}}
+}
+
+\subsection{Returns}{
+A character vector with file paths, invisibly.
 }
 }
 \if{html}{\out{<hr>}}

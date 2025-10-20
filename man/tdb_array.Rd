@@ -93,6 +93,7 @@ array
 <li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBArrayExp" data-id="frag_dump"><a href='../../R6.tiledb/html/TileDBArrayExp.html#method-TileDBArrayExp-frag_dump'><code>$frag_dump()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBArrayExp" data-id="frag_uris"><a href='../../R6.tiledb/html/TileDBArrayExp.html#method-TileDBArrayExp-frag_uris'><code>$frag_uris()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBArrayExp" data-id="schema_upgrade"><a href='../../R6.tiledb/html/TileDBArrayExp.html#method-TileDBArrayExp-schema_upgrade'><code>$schema_upgrade()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBArrayExp" data-id="dir_tree"><a href='../../R6.tiledb/html/TileDBArrayExp.html#method-TileDBArrayExp-dir_tree'><code>$dir_tree()</code></a></span></li>
 </ul>
 }}
 }
