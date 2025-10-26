@@ -30,6 +30,7 @@ reference:
   - tdb_array
   - tdb_group
   - set_config_params
+  - vfs_dir_tree
 
 - subtitle: Open,Close
   desc: Open, close methods

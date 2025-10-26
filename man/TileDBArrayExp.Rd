@@ -61,6 +61,7 @@ array.}
 \item \href{#method-TileDBArrayExp-frag_dump}{\code{TileDBArrayExp$frag_dump()}}
 \item \href{#method-TileDBArrayExp-frag_uris}{\code{TileDBArrayExp$frag_uris()}}
 \item \href{#method-TileDBArrayExp-schema_upgrade}{\code{TileDBArrayExp$schema_upgrade()}}
+\item \href{#method-TileDBArrayExp-dir_tree}{\code{TileDBArrayExp$dir_tree()}}
 \item \href{#method-TileDBArrayExp-clone}{\code{TileDBArrayExp$clone()}}
 }
 }
@@ -508,6 +509,19 @@ Upgrade the array to the latest format version.
 is used.}
 }
 \if{html}{\out{</div>}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-TileDBArrayExp-dir_tree"></a>}}
+\if{latex}{\out{\hypertarget{method-TileDBArrayExp-dir_tree}{}}}
+\subsection{Method \code{dir_tree()}}{
+Print directory contents.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{TileDBArrayExp$dir_tree()}\if{html}{\out{</div>}}
+}
+
+\subsection{Returns}{
+A character vector with file paths, invisibly.
 }
 }
 \if{html}{\out{<hr>}}
