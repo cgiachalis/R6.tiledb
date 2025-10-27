@@ -32,8 +32,10 @@ An R6 object for working with \code{TileDB} Fragments.
 \item \href{#method-TileDBFragments-delete_fragment_range}{\code{TileDBFragments$delete_fragment_range()}}
 \item \href{#method-TileDBFragments-delete_fragment_list}{\code{TileDBFragments$delete_fragment_list()}}
 \item \href{#method-TileDBFragments-delete_fragment}{\code{TileDBFragments$delete_fragment()}}
+\item \href{#method-TileDBFragments-get_ifragment}{\code{TileDBFragments$get_ifragment()}}
+\item \href{#method-TileDBFragments-get_first_ifragments}{\code{TileDBFragments$get_first_ifragments()}}
+\item \href{#method-TileDBFragments-get_last_ifragments}{\code{TileDBFragments$get_last_ifragments()}}
 \item \href{#method-TileDBFragments-dump}{\code{TileDBFragments$dump()}}
-\item \href{#method-TileDBFragments-clone}{\code{TileDBFragments$clone()}}
 }
 }
 \if{html}{\out{<hr>}}
@@ -231,6 +233,66 @@ A boolean,  invisibly. \code{TRUE} for successful deletion and
 }
 }
 \if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-TileDBFragments-get_ifragment"></a>}}
+\if{latex}{\out{\hypertarget{method-TileDBFragments-get_ifragment}{}}}
+\subsection{Method \code{get_ifragment()}}{
+Get a fragment by index.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{TileDBFragments$get_ifragment(fid)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{fid}}{A fragment index (starts at 1).}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+An object of class \code{ifragment}.
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-TileDBFragments-get_first_ifragments"></a>}}
+\if{latex}{\out{\hypertarget{method-TileDBFragments-get_first_ifragments}{}}}
+\subsection{Method \code{get_first_ifragments()}}{
+Get the first \code{n} fragments.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{TileDBFragments$get_first_ifragments(n)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{n}}{An numeric value.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+An object of class \code{ifragment_list}.
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-TileDBFragments-get_last_ifragments"></a>}}
+\if{latex}{\out{\hypertarget{method-TileDBFragments-get_last_ifragments}{}}}
+\subsection{Method \code{get_last_ifragments()}}{
+Get the last \code{n} fragments.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{TileDBFragments$get_last_ifragments(n)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{n}}{An numeric value.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+An object of class \code{ifragment_list}.
+}
+}
+\if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-TileDBFragments-dump"></a>}}
 \if{latex}{\out{\hypertarget{method-TileDBFragments-dump}{}}}
 \subsection{Method \code{dump()}}{
@@ -239,22 +301,5 @@ Dump to console the commit fragments.
 \if{html}{\out{<div class="r">}}\preformatted{TileDBFragments$dump()}\if{html}{\out{</div>}}
 }
 
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-TileDBFragments-clone"></a>}}
-\if{latex}{\out{\hypertarget{method-TileDBFragments-clone}{}}}
-\subsection{Method \code{clone()}}{
-The objects of this class are cloneable with this method.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{TileDBFragments$clone(deep = FALSE)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{deep}}{Whether to make a deep clone.}
-}
-\if{html}{\out{</div>}}
-}
 }
 }

@@ -64,6 +64,9 @@ vapply_int <- function(X, FUN, ..., USE.NAMES = TRUE) {
   .is_scalar(x, "double")
 }
 
+.is_scalar_numeric <- function(x) {
+  (typeof(x) %in% c("double", "integer")) && is.atomic(x) && length(x) == 1L
+}
 
 .posixt_to_int64char <- function(x) {
   check_timestamp_posixt(x)
