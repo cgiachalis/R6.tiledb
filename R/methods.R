@@ -65,3 +65,66 @@ print.tiledb_timestamp <- function(x, ...) {
 
   invisible(x)
 }
+
+# Format dimensions' non-empty domains: <'dim': [min, max] (data type)>
+# Note: datatypes DATETIME_DAY/MS/NS represented in character format
+#       date/datetime/nanotime, the latter if the 'nanotime' package is
+#       installed, otherwise as int64.
+.format_nonempty_domain <- function(x) {
+  dimtype <- attr(x, "dimtype")
+  switch (dimtype,
+    DATETIME_DAY = {
+      x <- format(as.Date(as.numeric(x), tz = "UTC"))
+    },
+    DATETIME_MS = {
+      x <- format(as.POSIXct(as.numeric(x), tz = "UTC"))
+    },
+    DATETIME_NS = {
+      if (requireNamespace("nanotime", quietly = TRUE)) {
+      x <- format(nanotime::as.nanotime(x), tz = "UTC")
+      }
+    }
+  )
+  paste0("[", x[1], ", ", x[2],"]", " ",
+         cli::style_italic(cli::style_dim("(", dimtype, ")")))
+}
+
+
+#' @export
+print.ifragment <- function(x, ...){
+
+  cli::cat_rule(left = paste0("FRAGMENT", " #", x$fid), col = "blue")
+  nms <- c("URI",
+           "Type",
+           "Non-empty domain",
+           "Size",
+           "Cell num",
+           "Timestamp range",
+           "Format version",
+           "Has consolidated metadata")
+  nms <- paste0(nms, ": ")
+
+  txt <- x[-1]
+  tstamp <- cli::col_br_cyan(format(txt$timestamp_range, tz = "UTC", digits= 6, usetz = TRUE))
+  txt$timestamp_range <- paste0("[", tstamp[1], ", ", tstamp[2],"]")
+
+  txt$nonemptydom <- "\n"
+  ndm_txt <- sapply(x$nonemptydom, .format_nonempty_domain)
+  ndm_txt <- paste0("   ", cli::col_br_red(cli::symbol$bullet),
+           " ", names(x$nonemptydom),
+           ": ",
+           ndm_txt, collapse = "\n")
+
+  part1 <- paste0(" ", cli::col_br_black(cli::symbol$pointer), " ", nms[1:3], txt[1:3],
+                collapse = "\n")
+  part2 <- paste0(" ", cli::col_br_black(cli::symbol$pointer), " ", nms[4:8], txt[4:8],
+                  collapse = "\n")
+  cli::cat_line(part1, ndm_txt,"\n", part2, "\n")
+  invisible(x)
+}
+
+#' @export
+print.ifragment_list <- function(x, ...){
+  dev_null <- lapply(x, function(i) {print(i); NULL})
+  invisible(x)
+}
