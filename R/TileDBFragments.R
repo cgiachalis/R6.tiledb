@@ -3,6 +3,10 @@
 #' @description
 #' An R6 object for working with `TileDB` Fragments.
 #'
+#' ## Initialization
+#' A new `TileDBFragments` instance is initialised using the `new()` method or
+#' alternatively use the functional interface [tdb_fragments()].
+#'
 #' @returns An object of class `TileDBFragments`, `R6`.
 #'
 #' @export

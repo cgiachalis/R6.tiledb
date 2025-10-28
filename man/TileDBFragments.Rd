@@ -8,6 +8,11 @@ An object of class \code{TileDBFragments}, \code{R6}.
 }
 \description{
 An R6 object for working with \code{TileDB} Fragments.
+\subsection{Initialization}{
+
+A new \code{TileDBFragments} instance is initialised using the \code{new()} method or
+alternatively use the functional interface \code{\link[=tdb_fragments]{tdb_fragments()}}.
+}
 }
 \section{Active bindings}{
 \if{html}{\out{<div class="r6-active-bindings">}}
