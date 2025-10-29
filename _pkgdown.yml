@@ -29,6 +29,7 @@ reference:
   contents:
   - tdb_array
   - tdb_group
+  - tdb_fragments
   - set_config_params
   - vfs_dir_tree
 

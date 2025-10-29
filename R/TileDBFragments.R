@@ -1,12 +1,17 @@
 #' @title Generate a `TileDBFragments` Object
 #'
 #' @description
-#' An R6 object for working with `TileDB` Fragments.
+#' A class for working with `TileDB` Fragments.
+#'
+#' ## Initialization
+#' A new `TileDBFragments` instance is initialised using the `new()` method or
+#' with the functional interface [tdb_fragments()].
 #'
 #' @returns An object of class `TileDBFragments`, `R6`.
 #'
 #' @export
 TileDBFragments <- R6::R6Class(
+  cloneable = FALSE,
   classname = "TileDBFragments",
   public = list(
     #' @description Create a new `TileDBFragments` instance.
@@ -42,10 +47,16 @@ TileDBFragments <- R6::R6Class(
     class = function() {
       class(self)[1]
     },
-    #' @description The number of fragments.
+    #' @description Get the number of fragments.
     #'
     frag_num = function() {
-      tiledb::tiledb_fragment_info_get_num(private$finfo())
+
+      if (is.null(private$.frag_num)) {
+        private$.frag_num <- tiledb::tiledb_fragment_info_get_num(private$finfo())
+      }
+
+      private$.frag_num
+
     },
     #' @description Return a `data.frame` with  time stamps and
     #' fragments uris.
@@ -111,6 +122,7 @@ TileDBFragments <- R6::R6Class(
     reload_finfo = function() {
 
       private$.finfo <- tiledb::tiledb_fragment_info(self$uri)
+      private$.frag_num <- NULL
 
       private$log_debug0("reload_finfo", "Fragment Info reloaded")
 
@@ -194,7 +206,6 @@ TileDBFragments <- R6::R6Class(
     delete_fragment_range = function(start_time, end_time) {
 
       check_timestamp_posixt(start_time)
-
       check_timestamp_posixt(end_time)
 
       if (start_time > end_time) {
@@ -253,8 +264,8 @@ TileDBFragments <- R6::R6Class(
     #'
     delete_fragment = function(n) {
 
-      if (isFALSE(.is_scalar_double(n))) {
-        cli::cli_abort("{.arg {deparse(substitute(n))}} should be a numeric value.", call = NULL)
+      if (isFALSE(.is_scalar_numeric(n))) {
+        cli::cli_abort("{.arg n} should be a numeric value.", call = NULL)
       }
 
       furis <- self$frag_uris(FALSE)
@@ -285,6 +296,92 @@ TileDBFragments <- R6::R6Class(
       invisible(TRUE)
 
     },
+
+    #' @description Get a fragment by index.
+    #'
+    #' @param fid A fragment index (starts at 1).
+    #'
+    #' @return An object of class `ifragment`.
+    #'
+    get_ifragment = function(fid) {
+
+      if (isFALSE(.is_scalar_numeric(fid))) {
+        cli::cli_abort("{.arg i} should be a numeric value.", call = NULL)
+      }
+
+      if (fid > self$frag_num()) {
+        cli::cli_abort("{.arg i} fragment index is out of bounds.", call = NULL)
+      }
+
+      finfo <- private$finfo()
+      dimnames <- private$dimnames()
+
+      private$ifragment(finfo, fid = fid, dimnames = dimnames)
+    },
+
+    #' @description Get the first `n` fragments.
+    #'
+    #' @param n An numeric value.
+    #'
+    #' @return An object of class `ifragment_list`.
+    #'
+    get_first_ifragments = function(n) {
+
+      if (isFALSE(.is_scalar_numeric(n))) {
+        cli::cli_abort("{.arg n} should be a numeric value.", call = NULL)
+      }
+
+      if (n > self$frag_num()) {
+        cli::cli_abort("{.arg n} fragment index is out of bounds.", call = NULL)
+      }
+
+      finfo <- private$finfo()
+      dimnames <- private$dimnames()
+
+      idx <- 1:n
+      out <- lapply(idx, function(.fid) {
+        private$ifragment(finfo, fid = .fid, dimnames = dimnames)
+      })
+
+      names(out) <- paste0("Frag", idx)
+      class(out) <- "ifragment_list"
+
+      out
+    },
+
+    #' @description Get the last `n` fragments.
+    #'
+    #' @param n An numeric value.
+    #'
+    #' @return An object of class `ifragment_list`.
+    #'
+    get_last_ifragments = function(n) {
+
+      if (isFALSE(.is_scalar_numeric(n))) {
+        cli::cli_abort("{.arg n} should be a numeric value.", call = NULL)
+      }
+
+      frag_num <- self$frag_num()
+
+      if (n > frag_num) {
+        cli::cli_abort("{.arg n} fragment index is out of bounds.", call = NULL)
+      }
+
+      finfo <- private$finfo()
+      dimnames <- private$dimnames()
+
+      idx <- seq.int(frag_num - n + 1, frag_num, by = 1)
+
+      out <- lapply(idx, function(.fid) {
+        private$ifragment(finfo, fid = .fid, dimnames = dimnames)
+      })
+
+      names(out) <- paste0("Frag", idx)
+      class(out) <- "ifragment_list"
+
+      out
+    },
+
     #' @description Dump to console the commit fragments.
     #'
     dump = function() {
@@ -315,16 +412,95 @@ TileDBFragments <- R6::R6Class(
   private = list(
 
     .tiledb_uri = NULL,
-
     .tiledb_ctx = NULL,
     .finfo = NULL,
+    .frag_num = NULL,
+    .dimnames = NULL,
 
     # TileDB fragment info object
     finfo = function(){
+
       if (is.null(private$.finfo)){
-        private$.finfo <- tiledb::tiledb_fragment_info(self$uri)
+        private$.finfo <- tiledb::tiledb_fragment_info(private$.tiledb_uri)
       }
       private$.finfo
+    },
+
+    # Return a list with TileDB dimension names; each element will have an
+    # attribute 'dimtype' with TileDB datatype
+    dimnames = function() {
+
+      if (is.null(private$.dimnames)) {
+
+        sch <- tiledb::schema(private$.tiledb_uri)
+        dims <- tiledb::dimensions(sch)
+
+        private$.dimnames <- lapply(dims, function(.dim) {
+          .out <- tiledb::name(.dim)
+          attr(.out, "dimtype") <- tiledb::datatype(.dim)
+          .out})
+      }
+      private$.dimnames
+    },
+
+    # Return a list with fragment metadata
+    #
+    # @param finfo A fragment info object
+    # @param fid Fragment index (starts at 1)
+    # @param dimnames A list of dimnames as return by private$dimnames()
+    #
+    ifragment = function(finfo, fid, dimnames) {
+
+      flist <- vector(mode = "list", length = 9)
+
+      flist[[1]] <- fid
+
+      fid <- fid - 1 # C++ index
+      flist[[2]] <- tiledb::tiledb_fragment_info_uri(finfo, fid = fid)
+      flist[[3]] <- if (tiledb::tiledb_fragment_info_sparse(finfo, fid = fid)) {
+        "sparse"
+      } else if (tiledb::tiledb_fragment_info_dense(finfo, fid = fid)) {
+        "dense"
+      } else {
+        "unknown"
+      }
+
+      # non-empty domains
+      nonemtydom <- Map(seq_along(dimnames),
+                           dimnames,
+                           f = function(.i, .x) {
+         typestr <- attr(.x, "dimtype")
+        .out <- tiledb::tiledb_fragment_info_get_non_empty_domain_index(finfo,
+                                                                   fid = fid,
+                                                                   did = .i - 1,
+                                                                   typestr = typestr)
+        attr(.out, "dimtype") <- typestr
+        .out
+      })
+      names(nonemtydom) <- unlist(dimnames)
+      flist[[4]] <- nonemtydom
+
+      size <- tiledb::tiledb_fragment_info_get_size(finfo, fid = fid)
+      flist[[5]] <- .byte_size_format(size)
+      flist[[6]] <- tiledb::tiledb_fragment_info_get_cell_num(finfo, fid = fid)
+
+      flist[[7]] <- tiledb::tiledb_fragment_info_get_timestamp_range(finfo, fid = fid)
+      flist[[8]] <- tiledb::tiledb_fragment_info_get_version(finfo, fid = fid)
+      flist[[9]] <- tiledb::tiledb_fragment_info_has_consolidated_metadata(finfo, fid = fid)
+
+      names(flist) <- c("fid",
+                        "URI",
+                        "type",
+                        "nonemptydom",
+                        "size",
+                        "cell_num",
+                        "timestamp_range",
+                        "version",
+                        "consolidated_metadata")
+
+      class(flist) <- "ifragment"
+
+      flist
     },
 
     log_debug0 = function(method, comment, ...) {
