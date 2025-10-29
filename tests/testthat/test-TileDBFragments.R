@@ -89,3 +89,52 @@ test_that("'TileDBFragments' class works as expected", {
   rm(fragObj)
   gc()
 })
+
+
+test_that("Test ifragments methods", {
+
+  uri <- file.path(withr::local_tempdir(), "test-TileDBFragments2")
+
+  # write test array on disk
+  write_test_array_tstamps(uri)
+
+  expect_no_error(fobj <- tdb_fragments(uri))
+  expect_s3_class(fobj, "TileDBFragments")
+
+  # get fragment metadata
+  expect_no_error(ifrag <- fobj$get_ifragment(1))
+  expect_s3_class(ifrag, "ifragment")
+
+  trg <- structure(list(fid = 1, URI = "__fragments/__1000_1000_28109_22",
+                        type = "sparse", nonemptydom = list(id = structure(c(1, 1
+                        ), dimtype = "INT32")), size = "3.14 KiB", cell_num = 1,
+                        timestamp_range = structure(c(1, 1), class = c("POSIXct",
+                      "POSIXt")), version = 22L, consolidated_metadata = FALSE),
+                   class = "ifragment")
+
+  # fixed uri
+  ifrag$URI <- "__fragments/__1000_1000_28109_22"
+  expect_equal(ifrag, trg)
+
+  expect_no_error(ifrag_list <- fobj$get_first_ifragments(2))
+  expect_s3_class(ifrag_list, "ifragment_list")
+  expect_named(ifrag_list, c("Frag1", "Frag2"))
+  expect_true(all(vapply_char(ifrag_list, class) == "ifragment"))
+
+  expect_no_error(ifrag_list2 <- fobj$get_last_ifragments(2))
+  expect_s3_class(ifrag_list2, "ifragment_list")
+  expect_named(ifrag_list2, c("Frag2", "Frag3"))
+  expect_true(all(vapply_char(ifrag_list2, class) == "ifragment"))
+
+  # error are raised
+  expect_error(fobj$get_ifragment(4))
+  expect_error(fobj$get_first_ifragments(4))
+  expect_error(fobj$get_last_ifragments(4))
+
+  ifrag_list$Frag1$URI <-  "__fragments/__1000_1000_28109_22"
+  ifrag_list$Frag2$URI <-  "__fragments/__2000_2000_fd109_22"
+
+  expect_snapshot(ifrag)
+  expect_snapshot(ifrag_list)
+
+  })
