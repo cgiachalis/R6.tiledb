@@ -7,11 +7,11 @@
 An object of class \code{TileDBFragments}, \code{R6}.
 }
 \description{
-An R6 object for working with \code{TileDB} Fragments.
+A class for working with \code{TileDB} Fragments.
 \subsection{Initialization}{
 
 A new \code{TileDBFragments} instance is initialised using the \code{new()} method or
-alternatively use the functional interface \code{\link[=tdb_fragments]{tdb_fragments()}}.
+with the functional interface \code{\link[=tdb_fragments]{tdb_fragments()}}.
 }
 }
 \section{Active bindings}{
@@ -76,7 +76,7 @@ Print the name of the R6 class.
 \if{html}{\out{<a id="method-TileDBFragments-frag_num"></a>}}
 \if{latex}{\out{\hypertarget{method-TileDBFragments-frag_num}{}}}
 \subsection{Method \code{frag_num()}}{
-The number of fragments.
+Get the number of fragments.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{TileDBFragments$frag_num()}\if{html}{\out{</div>}}
 }
