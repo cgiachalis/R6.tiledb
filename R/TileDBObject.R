@@ -53,7 +53,7 @@ TileDBObject <- R6::R6Class(
       } else if (length(tiledb_timestamp) == 1L) {
         private$.tiledb_timestamp <- set_tiledb_timestamp(end_time = tiledb_timestamp)
       } else if (length(tiledb_timestamp) == 2L & !inherits(tiledb_timestamp, "tiledb_timestamp")) {
-        private$.tiledb_timestamp <- set_tiledb_timestamp(start_time = iledb_timestamp[1],
+        private$.tiledb_timestamp <- set_tiledb_timestamp(start_time = tiledb_timestamp[1],
                                                           end_time = tiledb_timestamp[2])
       } else if (inherits(tiledb_timestamp, "tiledb_timestamp")) {
         private$.tiledb_timestamp <- tiledb_timestamp
