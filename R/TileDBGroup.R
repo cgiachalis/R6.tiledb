@@ -60,15 +60,14 @@ TileDBGroup <- R6::R6Class(
       mode <- match.arg(mode)
 
       if (is.null(private$.tiledb_group)) {
-        private$log_debug("open", "Opening with mode '{}'", mode)
-        private$initialize_object()
+
+        private$log_debug("open", "Opening with initialisation and mode '{}'", mode)
+        private$initialize_object(mode = mode)
+      } else {
+        private$log_debug("open", "Opening in {} mode", mode)
+        private$.tiledb_group <- tiledb::tiledb_group(self$uri, type = mode, ctx = self$ctx)
+        private$.mode <- mode
       }
-
-      private$log_debug("open", "Opening in {} mode", mode)
-
-      private$.tiledb_group <- tiledb::tiledb_group(self$uri, type = mode, ctx = self$ctx)
-
-      private$.mode <- mode
 
       # force member cache update
       private$.member_cache <- NULL
@@ -495,7 +494,7 @@ TileDBGroup <- R6::R6Class(
       # If the group was created after the object was instantiated, we need to
       # initialize private$.tiledb_group
       if (is.null(private$.tiledb_group)) {
-        private$initialize_object()
+        private$initialize_object(mode = "READ")
       }
       private$.tiledb_group
     },
@@ -549,10 +548,21 @@ TileDBGroup <- R6::R6Class(
 
     # Once the group has been created this initializes the TileDB group object
     # and stores the reference in private$.tiledb_group.
-    initialize_object = function() {
+    initialize_object = function(mode) {
 
-      private$.tiledb_group <- tiledb::tiledb_group(self$uri, type = "READ", ctx = self$ctx)
-      private$.mode <- "READ"
+      # * NOTE: By design, we don't to write at timestamps, so we revert the
+      #    group timestamps if the user has defined them in write mode;
+      #    that's because when we initialise with timestamp option,
+      #    there is no way to know which mode will the group be opened at.
+
+      # Ensure we don't set group timestamps at write mode
+      if (mode == "WRITE" && attr(private$.tiledb_timestamp, "ts_info") != "default") {
+        tm <- set_tiledb_timestamp()
+        private$.tiledb_ctx <- .set_group_timestamps(self$ctx, tm)
+      }
+
+      private$.tiledb_group <- tiledb::tiledb_group(self$uri, type = mode, ctx = self$ctx)
+      private$.mode <- mode
 
     },
     # Instantiate a group member object.

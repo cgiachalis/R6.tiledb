@@ -53,6 +53,33 @@ test_that("'TileDBGroup' class tests on existent but empty group", {
 
   rm(group)
 
+  ## Open on WRITE from init and with tdb_group()
+
+  expect_no_error(group_new <- tdb_group(uri, mode = "WRITE"))
+  expect_equal(group_new$mode, "WRITE")
+
+  # Verify that group reference is opened at WRITE mode
+  expect_equal(tiledb::tiledb_group_query_type(group_new$object), "WRITE")
+
+  ## Ensure timestamp is ignored when opening on WRITE from init
+  expect_no_error(group_new <- tdb_group(uri, mode = "WRITE",
+                                         tiledb_timestamp = as.Date("1990-01-01")))
+  expect_equal(group_new$mode, "WRITE")
+
+  # Verify that group reference is opened at WRITE mode
+  expect_equal(tiledb::tiledb_group_query_type(group_new$object), "WRITE")
+
+  # Εnsure to group timestamp_end was set both in ctx and group object
+  cfg <- tiledb::config(group_new$ctx)
+  expect_equal(unname(cfg["sm.group.timestamp_end"]), "18446744073709551615")
+  cfg <- tiledb::tiledb_group_get_config(group_new$object)
+  expect_equal(unname(cfg["sm.group.timestamp_end"]), "18446744073709551615")
+
+  group_new$close()
+  rm(group_new)
+  # ---
+
+
   uri2 <- file.path(withr::local_tempdir(), "test-group2")
   group2 <- TileDBGroup$new(uri2)
 
@@ -94,7 +121,7 @@ test_that("'TileDBGroup' class tests on existent but empty group", {
 
   expect_equal( group3_new$mode, "CLOSED")
 
-  # Group object reference is initialised with READ mode if CLOSED
+  # Group object reference is initialised with READ mode if CLOSED (active binding)
   expect_equal(tiledb::tiledb_group_is_open(group3_new$object), TRUE)
 
   # Checking again, this must be in READ mode
