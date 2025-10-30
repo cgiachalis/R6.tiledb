@@ -132,7 +132,7 @@ TileDBArrayExp <- R6::R6Class(
 
       # set consolidation time stamps
       if (!is.null(start_time) || !is.null(end_time)) {
-        cfg <- set_consolidation_tstamps(cfg, start_time, end_time)
+        cfg <- set_consolidation_timestamps(cfg, start_time, end_time)
       }
 
       .libtiledb_array_consolidate(ctx = self$ctx@ptr, uri = self$uri, cfgptr = cfg@ptr)
@@ -189,7 +189,7 @@ TileDBArrayExp <- R6::R6Class(
 
       # set consolidation time stamps
       if (!is.null(start_time) || !is.null(end_time)) {
-        cfg <- set_consolidation_tstamps(cfg, start_time, end_time)
+        cfg <- set_consolidation_timestamps(cfg, start_time, end_time)
       }
 
       # mirai namespace compute profile
@@ -361,7 +361,7 @@ TileDBArrayExp <- R6::R6Class(
 
       # set consolidation time stamps
       if (!is.null(start_time) || !is.null(end_time)) {
-        cfg <- set_consolidation_tstamps(cfg, start_time, end_time)
+        cfg <- set_consolidation_timestamps(cfg, start_time, end_time)
       }
 
       .libtiledb_array_consolidate(ctx = self$ctx@ptr, uri = self$uri, cfgptr = cfg@ptr)
@@ -421,7 +421,7 @@ TileDBArrayExp <- R6::R6Class(
 
       # set consolidation time stamps
       if (!is.null(start_time) || !is.null(end_time)) {
-        cfg <- set_consolidation_tstamps(cfg, start_time, end_time)
+        cfg <- set_consolidation_timestamps(cfg, start_time, end_time)
       }
 
       # mirai namespace compute profile
