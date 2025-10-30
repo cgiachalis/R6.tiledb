@@ -14,11 +14,11 @@
 #'
 #' @examples
 #' cfg <- tiledb::tiledb_config()
-#' cfg <- set_consolidation_tstamps(cfg, as.POSIXct(1), as.POSIXct(1000))
+#' cfg <- set_consolidation_timestamps(cfg, as.POSIXct(1), as.POSIXct(1000))
 #' cfg["sm.consolidation.timestamp_start"] # 1000 (ms)
 #'
 #' # reset
-#' cfg <- unset_consolidation_tstamps(cfg)
+#' cfg <- unset_consolidation_timestamps(cfg)
 #' cfg["sm.consolidation.timestamp_start"] # 0
 #'
 #' @name set_consolidation_timestamps

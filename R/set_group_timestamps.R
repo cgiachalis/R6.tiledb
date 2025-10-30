@@ -15,11 +15,11 @@
 #'
 #' @examples
 #' cfg <- tiledb::tiledb_config()
-#' cfg <- set_group_tstamps(cfg, as.POSIXct(1), as.POSIXct(1000))
+#' cfg <- set_group_timestamps(cfg, as.POSIXct(1), as.POSIXct(1000))
 #' cfg["sm.group.timestamp_start"] # 1000 (ms)
 #'
 #' # reset
-#' cfg <- unset_group_tstamps(cfg)
+#' cfg <- unset_group_timestamps(cfg)
 #' cfg["sm.group.timestamp_start"] # 0
 #'
 #' @name set_group_timestamps
