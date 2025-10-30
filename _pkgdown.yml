@@ -63,7 +63,7 @@ reference:
   desc: Helpers to work with timestamps
   contents:
   - set_tiledb_timestamp
-  - set_consolidation_tstamps
-  - set_group_tstamps
+  - set_consolidation_timestamps
+  - set_group_timestamps
   - array_timestamps
   - group_timestamps
