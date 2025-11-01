@@ -14,15 +14,15 @@
 #'
 #' @examples
 #' cfg <- tiledb::tiledb_config()
-#' cfg <- set_consolidation_tstamps(cfg, as.POSIXct(1), as.POSIXct(1000))
+#' cfg <- set_consolidation_timestamps(cfg, as.POSIXct(1), as.POSIXct(1000))
 #' cfg["sm.consolidation.timestamp_start"] # 1000 (ms)
 #'
 #' # reset
-#' cfg <- unset_consolidation_tstamps(cfg)
+#' cfg <- unset_consolidation_timestamps(cfg)
 #' cfg["sm.consolidation.timestamp_start"] # 0
 #'
-#' @name set_consolidation_tstamps
-set_consolidation_tstamps <- function(cfg, start_time = NULL, end_time = NULL) {
+#' @name set_consolidation_timestamps
+set_consolidation_timestamps <- function(cfg, start_time = NULL, end_time = NULL) {
 
   check_tiledb_config(cfg)
 
@@ -58,8 +58,8 @@ set_consolidation_tstamps <- function(cfg, start_time = NULL, end_time = NULL) {
 }
 
 #' @export
-#' @rdname set_consolidation_tstamps
-unset_consolidation_tstamps <- function(cfg) {
+#' @rdname set_consolidation_timestamps
+unset_consolidation_timestamps <- function(cfg) {
 
   params <- c("sm.consolidation.timestamp_start","sm.consolidation.timestamp_end")
   cfg <- unset_config_params(cfg, params)

@@ -15,15 +15,15 @@
 #'
 #' @examples
 #' cfg <- tiledb::tiledb_config()
-#' cfg <- set_group_tstamps(cfg, as.POSIXct(1), as.POSIXct(1000))
+#' cfg <- set_group_timestamps(cfg, as.POSIXct(1), as.POSIXct(1000))
 #' cfg["sm.group.timestamp_start"] # 1000 (ms)
 #'
 #' # reset
-#' cfg <- unset_group_tstamps(cfg)
+#' cfg <- unset_group_timestamps(cfg)
 #' cfg["sm.group.timestamp_start"] # 0
 #'
-#' @name set_group_tstamps
-set_group_tstamps <- function(cfg, start_time = NULL, end_time = NULL) {
+#' @name set_group_timestamps
+set_group_timestamps <- function(cfg, start_time = NULL, end_time = NULL) {
 
   check_tiledb_config(cfg)
 
@@ -59,8 +59,8 @@ set_group_tstamps <- function(cfg, start_time = NULL, end_time = NULL) {
 }
 
 #' @export
-#' @rdname set_group_tstamps
-unset_group_tstamps <- function(cfg) {
+#' @rdname set_group_timestamps
+unset_group_timestamps <- function(cfg) {
 
   params <- c("sm.group.timestamp_start","sm.group.timestamp_end")
   cfg <- unset_config_params(cfg, params)

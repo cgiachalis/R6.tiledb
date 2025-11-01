@@ -59,9 +59,11 @@ TileDBArray <- R6::R6Class(
           tend <- Sys.time()
         }
 
-        if (ts_info == "default") {
+        if (mode == "WRITE" || ts_info == "default") {
 
-          # NOTE: We could have used tiledb_array_open() but because of time-traveling
+          # NOTE: No time-travelling on WRITE mode
+          #
+          #  We could have used tiledb_array_open() but because of time-traveling
           # the time range of array layer need to be reset; either we use a new handle
           # as via tiledb_array, or set the range via libtiledb functionality and then
           # use the cached handled.
@@ -72,6 +74,7 @@ TileDBArray <- R6::R6Class(
                                                         query_type = mode,
                                                         query_layout = "UNORDERED",
                                                         keep_open = TRUE)
+
 
         } else if (mode == "READ" & ts_info == "user trng") {
 
@@ -89,6 +92,11 @@ TileDBArray <- R6::R6Class(
                                                         timestamp_end = tend)
 
         } else if (mode == "READ" & ts_info == "user tpnt") {
+
+          private$log_debug("open",
+                            "Opening in {} mode with time point '{}'",
+                            mode,
+                            tend)
 
           private$.tiledb_array <- .tiledb_array_open_at2(private$.tiledb_array, "READ", tend)
 

@@ -6,19 +6,19 @@ params <-  c("sm.consolidation.timestamp_start" = "100",
              "sm.consolidation.timestamp_end" = "10000")
 
 
-test_that("'set_consolidation_tstamps()' works as expected", {
+test_that("'set_consolidation_timestamps()' works as expected", {
 
-  expect_error(set_consolidation_tstamps(list(1)))
-  expect_error(set_consolidation_tstamps(cfg, start_time = "a"))
-  expect_error(set_consolidation_tstamps(cfg, end_time = "a"))
-  expect_error(set_consolidation_tstamps(cfg, start_time = as.POSIXct(100), end_time = as.POSIXct(1)))
-  expect_error(set_consolidation_tstamps(cfg, end_time = as.POSIXct(-1)))
+  expect_error(set_consolidation_timestamps(list(1)))
+  expect_error(set_consolidation_timestamps(cfg, start_time = "a"))
+  expect_error(set_consolidation_timestamps(cfg, end_time = "a"))
+  expect_error(set_consolidation_timestamps(cfg, start_time = as.POSIXct(100), end_time = as.POSIXct(1)))
+  expect_error(set_consolidation_timestamps(cfg, end_time = as.POSIXct(-1)))
 
 
-  expect_no_error(cfg <- set_consolidation_tstamps(cfg))
+  expect_no_error(cfg <- set_consolidation_timestamps(cfg))
   expect_s4_class(cfg, "tiledb_config")
 
-  expect_no_error(cfg <- set_consolidation_tstamps(cfg, start_time = as.POSIXct(1), end_time = as.POSIXct(100)))
+  expect_no_error(cfg <- set_consolidation_timestamps(cfg, start_time = as.POSIXct(1), end_time = as.POSIXct(100)))
   expect_s4_class(cfg, "tiledb_config")
 
   expect_equal(cfg["sm.consolidation.timestamp_start"], c(sm.consolidation.timestamp_start = "1000"))
@@ -28,7 +28,7 @@ test_that("'set_consolidation_tstamps()' works as expected", {
 
 test_that("'unset_consolidation_tstamps()' works as expected", {
 
-  expect_no_error(cfg <- unset_consolidation_tstamps(cfg))
+  expect_no_error(cfg <- unset_consolidation_timestamps(cfg))
   expect_s4_class(cfg, "tiledb_config")
 
   expect_equal(cfg["sm.consolidation.timestamp_start"], c(sm.consolidation.timestamp_start = "0"))
