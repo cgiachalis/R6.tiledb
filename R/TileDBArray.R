@@ -277,7 +277,6 @@ TileDBArray <- R6::R6Class(
   ),
 
   private = list(
-
     # Internal pointer to the TileDB array.
     #
     # Important implementation note:
@@ -300,12 +299,12 @@ TileDBArray <- R6::R6Class(
     # and stores the reference in private$.tiledb_array.
     #
     initialize_object = function(keep_open = TRUE) {
-
       private$.tiledb_array <- tiledb::tiledb_array(
         uri = self$uri,
         ctx = self$ctx,
         query_layout = "UNORDERED",
-        keep_open = keep_open)
+        keep_open = keep_open
+      )
 
       if (keep_open) {
         private$.mode <- "READ"
@@ -313,5 +312,5 @@ TileDBArray <- R6::R6Class(
         private$.mode <- "CLOSED"
       }
     }
-)
+  )
 )

@@ -1,7 +1,5 @@
 
 
-gc()
-
 test_that("'TileDBGroup' class tests on non-existent group", {
 
   uri <- file.path(withr::local_tempdir(), "test-group")
@@ -528,7 +526,6 @@ test_that("'TileDBGroup' class tests relative paths", {
 })
 
 # Do not remove.
-gc()
 
 test_that("'TileDBGroup' test active binding tiledb_timestamp", {
 
@@ -579,7 +576,6 @@ test_that("'TileDBGroup' test active binding tiledb_timestamp", {
   expect_error(group$tiledb_timestamp <- numeric(0), label = "Invalid 'tiledb_timestamp' input")
 
   rm(group)
-  gc()
 })
 
 
@@ -675,7 +671,7 @@ test_that("'TileDBGroup' class tests time-traveling", {
 
   rm(group)
   rm(marr1)
-  gc()
+
 })
 
 

@@ -1,4 +1,3 @@
-gc()
 
 test_that("'TileDBGroupExp' class works as expected", {
 
@@ -26,7 +25,7 @@ test_that("'TileDBGroupExp' class works as expected", {
   expect_true(grpObj$has_non_members())
   expect_equal( grpObj$non_members(), dm[2, ], ignore_attr = TRUE)
 
-  # delete group layer with recursing deleting objects
+  # delete group layer with recursive deleting objects
   expect_invisible(obj <- grpObj$delete_group())
   expect_s3_class(obj, class = "TileDBGroupExp")
   rm(obj)
@@ -50,7 +49,6 @@ test_that("'TileDBGroupExp' class works as expected", {
   dm2 <- tiledb::tiledb_object_walk(uri)
   expect_equal(dm2, data.frame(TYPE = character(0), URI = character(0)))
   rm(grpObj)
-  gc()
 
 })
 

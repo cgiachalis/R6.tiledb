@@ -37,6 +37,7 @@ test_that("'unset_config_params()' works as expected", {
 
   rm(cfg)
   gc()
+
 })
 
 rm(params)

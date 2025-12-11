@@ -6,13 +6,13 @@ on:
 env:
   _R_CHECK_FORCE_SUGGESTS_: "FALSE"
 
-name: R-CMD-check.yaml
+name: R CMD Check
 
 permissions:
   contents: read
 
 jobs:
-  ci-1:
+  R-CMD-Check:
     runs-on: ${{ matrix.config.os }}
 
     name: ${{ matrix.config.os }} (${{ matrix.config.r }})
@@ -21,10 +21,10 @@ jobs:
       fail-fast: false
       matrix:
         config:
-         # - {os: macos-latest,   r: 'release'}
+          - {os: macos-latest,   r: 'release'}
           - {os: windows-latest, r: 'release'}
          # - {os: ubuntu-latest,   r: 'devel', http-user-agent: 'release'}
-         #- {os: ubuntu-latest,   r: 'release'}
+          - {os: ubuntu-latest,   r: 'release'}
          # - {os: ubuntu-latest,   r: 'oldrel-1'}
 
     env:
@@ -32,7 +32,7 @@ jobs:
       R_KEEP_PKG_SOURCE: yes
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       - uses: r-lib/actions/setup-pandoc@v2
 
@@ -44,52 +44,14 @@ jobs:
 
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
-          extra-packages: any::rcmdcheck
+          extra-packages: >
+           any::rcmdcheck
           needs: check
-          cache: false
+          upgrade: 'TRUE'
+          cache: true
 
       - uses: r-lib/actions/check-r-package@v2
         with:
-          upload-snapshots: true
+          upload-snapshots: false
           build_args: 'c("--no-manual","--compact-vignettes=gs+qpdf")'
 
-# Run CI for R based on copy of https://eddelbuettel.github.io/r-ci/
-  ci-2:
-      runs-on: ${{ matrix.os }}
-      name: ${{ matrix.os }} (${{ matrix.r }})
-
-      strategy:
-        fail-fast: false
-        matrix:
-          include:
-            - {os: macOS-latest, r: '4.5.0' }
-            - {os: ubuntu-latest, r: 'release'}
-      steps:
-        - uses: actions/checkout@v4
-
-        - name: System
-          if: ${{ matrix.os == 'macOS-latest' }}
-          run: |
-           sysctl -a
-           echo "RVER=${{ matrix.r}}" >> $GITHUB_ENV
-
-        - name: Bootstrap
-          run: ./.github/r-ci.sh bootstrap
-
-        - name: Dependencies
-          run: ./.github/r-ci.sh install_all
-
-        - name: Test
-          run: ./.github/r-ci.sh run_tests
-
-        # - name: Show install log
-        #   run: cat $HOME/work/R6.tiledb/R6.tiledb/R6.tiledb.Rcheck/00install.out
-        #   if: failure()
-        #
-        # - name: Show test log
-        #   run: cat $HOME/work/R6.tiledb/R6.tiledb/R6.tiledb.Rcheck/00check.log
-        #   if: failure()
-
-        #- name: Coverage
-        #  if: ${{ matrix.os == 'ubuntu-latest' }}
-        #  run: ./.github/r-ci.sh coverage

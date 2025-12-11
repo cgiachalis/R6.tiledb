@@ -36,6 +36,7 @@ test_that("'unset_group_tstamps()' works as expected", {
 
   rm(cfg)
   gc()
+
 })
 
 rm(params)

@@ -7,7 +7,7 @@
 An object of class \code{TileDBObject}, \code{R6}.
 }
 \description{
-An parent class to implement shared functionality for \link{TileDBArray} and
+A parent class to implement shared functionality for \link{TileDBArray} and
 \link{TileDBGroup} classes.
 
 \strong{This class is not intended to be used directly}.

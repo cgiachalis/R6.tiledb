@@ -1,7 +1,7 @@
 #' @title Generate a `TileDBObject` Object
 #'
 #' @description
-#' An parent class to implement shared functionality for [TileDBArray] and
+#' A parent class to implement shared functionality for [TileDBArray] and
 #' [TileDBGroup] classes.
 #'
 #'  **This class is not intended to be used directly**.
@@ -347,7 +347,6 @@ TileDBObject <- R6::R6Class(
 
     # Contains a URI string
     .tiledb_uri = NULL,
-
 
     # Store the object from set_tiledb_timestamp
     .tiledb_timestamp = NULL,

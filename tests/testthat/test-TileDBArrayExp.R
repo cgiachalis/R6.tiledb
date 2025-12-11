@@ -56,6 +56,7 @@ test_that("'TileDBArrayExp' class works as expected", {
 
   expect_error(arrObj$consolidate(mode = "fragments", cfg = "nope"), label = "cfg should be 'tiledb_config'")
   expect_true(arrObj$consolidate(mode = "fragments")) # default
+
   # testthat::skip()
   expect_identical(arrObj$frag_num(), 1)
   expect_no_error(dfrags <- arrObj$frag_to_vacuum())
@@ -75,8 +76,6 @@ test_that("'TileDBArrayExp' class works as expected", {
   expect_error(arrObj$drop_attribute("Freq"), label = "`Freq` is not an attribute.")
 
   expect_null(arrObj$schema_upgrade())
-  rm(arrObj)
-  gc()
 
 })
 
@@ -157,12 +156,6 @@ test_that("Test '$consolidate', '$consolidate_async' and '$vacuum' methods", {
 
  }
 
- rm(arrobj)
- rm(cfg)
- rm(origcfg)
- rm(finfo)
- gc()
-
 })
 
 test_that("Test '$vacuum_async' method", {
@@ -185,10 +178,6 @@ test_that("Test '$vacuum_async' method", {
   expect_true(arrobj$vacuum_async()[])
   expect_equal(nrow(arrobj$frag_to_vacuum()), 0)
 
-  rm(arrobj)
-  rm(cfg)
-  rm(origcfg)
-  gc()
 })
 
 
@@ -222,12 +211,6 @@ test_that("Test '$consolidate_and_vacuum' method", {
   ts_range <- tiledb::tiledb_fragment_info_get_timestamp_range(finfo, arrobj$frag_num() - 1)
   ts_range <- as.POSIXct(ts_range, tz = "UTC")
   expect_equal(ts_range, trg_range)
-
-  rm(arrobj)
-  rm(cfg)
-  rm(origcfg)
-  rm(finfo)
-  gc()
 
 })
 
@@ -264,11 +247,6 @@ test_that("Test '$consolidate_and_vacuum_async' method", {
   ts_range <- as.POSIXct(ts_range, tz = "UTC")
   expect_equal(ts_range, trg_range)
 
-  rm(arrobj)
-  rm(cfg)
-  rm(origcfg)
-  rm(finfo)
-  gc()
 })
 
 test_that("Test '$reopen' method resets fragment info object", {
@@ -287,6 +265,4 @@ test_that("Test '$reopen' method resets fragment info object", {
   # now it works
   expect_equal(arrobj$frag_num(), 2)
 
-  rm(arrobj)
-  gc()
 })
