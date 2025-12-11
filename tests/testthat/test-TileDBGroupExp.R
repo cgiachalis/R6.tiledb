@@ -26,7 +26,7 @@ test_that("'TileDBGroupExp' class works as expected", {
   expect_true(grpObj$has_non_members())
   expect_equal( grpObj$non_members(), dm[2, ], ignore_attr = TRUE)
 
-  # delete group layer with recursing deleting objects
+  # delete group layer with recursive deleting objects
   expect_invisible(obj <- grpObj$delete_group())
   expect_s3_class(obj, class = "TileDBGroupExp")
   rm(obj)
