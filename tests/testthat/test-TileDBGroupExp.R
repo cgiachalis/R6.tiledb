@@ -1,4 +1,3 @@
-gc()
 
 test_that("'TileDBGroupExp' class works as expected", {
 
@@ -50,7 +49,6 @@ test_that("'TileDBGroupExp' class works as expected", {
   dm2 <- tiledb::tiledb_object_walk(uri)
   expect_equal(dm2, data.frame(TYPE = character(0), URI = character(0)))
   rm(grpObj)
-  gc()
 
 })
 

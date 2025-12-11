@@ -1,4 +1,3 @@
-gc()
 
 test_that("'set_metadata' methods for arrays work as expected", {
 
@@ -63,10 +62,6 @@ test_that("'set_metadata' methods for arrays work as expected", {
   arrobj$reopen()
   expect_equal(unlist(arrobj$get_metadata()), c(a = 1, b = 2, c = 3, d = 4, e = 5, f = 6))
 
-  rm(arr)
-  rm(arrobj)
-  gc()
-
 })
 
 
@@ -125,8 +120,5 @@ test_that("'set_metadata' methods for groups work as expected", {
   grpobj$reopen()
   expect_equal(unlist(grpobj$get_metadata()), c(a = 1, b = 2, c = 3, d = 4, e = 5, f = 6))
 
-  rm(grp)
-  rm(grpobj)
-  gc()
 })
 

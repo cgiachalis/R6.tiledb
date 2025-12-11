@@ -1,4 +1,4 @@
-gc()
+#gc()
 
 test_that("'TileDBArray' class tests on non-existent array", {
 
@@ -308,6 +308,8 @@ test_that("Array, Metadata test time-traveling works", {
   expect_error(arrobj$open("WRITE"), label = "TileDB Array is already opened.")
   arrobj$close()
 
+  rm(arrobj)
+  gc()
 })
 
 test_that("Test metadata print method", {

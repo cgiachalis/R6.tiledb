@@ -1,4 +1,3 @@
-gc()
 
 test_that("'delete_metadata' methods for arrays work as expected", {
 
@@ -41,10 +40,6 @@ test_that("'delete_metadata' methods for arrays work as expected", {
   expect_true(origmode)
   expect_no_error(delete_metadata(arr, keys = "e"))
   expect_true(tiledb::tiledb_array_is_open_for_reading(arr))
-
-  rm(arr)
-  rm(arrobj)
-  gc()
 
 })
 
@@ -94,9 +89,5 @@ test_that("'delete_metadata' methods for groups work as expected", {
   expect_false(tiledb::tiledb_group_is_open(grp))
   close(grp)
 
-
-  rm(grp)
-  rm(grpobj)
-  gc()
 })
 

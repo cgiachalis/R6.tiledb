@@ -1,6 +1,4 @@
 
-gc()
-
 trg_tstamps <- list(timestamp_start = structure(0, class = c("POSIXct", "POSIXt")),
                     timestamp_end = structure(0, class = c("POSIXct", "POSIXt")))
 
@@ -82,10 +80,6 @@ test_that("'open_write' method for Arrays works OK", {
   # ensure we didn't change arrobj timestamps
   cls_open <- array_timestamps(arrobj)$open_array
   expect_false(identical(cls_open, trg_tstamps_t1))
-
-  rm(arr)
-  rm(arrobj)
-  rm(arrobj_no)
 
 })
 
@@ -180,7 +174,4 @@ test_that("'open_write' method for Groups works OK", {
   expect_true(close(group))
   expect_false(group$is_open())
 
-  rm(group)
-  rm(group_no)
-  rm(grp)
 })

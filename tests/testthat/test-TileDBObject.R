@@ -1,4 +1,3 @@
-gc()
 
 test_that("'TileDBObject' abstract class works as expected", {
 
