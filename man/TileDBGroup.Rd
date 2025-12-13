@@ -74,7 +74,7 @@ close on exit.}
 \if{html}{\out{<a id="method-TileDBGroup-create"></a>}}
 \if{latex}{\out{\hypertarget{method-TileDBGroup-create}{}}}
 \subsection{Method \code{create()}}{
-Create a TileDB Group object given the class URI path.
+Create a TileDB Group object at the given URI path.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{TileDBGroup$create(mode = "WRITE")}\if{html}{\out{</div>}}
 }
@@ -94,7 +94,7 @@ The object, invisibly.
 \if{html}{\out{<a id="method-TileDBGroup-open"></a>}}
 \if{latex}{\out{\hypertarget{method-TileDBGroup-open}{}}}
 \subsection{Method \code{open()}}{
-Open TileDB group object for read or write.
+Open TileDB group object in read or write mode.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{TileDBGroup$open(mode = c("READ", "WRITE"))}\if{html}{\out{</div>}}
 }
@@ -102,7 +102,8 @@ Open TileDB group object for read or write.
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{mode}}{Mode to open : either \code{"READ"} or \code{"WRITE"}.  Default is \code{"READ"}.}
+\item{\code{mode}}{Mode to open : either \code{"READ"} or \code{"WRITE"}. Default is
+\code{"READ"}.}
 }
 \if{html}{\out{</div>}}
 }
@@ -114,7 +115,10 @@ The object, invisibly.
 \if{html}{\out{<a id="method-TileDBGroup-close"></a>}}
 \if{latex}{\out{\hypertarget{method-TileDBGroup-close}{}}}
 \subsection{Method \code{close()}}{
-Close the object.
+Close the group object.
+
+All instantiated group members will be closed if opened, and before
+closing the group object.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{TileDBGroup$close()}\if{html}{\out{</div>}}
 }
@@ -129,7 +133,7 @@ The object, invisibly.
 \subsection{Method \code{remove()}}{
 Remove member.
 
-Deletes an array or group resource from \code{TileDBGroup} member list.
+Removes an array or group resource from \code{TileDBGroup} member list.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{TileDBGroup$remove(name)}\if{html}{\out{</div>}}
 }
@@ -151,7 +155,8 @@ The object, invisibly.
 \subsection{Method \code{delete()}}{
 Delete member.
 
-Deletes a \code{TileDBGroup}'s member from disk and removes it from its member list.
+Deletes a \code{TileDBGroup}'s member from disk and removes it from
+member list.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{TileDBGroup$delete(name)}\if{html}{\out{</div>}}
 }
@@ -184,7 +189,7 @@ The number of members in the group.
 \if{html}{\out{<a id="method-TileDBGroup-get_members_df"></a>}}
 \if{latex}{\out{\hypertarget{method-TileDBGroup-get_members_df}{}}}
 \subsection{Method \code{get_members_df()}}{
-List the members of the group.
+List group members.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{TileDBGroup$get_members_df(type = c("ALL", "GROUP", "ARRAY"))}\if{html}{\out{</div>}}
 }
@@ -247,7 +252,7 @@ default), the object's URI is assumed to be relative unless it is a
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-\code{NULL} value, invisibly.
+The object, invisibly.
 }
 }
 \if{html}{\out{<hr>}}
