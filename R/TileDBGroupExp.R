@@ -26,6 +26,7 @@ TileDBGroupExp <- R6::R6Class(
   classname = "TileDBGroupExp",
   inherit = TileDBGroup,
   public = list(
+
     #' @description Checks for non group members at group's uri
     #' path.
     #'
@@ -41,6 +42,7 @@ TileDBGroupExp <- R6::R6Class(
       idx <- ls_uris %in% m_uris
       isFALSE(all(idx))
     },
+
     #' @description List `TileDB` resources which are not
     #' members at group's uri path.
     #'
@@ -59,6 +61,7 @@ TileDBGroupExp <- R6::R6Class(
 
       obj_df[!idx, ]
     },
+
     #' @description Delete `TileDB` resources which are not members.
     #'
     #' @return An character vector of deleted uri paths.
@@ -78,7 +81,14 @@ TileDBGroupExp <- R6::R6Class(
 
       out
     },
-    #' @description Delete Groups data.
+
+    #' @description Delete written data from Group.
+    #'
+    #' This function deletes all written data from a `tiledb_group` object,
+    #' i.e., the folder will not be consider as a TileDB Group after the
+    #' operation. Any other data will not be deleted unless we set
+    #' `recursive = TRUE`.
+    #'
     #'
     #' @param recursive Should all data be deleted inside the group?
     #'  Default is `FALSE`.
@@ -87,15 +97,14 @@ TileDBGroupExp <- R6::R6Class(
     #'
     delete_group = function(recursive = FALSE) {
 
-      mode <- self$mode
-      self$close()
       on.exit({
         private$.object_type <- "INVALID"
       })
 
       grp <- self$object
-      tiledb::tiledb_group_close(grp)
+      self$close()
 
+      # grp pointer now is closed, opening as "MODIFY_EXCLUSIVE"
       grp <- tiledb::tiledb_group_open(grp, type = "MODIFY_EXCLUSIVE")
 
       tiledb::tiledb_group_delete(grp, uri = self$uri, recursive = recursive)
@@ -128,10 +137,13 @@ TileDBGroupExp <- R6::R6Class(
     }
   ),
   private = list(
+
     # Cache a tiledb_vfs object
+    #
     .vfs = NULL,
 
     # Get the tiledb_vfs object
+    #
     vfs = function() {
 
       if (is.null(private$.vfs)) {
@@ -139,6 +151,7 @@ TileDBGroupExp <- R6::R6Class(
       }
       private$.vfs
     }
-  )
+
+  ) # private
 
 )

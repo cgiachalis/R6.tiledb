@@ -121,7 +121,12 @@ An character vector of deleted uri paths.
 \if{html}{\out{<a id="method-TileDBGroupExp-delete_group"></a>}}
 \if{latex}{\out{\hypertarget{method-TileDBGroupExp-delete_group}{}}}
 \subsection{Method \code{delete_group()}}{
-Delete Groups data.
+Delete written data from Group.
+
+This function deletes all written data from a \code{tiledb_group} object,
+i.e., the folder will not be consider as a TileDB Group after the
+operation. Any other data will not be deleted unless we set
+\code{recursive = TRUE}.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{TileDBGroupExp$delete_group(recursive = FALSE)}\if{html}{\out{</div>}}
 }
