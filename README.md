@@ -36,7 +36,7 @@ library(R6.tiledb)
   # temp uri path
   uri <- tempfile()
   
- demo_UCBAdmissions_array(uri)
+ demo_array_UCBAdmissions(uri)
   
   # Create an instance that represents a TileDB Array ----
   arrobj <- tdb_array(uri)

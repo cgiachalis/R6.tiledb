@@ -53,7 +53,7 @@ Functional interface that initialises a \link{TileDBFragments} instance.
 \examples{
 \dontrun{
 uri <- tempdir()
-fobj <- demo_UCBAdmissions_array(uri)
+fobj <- demo_array_UCBAdmissions(uri)
 
 # Get metadata information for first fragment
 fobj$get_ifragment(1)
