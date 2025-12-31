@@ -29,7 +29,7 @@ at this timestamp.}
 }
 \value{
 An object of class \code{tiledb_array} or \code{tiledb_group} depending on
-the method.
+the method and opened in \verb{‘WRITE’} mode.
 }
 \description{
 Open a URI, \code{\link[tiledb:tiledb_array]{tiledb::tiledb_array()}}, \code{\link[tiledb:tiledb_group]{tiledb::tiledb_group()}}, \link{TileDBArray}
@@ -39,10 +39,10 @@ or \link{TileDBGroup} at write mode with an optional timestamp.
 Opening a character string should be a valid URI path for a TileDB resource.
 
 Objects other than a URI character are implicitly closed if found opened and
-then opened again at write mode.
+re-opened at write mode.
 
-\code{TileDBArray}, \code{TileDBGroup} or their subclasses will return the underlying
-TileDB object (\code{tiledb_array} or \code{tiledb_group}) and their timestamps will
-differ from the objects in the R6 class as writing at timestamp is not
-applicable.
+Note that when using the \code{timestamp} argument, the \code{TileDBArray}, \code{TileDBGroup}
+and their subclasses will have different timestamps from the returning TileDB
+object. This is by design, you can not write at timestamp using
+\code{TileDBArray} and \code{TileDBGroup} interface only via \code{open_write()} method.
 }

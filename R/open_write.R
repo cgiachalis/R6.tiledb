@@ -12,12 +12,12 @@ open_write <- function(object, ...) {
 #' Opening a character string should be a valid URI path for a TileDB resource.
 #'
 #' Objects other than a URI character are implicitly closed if found opened and
-#' then opened again at write mode.
+#' re-opened at write mode.
 #'
-#' `TileDBArray`, `TileDBGroup` or their subclasses will return the underlying
-#'  TileDB object (`tiledb_array` or `tiledb_group`) and their timestamps will
-#'  differ from the objects in the R6 class as writing at timestamp is not
-#'  applicable.
+#' Note that when using the `timestamp` argument, the `TileDBArray`, `TileDBGroup`
+#' and their subclasses will have different timestamps from the returning TileDB
+#' object. This is by design, you can not write at timestamp using
+#' `TileDBArray` and `TileDBGroup` interface only via `open_write()` method.
 #'
 #'
 #' @param object An `R` object that contains a `TileDB` resource pointer.
@@ -26,7 +26,7 @@ open_write <- function(object, ...) {
 #' @param ... Other arguments passed to methods. Not used.
 #'
 #' @returns An object of class `tiledb_array` or `tiledb_group` depending on
-#' the method.
+#' the method and opened in `‘WRITE’` mode.
 #'
 #'
 #' @export
