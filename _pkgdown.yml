@@ -17,7 +17,7 @@ navbar:
       href: index.html
       icon: fa-home fa-lg
       aria-label: R6.tiledb
-    - text: "Functions"
+    - text: "Reference"
       href: reference/index.html
     - text: "News"
       href: news/index.html

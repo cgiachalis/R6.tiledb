@@ -24,7 +24,7 @@ TileDBGroup <- R6::R6Class(
   inherit = TileDBObject,
 
   public = list(
-    #' @description Create a TileDB Group object given the class URI path.
+    #' @description Create a TileDB Group object at the given URI path.
     #'
     #' @param mode Mode to open : either `"READ"` or `"WRITE"` (default).
     #'
@@ -47,9 +47,10 @@ TileDBGroup <- R6::R6Class(
       invisible(self)
     },
 
-    #' @description Open TileDB group object for read or write.
+    #' @description Open TileDB group object in read or write mode.
     #'
-    #' @param mode Mode to open : either `"READ"` or `"WRITE"`.  Default is `"READ"`.
+    #' @param mode Mode to open : either `"READ"` or `"WRITE"`. Default is
+    #'  `"READ"`.
     #'
     #' @return The object, invisibly.
     #'
@@ -77,7 +78,10 @@ TileDBGroup <- R6::R6Class(
       invisible(self)
     },
 
-    #' @description Close the object.
+    #' @description Close the group object.
+    #'
+    #' All instantiated group members will be closed if opened, and before
+    #' closing the group object.
     #'
     #' @return The object, invisibly.
     #'
@@ -119,7 +123,7 @@ TileDBGroup <- R6::R6Class(
 
     #' @description Remove member.
     #'
-    #' Deletes an array or group resource from `TileDBGroup` member list.
+    #' Removes an array or group resource from `TileDBGroup` member list.
     #'
     #' @param name Name of the member to remove.
     #'
@@ -148,7 +152,8 @@ TileDBGroup <- R6::R6Class(
 
     #' @description Delete member.
     #'
-    #' Deletes a `TileDBGroup`'s member from disk and removes it from its member list.
+    #' Deletes a `TileDBGroup`'s member from disk and removes it from
+    #' member list.
     #'
     #' @param name Name of the member to delete.
     #'
@@ -199,7 +204,7 @@ TileDBGroup <- R6::R6Class(
       length(private$.member_cache)
     },
 
-    #' @description List the members of the group.
+    #' @description List group members.
     #'
     #' @param type Select type member, either`"ALL"`, `"GROUP"`
     #'  or `"ARRAY"`. By default all member types are listed.
@@ -292,7 +297,7 @@ TileDBGroup <- R6::R6Class(
     #' default), the object's URI is assumed to be relative unless it is a
     #' `tiledb://` URI.
     #'
-    #' @return `NULL` value, invisibly.
+    #' @return The object, invisibly.
     #'
     set_member = function(object, name = NULL, relative = NULL) {
       # NOTE: write method is responsible for setting group timestamp
@@ -376,7 +381,6 @@ TileDBGroup <- R6::R6Class(
       names(private$.member_cache) %||% character(length = 0L)
     },
 
-
    #' @description Check if a member exists.
    #'
    #' @param name Name of the member to check.
@@ -387,9 +391,7 @@ TileDBGroup <- R6::R6Class(
 
       private$check_scalar_character(name)
 
-      members <- names(self$members)
-
-      name %in% members
+      name %in% names(self$members)
 
     },
 
@@ -486,7 +488,9 @@ TileDBGroup <- R6::R6Class(
   ),
 
   active = list(
+
     #' @field object Access the underlying [tiledb::tiledb_group()] object.
+    #'
     object = function(value) {
       if (!missing(value)) {
         private$check_read_only("object")
@@ -498,6 +502,7 @@ TileDBGroup <- R6::R6Class(
       }
       private$.tiledb_group
     },
+
     #' @field members Access the `list` of group members.
     #'
     #' If TileDB group object is closed, it will be opened to get members and

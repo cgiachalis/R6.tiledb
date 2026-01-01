@@ -103,7 +103,7 @@ array
  uri <- tempdir()
 
  # create demo array on disk
- demo_create_array(uri)
+ demo_array_UCBAdmissions(uri)
 
  arrobj <- tdb_array(uri)
 
