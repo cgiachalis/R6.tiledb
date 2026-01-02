@@ -105,7 +105,7 @@ be accessed via active field \verb{$object}.
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{sch}}{A TileDB schema.}
+\item{\code{sch}}{A TileDB schema. See constructor \code{\link[tiledb:tiledb_array_schema]{tiledb::tiledb_array_schema()}}.}
 
 \item{\code{mode}}{Mode to open: either \code{"READ"} or \code{"WRITE"} (default).}
 }

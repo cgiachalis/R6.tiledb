@@ -32,7 +32,7 @@ TileDBArrayExp <- R6::R6Class(
     #' The array will be opened at the given mode and kept opened; it can
     #' be accessed via active field `$object`.
     #'
-    #' @param sch A TileDB schema.
+    #' @param sch A TileDB schema. See constructor [tiledb::tiledb_array_schema()].
     #' @param mode Mode to open: either `"READ"` or `"WRITE"` (default).
     #'
     #' @return The object, invisibly.

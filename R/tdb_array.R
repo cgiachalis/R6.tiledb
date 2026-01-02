@@ -43,6 +43,8 @@
 #' <li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBArray" data-id="attrnames"><a href='../../R6.tiledb/html/TileDBArray.html#method-TileDBArray-attrnames'><code>$attrnames()</code></a></span></li>
 #' <li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBArray" data-id="colnames"><a href='../../R6.tiledb/html/TileDBArray.html#method-TileDBArray-colnames'><code>$colnames()</code></a></span></li>
 #' <li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBArray" data-id="print"><a href='../../R6.tiledb/html/TileDBArray.html#method-TileDBArray-print'><code>$print()</code></a></span></li>
+#' <li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBArrayExp" data-id="create"><a href='../../R6.tiledb/html/TileDBArrayExp.html#method-TileDBArrayExp-create'><code>$create()</code></a></span></li>
+#' <li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBArrayExp" data-id="delete_array"><a href='../../R6.tiledb/html/TileDBArrayExp.html#method-TileDBArrayExp-delete_array'><code>$delete_array()</code></a></span></li>
 #' <li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBArrayExp" data-id="reopen"><a href='../../R6.tiledb/html/TileDBArrayExp.html#method-TileDBArrayExp-reopen'><code>$reopen()</code></a></span></li>
 #' <li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBArrayExp" data-id="any_enums"><a href='../../R6.tiledb/html/TileDBArrayExp.html#method-TileDBArrayExp-any_enums'><code>$any_enums()</code></a></span></li>
 #' <li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBArrayExp" data-id="enum_columns"><a href='../../R6.tiledb/html/TileDBArrayExp.html#method-TileDBArrayExp-enum_columns'><code>$enum_columns()</code></a></span></li>
@@ -111,4 +113,52 @@ tdb_array <- function(uri,
                       tiledb_timestamp = NULL) {
   obj <- TileDBArrayExp$new(uri, ctx = ctx, tiledb_timestamp = tiledb_timestamp)
   obj$open(mode = mode)
+}
+
+
+
+
+
+#' Create a TileDB Array
+#'
+#' Given a TileDB schema, it will create an array and instantiate a
+#' `TileDBArrayExp` object. The array array will be opened at the given mode
+#'  and kept opened. It can be accessed via active field `$object`.
+#'
+#' @param uri URI path for the `TileDB` object.
+#' @param sch A TileDB schema. See constructor [tiledb::tiledb_array_schema()].
+#' @param mode Mode to open: either `"READ"` or `"WRITE"` (default).
+#' @param ctx A TileDB Context. See [tiledb::tiledb_ctx()].
+#'
+#' @returns A `TileDBArrayExp`, `R6` object.
+#'
+#' @export
+#'
+#' @examplesIf interactive()
+#' suppressMessages(library(tiledb))
+#'
+#' # construct schema
+#' schema <- tiledb_array_schema(
+#'  dom = tiledb_domain(dims = tiledb_dim("id", c(1L, 4L), 4L, "INT32")),
+#'  attrs = tiledb_attr("model", type = "ASCII"))
+#'
+#' # uri path
+#' uri <- tempfile()
+#'
+#' # create and open array at WRITE mode
+#' arrobj <- tdb_array_create(uri, sch = schema, mode = "WRITE")
+#'
+#' arrobj$schema_info()
+#'
+#' arrobj$mode # WRITE
+tdb_array_create <- function(uri,
+                             sch,
+                             mode = "WRITE",
+                             ctx = NULL) {
+
+  obj <- TileDBArrayExp$new(uri, ctx = ctx)
+  obj$create(sch = sch, mode = mode)
+
+  obj
+
 }

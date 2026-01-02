@@ -76,6 +76,8 @@ array
 <li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBArray" data-id="attrnames"><a href='../../R6.tiledb/html/TileDBArray.html#method-TileDBArray-attrnames'><code>$attrnames()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBArray" data-id="colnames"><a href='../../R6.tiledb/html/TileDBArray.html#method-TileDBArray-colnames'><code>$colnames()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBArray" data-id="print"><a href='../../R6.tiledb/html/TileDBArray.html#method-TileDBArray-print'><code>$print()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBArrayExp" data-id="create"><a href='../../R6.tiledb/html/TileDBArrayExp.html#method-TileDBArrayExp-create'><code>$create()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBArrayExp" data-id="delete_array"><a href='../../R6.tiledb/html/TileDBArrayExp.html#method-TileDBArrayExp-delete_array'><code>$delete_array()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBArrayExp" data-id="reopen"><a href='../../R6.tiledb/html/TileDBArrayExp.html#method-TileDBArrayExp-reopen'><code>$reopen()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBArrayExp" data-id="any_enums"><a href='../../R6.tiledb/html/TileDBArrayExp.html#method-TileDBArrayExp-any_enums'><code>$any_enums()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBArrayExp" data-id="enum_columns"><a href='../../R6.tiledb/html/TileDBArrayExp.html#method-TileDBArrayExp-enum_columns'><code>$enum_columns()</code></a></span></li>
