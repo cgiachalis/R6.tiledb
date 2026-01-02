@@ -26,6 +26,58 @@ TileDBArrayExp <- R6::R6Class(
   classname = "TileDBArrayExp",
   inherit = TileDBArray,
   public = list(
+
+    #' @description Create an empty Array with user defined schema.
+    #'
+    #' The array will be opened at the given mode and kept opened; it can
+    #' be accessed via active field `$object`.
+    #'
+    #' @param sch A TileDB schema.
+    #' @param mode Mode to open: either `"READ"` or `"WRITE"` (default).
+    #'
+    #' @return The object, invisibly.
+    #'
+    create = function(sch, mode = "WRITE") {
+
+      mode <- match.arg(mode, choices = c("READ", "WRITE"))
+
+      private$log_debug("create", "Creating new array")
+
+      # Add schema only
+      tiledb::tiledb_array_create(self$uri, schema = sch)
+
+      private$.tiledb_array <- tiledb::tiledb_array(self$uri,
+                                                    ctx = self$ctx,
+                                                    query_type = mode,
+                                                    query_layout = "UNORDERED",
+                                                    keep_open = TRUE)
+
+      # When creating an array the object is in open mode
+      # See tiledb:::libtiledb_array_is_open_for_reading(object@ptr)
+      private$.mode <- mode
+      private$.object_type <- "ARRAY"
+
+      invisible(self)
+
+    },
+
+    #' @description Delete the array.
+    #'
+    #' @return The object, invisibly.
+    #'
+    delete_array = function() {
+
+      self$close()
+
+      duri <- tiledb::tiledb_object_rm(self$uri, ctx = self$ctx)
+
+      private$.mode <- NULL
+      private$.object_type <- NULL
+
+      invisible(self)
+
+    },
+
     #' @description Close and reopen the TileDB object in a new mode.
     #'
     #' @param mode New mode to open the object in; choose from: `"READ"` or `"WRITE"`.

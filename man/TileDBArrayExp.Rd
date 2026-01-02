@@ -44,6 +44,8 @@ array.}
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
+\item \href{#method-TileDBArrayExp-create}{\code{TileDBArrayExp$create()}}
+\item \href{#method-TileDBArrayExp-delete_array}{\code{TileDBArrayExp$delete_array()}}
 \item \href{#method-TileDBArrayExp-reopen}{\code{TileDBArrayExp$reopen()}}
 \item \href{#method-TileDBArrayExp-any_enums}{\code{TileDBArrayExp$any_enums()}}
 \item \href{#method-TileDBArrayExp-enum_columns}{\code{TileDBArrayExp$enum_columns()}}
@@ -88,6 +90,44 @@ array.}
 </ul>
 </details>
 }}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-TileDBArrayExp-create"></a>}}
+\if{latex}{\out{\hypertarget{method-TileDBArrayExp-create}{}}}
+\subsection{Method \code{create()}}{
+Create an empty Array with user defined schema.
+
+The array will be opened at the given mode and kept opened; it can
+be accessed via active field \verb{$object}.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{TileDBArrayExp$create(sch, mode = "WRITE")}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{sch}}{A TileDB schema.}
+
+\item{\code{mode}}{Mode to open: either \code{"READ"} or \code{"WRITE"} (default).}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+The object, invisibly.
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-TileDBArrayExp-delete_array"></a>}}
+\if{latex}{\out{\hypertarget{method-TileDBArrayExp-delete_array}{}}}
+\subsection{Method \code{delete_array()}}{
+Delete the array.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{TileDBArrayExp$delete_array()}\if{html}{\out{</div>}}
+}
+
+\subsection{Returns}{
+The object, invisibly.
+}
+}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-TileDBArrayExp-reopen"></a>}}
 \if{latex}{\out{\hypertarget{method-TileDBArrayExp-reopen}{}}}
