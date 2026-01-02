@@ -266,3 +266,21 @@ test_that("Test '$reopen' method resets fragment info object", {
   expect_equal(arrobj$frag_num(), 2)
 
 })
+
+test_that("Test 'tdb_array_create()' and '$delete_array() method", {
+
+  uri <- file.path(withr::local_tempdir(), "test-TileDBArrayExp10")
+
+  schema <- tiledb::tiledb_array_schema(
+    dom = tiledb::tiledb_domain(dims = tiledb::tiledb_dim("id", c(1L, 4L), 4L, "INT32")),
+    attrs = tiledb::tiledb_attr("model", type = "ASCII"))
+
+  expect_no_error(arrobj <- tdb_array_create(uri, sch = schema, mode = "WRITE"))
+  expect_s3_class(arrobj, "TileDBArrayExp")
+  expect_equal(arrobj$mode, "WRITE")
+  expect_true(arrobj$exists())
+
+  expect_invisible(arrobj$delete_array())
+  expect_false(arrobj$exists())
+  expect_equal(arrobj$object_type, "INVALID")
+  })

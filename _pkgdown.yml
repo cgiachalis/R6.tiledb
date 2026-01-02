@@ -28,6 +28,7 @@ reference:
   desc: ~
   contents:
   - tdb_array
+  - tdb_array_create
   - tdb_group
   - tdb_fragments
   - set_config_params
@@ -57,7 +58,7 @@ reference:
 - subtitle: Demo Arrays
   desc: Create demo arrays
   contents:
-  - demo_UCBAdmissions_array
+  - demo_array_UCBAdmissions
 
 - subtitle: Timestamps
   desc: Helpers to work with timestamps
