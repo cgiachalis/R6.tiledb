@@ -81,3 +81,40 @@ tdb_group <- function(uri,
   obj <- TileDBGroupExp$new(uri, ctx = ctx, tiledb_timestamp = tiledb_timestamp)
   obj$open(mode = mode)
 }
+
+
+
+#' Create a TileDB Group
+#'
+#' Create a group and instantiate a `TileDBGroupExp` object. The group will be
+#' opened at the given mode and kept opened. It can be accessed via active field
+#' `$object`.
+#'
+#' @param uri URI path for the `TileDB` object.
+#' @param mode Mode to open: either `"READ"` or `"WRITE"` (default).
+#' @param ctx A TileDB Context. See [tiledb::tiledb_ctx()].
+#'
+#' @returns A `TileDBGroupExp`, `R6` object.
+#'
+#' @export
+#'
+#' @examplesIf interactive()
+#' # uri path
+#' uri <- tempfile()
+#'
+#' # create and open array at WRITE mode
+#' grpobj <- tdb_group_create(uri,mode = "WRITE")
+#'
+#' grpobj$mode # WRITE
+#'
+#' grpobj$count_members() # 0
+tdb_group_create <- function(uri,
+                             mode = "WRITE",
+                             ctx = NULL) {
+
+  obj <- TileDBGroupExp$new(uri, ctx = ctx)
+  obj$create(mode = mode)
+
+  obj
+
+}

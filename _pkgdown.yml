@@ -30,6 +30,7 @@ reference:
   - tdb_array
   - tdb_array_create
   - tdb_group
+  - tdb_group_create
   - tdb_fragments
   - set_config_params
   - vfs_dir_tree
