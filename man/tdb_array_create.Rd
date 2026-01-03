@@ -20,7 +20,7 @@ A \code{TileDBArrayExp}, \code{R6} object.
 }
 \description{
 Given a TileDB schema, it will create an array and instantiate a
-\code{TileDBArrayExp} object. The array array will be opened at the given mode
+\code{TileDBArrayExp} object. The array will be opened at the given mode
 and kept opened. It can be accessed via active field \verb{$object}.
 }
 \examples{

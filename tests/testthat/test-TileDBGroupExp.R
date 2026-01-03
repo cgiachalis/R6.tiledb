@@ -52,3 +52,17 @@ test_that("'TileDBGroupExp' class works as expected", {
 
 })
 
+test_that("Test 'tdb_group_create()'", {
+
+  uri <- file.path(withr::local_tempdir(), "test-TileDBGroupExp")
+
+  expect_no_error(grpobj <- tdb_group_create(uri))
+  expect_s3_class(grpobj, class = "TileDBGroupExp")
+  expect_equal(grpobj$mode, "WRITE")
+  # in case we do sth funny
+  expect_equal(grpobj$count_members(), 0)
+
+  # Verify that group reference is opened at WRITE mode
+  expect_equal(tiledb::tiledb_group_query_type(grpobj$object), "WRITE")
+  rm(grpobj)
+  })

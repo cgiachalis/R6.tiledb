@@ -122,7 +122,7 @@ tdb_array <- function(uri,
 #' Create a TileDB Array
 #'
 #' Given a TileDB schema, it will create an array and instantiate a
-#' `TileDBArrayExp` object. The array array will be opened at the given mode
+#' `TileDBArrayExp` object. The array will be opened at the given mode
 #'  and kept opened. It can be accessed via active field `$object`.
 #'
 #' @param uri URI path for the `TileDB` object.
