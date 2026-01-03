@@ -14,7 +14,7 @@
 #' - `object_type` : The `TileDB` object type: `"ARRAY"`,`"GROUP"` or `"INVALID"`
 #' - `object` : Access the underlying [tiledb::tiledb_array()] object. When
 #' used before open() method, the underlying array will be initialised at `"READ"`
-#' mode and kept open.
+#' mode and kept open
 #' - `fragments_object` : Access the [TileDBFragments] instance for this
 #' array
 #' - `schema_version` : Retrieve the schema version for this array

@@ -42,7 +42,7 @@ the resource will be opened at. See \code{\link[=set_tiledb_timestamp]{set_tiled
 \item \code{mode}: Get the mode of the object: one of the following:
 \code{"CLOSED"}, \code{"READ"} or \code{"WRITE"}
 \item \code{object_type} : The \code{TileDB} object type: \code{"ARRAY"},\code{"GROUP"} or \code{"INVALID"}
-\item \code{object} : Access the underlying \code{\link[tiledb:tiledb_group]{tiledb::tiledb_group()}} object.
+\item \code{object} : Access the underlying \code{\link[tiledb:tiledb_group]{tiledb::tiledb_group()}} object
 \item \code{members}: Access the list of group members.
 }
 }

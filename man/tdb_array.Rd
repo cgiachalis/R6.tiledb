@@ -44,7 +44,7 @@ the resource will be opened at. See \code{\link[=set_tiledb_timestamp]{set_tiled
 \item \code{object_type} : The \code{TileDB} object type: \code{"ARRAY"},\code{"GROUP"} or \code{"INVALID"}
 \item \code{object} : Access the underlying \code{\link[tiledb:tiledb_array]{tiledb::tiledb_array()}} object. When
 used before open() method, the underlying array will be initialised at \code{"READ"}
-mode and kept open.
+mode and kept open
 \item \code{fragments_object} : Access the \link{TileDBFragments} instance for this
 array
 \item \code{schema_version} : Retrieve the schema version for this array

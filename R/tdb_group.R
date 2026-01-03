@@ -12,7 +12,7 @@
 #' - `mode`: Get the mode of the object: one of the following:
 #'  `"CLOSED"`, `"READ"` or `"WRITE"`
 #' - `object_type` : The `TileDB` object type: `"ARRAY"`,`"GROUP"` or `"INVALID"`
-#' - `object` : Access the underlying [tiledb::tiledb_group()] object.
+#' - `object` : Access the underlying [tiledb::tiledb_group()] object
 #' - `members`: Access the list of group members.
 #'
 #' @section Methods:
