@@ -1,44 +1,32 @@
-
 # R6.tiledb
 
 <!-- badges: start -->
-[![repo-status](https://img.shields.io/badge/repo%20status-stable-brightgreen.svg)](#)
-[![CRAN status](https://www.r-pkg.org/badges/version/R6.tiledb)](https://CRAN.R-project.org/package=R6.tiledb)
-[![coverage](https://img.shields.io/badge/coverage-94.2%25-blue.svg)](#)
+
+[![repo-status](https://img.shields.io/badge/repo%20status-stable-brightgreen.svg)](#) [![CRAN status](https://www.r-pkg.org/badges/version/R6.tiledb)](https://CRAN.R-project.org/package=R6.tiledb) [![coverage](https://img.shields.io/badge/coverage-94.2%25-blue.svg)](#)
+
 <!-- badges: end -->
 
-`R6.tiledb` is an extension of [TileDB-R](https://cran.r-project.org/web/packages/tiledb/index.html) client built on top of [R6](https://cloud.r-project.org/web/packages/R6/index.html) object-oriented system. It includes base classes that represent `TileDB` arrays and groups with minimum integrated functionality so that can be extended with focus on building domain specific applications. Also, it provides convenient functional wrappers with additional methods that make it easier to work with arrays.
+An extension to [TileDB-R](https://cran.r-project.org/web/packages/tiledb/index.html) interface.
 
-### Impetus for `R6.tiledb`
+[TileDB Embedded](https://github.com/TileDB-Inc/TileDB) is a high performant storage engine for dense and sparse multi-dimensional arrays. `R6.tiledb` is built on top of [R6](https://cloud.r-project.org/web/packages/R6/index.html) object-oriented system and offers base classes that represent `TileDB` Arrays and Groups, as well as subclasses that encapsulate additional methods, functional wrappers and S3 methods.
 
-In short, to narrow the gab between data engineering and analytics integration:
-
--   [TileDB Embedded](https://github.com/TileDB-Inc/TileDB) is a high performant storage engine that you can efficiently store and query any data, making ideal to build unified data architectures
-
--   [R](https://www.r-project.org/) is a software with unparalleled analytics ecosystem
-
--   Combined, one can build powerful and versatile applications with tight integration of domain specific analytics and workflows
-
--   Using `R6` classes we can form complex but robust interactions between arrays and groups
-
-In R ecosystem, the `TileDB` [SOMA-R](https://github.com/single-cell-data/TileDB-SOMA/tree/main/apis/r) project stands out as an example of domain specific application with above characteristics and this repo extracts its initial base classes: `TileDBArray` and `TileDBGroup` and modifies them for our specific needs.
+The package can be helpful to create domain specific applications and unified data architectures by extending the base classes, or using its functional interface to work with existing TileDB resources.
 
 ## Usage
 
-For existing arrays you can get started by using `tdb_array()`:
+To use `R6.tiledb`, create a TileDB resource:
 
 ``` r
 
-library(R6.tiledb)
+  library(R6.tiledb)
 
-  # Create new array on disk ----
-
-  # temp uri path
+  # URI path
   uri <- tempfile()
   
- demo_array_UCBAdmissions(uri)
+  # Demo array from 'UCBAdmissions' built-in dataset
+  demo_UCBAdmissions_array(uri)
   
-  # Create an instance that represents a TileDB Array ----
+  # Create an instance that represents a TileDB Array
   arrobj <- tdb_array(uri)
   
   arrobj
@@ -46,14 +34,21 @@ library(R6.tiledb)
 #> → URI Basename: file3ea47b75133b
 #>   • Dimensions: "Dept" and "Gender"
 #>   • Attributes: "Admit" and "Freq"
-  
-  arrobj$frag_num()
-#> [1] 3
+```
 
-> arrobj$any_enums()
-[1] TRUE
+Using class methods :
 
-  # Query Dept dimension
+``` r
+ 
+ # Query the number of fragments 
+ arrobj$frag_num()
+ #> [1] 3
+
+ # Does the array have factors (enums)
+ arrobj$any_enums()
+ #>[1] TRUE
+
+  # Run query on 'Dept' dimension
   arr <- arrobj$tiledb_array(selected_points = list(Dept = "A"), return_as = "data.frame")
   arr[]
 #>   Dept Gender    Admit Freq
@@ -63,13 +58,19 @@ library(R6.tiledb)
 #> 4    A   Male Admitted  512
 ```
 
+For more examples, please refer to documentation articles.
+
 ## Installation
 
-You can install the development version of `R6.tiledb` from GitHub:
+Development version from GitHub:
 
 ``` r
-remotes::install_github("cgiachalis/R6.tiledb")
+pak::pkg_install("cgiachalis/R6.tiledb")
 ```
+
+## Acknowledgements
+
+`R6.tiledb` modified the R6 base classes: `TileDBArray` and `TileDBGroup` from `TileDB` [SOMA-R](https://github.com/single-cell-data/TileDB-SOMA/tree/main/apis/r) project - but can not be considered drop-in replacement. The SOMA-R project stands out as an example of domain specific application that narrows the gab between data engineering and analytics integration.
 
 ## Resources
 
