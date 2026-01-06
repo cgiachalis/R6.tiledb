@@ -7,8 +7,239 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-This vignette will provide an overview of the package and its key functionality. Other vignettes will offer additional information on the project and how-to examples.
+This vignette will provide an overview of key functionality. Other vignettes cover
+specific topics in detail, including how-to examples.
 
 
 
 ### 1. Overview
+
+`R6.tiledb` offers `TileDBArray` and `TileDBGroup` R6 objects that represent a
+TileDB array and group respectively. These objects have minimum encapsulated 
+functionality so they can be further extended and used by other packages.
+
+The package also offers expanded versions built on top of the above classes and
+can be accessed via the functional wrappers `tdb_array()` and `tdb_group()`. We
+are going to use the latter two for this vignette.
+
+
+### 2. Group Creation
+
+Use `tdb_group_create()` to create a group and instantiate the `TileDBGroupExp` 
+object.
+
+
+``` r
+# group uri
+uri_root <- tempfile()
+
+# create a group
+grp <- tdb_group_create(uri_root)
+
+# check if created
+grp$exists()
+# [1] TRUE
+```
+
+Checking for members:
+
+``` r
+# no members (empty list)
+grp$members
+# list()
+
+# count members
+grp$count_members()
+# [1] 0
+
+# group's uri path
+grp$uri
+# [1] "C:\\Users\\Constantine\\AppData\\Local\\Temp\\RtmpM5Ykg1\\file472c2d2d31b"
+```
+
+### 3. Array Creation
+
+Create two arrays with URI paths relative to group.
+
+#### Array 1
+
+`tdb_array_create()` is a convenient way to create an array given a schema and instantiate a `TileDBArrayExp` object.
+
+
+
+``` r
+# array uri
+uri_array1 <- file.path(grp$uri, "array_1")
+
+schema <- tiledb::tiledb_array_schema(
+             dom = tiledb::tiledb_domain(
+               dims = tiledb::tiledb_dim("id", c(1L, 4L), 4L, "INT32")),
+               attrs = tiledb::tiledb_attr("model", type = "ASCII")
+             )
+
+# create array_1
+arrobj_1 <- tdb_array_create(uri_array1, sch = schema)
+```
+
+
+#### Array 2
+
+
+``` r
+# array uri
+uri_array2 <- file.path(grp$uri, "array_2")
+
+# demo array
+demo_array_UCBAdmissions(uri_array2)
+
+# create array_2
+arrobj_2 <- tdb_array(uri_array2)
+```
+
+### 4. Add Group Members
+
+Having created a TileDB group and two arrays, we can organise everything as a collection by adding the above arrays as group members:
+
+
+``` r
+# add array_1
+grp$set_member(arrobj_1)
+
+# add array_2
+grp$set_member(arrobj_2)
+
+# reopen to READ mode
+grp$reopen()
+```
+
+
+Checking for members:
+
+
+``` r
+# members names
+grp$names()
+# [1] "array_1" "array_2"
+
+# count members
+grp$count_members()
+# [1] 2
+```
+
+Print group structure
+
+
+``` r
+# dump raw string
+grp$dump()
+# 
+# ── TileDB Directory ─────────────────────────────────────────────
+# 
+# -> file472c2d2d31b GROUP
+# |-- array_1 ARRAY
+# |-- array_2 ARRAY
+
+# print
+grp
+# R6Class: <TileDBGroupExp>
+# → URI Basename: file472c2d2d31b
+# 
+#   • Arrays: "array_1" and "array_2"
+# 
+#   • Groups: ""
+```
+
+### 5. Access a Group Member
+
+
+``` r
+
+# get array_1
+arr1 <- grp$get_member("array_1")
+
+# print 
+arr1
+# R6Class: <TileDBArray>
+# → URI Basename: array_1
+# 
+#   • Dimensions: "id"
+# 
+#   • Attributes: "model"
+```
+
+Let's remove `array_1` from group (but don not delete it from disk).
+
+
+``` r
+# reopen group in WRITE mode
+grp$reopen("WRITE")
+
+# remove array
+grp$remove("array_1")
+
+# print
+grp
+# R6Class: <TileDBGroupExp>
+# → URI Basename: file472c2d2d31b
+# 
+#   • Arrays: "array_2"
+# 
+#   • Groups: ""
+```
+
+
+List all `TileDB` resources at group's uri path:
+
+
+``` r
+# Find all TileDB resources (members and non-members)
+grp$walk_group()
+#    TYPE
+# 1 ARRAY
+# 2 ARRAY
+#                                                                                  URI
+# 1 file:///C:/Users/Constantine/AppData/Local/Temp/RtmpM5Ykg1/file472c2d2d31b/array_1
+# 2 file:///C:/Users/Constantine/AppData/Local/Temp/RtmpM5Ykg1/file472c2d2d31b/array_2
+```
+
+
+Checking group folder for non-members:
+
+
+``` r
+# check for non-members
+grp$has_non_members()
+# [1] TRUE
+
+# data.frame with non-members info
+grp$non_members()
+#    TYPE
+# 1 ARRAY
+#                                                                                  URI
+# 1 file:///C:/Users/Constantine/AppData/Local/Temp/RtmpM5Ykg1/file472c2d2d31b/array_1
+```
+
+#### Prune a non Group Member
+
+Now delete group non-members:
+
+
+``` r
+# delete non-members
+grp$prune_non_members()
+# [1] "file:///C:/Users/Constantine/AppData/Local/Temp/RtmpM5Ykg1/file472c2d2d31b/array_1"
+
+# data.frame with non-members info
+grp$non_members()
+# [1] TYPE URI 
+# <0 rows> (or 0-length row.names)
+```
+
+### 6. Metadata
+
+
+### 7. Work with Arrays
+
+
+
+
