@@ -1,0 +1,14 @@
+---
+title: Getting Started with R6.tiledb
+date: "2026-01-06"
+vignette: >
+  %\VignetteIndexEntry{Getting Started with R6.tiledb}
+  %\VignetteEngine{litedown::vignette}
+  %\VignetteEncoding{UTF-8}
+---
+
+This vignette will provide an overview of the package and its key functionality. Other vignettes will offer additional information on the project and how-to examples.
+
+
+
+### 1. Overview
