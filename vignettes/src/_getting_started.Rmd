@@ -25,8 +25,7 @@ TileDB array and group respectively. These objects have minimum encapsulated
 functionality so they can be further extended and used by other packages.
 
 The package also offers expanded versions built on top of the above classes and
-can be accessed via the functional wrappers `tdb_array()` and `tdb_group()`. We
-are going to those two for this vignette.
+can be accessed via the functional wrappers `tdb_array()` and `tdb_group()`.
 
 
 ### 2. Group Creation

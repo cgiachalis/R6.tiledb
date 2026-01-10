@@ -1,6 +1,6 @@
 ---
 title: Getting Started with R6.tiledb
-date: "2026-01-09"
+date: "2026-01-10"
 vignette: >
   %\VignetteIndexEntry{Getting Started with R6.tiledb}
   %\VignetteEngine{litedown::vignette}
@@ -19,8 +19,7 @@ TileDB array and group respectively. These objects have minimum encapsulated
 functionality so they can be further extended and used by other packages.
 
 The package also offers expanded versions built on top of the above classes and
-can be accessed via the functional wrappers `tdb_array()` and `tdb_group()`. We
-are going to those two for this vignette.
+can be accessed via the functional wrappers `tdb_array()` and `tdb_group()`.
 
 
 ### 2. Group Creation
@@ -54,7 +53,7 @@ grp$count_members()
 
 # group's uri path
 grp$uri
-# [1] "C:\\Users\\Constantine\\AppData\\Local\\Temp\\RtmpKoaUS1\\file41f81710d73"
+# [1] "C:\\Users\\Constantine\\AppData\\Local\\Temp\\RtmpW8m06H\\file290858f157b8"
 ```
 
 ### 3. Array Creation
@@ -134,19 +133,17 @@ Print group structure:
 # dump raw string
 grp$dump()
 # 
-# ── TileDB Directory ────────────────────────────────────────────────────
+# ── TileDB Directory ──────────────────────────────────────────────────────
 # 
-# -> file41f81710d73 GROUP
+# -> file290858f157b8 GROUP
 # |-- array_1 ARRAY
 # |-- array_2 ARRAY
 
 # print
 grp
 # R6Class: <TileDBGroupExp>
-# → URI Basename: file41f81710d73
-# 
+# → URI Basename: file290858f157b8
 #   • Arrays: "array_1" and "array_2"
-# 
 #   • Groups: ""
 ```
 
@@ -162,9 +159,7 @@ arr1 <- grp$get_member("array_1")
 arr1
 # R6Class: <TileDBArray>
 # → URI Basename: array_1
-# 
 #   • Dimensions: "id"
-# 
 #   • Attributes: "model"
 ```
 
@@ -183,10 +178,8 @@ grp$remove("array_1")
 # print
 grp
 # R6Class: <TileDBGroupExp>
-# → URI Basename: file41f81710d73
-# 
+# → URI Basename: file290858f157b8
 #   • Arrays: "array_2"
-# 
 #   • Groups: ""
 ```
 
@@ -200,9 +193,9 @@ grp$walk_group()
 #    TYPE
 # 1 ARRAY
 # 2 ARRAY
-#                                                                                  URI
-# 1 file:///C:/Users/Constantine/AppData/Local/Temp/RtmpKoaUS1/file41f81710d73/array_1
-# 2 file:///C:/Users/Constantine/AppData/Local/Temp/RtmpKoaUS1/file41f81710d73/array_2
+#                                                                                   URI
+# 1 file:///C:/Users/Constantine/AppData/Local/Temp/RtmpW8m06H/file290858f157b8/array_1
+# 2 file:///C:/Users/Constantine/AppData/Local/Temp/RtmpW8m06H/file290858f157b8/array_2
 ```
 
 #### Get a non Group Member
@@ -219,8 +212,8 @@ grp$has_non_members()
 grp$non_members()
 #    TYPE
 # 1 ARRAY
-#                                                                                  URI
-# 1 file:///C:/Users/Constantine/AppData/Local/Temp/RtmpKoaUS1/file41f81710d73/array_1
+#                                                                                   URI
+# 1 file:///C:/Users/Constantine/AppData/Local/Temp/RtmpW8m06H/file290858f157b8/array_1
 ```
 
 #### Prune a non Group Member
@@ -231,7 +224,7 @@ Now delete group non-members:
 ``` r
 # delete non-members
 grp$prune_non_members()
-# [1] "file:///C:/Users/Constantine/AppData/Local/Temp/RtmpKoaUS1/file41f81710d73/array_1"
+# [1] "file:///C:/Users/Constantine/AppData/Local/Temp/RtmpW8m06H/file290858f157b8/array_1"
 
 # data.frame with non-members info
 grp$non_members()
@@ -352,15 +345,15 @@ fobj <- tdb_fragments(arrobj_2$uri)
 
 # last i fragments
 fobj$get_last_ifragments(1)
-# ── FRAGMENT #3 ─────────────────────────────────────────────────────────
-#  ❯ URI: file:///C:/Users/Constantine/AppData/Local/Temp/RtmpKoaUS1/file41f81710d73/array_2/__fragments/__1767957359410_1767957359410_18888dad0f1a90ce96d264b0980e18fc_22
+# ── FRAGMENT #3 ───────────────────────────────────────────────────────────
+#  ❯ URI: file:///C:/Users/Constantine/AppData/Local/Temp/RtmpW8m06H/file290858f157b8/array_2/__fragments/__1768056664503_1768056664503_4fb8f63b83ecde9708ee9d6a191b0332_22
 #  ❯ Type: sparse
 #  ❯ Non-empty domain: 
 #    • Dept: [E, F] (ASCII)
 #    • Gender: [Female, Male] (ASCII)
 #  ❯ Size: 5.24 KiB
 #  ❯ Cell num: 8
-#  ❯ Timestamp range: [2026-01-09 11:15:59.41 UTC, 2026-01-09 11:15:59.41 UTC]
+#  ❯ Timestamp range: [2026-01-10 14:51:04.503 UTC, 2026-01-10 14:51:04.503 UTC]
 #  ❯ Format version: 22
 #  ❯ Has consolidated metadata: FALSE
 ```
@@ -384,14 +377,14 @@ arrobj_2$frag_num()
 arrobj_2$frag_to_vacuum(trunc_uri = TRUE)
 #    Fragment     start_timestamp       end_timestamp
 #      <char>              <POSc>              <POSc>
-# 1:       #1 2026-01-09 11:15:57 2026-01-09 11:15:57
-# 2:       #2 2026-01-09 11:15:58 2026-01-09 11:15:58
-# 3:       #3 2026-01-09 11:15:59 2026-01-09 11:15:59
+# 1:       #1 2026-01-10 14:51:02 2026-01-10 14:51:02
+# 2:       #2 2026-01-10 14:51:03 2026-01-10 14:51:03
+# 3:       #3 2026-01-10 14:51:04 2026-01-10 14:51:04
 #                                                                  URI
 #                                                               <char>
-# 1: __1767957357917_1767957357917_57a0b2ed4be3614b588883305f9b96d0_22
-# 2: __1767957358591_1767957358591_04ea97882681a43e8cd983ad5de6a1b8_22
-# 3: __1767957359410_1767957359410_18888dad0f1a90ce96d264b0980e18fc_22
+# 1: __1768056662972_1768056662972_163dbbd31bc05baa0ec2235f596f00db_22
+# 2: __1768056663722_1768056663722_764211ebf208bdde6ea74a90bfdd6362_22
+# 3: __1768056664503_1768056664503_4fb8f63b83ecde9708ee9d6a191b0332_22
 
 # refresh fragment object
 fobj$reload_finfo()
@@ -414,11 +407,11 @@ Inspect array directory
 
 ``` r
 arrobj_2$dir_tree()
-# C:/Users/Constantine/AppData/Local/Temp/RtmpKoaUS1/file41f81710d73/array_2
+# C:/Users/Constantine/AppData/Local/Temp/RtmpW8m06H/file290858f157b8/array_2
 # ├── __commits
-# │   └── __1767957357917_1767957359410_4c2e4ee348a738927840e23c119275a3_22.wrt
+# │   └── __1768056662972_1768056664503_4c87ddb84a5e04d3619b7ec9304aa344_22.wrt
 # ├── __fragments
-# │   └── __1767957357917_1767957359410_4c2e4ee348a738927840e23c119275a3_22
+# │   └── __1768056662972_1768056664503_4c87ddb84a5e04d3619b7ec9304aa344_22
 # │       ├── a0.tdb
 # │       ├── a1.tdb
 # │       ├── d0.tdb
@@ -431,9 +424,9 @@ arrobj_2$dir_tree()
 # ├── __labels
 # ├── __meta
 # └── __schema
-#     ├── __1767957357885_1767957357885_15a608a53aea4d3762336bbe74cb55b0
+#     ├── __1768056662927_1768056662927_545f7519936ea7c95cb8188ceebe62f2
 #     └── __enumerations
-#         └── __031e14685c460d220377871885181fb3_0
+#         └── __545f7518105e7ed4b612c97e71e5247e_0
 # 
 # ❯ directories (5) • total size (6.77 KiB)
 ```
