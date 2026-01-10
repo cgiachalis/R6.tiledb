@@ -242,18 +242,25 @@ TileDBArray <- R6::R6Class(
         dims <- cli::cli_vec(self$dimnames(), list("vec-trunc" = 3))
         attrs <- cli::cli_vec(self$attrnames(), list("vec-trunc" = 3))
 
-        olid <- cli::cli_ol()
-        ulid <- cli::cli_ul()
-        cli::cli_inform("R6Class: {.cls {self$class()}}")
-        cli::cli_bullets(c(">" = "URI Basename: {.emph {basename(self$uri)}}"))
-        ulid <- cli::cli_ul()
-        cli::cli_li(c("Dimensions: {.val {dims}}",
-                      "Attributes: {.val {attrs}}"))
-        cli::cli_end(olid)
-        cli::cli_end(ulid)
+        res <- cli::cli_fmt({
+          olid <- cli::cli_ol()
+          ulid <- cli::cli_ul()
+          cli::cli_inform("R6Class: {.cls {self$class()}}")
+          cli::cli_bullets(c(">" = "URI Basename: {.emph {basename(self$uri)}}"))
+          ulid <- cli::cli_ul()
+          cli::cli_li(c("Dimensions: {.val {dims}}", "Attributes: {.val {attrs}}"))
+          cli::cli_end(olid)
+          cli::cli_end(ulid)
+
+        }, collapse = TRUE)
+
       } else {
-        cli::cli_inform(c("i" = "R6Class: {.cls {self$class()}} object does not exist."))
+
+      res <- cli::cli_inform(c("i" = "R6Class: {.cls {self$class()}} object does not exist."))
+
       }
+
+      cat(res)
 
       invisible(self)
     }
