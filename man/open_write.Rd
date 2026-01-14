@@ -29,7 +29,7 @@ at this timestamp.}
 }
 \value{
 An object of class \code{tiledb_array} or \code{tiledb_group} depending on
-the method and opened in \verb{‘WRITE’} mode.
+the method; the object is opened in \verb{‘WRITE’} mode.
 }
 \description{
 Open a URI, \code{\link[tiledb:tiledb_array]{tiledb::tiledb_array()}}, \code{\link[tiledb:tiledb_group]{tiledb::tiledb_group()}}, \link{TileDBArray}
