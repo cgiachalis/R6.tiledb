@@ -281,8 +281,8 @@ fobj$get_last_ifragments(1)
 #### Consolidation and Vacuum
 
 `TileDBArrayExp` class encapsulates consolidation and vacuum operations, either
-stand-alone or combined and with asynchronous variation provided the [mirai](https://cran.r-project.org/web/packages/mirai/index.html)
-package is found in your system.
+stand-alone or combined and with asynchronous variations (provided the [mirai](https://cran.r-project.org/web/packages/mirai/index.html)
+package is found in your system).
 
 ```{r}
 # consolidate
