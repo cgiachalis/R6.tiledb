@@ -8,7 +8,9 @@
 source("./vignettes/src/helpers.R")
 
 .precompile_vignette("getting_started", render = TRUE)
-.precompile_vignette("key_concepts", render = TRUE)
+.precompile_vignette("faq", render = TRUE)
+.precompile_vignette("introduction", render = TRUE)
+.precompile_vignette("timeseries", render = TRUE)
 
 # Pre-compile all vignettes
 .precompile_all(render = TRUE)
