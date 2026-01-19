@@ -314,3 +314,10 @@ Inspect array directory
 arrobj_2$dir_tree()
 ```
 
+```{r, echo=FALSE}
+arrobj_1$close()
+arrobj_2$close()
+grp$close()
+unlink(uri_root)
+```
+

@@ -1,6 +1,6 @@
 ---
 title: Getting Started with R6.tiledb
-date: "2026-01-14"
+date: "2026-01-19"
 vignette: >
   %\VignetteIndexEntry{Getting Started with R6.tiledb}
   %\VignetteEngine{litedown::vignette}
@@ -53,7 +53,7 @@ grp$count_members()
 
 # group's uri path
 grp$uri
-# [1] "C:\\Users\\Constantine\\AppData\\Local\\Temp\\RtmpWULnHs\\file28106735712c"
+# [1] "C:\\Users\\Constantine\\AppData\\Local\\Temp\\RtmpY9VfPh\\file18fc7d8a6e72"
 ```
 
 ### 3. Array Creation
@@ -133,16 +133,16 @@ Print group structure:
 # dump raw string
 grp$dump()
 # 
-# ── TileDB Directory ────────────────────────────────────────────────────────────────────
+# ── TileDB Directory ──────────────────────────────────────────────────────────────────────────
 # 
-# -> file28106735712c GROUP
+# -> file18fc7d8a6e72 GROUP
 # |-- array_1 ARRAY
 # |-- array_2 ARRAY
 
 # print
 grp
 # R6Class: <TileDBGroupExp>
-# → URI Basename: file28106735712c
+# → URI Basename: file18fc7d8a6e72
 #   • Arrays: "array_1" and "array_2"
 #   • Groups: ""
 ```
@@ -178,7 +178,7 @@ grp$remove("array_1")
 # print
 grp
 # R6Class: <TileDBGroupExp>
-# → URI Basename: file28106735712c
+# → URI Basename: file18fc7d8a6e72
 #   • Arrays: "array_2"
 #   • Groups: ""
 ```
@@ -190,12 +190,9 @@ List all `TileDB` resources at group's uri path:
 ``` r
 # Find all TileDB resources (members and non-members)
 grp$walk_group()
-#    TYPE
-# 1 ARRAY
-# 2 ARRAY
-#                                                                                   URI
-# 1 file:///C:/Users/Constantine/AppData/Local/Temp/RtmpWULnHs/file28106735712c/array_1
-# 2 file:///C:/Users/Constantine/AppData/Local/Temp/RtmpWULnHs/file28106735712c/array_2
+#    TYPE                                                                                 URI
+# 1 ARRAY file:///C:/Users/Constantine/AppData/Local/Temp/RtmpY9VfPh/file18fc7d8a6e72/array_1
+# 2 ARRAY file:///C:/Users/Constantine/AppData/Local/Temp/RtmpY9VfPh/file18fc7d8a6e72/array_2
 ```
 
 #### Get a non Group Member
@@ -210,10 +207,8 @@ grp$has_non_members()
 
 # data.frame with non-members info
 grp$non_members()
-#    TYPE
-# 1 ARRAY
-#                                                                                   URI
-# 1 file:///C:/Users/Constantine/AppData/Local/Temp/RtmpWULnHs/file28106735712c/array_1
+#    TYPE                                                                                 URI
+# 1 ARRAY file:///C:/Users/Constantine/AppData/Local/Temp/RtmpY9VfPh/file18fc7d8a6e72/array_1
 ```
 
 #### Prune a non Group Member
@@ -224,7 +219,7 @@ Now delete group non-members:
 ``` r
 # delete non-members
 grp$prune_non_members()
-# [1] "file:///C:/Users/Constantine/AppData/Local/Temp/RtmpWULnHs/file28106735712c/array_1"
+# [1] "file:///C:/Users/Constantine/AppData/Local/Temp/RtmpY9VfPh/file18fc7d8a6e72/array_1"
 
 # data.frame with non-members info
 grp$non_members()
@@ -345,15 +340,15 @@ fobj <- tdb_fragments(arrobj_2$uri)
 
 # last i fragments
 fobj$get_last_ifragments(1)
-# ── FRAGMENT #3 ─────────────────────────────────────────────────────────────────────────
-#  ❯ URI: file:///C:/Users/Constantine/AppData/Local/Temp/RtmpWULnHs/file28106735712c/array_2/__fragments/__1768395781423_1768395781423_7705a3e5e44fc6ab8117990e6d1df9dd_22
+# ── FRAGMENT #3 ───────────────────────────────────────────────────────────────────────────────
+#  ❯ URI: file:///C:/Users/Constantine/AppData/Local/Temp/RtmpY9VfPh/file18fc7d8a6e72/array_2/__fragments/__1768838853774_1768838853774_224a7f89f4254347f1fab39522f490e0_22
 #  ❯ Type: sparse
 #  ❯ Non-empty domain: 
 #    • Dept: [E, F] (ASCII)
 #    • Gender: [Female, Male] (ASCII)
 #  ❯ Size: 5.24 KiB
 #  ❯ Cell num: 8
-#  ❯ Timestamp range: [2026-01-14 13:03:01.423 UTC, 2026-01-14 13:03:01.423 UTC]
+#  ❯ Timestamp range: [2026-01-19 16:07:33.773999 UTC, 2026-01-19 16:07:33.773999 UTC]
 #  ❯ Format version: 22
 #  ❯ Has consolidated metadata: FALSE
 ```
@@ -377,14 +372,14 @@ arrobj_2$frag_num()
 arrobj_2$frag_to_vacuum(trunc_uri = TRUE)
 #    Fragment     start_timestamp       end_timestamp
 #      <char>              <POSc>              <POSc>
-# 1:       #1 2026-01-14 13:02:59 2026-01-14 13:02:59
-# 2:       #2 2026-01-14 13:03:00 2026-01-14 13:03:00
-# 3:       #3 2026-01-14 13:03:01 2026-01-14 13:03:01
+# 1:       #1 2026-01-19 16:07:32 2026-01-19 16:07:32
+# 2:       #2 2026-01-19 16:07:32 2026-01-19 16:07:32
+# 3:       #3 2026-01-19 16:07:33 2026-01-19 16:07:33
 #                                                                  URI
 #                                                               <char>
-# 1: __1768395779966_1768395779966_4f6477fd59dda8849df6aac4b5c39105_22
-# 2: __1768395780651_1768395780651_48a0e5e73729123df3e88dbba90b937b_22
-# 3: __1768395781423_1768395781423_7705a3e5e44fc6ab8117990e6d1df9dd_22
+# 1: __1768838852298_1768838852298_650be420133170f93b44d65c1a90e647_22
+# 2: __1768838852960_1768838852960_2d2195312fc9fdeaf0f9a5fe9234f72f_22
+# 3: __1768838853774_1768838853774_224a7f89f4254347f1fab39522f490e0_22
 
 # refresh fragment object
 fobj$reload_finfo()
@@ -407,11 +402,11 @@ Inspect array directory
 
 ``` r
 arrobj_2$dir_tree()
-# C:/Users/Constantine/AppData/Local/Temp/RtmpWULnHs/file28106735712c/array_2
+# C:/Users/Constantine/AppData/Local/Temp/RtmpY9VfPh/file18fc7d8a6e72/array_2
 # ├── __commits
-# │   └── __1768395779966_1768395781423_1bbce708581fc73b835045737a6833dc_22.wrt
+# │   └── __1768838852298_1768838853774_43ae281bfcefc5e6e6ef186e841fc9af_22.wrt
 # ├── __fragments
-# │   └── __1768395779966_1768395781423_1bbce708581fc73b835045737a6833dc_22
+# │   └── __1768838852298_1768838853774_43ae281bfcefc5e6e6ef186e841fc9af_22
 # │       ├── a0.tdb
 # │       ├── a1.tdb
 # │       ├── d0.tdb
@@ -424,10 +419,12 @@ arrobj_2$dir_tree()
 # ├── __labels
 # ├── __meta
 # └── __schema
-#     ├── __1768395779929_1768395779929_754734bb1b71269e63e9f041c4d0996c
+#     ├── __1768838852264_1768838852264_6e6dbe389003e276d35b0a526af55a81
 #     └── __enumerations
-#         └── __40a0e9c140c877e568db665b53eee238_0
+#         └── __6124eac1f990573d659adee921ade912_0
 # 
 # ❯ directories (5) • total size (6.77 KiB)
 ```
+
+
 
