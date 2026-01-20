@@ -1,6 +1,6 @@
 ---
 title: Time Series Storage
-date: "2026-01-19"
+date: "2026-01-20"
 vignette: >
   %\VignetteIndexEntry{Time Series Storage}
   %\VignetteEngine{litedown::vignette}
@@ -15,11 +15,11 @@ vignette: >
 
 This vignette showcases how to store time-series data and build a query interface similar to [xts](https://cran.r-project.org/web/packages/xts/index.html) package.
 
-A new class `TimeSerie1d` is created that inherits from `TileDBArray()`. The data model and R6 class definition can be found in the Appendix.
+For that purpose, a new class `TimeSerie1d` has been created that inherits from `TileDBArray()`; its data model and R6 class definition can be found in the Appendix.
 
 **Requirements**: 
 
- - packages in the system: `data.table`, `xts` and `arrow`
+ - `R` packages: `data.table`, `xts` and `arrow`
  - source `TimeSeries1d` class from the appendix
 
 ## Application
@@ -121,19 +121,19 @@ Note that schema has been evolved due to addition of new series (new attribute):
 
 ``` r
 vfs_dir_tree(tsobj$uri)
-# C:/Users/Constantine/AppData/Local/Temp/RtmpY9VfPh/file18fc5d6d17c2
+# C:/Users/Constantine/AppData/Local/Temp/Rtmp2bgnkd/file4e647191f
 # ├── __commits
-# │   ├── __1768838966527_1768838966527_08dc263566caa2b35284160626caa36a_22.wrt
-# │   └── __1768838967389_1768838967389_3128a4df4bd6957aa5f4a930a927bc31_22.wrt
+# │   ├── __1768900195413_1768900195413_10521cf58a4b2bf00d92d6b824f088e8_22.wrt
+# │   └── __1768900196611_1768900196611_4e922f4ed27e1c97b166ae53b0739375_22.wrt
 # ├── __fragments
-# │   ├── __1768838966527_1768838966527_08dc263566caa2b35284160626caa36a_22
+# │   ├── __1768900195413_1768900195413_10521cf58a4b2bf00d92d6b824f088e8_22
 # │   │   ├── a0.tdb
 # │   │   ├── a0_validity.tdb
 # │   │   ├── a1.tdb
 # │   │   ├── a1_validity.tdb
 # │   │   ├── d0.tdb
 # │   │   └── __fragment_metadata.tdb
-# │   └── __1768838967389_1768838967389_3128a4df4bd6957aa5f4a930a927bc31_22
+# │   └── __1768900196611_1768900196611_4e922f4ed27e1c97b166ae53b0739375_22
 # │       ├── a0.tdb
 # │       ├── a0_validity.tdb
 # │       ├── a1.tdb
@@ -146,8 +146,8 @@ vfs_dir_tree(tsobj$uri)
 # ├── __labels
 # ├── __meta
 # └── __schema
-#     ├── __1768838966455_1768838966455_417ff557f9b8200a8ec4be6f6778536a
-#     ├── __1768838967330_1768838967330_21b2337af3f7939aa0ab9f63dd0a24ab
+#     ├── __1768900195342_1768900195342_6d08d10b397bfdcef112e39e4c17a3ee
+#     ├── __1768900196495_1768900196495_78edaa6aef17de9623fabab1261416e0
 #     └── __enumerations
 # 
 # ❯ directories (5) • total size (9.95 KiB)
@@ -193,11 +193,13 @@ tsobj$symbols()
 | Cell order | Col-major |
 | Tile order | Col-major |
 
+
 #### Dimensions
 
 | Dimension | TileDB Datatype |
 |-----------|-----------------|
 | `index`   | `DATETIME_DAY`  |
+
 
 #### Attributes
 
@@ -206,6 +208,8 @@ tsobj$symbols()
 | `<SYMBOL_1>` | `ASCII`         |
 | ....         | ....            |
 | `<SYMBOL_K>` | `ASCII`         |
+
+***
 
 ### `TimeSeries1d` Class
 

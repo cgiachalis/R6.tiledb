@@ -644,11 +644,11 @@ TimeSeries1d <- R6::R6Class(
 
 This vignette showcases how to store time-series data and build a query interface similar to [xts](https://cran.r-project.org/web/packages/xts/index.html) package.
 
-A new class `TimeSerie1d` is created that inherits from `TileDBArray()`. The data model and R6 class definition can be found in the Appendix.
+For that purpose, a new class `TimeSerie1d` has been created that inherits from `TileDBArray()`; its data model and R6 class definition can be found in the Appendix.
 
 **Requirements**: 
 
- - packages in the system: `data.table`, `xts` and `arrow`
+ - `R` packages: `data.table`, `xts` and `arrow`
  - source `TimeSeries1d` class from the appendix
 
 ## Application
@@ -756,11 +756,13 @@ unlink(uri)
 | Cell order | Col-major |
 | Tile order | Col-major |
 
+
 #### Dimensions
 
 | Dimension | TileDB Datatype |
 |-----------|-----------------|
 | `index`   | `DATETIME_DAY`  |
+
 
 #### Attributes
 
@@ -769,6 +771,8 @@ unlink(uri)
 | `<SYMBOL_1>` | `ASCII`         |
 | ....         | ....            |
 | `<SYMBOL_K>` | `ASCII`         |
+
+***
 
 ### `TimeSeries1d` Class
 
