@@ -1,0 +1,383 @@
+---
+title: Time Travelling
+date: "2026-01-21"
+vignette: >
+  %\VignetteIndexEntry{Time Travelling}
+  %\VignetteEngine{litedown::vignette}
+  %\VignetteEncoding{UTF-8}
+---
+
+
+
+
+## Introduction
+
+This article demonstrates how to perform time travel operations over fragments and metadata.
+
+To set a timestamp range, either in `TileDBArray()` or `TileDBGroup()`, use either `tiledb_timestamp`
+argument at instantiation or the mutable field `tiledb_timestamp`. Note this only applies to read
+modes; for writing at arbitrary time points, you should use `open_write()` method. This is by design
+in order to avoid writing inadvertently at timestamps other than current.
+ 
+
+To get start with examples, please source first the helpers from the Appendix.
+
+## Application
+
+Use `demo_tstamped_group()` to create a group with two array members. The array members have identical fragments with timestamps prior to group creation.
+
+### Group Time - Travelling
+
+
+``` r
+uri <- tempfile()
+res <- demo_tstamped_group(uri)
+grp <- tdb_group(uri)
+```
+
+The group and its members were created at the following timestamps:
+
+
+```
+# Timestamps (UTC) ----------
+# Group   @t0: 2026-01-21 10:51:11
+# Member1 @t1: 2026-01-21 10:51:14
+# Member2 @t2: 2026-01-21 10:51:18
+```
+
+
+
+
+``` r
+# open group @t0
+grp$tiledb_timestamp <- res$group_ts$t0
+
+# check group timestamp range
+group_timestamps(grp, tz = "UTC")
+# Group Timestamps (ctx) • Mode (read) • TZ (UTC)
+#  • start: 1970-01-01 00:00:00
+#  • end  : 2026-01-21 10:51:11
+
+# no members @t0
+grp$count_members()
+# [1] 0
+
+# open group @t1
+grp$tiledb_timestamp <- res$group_ts$t1
+
+# one member @t1
+grp$count_members()
+# [1] 1
+
+# open group now
+grp$tiledb_timestamp <- NULL
+
+# 2 members @ current timestamp
+grp$count_members()
+# [1] 2
+```
+
+Note that `grp` has no metadata. Let's add a key value at group's `t1` timestamp (the time when member 1 was added):
+
+
+``` r
+# no metadata
+grp$get_metadata()
+# TileDB GROUP: <R6 Class: TileDBGroupExp>
+# Metadata: <key,value> • total 0
+
+# timestamp @t1
+t1 <- res$group_ts$t1
+t1_char <- format(t1, tz = "UTC")
+t1_char
+# [1] "2026-01-21 10:51:14"
+
+# set metadata val1 @t1
+set_metadata(grp, list(val1 = t1_char), timestamp = t1)
+
+# open group @t0
+grp$tiledb_timestamp <- res$group_ts$t0
+
+# no metadata @t0
+grp$get_metadata()
+# TileDB GROUP: <R6 Class: TileDBGroupExp>
+# Metadata: <key,value> • total 0
+
+# open now
+grp$tiledb_timestamp <- NULL
+
+# metadata that was set @t1
+grp$get_metadata()
+# TileDB GROUP: <R6 Class: TileDBGroupExp>
+# Metadata: <key,value> • total 1
+#  • val1: '2026-01-21 10:51:14'
+```
+
+### Array Time - Travelling
+
+The helper function `demo_tstamped_group()` wrote two identical arrays with 3 fragments and metadata with the following timestamps:
+
+
+```
+# Timestamps (UTC) ----------
+# Fragment @t0: 2025-08-18 16:12:50
+# Fragment @t1: 2025-08-18 16:12:55
+# Fragment @t2: 2025-08-18 16:13:01
+```
+
+Verify commit timestamps written on disk:
+
+
+``` r
+# uri array1
+uri_arr1 <- grp$members$testarray1$uri
+
+fraobj_1 <- tdb_fragments(uri_arr1)
+
+fraobj_1$get_ifragment(1)
+# ── FRAGMENT #1 ───────────────────────────────────────────────────────────────────────────────────────────
+#  ❯ URI: file:///C:/Users/Constantine/AppData/Local/Temp/RtmpghVEpK/file3d741cea293d/testarray1/__fragments/__1755533570000_1755533570000_28067e28c8d22b364580eb2848e75d0b_22
+#  ❯ Type: sparse
+#  ❯ Non-empty domain: 
+#    • id: [1, 1] (INT32)
+#  ❯ Size: 3.13 KiB
+#  ❯ Cell num: 1
+#  ❯ Timestamp range: [2025-08-18 16:12:50 UTC, 2025-08-18 16:12:50 UTC]
+#  ❯ Format version: 22
+#  ❯ Has consolidated metadata: FALSE
+```
+
+or alternatively:
+
+
+``` r
+fraobj_1$frag_uris()
+#    Fragment     start_timestamp       end_timestamp
+#      <char>              <POSc>              <POSc>
+# 1:       #1 2025-08-18 16:12:50 2025-08-18 16:12:50
+# 2:       #2 2025-08-18 16:12:55 2025-08-18 16:12:55
+# 3:       #3 2025-08-18 16:13:01 2025-08-18 16:13:01
+#                                                                  URI
+#                                                               <char>
+# 1: __1755533570000_1755533570000_28067e28c8d22b364580eb2848e75d0b_22
+# 2: __1755533575000_1755533575000_35ba33e150900c87786a9bbf61b93039_22
+# 3: __1755533581000_1755533581000_223b6edc2989150a1aed38940fecd5fd_22
+```
+
+
+Now, let's time travel:
+
+
+``` r
+# toggle the result output
+tiledb::set_return_as_preference("data.frame")
+
+arrobj_1 <- grp$get_member("testarray1")
+
+# first write @ "2025-08-18 16:12:50" UTC
+arrobj_1$tiledb_timestamp <- as.POSIXct("2025-08-18 16:12:50", tz = "UTC")
+
+# query upto "2025-08-18 16:12:50" UTC
+arrobj_1$object[]
+#   id val
+# 1  1   1
+
+# metadata
+arrobj_1$get_metadata()
+# TileDB ARRAY: <R6 Class: TileDBArray>
+# Metadata: <key,value> • total 1
+#  • key1: '2025-08-18 16:12:50'
+
+# second write @ "2025-08-18 16:12:55" UTC
+arrobj_1$tiledb_timestamp <- as.POSIXct("2025-08-18 16:12:55", tz = "UTC")
+
+# query upto "2025-08-18 16:12:55" UTC
+arrobj_1$object[]
+#   id val
+# 1  1   1
+# 2  2   2
+
+arrobj_1$get_metadata()
+# TileDB ARRAY: <R6 Class: TileDBArray>
+# Metadata: <key,value> • total 2
+#  • key1: '2025-08-18 16:12:50'
+#  • key2: '2025-08-18 16:12:55'
+
+# reset
+arrobj_1$tiledb_timestamp <- NULL
+
+# query upto now
+arrobj_1$object[]
+#   id val
+# 1  1   1
+# 2  2   2
+# 3  3   3
+
+arrobj_1$get_metadata()
+# TileDB ARRAY: <R6 Class: TileDBArray>
+# Metadata: <key,value> • total 3
+#  • key1: '2025-08-18 16:12:50'
+#  • key2: '2025-08-18 16:12:55'
+#  • key3: '2025-08-18 16:13:01'
+
+arrobj_1$close()
+
+```
+
+Consider we want to change a written commit at a new timestamp. The following example use
+`open_write()` to write at `t1` in order to change the value from `2` to `22`; and because we're not allow for duplicates, we see only the most recent update:
+
+
+``` r
+
+# open write @t1
+arr <- open_write(arrobj_1, 
+                  timestamp = as.POSIXct("2025-08-18 16:12:55",
+                                         tz = "UTC"))
+
+# check timestamps
+array_timestamps(arr, tz = "UTC")
+# Array Timestamps • Mode (write) • TZ (UTC)
+#  Temporal Range
+#   • start: none
+#   • end  : 2025-08-18 16:12:55
+#  Open Range
+#   • start: 1970-01-01 00:00:00
+#   • end  : 2025-08-18 16:12:55
+
+# write data
+arr[] <- data.frame(id = 2, val = 22L)
+
+# close
+arr <- tiledb::tiledb_array_close(arr)
+rm(arr)
+
+# print updated array
+arrobj_1$reopen()
+arrobj_1$object[]
+#   id val
+# 1  1   1
+# 2  2   2
+# 3  3   3
+```
+
+Notice that fragments 2, 3 have identical timestamp range:
+
+
+``` r
+fraobj_1$reload_finfo()
+fraobj_1$get_last_ifragments(3)
+# ── FRAGMENT #2 ───────────────────────────────────────────────────────────────────────────────────────────
+#  ❯ URI: file:///C:/Users/Constantine/AppData/Local/Temp/RtmpghVEpK/file3d741cea293d/testarray1/__fragments/__1755533575000_1755533575000_0d05dfeb71624a2051f598e535de9f9e_22
+#  ❯ Type: sparse
+#  ❯ Non-empty domain: 
+#    • id: [2, 2] (INT32)
+#  ❯ Size: 3.14 KiB
+#  ❯ Cell num: 1
+#  ❯ Timestamp range: [2025-08-18 16:12:55 UTC, 2025-08-18 16:12:55 UTC]
+#  ❯ Format version: 22
+#  ❯ Has consolidated metadata: FALSE
+# 
+# ── FRAGMENT #3 ───────────────────────────────────────────────────────────────────────────────────────────
+#  ❯ URI: file:///C:/Users/Constantine/AppData/Local/Temp/RtmpghVEpK/file3d741cea293d/testarray1/__fragments/__1755533575000_1755533575000_35ba33e150900c87786a9bbf61b93039_22
+#  ❯ Type: sparse
+#  ❯ Non-empty domain: 
+#    • id: [2, 2] (INT32)
+#  ❯ Size: 3.13 KiB
+#  ❯ Cell num: 1
+#  ❯ Timestamp range: [2025-08-18 16:12:55 UTC, 2025-08-18 16:12:55 UTC]
+#  ❯ Format version: 22
+#  ❯ Has consolidated metadata: FALSE
+# 
+# ── FRAGMENT #4 ───────────────────────────────────────────────────────────────────────────────────────────
+#  ❯ URI: file:///C:/Users/Constantine/AppData/Local/Temp/RtmpghVEpK/file3d741cea293d/testarray1/__fragments/__1755533581000_1755533581000_223b6edc2989150a1aed38940fecd5fd_22
+#  ❯ Type: sparse
+#  ❯ Non-empty domain: 
+#    • id: [3, 3] (INT32)
+#  ❯ Size: 3.13 KiB
+#  ❯ Cell num: 1
+#  ❯ Timestamp range: [2025-08-18 16:13:01 UTC, 2025-08-18 16:13:01 UTC]
+#  ❯ Format version: 22
+#  ❯ Has consolidated metadata: FALSE
+```
+
+
+## Appendix
+
+
+``` r
+
+demo_tstamped_arrays <- function(uri, frags = 3) {
+
+  ts <- as.POSIXct(c("2025-08-18 16:12:50",
+                     "2025-08-18 16:12:55",
+                     "2025-08-18 16:13:01"),
+                   tz = "UTC")
+
+  df <- data.frame(id = 1:frags, val = 1:frags)
+  tiledb::fromDataFrame(df, uri, col_index = 1, mode = "schema_only", allows_dups = FALSE)
+
+  out <- vector("numeric", frags)
+
+  arr <- tiledb::tiledb_array(uri)
+
+  for (i in seq_len(frags) ) {
+
+    tm <- ts[i]
+    arr <- tiledb::tiledb_array_open_at(arr, "WRITE", timestamp = tm)
+    arr[] <- data.frame(id = i, val = i)
+    arr <- tiledb::tiledb_array_open_at(arr, "WRITE", timestamp = tm)
+    tiledb::tiledb_put_metadata(arr, paste0("key", i), as.character(tm))
+    arr <- tiledb::tiledb_array_close(arr)
+  }
+  ts
+}
+
+demo_tstamped_group <- function(uri) {
+
+  ctx <- tiledb::tiledb_ctx(cached = FALSE)
+
+  group_uri <- uri
+  uri1 <- R6.tiledb:::file_path(group_uri, "testarray1")
+  uri2 <- R6.tiledb:::file_path(group_uri, "testarray2")
+
+  # create group @ t0
+  grp <- tiledb::tiledb_group_create(group_uri, ctx = ctx)
+  t0 <- Sys.time()
+  Sys.sleep(2)
+
+  # create arr1 and add as member @ t1
+  arr1 <- demo_tstamped_arrays(uri1)
+  grp <- tiledb::tiledb_group(group_uri, type = "WRITE", ctx = ctx)
+  tiledb::tiledb_group_add_member(
+    grp = grp,
+    uri = uri1,
+    relative = FALSE,
+    name = basename(uri1)
+  )
+  grp <- tiledb::tiledb_group_close(grp)
+  t1 <- Sys.time()
+
+  Sys.sleep(2)
+
+  # create arr2 and add as member @ t2
+  arr2 <- demo_tstamped_arrays(uri2)
+
+  grp <- tiledb::tiledb_group_open(grp, type = "WRITE")
+  tiledb::tiledb_group_add_member(
+    grp = grp,
+    uri = uri2,
+    relative = FALSE,
+    name = basename(uri2)
+  )
+  grp <- tiledb::tiledb_group_close(grp)
+  t2 <- Sys.time()
+
+  list(uri = group_uri,
+       group_ts = list(t0 = t0, t1 = t1, t2 = t2),
+       arr1_ts = arr1,
+       arr2_ts = arr2)
+}
+```
+
+

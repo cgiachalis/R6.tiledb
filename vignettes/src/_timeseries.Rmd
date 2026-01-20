@@ -644,7 +644,7 @@ TimeSeries1d <- R6::R6Class(
 
 This vignette showcases how to store time-series data and build a query interface similar to [xts](https://cran.r-project.org/web/packages/xts/index.html) package.
 
-For that purpose, a new class `TimeSerie1d` has been created that inherits from `TileDBArray()`; its data model and R6 class definition can be found in the Appendix.
+For that purpose, a new class `TimeSeries1d` has been created that inherits from `TileDBArray()`; its data model and R6 class definition can be found in the Appendix.
 
 **Requirements**: 
 
@@ -705,6 +705,7 @@ tsobj$subset(c("2010-01-01", "2010-01-06"), cols = "A", as_xts = TRUE)
 ```
 
 ```{r}
+t0 <- Sys.time()
 # Ingest new series
 tsobj$ingest(dat2)
 
@@ -720,6 +721,7 @@ Note that schema has been evolved due to addition of new series (new attribute):
 ```{r}
 vfs_dir_tree(tsobj$uri)
 ```
+
 
 ### Built-in functions
 
