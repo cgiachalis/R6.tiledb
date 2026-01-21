@@ -92,13 +92,12 @@ demo_tstamped_group <- function(uri) {
 
 This article demonstrates how to perform time travel operations over fragments and metadata.
 
-To set a timestamp range, either in `TileDBArray()` or `TileDBGroup()`, use either `tiledb_timestamp`
-argument at instantiation or the mutable field `tiledb_timestamp`. Note this only applies to read
-modes; for writing at arbitrary time points, you should use `open_write()` method. This is by design
-in order to avoid writing inadvertently at timestamps other than current.
+To set a timestamp range in `TileDBArray()` or `TileDBGroup()`, use either the`tiledb_timestamp`
+argument at instantiation or the mutable field `tiledb_timestamp`. Note these options applies to read
+mode only; for writing at arbitrary time points, you should use `open_write()` method. The separate interface is a design choice in order to avoid writing inadvertently at arbitrary timestamp other than current time point.
  
 
-To get start with examples, please source first the helpers from the Appendix.
+To get start with examples, please source the helpers from the Appendix.
 
 ## Application
 
@@ -110,6 +109,8 @@ Use `demo_tstamped_group()` to create a group with two array members. The array 
 uri <- tempfile()
 res <- demo_tstamped_group(uri)
 grp <- tdb_group(uri)
+
+grp
 ```
 
 The group and its members were created at the following timestamps:
@@ -121,7 +122,7 @@ cat("Timestamps (UTC) ----------")
 cat(paste(c("Group   @t0:", "Member1 @t1:", "Member2 @t2:"), ts), sep = "\n")
 ```
 
-
+Let's open group object at previous time points and check its members:
 
 ```{r}
 # open group @t0
@@ -191,7 +192,7 @@ cat("Timestamps (UTC) ----------")
 cat(paste(c("Fragment @t0:", "Fragment @t1:", "Fragment @t2:"), ts), sep = "\n")
 ```
 
-Verify commit timestamps written on disk:
+Verify commit with expected timestamps was written on disk:
 
 ```{r}
 # uri array1
