@@ -14,7 +14,7 @@ The package can be helpful to create domain specific applications and unified da
 
 ## Usage
 
-To use `R6.tiledb`, create a TileDB resource:
+To use `R6.tiledb`, first create a TileDB resource:
 
 ``` r
 
@@ -58,19 +58,24 @@ Using class methods :
 #> 4    A   Male Admitted  512
 ```
 
-For more examples, please refer to documentation articles.
+For more examples, see [Getting Started]().
 
 ## Installation
 
 Development version from GitHub:
 
 ``` r
+# pak
 pak::pkg_install("cgiachalis/R6.tiledb")
+
+# remotes
+remotes::install_github("cgiachalis/R6.tiledb")
 ```
 
 ## Acknowledgements
 
-`R6.tiledb` modified the R6 base classes: `TileDBArray` and `TileDBGroup` from `TileDB` [SOMA-R](https://github.com/single-cell-data/TileDB-SOMA/tree/main/apis/r) project - but can not be considered drop-in replacement. The SOMA-R project stands out as an example of domain specific application that narrows the gab between data engineering and analytics integration.
+`R6.tiledb` has modified the R6 base classes: `TileDBArray` and `TileDBGroup` from `TileDB` [SOMA-R](https://github.com/single-cell-data/TileDB-SOMA/tree/main/apis/r) project - but they can not be considered drop-in replacement[^1]. 
+The SOMA-R project is a great example of domain specific application that narrows the gab between data engineering and analytics integration.
 
 ## Resources
 
@@ -81,3 +86,9 @@ pak::pkg_install("cgiachalis/R6.tiledb")
 -   Aaron Wolen and Dirk Eddelbuettel (2021), ***Infinitely Scalable Data Analysis: Using R with TileDB Tutorial*** [<a href="https://dirk.eddelbuettel.com/papers/bioc2021_tiledb_talk.pdf">slides</a>]
 
 -   ***A deep dive into the TileDB data format & storage engine*** [<a href="https://www.youtube.com/watch?v=GHJ16KyqGKI&t=3387s">video</a>]
+
+## Disclaimer
+
+`R6.tiledb` package is not an official product of TileDB Inc .
+
+[^1]: These class names are no longer used by SOMA-R and therefore no issue with namespace clash
