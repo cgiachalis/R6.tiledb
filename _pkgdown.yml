@@ -2,7 +2,7 @@ template:
   bootstrap: 5
   bootswatch: zephyr
   bslib:
-    base_font: {google: "Roboto"}
+    base_font: {google: "Roboto"} # ? Roboto Slab
     heading_font: {google: "Rubik"}
     primary: "#121b2b"
     link-color: "#1c4bc4ed"
@@ -16,9 +16,26 @@ navbar:
     - text: ~
       href: index.html
       icon: fa-home fa-lg
+      aria-label: R6.TileDB
+    - text: "Getting Started"
+      href: articles/getting_started.html
       aria-label: R6.tiledb
     - text: "Reference"
       href: reference/index.html
+    - text: "Articles"
+      menu:
+      - text: "R6.TileDB"
+      - text: "Introduction"
+        href: articles/introduction.html
+      - text: "Time - Travelling"
+        href: articles/timetravel.html
+      - text: "Frequently Asked Questions"
+        href: articles/faq.html
+      - text: "-------"
+      - text: "How To Guides"
+      - text: "Time Series Storage"
+        href: articles/timeseries.html
+
     - text: "News"
       href: news/index.html
 
