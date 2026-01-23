@@ -128,3 +128,12 @@ print.ifragment_list <- function(x, ...){
   dev_null <- lapply(x, function(i) {print(i); NULL})
   invisible(x)
 }
+
+#' @export
+print.vfs_size <- function(x, ...) {
+
+  cat(.byte_size_format(x))
+
+  invisible(x)
+
+}
