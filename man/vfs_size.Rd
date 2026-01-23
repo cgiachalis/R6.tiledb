@@ -4,13 +4,13 @@
 \alias{vfs_size}
 \title{VFS Directory Size}
 \usage{
-vfs_size(uri, vfs = tiledb::tiledb_get_vfs())
+vfs_size(uri, vfs = NULL)
 }
 \arguments{
 \item{uri}{URI path for the \code{TileDB} object.}
 
-\item{vfs}{A \code{\link[tiledb:tiledb_vfs]{tiledb::tiledb_vfs()}} object. Defaults to
-\code{TileDB} VFS object from the \code{tiledb} environment and cache.}
+\item{vfs}{A \code{\link[tiledb:tiledb_vfs]{tiledb::tiledb_vfs()}} object. If \code{NULL}
+(default) will create a new VFS object.}
 }
 \value{
 The size of the directory.

@@ -1,8 +1,6 @@
 #' VFS Directory Size
 #'
-#' @param uri URI path for the `TileDB` object.
-#' @param vfs A [tiledb::tiledb_vfs()] object. Defaults to
-#' `TileDB` VFS object from the `tiledb` environment and cache.
+#' @inheritParams vfs_dir_tree
 #'
 #' @returns The size of the directory.
 #'

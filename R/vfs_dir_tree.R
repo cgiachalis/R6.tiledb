@@ -35,8 +35,8 @@
 #' Print Directory Contents
 #'
 #' @param uri URI path for the `TileDB` object.
-#' @param vfs A [tiledb::tiledb_vfs()] object. Defaults to
-#' `TileDB` VFS object from the `tiledb` environment and cache.
+#' @param vfs A [tiledb::tiledb_vfs()] object. If `NULL`
+#' (default) will create a new VFS object.
 #'
 #' @returns A character vector with file paths, invisibly.
 #'
@@ -56,7 +56,12 @@
 #' # Print directory contents
 #' arrobj$dir_tree()
 #' }
-vfs_dir_tree <- function(uri, vfs = tiledb::tiledb_get_vfs()) {
+vfs_dir_tree <- function(uri, vfs = NULL) {
+
+  if (is.null(vfs)) {
+    vfs <- tiledb::tiledb_vfs()
+  }
+
   v <- tiledb::tiledb_vfs_ls_recursive(uri, vfs = vfs)
   files <-  sapply(v$path, function(.x) strsplit(.x, ":///")[[1]][[2]])
 
