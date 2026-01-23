@@ -1,5 +1,5 @@
 test_that("Test 'vfs_size()'", {
-
+gc()
   uri_arr <- file.path(withr::local_tempdir(), "test-arr")
   expect_error(vfs_size(uri_arr))
 
