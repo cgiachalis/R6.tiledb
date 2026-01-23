@@ -1,23 +1,30 @@
 .box_chars <- utils::getFromNamespace("box_chars", "fs")
 .colourise_fs_path <- utils::getFromNamespace("colourise_fs_path", "fs")
 .byte_size_format <- function(size) {
+
   # standard "IEC" for powers of 1024
   kilo <- size / (1024.0^1)
   mega <- size / (1024.0^2)
   giga <- size / (1024.0^3)
   tera <- size / (1024.0^4)
   peta <- size / (1024.0^5)
+  exa  <- size / (1024.0^6)
+  eza  <- size / (1024.0^7)
 
-  if (peta > 1) {
-    out <- paste(round(t, 2), "PiB", sep = " ")
-  } else if (tera > 1) {
-    out <- paste(round(t, 2), "TiB", sep = " ")
-  } else if (giga > 1) {
-    out <- paste(round(g, 2), "GiB", sep = " ")
-  } else if (mega > 1) {
-    out <- paste(round(m, 2), "MiB", sep = " ")
-  } else if (kilo > 1) {
-    out <- paste(round(k, 2), "KiB", sep = " ")
+  if (eza >= 1) {
+    out <- paste(round(eza, 2), "ZiB", sep = " ")
+  } else if (exa >= 1) {
+    out <- paste(round(exa, 2), "EiB", sep = " ")
+  } else if (peta >= 1){
+    out <- paste(round(peta, 2), "PiB", sep = " ")
+  } else if (tera >= 1) {
+    out <- paste(round(tera, 2), "TiB", sep = " ")
+  } else if (giga >= 1) {
+    out <- paste(round(giga, 2), "GiB", sep = " ")
+  } else if (mega >= 1) {
+    out <- paste(round(mega, 2), "MiB", sep = " ")
+  } else if (kilo >= 1) {
+    out <- paste(round(kilo, 2), "KiB", sep = " ")
   } else{
     out <- paste(round(size, 2), "B", sep = " ")
   }

@@ -16,6 +16,11 @@ test_that("'TileDBGroupExp' class works as expected", {
   expect_equal(grpObj$non_members(), data.frame(TYPE = character(0),
                                                 URI = character(0)))
 
+  # Test active field 'size'
+  expect_error(arrObj$size <- "boo")
+  expect_type(grpObj$size, "double")
+  expect_s3_class(grpObj$size, "vfs_size")
+
   grpObj$reopen("WRITE")
   grpObj$remove("testarray2")
 
