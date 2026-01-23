@@ -1,34 +1,31 @@
 .box_chars <- utils::getFromNamespace("box_chars", "fs")
 .colourise_fs_path <- utils::getFromNamespace("colourise_fs_path", "fs")
-.byte_size_format <- function(size){
-
+.byte_size_format <- function(size) {
   # standard "IEC" for powers of 1024
+  kilo <- size / (1024.0^1)
+  mega <- size / (1024.0^2)
+  giga <- size / (1024.0^3)
+  tera <- size / (1024.0^4)
+  peta <- size / (1024.0^5)
 
-  k <- size / (1024.0^1)
-  m <- size / (1024.0^2)
-  g <- size / (1024.0^3)
-  t <- size / (1024.0^4)
-  p <- size / (1024.0^5)
-
-  if (p > 1) {
-    out <- paste(round(t,2),"PiB", sep = " ")
-  } else if (t > 1){
-    out <- paste(round(t,2),"TiB", sep = " ")
-  } else if (g > 1) {
-    out <- paste(round(g,2),"GiB", sep = " ")
-  } else if (m > 1) {
-    out <- paste(round(m,2),"MiB", sep = " ")
-  } else if (k > 1) {
-    out <- paste(round(k,2),"KiB", sep = " ")
+  if (peta > 1) {
+    out <- paste(round(t, 2), "PiB", sep = " ")
+  } else if (tera > 1) {
+    out <- paste(round(t, 2), "TiB", sep = " ")
+  } else if (giga > 1) {
+    out <- paste(round(g, 2), "GiB", sep = " ")
+  } else if (mega > 1) {
+    out <- paste(round(m, 2), "MiB", sep = " ")
+  } else if (kilo > 1) {
+    out <- paste(round(k, 2), "KiB", sep = " ")
   } else{
-    out <- paste(round(size,2),"B", sep = " ")
+    out <- paste(round(size, 2), "B", sep = " ")
   }
 
   out
 }
 
-
-#' Print directory contents
+#' Print Directory Contents
 #'
 #' @param uri URI path for the `TileDB` object.
 #' @param vfs A [tiledb::tiledb_vfs()] object. Defaults to
@@ -44,7 +41,7 @@
 #' uri <- tempfile()
 #'
 #' # Demo array
-#' demo_UCBAdmissions_array(uri)
+#' demo_array_UCBAdmissions(uri)
 #'
 #' # Array instance
 #' arrobj <- tdb_array(uri)

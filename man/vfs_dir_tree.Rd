@@ -2,7 +2,7 @@
 % Please edit documentation in R/vfs_dir_tree.R
 \name{vfs_dir_tree}
 \alias{vfs_dir_tree}
-\title{Print directory contents}
+\title{Print Directory Contents}
 \usage{
 vfs_dir_tree(uri, vfs = tiledb::tiledb_get_vfs())
 }
@@ -16,7 +16,7 @@ vfs_dir_tree(uri, vfs = tiledb::tiledb_get_vfs())
 A character vector with file paths, invisibly.
 }
 \description{
-Print directory contents
+Print Directory Contents
 }
 \examples{
 \dontrun{
@@ -24,7 +24,7 @@ Print directory contents
 uri <- tempfile()
 
 # Demo array
-demo_UCBAdmissions_array(uri)
+demo_array_UCBAdmissions(uri)
 
 # Array instance
 arrobj <- tdb_array(uri)
