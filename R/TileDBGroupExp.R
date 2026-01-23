@@ -136,6 +136,20 @@ TileDBGroupExp <- R6::R6Class(
 
     }
   ),
+
+  active = list(
+
+    #' @field size Directory size.
+    #'
+    size = function(value) {
+
+      if (!missing(value)) {
+        private$check_read_only("size")
+      }
+      vfs_size(self$uri, vfs = private$vfs())
+    }
+  ),
+
   private = list(
 
     # Cache a tiledb_vfs object

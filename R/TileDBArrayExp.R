@@ -609,6 +609,7 @@ TileDBArrayExp <- R6::R6Class(
     #' @description Print directory contents.
     #'
     #' @return A character vector with file paths, invisibly.
+    #'
     dir_tree = function() {
 
       vfs_dir_tree(self$uri, vfs = private$vfs())
@@ -617,6 +618,7 @@ TileDBArrayExp <- R6::R6Class(
   ),
 
   active = list(
+
     #' @field fragments_object Access the [TileDBFragments] instance for this
     #' array.
     #'
@@ -633,6 +635,7 @@ TileDBArrayExp <- R6::R6Class(
       private$.fragments_object
 
     },
+
     #' @field schema_version Retrieve the schema version for this array.
     #'
     schema_version = function(value) {
@@ -643,6 +646,7 @@ TileDBArrayExp <- R6::R6Class(
 
       tiledb::tiledb_array_schema_version(self$schema())
     },
+
     #' @field is_sparse Check array schema for sparsity.
     #'
     is_sparse = function(value) {
@@ -654,6 +658,16 @@ TileDBArrayExp <- R6::R6Class(
 
       tiledb::is.sparse(sch)
 
+    },
+
+    #' @field size Directory size.
+    #'
+    size = function(value) {
+
+      if (!missing(value)) {
+        private$check_read_only("size")
+      }
+      vfs_size(self$uri, vfs = private$vfs())
     }
   ),
 

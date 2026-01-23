@@ -14,6 +14,7 @@
 #' - `object_type` : The `TileDB` object type: `"ARRAY"`,`"GROUP"` or `"INVALID"`
 #' - `object` : Access the underlying [tiledb::tiledb_group()] object
 #' - `members`: Access the list of group members.
+#' - `size` : Directory size
 #'
 #' @section Methods:
 #'

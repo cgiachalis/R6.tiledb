@@ -19,6 +19,7 @@
 #' array
 #' - `schema_version` : Retrieve the schema version for this array
 #' - `is_sparse` :  Check array schema for sparsity
+#' - `size` : Directory size
 #'
 #' @section Methods:
 #'
