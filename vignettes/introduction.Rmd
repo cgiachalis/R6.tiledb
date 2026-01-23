@@ -1,6 +1,6 @@
 ---
 title: Introduction
-date: "2026-01-19"
+date: "2026-01-23"
 vignette: >
   %\VignetteIndexEntry{Introduction}
   %\VignetteEngine{litedown::vignette}
@@ -8,19 +8,16 @@ vignette: >
 ---
 
 R6.tiledb extends TileDB' R client [tiledb](https://cran.r-project.org/web/packages/tiledb/index.html) using
-encapsulated classes with reference semantics provided by [R6](https://cran.r-project.org/web/packages/R6/index.html). The package offers minimal classes in order to facilitate encapsulated functionality that can be shared between related classes which represent TileDB Arrays or Groups.
+encapsulated classes with reference semantics provided by [R6](https://cran.r-project.org/web/packages/R6/index.html). The package offers base classes with minimal functionality that can be shared with child classes. With the base classes, one can start building complex interactions between sub-classes (that represent arrays and groups) or other R objects in order to create coherent applications on any domain, e.g, time-series databases, model registries (statistical learning, econometrics etc) or key-value stores.
 
-Using the minimal classes, one can start building complex interactions between sub-classes (that represent
-arrays and groups) or other R objects in order to create coherent applications on any domain, e.g, time-series database, model registry (statistical learning, econometrics etc), key-value store.
-
-R6.tiledb provides classes with additional functionality, S3 methods and convenient utilities that makes a lot easier the interaction with TileDB objects.
+R6.tiledb also provides classes with additional functionality, S3 methods and convenient utilities that makes a lot easier to interact with TileDB objects.
 
 The rest of article outlines the project's design structure.
 
 ## Minimal Classes
 
 `TileDBArray` and `TileDBGroup` are the minimal classes and are intended to be used 
-inside other packages,  either as base classes or to extend on the fly using R6 built-in
+inside other packages, either as base classes or to be extended on the fly using R6 built-in
 method [$set()](https://r6.r-lib.org/reference/R6Class.html#arg-lock-class) by adding
 new member functions to the generator object.
 
@@ -66,7 +63,7 @@ arrobj <- TileDBArray$new(uri, tiledb_timestamp = Sys.Date() - 10)
 arrobj$tiledb_timestamp <- NULL
 ```
 
-For time-travelling writes, use `open_write()` method.
+For time-travelling writes, use `open_write()` or `set_metadata()` methods with `timestamp` argument.
 
 
 

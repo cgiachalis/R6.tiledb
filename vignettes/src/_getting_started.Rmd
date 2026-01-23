@@ -255,6 +255,16 @@ field `$object` and then using the standard `tiledb` interface or use the `$tile
 that opens a separate array handle which invokes the `tiledb::tiledb_array()`.
 
 ```{r}
+arr <- arrobj_2$object
+tiledb::selected_points(arr) <- list(Dept = "A")
+tiledb::return_as(arr) <- "data.frame"
+
+arr[]
+```
+
+Using separate array handle:
+
+```{r}
 arr <- arrobj_2$tiledb_array(selected_points = list(Dept = "A"),
                             return_as = "data.frame")
 
@@ -314,10 +324,18 @@ Inspect array directory
 arrobj_2$dir_tree()
 ```
 
+Get fragment info
+
+```{r}
+fobj$get_ifragment(1)
+```
+
 ```{r, echo=FALSE}
 arrobj_1$close()
 arrobj_2$close()
 grp$close()
+rm(fobj)
 unlink(uri_root)
 ```
+
 
