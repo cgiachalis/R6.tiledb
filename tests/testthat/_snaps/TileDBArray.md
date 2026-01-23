@@ -11,6 +11,7 @@
       arrObj$print()
     Message
       R6Class: <TileDBArray>
+    Output
       > URI Basename: test-TileDBArray
         * Dimensions: "Dept" and "Gender"
         * Attributes: "Admit" and "Freq"

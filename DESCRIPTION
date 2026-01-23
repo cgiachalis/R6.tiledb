@@ -1,7 +1,7 @@
 Package: R6.tiledb
 Title: R6 Classes for TileDB Arrays and Groups
-Version: 0.2.0.32
-Date: 2026-01-03
+Version: 0.2.0.33
+Date: 2026-01-23
 Authors@R: c(
     person("Constantinos", "Giachalis", , "cgiachalis@outlook.com", role = c("aut", "cre")),
     person("TileDB, Inc", role = "ctb",
@@ -27,12 +27,15 @@ Imports:
     spdl,
     tiledb (>= 0.33.0)
 Suggests:
+    litedown,
     mirai (>= 2.4.0),
     data.table,
     nanotime,
     spelling,
     testthat (>= 3.0.0),
     withr
+VignetteBuilder: 
+    litedown
 Remotes: TileDB-Inc/TileDB-R
 Config/testthat/edition: 3
 Encoding: UTF-8

@@ -13,3 +13,7 @@
 ^tests/data-tests$
 ^LICENSE\.md$
 ^\.github$
+^vignettes\.orig$
+^vignettes\.R$
+^vignettes/README.md$
+^vignettes/src$

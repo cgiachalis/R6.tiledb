@@ -415,23 +415,24 @@ TileDBGroup <- R6::R6Class(
 
          arrs <- cli::cli_vec(arrs, list("vec-trunc" = 3))
          grps <- cli::cli_vec(grps, list("vec-trunc" = 3))
-
-         olid <- cli::cli_ol()
-         ulid <- cli::cli_ul()
-         cli::cli_inform("R6Class: {.cls {self$class()}}")
-         cli::cli_bullets(c(">" = "URI Basename: {.emph {basename(self$uri)}}"))
-         ulid <- cli::cli_ul()
-         cli::cli_li(c("Arrays: {.val {arrs}}",
-                       "Groups: {.val {grps}}"))
-         cli::cli_end(olid)
-         cli::cli_end(ulid)
-
+         res <- cli::cli_fmt({
+           olid <- cli::cli_ol()
+           ulid <- cli::cli_ul()
+           cli::cli_inform("R6Class: {.cls {self$class()}}")
+           cli::cli_bullets(c(">" = "URI Basename: {.emph {basename(self$uri)}}"))
+           ulid <- cli::cli_ul()
+           cli::cli_li(c("Arrays: {.val {arrs}}", "Groups: {.val {grps}}"))
+           cli::cli_end(olid)
+           cli::cli_end(ulid)
+         }, collapse = TRUE)
        } else {
-         cli::cli_alert_info("R6Class: {.cls {self$class()}} is empty.")
+         res <-  cli::cli_fmt({cli::cli_alert_info("R6Class: {.cls {self$class()}} is empty.")})
        }
      } else {
-       cli::cli_inform(c("i" = "R6Class: {.cls {self$class()}} object does not exist."))
+       res <- cli::cli_inform(c("i" = "R6Class: {.cls {self$class()}} object does not exist."))
      }
+
+     cat(res)
 
      invisible(self)
    },

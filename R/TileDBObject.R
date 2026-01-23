@@ -22,7 +22,7 @@ TileDBObject <- R6::R6Class(
     #'  the resource will be opened at. Effective in `"READ"` mode only.
     #'  Valid options:
     #'  - A `NULL` value (default)
-    #'  - An `R` object coercible to `POSIXct` with length 1 which used for end timestamp,
+    #'  - An `R` object coercible to `POSIXct` with length 1 which is used for end timestamp,
     #'  or length 2 with start, end timestamps
     #'  - An object of class `tiledb_timestamp`. See [set_tiledb_timestamp()]
     #'
@@ -549,7 +549,7 @@ TileDBObject <- R6::R6Class(
         )
       }
 
-      # keys should have only character strings
+      # key-values of type character must be scalar character only
       idx <- vapply_lgl(x,\(.x) .is_character(.x) & !.is_scalar_character(.x))
 
       if (any(idx)) {

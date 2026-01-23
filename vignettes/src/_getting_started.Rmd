@@ -1,0 +1,341 @@
+---
+title: Getting Started with R6.tiledb
+date: "`r Sys.Date()`"
+vignette: >
+  %\VignetteIndexEntry{Getting Started with R6.tiledb}
+  %\VignetteEngine{litedown::vignette}
+  %\VignetteEncoding{UTF-8}
+---
+
+This vignette will provide an overview of key functionality. Other vignettes will
+focus on specific topics in detail including how-to examples.
+
+```{r knitr-setup, include = FALSE}
+
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#"
+)
+```
+
+### 1. Overview
+
+`R6.tiledb` offers `TileDBArray` and `TileDBGroup` R6 objects that represent a
+TileDB array and group respectively. These objects have minimum encapsulated 
+functionality so they can be further extended and used by other packages.
+
+The package also offers expanded versions built on top of the above classes and
+can be accessed via the functional wrappers `tdb_array()` and `tdb_group()`.
+
+
+### 2. Group Creation
+
+Use `tdb_group_create()` to create a group and instantiate the `TileDBGroupExp` 
+object.
+
+```{r}
+# group uri
+uri_root <- tempfile()
+
+# create a group
+grp <- tdb_group_create(uri_root)
+
+# check if created
+grp$exists()
+```
+
+Checking for members:
+```{r}
+# no members (empty list)
+grp$members
+
+# count members
+grp$count_members()
+
+# group's uri path
+grp$uri
+
+```
+
+### 3. Array Creation
+
+Create two arrays with URI paths relative to group.
+
+#### Array 1
+
+`tdb_array_create()` is a convenient way to create an array given a schema and instantiate a `TileDBArrayExp` object.
+
+
+```{r}
+# array uri
+uri_array1 <- file.path(grp$uri, "array_1")
+
+schema <- tiledb::tiledb_array_schema(
+             dom = tiledb::tiledb_domain(
+               dims = tiledb::tiledb_dim("id", c(1L, 4L), 4L, "INT32")),
+               attrs = tiledb::tiledb_attr("model", type = "ASCII")
+             )
+
+# create array_1
+arrobj_1 <- tdb_array_create(uri_array1, sch = schema)
+```
+
+
+#### Array 2
+
+```{r}
+# array uri
+uri_array2 <- file.path(grp$uri, "array_2")
+
+# demo array
+demo_array_UCBAdmissions(uri_array2)
+
+# create array_2
+arrobj_2 <- tdb_array(uri_array2)
+```
+
+
+### 4. Group Members
+
+Having created a TileDB group and two arrays, we can organise everything as a collection by adding the above arrays as group members:
+
+```{r}
+# add array_1
+grp$set_member(arrobj_1)
+
+# add array_2
+grp$set_member(arrobj_2)
+
+# reopen to READ mode
+grp$reopen()
+```
+
+
+Checking for members:
+
+```{r}
+# members names
+grp$names()
+
+# count members
+grp$count_members()
+```
+
+Print group structure:
+
+```{r}
+# dump raw string
+grp$dump()
+
+# print
+grp
+```
+
+#### Access a Group Member
+
+```{r}
+
+# get array_1
+arr1 <- grp$get_member("array_1")
+
+# print 
+arr1
+
+```
+
+#### Remove a Group Member
+
+Let's remove `array_1` from group (but do not delete it from disk).
+
+```{r}
+# reopen group in WRITE mode
+grp$reopen("WRITE")
+
+# remove array
+grp$remove("array_1")
+
+# print
+grp
+
+```
+
+
+List all `TileDB` resources at group's uri path:
+
+```{r}
+# Find all TileDB resources (members and non-members)
+grp$walk_group()
+```
+
+#### Get a non Group Member
+
+Checking group folder for non-members:
+
+```{r}
+# check for non-members
+grp$has_non_members()
+
+# data.frame with non-members info
+grp$non_members()
+
+```
+
+#### Prune a non Group Member
+
+Now delete group non-members:
+
+```{r}
+# delete non-members
+grp$prune_non_members()
+
+# data.frame with non-members info
+grp$non_members()
+```
+
+### 5. Metadata
+
+You can work with metadata, both for arrays and group, in two ways: 1. using the
+OO interface via `$get_metadata()` and `$set_metadata()` and 2. using the functional
+interface with S3 methods:
+
+```{r}
+
+# set a single key metadata
+metadata(grp, "description") <- "metadata value"
+
+# set multiple metadata
+set_metadata(grp, list("a" = 1, "b" = 2))
+
+# get a key metadata
+metadata(grp, "a")
+
+
+# fetch all metadata
+fetch_metadata(grp)
+
+# fetch a subset of metadata
+fetch_metadata(grp, c("a", "b"))
+
+
+# delete metadata
+metadata(grp, "description") <- NULL
+
+# delete multiple keys
+delete_metadata(grp, c("a", "b"))
+
+# fetch all metadata (none)
+fetch_metadata(grp)
+```
+
+### 6. Working with Arrays
+
+Using either `TileDBArray` or `TileDBArrayExp` makes it easier to work with
+arrays:
+
+
+```{r}
+# schema info
+arrobj_2$schema_info()
+
+# Has factor columns
+arrobj_2$has_enumeration()
+
+# fragments
+arrobj_2$frag_num()
+
+# schema version
+arrobj_2$schema_version
+
+```
+
+#### Query Array
+
+You can built queries by using the underlying array object accessed by active
+field `$object` and then using the standard `tiledb` interface or use the `$tiledb_array()`
+that opens a separate array handle which invokes the `tiledb::tiledb_array()`.
+
+```{r}
+arr <- arrobj_2$object
+tiledb::selected_points(arr) <- list(Dept = "A")
+tiledb::return_as(arr) <- "data.frame"
+
+arr[]
+```
+
+Using separate array handle:
+
+```{r}
+arr <- arrobj_2$tiledb_array(selected_points = list(Dept = "A"),
+                            return_as = "data.frame")
+
+arr[]
+```
+
+#### Fragments
+
+`R6.tiledb` has dedicated R6 object `TileDBFragments` to work with fragments.
+It can be accessed either from `TileDBArrayExp` 's `fragments_object` field
+or via its wrapper `tdb_fragments()`.
+
+```{r}
+# fragment object
+fobj <- arrobj_2$fragments_object
+
+# or directly
+fobj <- tdb_fragments(arrobj_2$uri)
+
+# last i fragments
+fobj$get_last_ifragments(1)
+```
+
+#### Consolidation and Vacuum
+
+`TileDBArrayExp` class encapsulates consolidation and vacuum operations, either
+stand-alone or combined and with asynchronous variations (provided the [mirai](https://cran.r-project.org/web/packages/mirai/index.html)
+package is found in your system).
+
+```{r}
+# consolidate
+arrobj_2$consolidate()
+
+# num fragments
+arrobj_2$frag_num()
+
+# consolidated fragments to be removed
+arrobj_2$frag_to_vacuum(trunc_uri = TRUE)
+
+# refresh fragment object
+fobj$reload_finfo()
+
+# fragment for clean up (vacuum)
+fobj$to_vacuum_num()
+
+# vacuum
+arrobj_2$vacuum()
+
+# consolidated fragments to be removed
+arrobj_2$frag_to_vacuum() # none
+
+```
+
+Inspect array directory
+
+```{r}
+arrobj_2$dir_tree()
+```
+
+Get fragment info
+
+```{r}
+fobj$get_ifragment(1)
+```
+
+```{r, echo=FALSE}
+arrobj_1$close()
+arrobj_2$close()
+grp$close()
+rm(fobj)
+unlink(uri_root)
+```
+
+

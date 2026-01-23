@@ -82,7 +82,7 @@ the resource will be opened at. Effective in \code{"READ"} mode only.
 Valid options:
 \itemize{
 \item A \code{NULL} value (default)
-\item An \code{R} object coercible to \code{POSIXct} with length 1 which used for end timestamp,
+\item An \code{R} object coercible to \code{POSIXct} with length 1 which is used for end timestamp,
 or length 2 with start, end timestamps
 \item An object of class \code{tiledb_timestamp}. See \code{\link[=set_tiledb_timestamp]{set_tiledb_timestamp()}}
 }

@@ -16,7 +16,7 @@ test_that("'TileDBGroup' class tests on non-existent group", {
   expect_error(group$open(),
                label = "Group does not exist.")
 
-  expect_message(group$print())
+  expect_snapshot(group$print())
 
   rm(group)
 })
@@ -152,8 +152,6 @@ test_that("'TileDBGroup' class tests accessors on empty group", {
   mdf <- group$get_members_df()
   expect_s3_class(mdf, "data.frame")
   expect_equal(nrow(mdf), 0)
-
-  expect_message(group$print())
 
   # Print that group is empty
   expect_snapshot(group$print())
@@ -464,7 +462,6 @@ test_that("'TileDBGroup' class tests print method", {
 
   # Full print
   group$open(mode = "READ")
-  expect_no_error(suppressMessages(group$print()))
 
   # Raw dump
   expect_snapshot(group$dump("Test Dump TileDB with members"))

@@ -1,8 +1,15 @@
-# 'TileDBGroup' class tests accessors on empty group
+# 'TileDBGroup' class tests on non-existent group
 
     Code
       group$print()
     Message
+      i R6Class: <TileDBGroup> object does not exist.
+
+# 'TileDBGroup' class tests accessors on empty group
+
+    Code
+      group$print()
+    Output
       i R6Class: <TileDBGroup> is empty.
 
 ---
@@ -26,7 +33,7 @@
 
     Code
       group$print()
-    Message
+    Output
       i R6Class: <TileDBGroup> is empty.
 
 # 'TileDBGroup' class tests print method
@@ -48,6 +55,7 @@
       group$print()
     Message
       R6Class: <TileDBGroup>
+    Output
       > URI Basename: test-group
         * Arrays: "arr1"
         * Groups: "grp1" and "grp2"
@@ -58,6 +66,7 @@
       group$print()
     Message
       R6Class: <TileDBGroup>
+    Output
       > URI Basename: test-group
         * Arrays: ""
         * Groups: "grp1" and "grp2"
@@ -68,6 +77,7 @@
       group$print()
     Message
       R6Class: <TileDBGroup>
+    Output
       > URI Basename: test-group
         * Arrays: ""
         * Groups: "grp2"
@@ -76,7 +86,7 @@
 
     Code
       group$print()
-    Message
+    Output
       i R6Class: <TileDBGroup> is empty.
 
 ---

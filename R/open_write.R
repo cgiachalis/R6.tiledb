@@ -26,7 +26,7 @@ open_write <- function(object, ...) {
 #' @param ... Other arguments passed to methods. Not used.
 #'
 #' @returns An object of class `tiledb_array` or `tiledb_group` depending on
-#' the method and opened in `‘WRITE’` mode.
+#' the method; the object is opened in `‘WRITE’` mode.
 #'
 #'
 #' @export

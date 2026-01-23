@@ -79,7 +79,7 @@ TileDBGroupExp <- R6::R6Class(
         tiledb::tiledb_object_rm(.uri, private$.tiledb_ctx)
       })
 
-      out
+      unname(out)
     },
 
     #' @description Delete written data from Group.
