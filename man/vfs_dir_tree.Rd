@@ -2,21 +2,23 @@
 % Please edit documentation in R/vfs_dir_tree.R
 \name{vfs_dir_tree}
 \alias{vfs_dir_tree}
-\title{Print directory contents}
+\title{Print Directory Contents}
 \usage{
-vfs_dir_tree(uri, vfs = tiledb::tiledb_get_vfs())
+vfs_dir_tree(uri, recursive = TRUE, vfs = NULL)
 }
 \arguments{
 \item{uri}{URI path for the \code{TileDB} object.}
 
-\item{vfs}{A \code{\link[tiledb:tiledb_vfs]{tiledb::tiledb_vfs()}} object. Defaults to
-\code{TileDB} VFS object from the \code{tiledb} environment and cache.}
+\item{recursive}{Should it recurse fully? Defaults to \code{TRUE}.}
+
+\item{vfs}{A \code{\link[tiledb:tiledb_vfs]{tiledb::tiledb_vfs()}} object. If \code{NULL}
+(default) will create a new VFS object.}
 }
 \value{
 A character vector with file paths, invisibly.
 }
 \description{
-Print directory contents
+A modified version of \code{\link[fs:dir_tree]{fs::dir_tree()}} to work with TileDB VFS.
 }
 \examples{
 \dontrun{
@@ -24,7 +26,7 @@ Print directory contents
 uri <- tempfile()
 
 # Demo array
-demo_UCBAdmissions_array(uri)
+demo_array_UCBAdmissions(uri)
 
 # Array instance
 arrobj <- tdb_array(uri)

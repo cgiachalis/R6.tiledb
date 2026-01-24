@@ -129,13 +129,30 @@ TileDBGroupExp <- R6::R6Class(
 
     #' @description Print directory contents.
     #'
+    #' @param recursive Should it recurse fully? Defaults to `TRUE`.
+    #'
     #' @return A character vector with file paths, invisibly.
-    dir_tree = function() {
+    #'
+    dir_tree = function(recursive = TRUE) {
 
-      vfs_dir_tree(self$uri, vfs = private$vfs())
+      vfs_dir_tree(self$uri, recursive = recursive, vfs = private$vfs())
 
     }
   ),
+
+  active = list(
+
+    #' @field size Directory size.
+    #'
+    size = function(value) {
+
+      if (!missing(value)) {
+        private$check_read_only("size")
+      }
+      vfs_size(self$uri, vfs = private$vfs())
+    }
+  ),
+
   private = list(
 
     # Cache a tiledb_vfs object

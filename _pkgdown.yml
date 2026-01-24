@@ -51,6 +51,7 @@ reference:
   - tdb_fragments
   - set_config_params
   - vfs_dir_tree
+  - vfs_size
 
 - subtitle: Open,Close
   desc: Open, close methods

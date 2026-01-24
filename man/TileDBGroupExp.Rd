@@ -29,6 +29,13 @@ at \code{READ} mode.
 \section{Super classes}{
 \code{\link[R6.tiledb:TileDBObject]{R6.tiledb::TileDBObject}} -> \code{\link[R6.tiledb:TileDBGroup]{R6.tiledb::TileDBGroup}} -> \code{TileDBGroupExp}
 }
+\section{Active bindings}{
+\if{html}{\out{<div class="r6-active-bindings">}}
+\describe{
+\item{\code{size}}{Directory size.}
+}
+\if{html}{\out{</div>}}
+}
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
@@ -170,9 +177,16 @@ and \code{URI} with all \code{TileDB} resources under group's uri path.
 \subsection{Method \code{dir_tree()}}{
 Print directory contents.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{TileDBGroupExp$dir_tree()}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{TileDBGroupExp$dir_tree(recursive = TRUE)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{recursive}}{Should it recurse fully? Defaults to \code{TRUE}.}
+}
+\if{html}{\out{</div>}}
+}
 \subsection{Returns}{
 A character vector with file paths, invisibly.
 }

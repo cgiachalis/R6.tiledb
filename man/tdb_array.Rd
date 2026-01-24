@@ -49,6 +49,7 @@ mode and kept open
 array
 \item \code{schema_version} : Retrieve the schema version for this array
 \item \code{is_sparse} :  Check array schema for sparsity
+\item \code{size} : Directory size
 }
 }
 

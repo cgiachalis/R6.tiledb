@@ -38,6 +38,8 @@ array.}
 \item{\code{schema_version}}{Retrieve the schema version for this array.}
 
 \item{\code{is_sparse}}{Check array schema for sparsity.}
+
+\item{\code{size}}{Directory size.}
 }
 \if{html}{\out{</div>}}
 }
@@ -557,9 +559,16 @@ is used.}
 \subsection{Method \code{dir_tree()}}{
 Print directory contents.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{TileDBArrayExp$dir_tree()}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{TileDBArrayExp$dir_tree(recursive = TRUE)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{recursive}}{Should it recurse fully? Defaults to \code{TRUE}.}
+}
+\if{html}{\out{</div>}}
+}
 \subsection{Returns}{
 A character vector with file paths, invisibly.
 }

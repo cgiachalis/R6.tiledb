@@ -22,11 +22,15 @@ test_that("'TileDBArrayExp' class works as expected", {
   expect_error(arrObj$is_sparse  <- "boo")
   expect_error(arrObj$schema_version  <- "boo")
   expect_error(arrObj$fragments_object <- "boo")
+  expect_error(arrObj$size <- "boo")
 
   # active bindings are OK
   expect_equal(arrObj$is_sparse, TRUE)
   expect_type(arrObj$schema_version, "integer")
   expect_s3_class(arrObj$fragments_object, c("TileDBFragments", "R6"))
+  expect_type(arrObj$size, "double")
+  expect_s3_class(arrObj$size, "vfs_size")
+
 
 
   # Methods -------------------------------------------------------------
