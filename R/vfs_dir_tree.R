@@ -34,7 +34,10 @@
 
 #' Print Directory Contents
 #'
+#' A modified version of [fs::dir_tree()] to work with TileDB VFS.
+#'
 #' @param uri URI path for the `TileDB` object.
+#' @param recursive Should it recurse fully? Defaults to `TRUE`.
 #' @param vfs A [tiledb::tiledb_vfs()] object. If `NULL`
 #' (default) will create a new VFS object.
 #'
@@ -56,19 +59,23 @@
 #' # Print directory contents
 #' arrobj$dir_tree()
 #' }
-vfs_dir_tree <- function(uri, vfs = NULL) {
+vfs_dir_tree <- function(uri, recursive = TRUE, vfs = NULL) {
 
   if (is.null(vfs)) {
     vfs <- tiledb::tiledb_vfs()
   }
 
-  v <- tiledb::tiledb_vfs_ls_recursive(uri, vfs = vfs)
-  files <-  sapply(v$path, function(.x) strsplit(.x, ":///")[[1]][[2]])
+  if (recursive) {
+    v <- tiledb::tiledb_vfs_ls_recursive(uri, vfs = vfs)$path
+  } else {
+    v <- tiledb::tiledb_vfs_ls(uri, vfs = vfs)
+  }
+  files <-  sapply(v, function(.x) strsplit(.x, ":///")[[1]][[2]], USE.NAMES = FALSE)
 
   by_dir <- split(files, fs::path_dir(files))
 
-  # non-empty dirs, sans root dir
-  subdirs_len <- length(by_dir) - 1
+  # non-empty dirs
+  subdirs_len <- length(by_dir)
   dir_size <- tiledb::tiledb_vfs_dir_size(uri, vfs = vfs)
   dir_size <- .byte_size_format(dir_size)
 

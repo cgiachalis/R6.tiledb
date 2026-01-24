@@ -4,10 +4,12 @@
 \alias{vfs_dir_tree}
 \title{Print Directory Contents}
 \usage{
-vfs_dir_tree(uri, vfs = NULL)
+vfs_dir_tree(uri, recursive = TRUE, vfs = NULL)
 }
 \arguments{
 \item{uri}{URI path for the \code{TileDB} object.}
+
+\item{recursive}{Should it recurse fully? Defaults to \code{TRUE}.}
 
 \item{vfs}{A \code{\link[tiledb:tiledb_vfs]{tiledb::tiledb_vfs()}} object. If \code{NULL}
 (default) will create a new VFS object.}
@@ -16,7 +18,7 @@ vfs_dir_tree(uri, vfs = NULL)
 A character vector with file paths, invisibly.
 }
 \description{
-Print Directory Contents
+A modified version of \code{\link[fs:dir_tree]{fs::dir_tree()}} to work with TileDB VFS.
 }
 \examples{
 \dontrun{

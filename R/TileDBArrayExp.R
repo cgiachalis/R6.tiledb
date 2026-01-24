@@ -608,11 +608,13 @@ TileDBArrayExp <- R6::R6Class(
 
     #' @description Print directory contents.
     #'
+    #' @param recursive Should it recurse fully? Defaults to `TRUE`.
+    #'
     #' @return A character vector with file paths, invisibly.
     #'
-    dir_tree = function() {
+    dir_tree = function(recursive = TRUE) {
 
-      vfs_dir_tree(self$uri, vfs = private$vfs())
+      vfs_dir_tree(self$uri, recursive = recursive, vfs = private$vfs())
 
     }
   ),
