@@ -70,7 +70,7 @@ vfs_dir_tree <- function(uri, recursive = TRUE, vfs = NULL) {
   } else {
     v <- tiledb::tiledb_vfs_ls(uri, vfs = vfs)
   }
-  files <-  sapply(v, function(.x) strsplit(.x, ":///")[[1]][[2]], USE.NAMES = FALSE)
+  files <- vapply_char(v, function(.x) strsplit(.x, ":///")[[1]][[2]], USE.NAMES = FALSE)
 
   by_dir <- split(files, fs::path_dir(files))
 
