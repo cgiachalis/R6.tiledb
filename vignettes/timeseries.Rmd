@@ -1,6 +1,6 @@
 ---
 title: Time Series Storage
-date: "2026-01-23"
+date: "2026-01-29"
 vignette: >
   %\VignetteIndexEntry{Time Series Storage}
   %\VignetteEngine{litedown::vignette}
@@ -122,19 +122,19 @@ Note that schema has been evolved due to addition of new series (new attribute):
 
 ``` r
 vfs_dir_tree(tsobj$uri)
-# C:/Users/Constantine/AppData/Local/Temp/Rtmp25OKGc/file350476e17daf
+# C:/Users/Constantine/AppData/Local/Temp/RtmpW2GPj3/file9f2c67650b8
 # ├── __commits
-# │   ├── __1769168154286_1769168154286_31a5e04e1f715a45419afd37a9d4c358_22.wrt
-# │   └── __1769168155141_1769168155141_70649e64fb1632ff926fb5f0c3bd7a34_22.wrt
+# │   ├── __1769689655662_1769689655662_4a096ef9b5d23a2a7ebaec713583f15d_22.wrt
+# │   └── __1769689656525_1769689656525_569d6cc1106222ce3e67f4260d63a624_22.wrt
 # ├── __fragments
-# │   ├── __1769168154286_1769168154286_31a5e04e1f715a45419afd37a9d4c358_22
+# │   ├── __1769689655662_1769689655662_4a096ef9b5d23a2a7ebaec713583f15d_22
 # │   │   ├── a0.tdb
 # │   │   ├── a0_validity.tdb
 # │   │   ├── a1.tdb
 # │   │   ├── a1_validity.tdb
 # │   │   ├── d0.tdb
 # │   │   └── __fragment_metadata.tdb
-# │   └── __1769168155141_1769168155141_70649e64fb1632ff926fb5f0c3bd7a34_22
+# │   └── __1769689656525_1769689656525_569d6cc1106222ce3e67f4260d63a624_22
 # │       ├── a0.tdb
 # │       ├── a0_validity.tdb
 # │       ├── a1.tdb
@@ -147,11 +147,11 @@ vfs_dir_tree(tsobj$uri)
 # ├── __labels
 # ├── __meta
 # └── __schema
-#     ├── __1769168154214_1769168154214_683be50c76f89ad00d53e22cd4ea3fa3
-#     ├── __1769168155047_1769168155047_6d2c0d60f972ae8f9f0bb327d23d0a94
+#     ├── __1769689655590_1769689655590_1fc5cea4aa29130930cd577f7332516a
+#     ├── __1769689656473_1769689656473_1ae153a479912d233e3323faf07b82d0
 #     └── __enumerations
 # 
-# ❯ directories (5) • total size (9.95 KiB)
+# ❯ directories (6) • total size (9.95 KiB)
 ```
 
 
