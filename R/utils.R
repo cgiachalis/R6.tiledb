@@ -117,7 +117,8 @@ vapply_int <- function(X, FUN, ..., USE.NAMES = TRUE) {
   dom <- tiledb::domain(sch)
   dims <- tiledb::dimensions(dom)
   attrs <- tiledb::attrs(sch)
-  return(c(rep("Dim", length(dims)), rep("Attr", length(attrs))))
+
+  c(rep("Dim", length(dims)), rep("Attr", length(attrs)))
 }
 
 # Modified from tiledb:::tiledb_schema_get_enumeration_status
