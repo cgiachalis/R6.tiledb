@@ -2,7 +2,7 @@
 test_that("Test 'vfs_dir_tree()'", {
 
   # TODO: test print/snapshot
-  skip_on_os(c("mac", "linux"))
+  # skip_on_os(c("mac", "linux"))
   uri_arr <- file.path(withr::local_tempdir(), "test-arr")
   expect_error(vfs_dir_tree(uri_arr))
 
