@@ -410,18 +410,27 @@ TileDBGroup <- R6::R6Class(
          cli::cli_div(theme = list(.val = list(color = "cyan"),
                                    .emph = list(color = "orange")))
 
-         arrs <- sp$ARRAY$name %||% ''
-         grps <- sp$GROUP$name %||% ''
+         if(is.null(sp$ARRAY$name)) {
+           ita <- NULL
+         } else {
+           arrs <- cli::cli_vec(sp$ARRAY$name, list("vec-trunc" = 3))
+           ita <- "Arrays: {.val {arrs}}"
+         }
 
-         arrs <- cli::cli_vec(arrs, list("vec-trunc" = 3))
-         grps <- cli::cli_vec(grps, list("vec-trunc" = 3))
+         if(is.null(sp$GROUP$name)) {
+           itg <- NULL
+         } else {
+           grps <- cli::cli_vec(sp$GROUP$name, list("vec-trunc" = 3))
+           itg <- "Groups: {.val {grps}}"
+         }
+
          res <- cli::cli_fmt({
            olid <- cli::cli_ol()
            ulid <- cli::cli_ul()
            cli::cli_inform("R6Class: {.cls {self$class()}}")
            cli::cli_bullets(c(">" = "URI Basename: {.emph {basename(self$uri)}}"))
            ulid <- cli::cli_ul()
-           cli::cli_li(c("Arrays: {.val {arrs}}", "Groups: {.val {grps}}"))
+           cli::cli_li(c(ita, itg))
            cli::cli_end(olid)
            cli::cli_end(ulid)
          }, collapse = TRUE)
