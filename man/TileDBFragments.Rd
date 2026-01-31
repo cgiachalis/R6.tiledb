@@ -41,6 +41,7 @@ with the functional interface \code{\link[=tdb_fragments]{tdb_fragments()}}.
 \item \href{#method-TileDBFragments-get_first_ifragments}{\code{TileDBFragments$get_first_ifragments()}}
 \item \href{#method-TileDBFragments-get_last_ifragments}{\code{TileDBFragments$get_last_ifragments()}}
 \item \href{#method-TileDBFragments-dump}{\code{TileDBFragments$dump()}}
+\item \href{#method-TileDBFragments-print}{\code{TileDBFragments$print()}}
 }
 }
 \if{html}{\out{<hr>}}
@@ -304,6 +305,16 @@ An object of class \code{ifragment_list}.
 Dump to console the commit fragments.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{TileDBFragments$dump()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-TileDBFragments-print"></a>}}
+\if{latex}{\out{\hypertarget{method-TileDBFragments-print}{}}}
+\subsection{Method \code{print()}}{
+Print Fragments class.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{TileDBFragments$print()}\if{html}{\out{</div>}}
 }
 
 }

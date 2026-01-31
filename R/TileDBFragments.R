@@ -386,6 +386,19 @@ TileDBFragments <- R6::R6Class(
     #'
     dump = function() {
       tiledb::tiledb_fragment_info_dump(private$finfo())
+    },
+
+    #' @description Print Fragments class.
+    #'
+    print = function() {
+      res <- cli::cli_fmt({
+      cli::cli_inform("R6Class: {.cls {self$class()}}")
+      cli::cli_bullets(c(">" = "URI Basename: {.emph {basename(self$uri)}}"))
+      }, collapse = TRUE)
+
+      cat(res)
+
+      invisible(self)
     }
   ),
 
