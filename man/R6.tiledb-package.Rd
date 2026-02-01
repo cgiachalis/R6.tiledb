@@ -17,7 +17,7 @@ Useful links:
 
 }
 \author{
-\strong{Maintainer}: Constantinos Giachalis \email{cgiachalis@outlook.com}
+\strong{Maintainer}: Constantinos Giachalis \email{26255858+cgiachalis@users.noreply.github.com}
 
 Other contributors:
 \itemize{

@@ -1,9 +1,10 @@
 Package: R6.tiledb
 Title: R6 Classes for TileDB Arrays and Groups
-Version: 0.2.0.34
-Date: 2026-01-24
+Version: 0.2.0.35
+Date: 2026-02-01
 Authors@R: c(
-    person("Constantinos", "Giachalis", , "cgiachalis@outlook.com", role = c("aut", "cre")),
+    person("Constantinos", "Giachalis", ,
+    "26255858+cgiachalis@users.noreply.github.com", role = c("aut", "cre")),
     person("TileDB, Inc", role = "ctb",
            comment = "Initial code and tests for R6 classes from 'TileDB-SOMA/apis/r' GitHub repo.")
   )
