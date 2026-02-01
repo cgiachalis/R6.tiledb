@@ -2,7 +2,9 @@
 
 <!-- badges: start -->
 
-[![repo-status](https://img.shields.io/badge/repo%20status-stable-brightgreen.svg)](#) [![CRAN status](https://www.r-pkg.org/badges/version/R6.tiledb)](https://CRAN.R-project.org/package=R6.tiledb) [![coverage](https://img.shields.io/badge/coverage-94.2%25-blue.svg)](#)
+[![repo-status](https://img.shields.io/badge/repo%20status-stable-brightgreen.svg)](#) 
+[![CRAN status](https://www.r-pkg.org/badges/version/R6.tiledb)](https://CRAN.R-project.org/package=R6.tiledb) 
+[![coverage](https://img.shields.io/badge/coverage-90.4%25-blue.svg)](#)
 
 <!-- badges: end -->
 
