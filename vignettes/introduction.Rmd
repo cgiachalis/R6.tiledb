@@ -1,6 +1,6 @@
 ---
 title: Introduction
-date: "2026-01-23"
+date: "2026-01-29"
 vignette: >
   %\VignetteIndexEntry{Introduction}
   %\VignetteEngine{litedown::vignette}
@@ -10,7 +10,7 @@ vignette: >
 R6.tiledb extends TileDB' R client [tiledb](https://cran.r-project.org/web/packages/tiledb/index.html) using
 encapsulated classes with reference semantics provided by [R6](https://cran.r-project.org/web/packages/R6/index.html). The package offers base classes with minimal functionality that can be shared with child classes. With the base classes, one can start building complex interactions between sub-classes (that represent arrays and groups) or other R objects in order to create coherent applications on any domain, e.g, time-series databases, model registries (statistical learning, econometrics etc) or key-value stores.
 
-R6.tiledb also provides classes with additional functionality, S3 methods and convenient utilities that makes a lot easier to interact with TileDB objects.
+R6.tiledb also provides classes with additional functionality, S3 methods and convenient utilities to interact with TileDB objects.
 
 The rest of article outlines the project's design structure.
 
@@ -38,7 +38,8 @@ creation of TileDB object and instantiation of the expanded class.
 ## Fragments
 
 To work with fragments, the package provides a `TileDBFragments` class and
-its functional wrapper `tdb_fragments()`. The latter can be also accessed from `TileDBArrayExp` active field `$fragments_object`.
+a functional wrapper `tdb_fragments()`. The latter can be also accessed from `TileDBArrayExp` active field `$fragments_object`. With the class methods you can view, query or delete array
+fragments.
 
 ## Metadata
 

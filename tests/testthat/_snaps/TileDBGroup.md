@@ -68,7 +68,6 @@
       R6Class: <TileDBGroup>
     Output
       > URI Basename: test-group
-        * Arrays: ""
         * Groups: "grp1" and "grp2"
 
 ---
@@ -79,7 +78,6 @@
       R6Class: <TileDBGroup>
     Output
       > URI Basename: test-group
-        * Arrays: ""
         * Groups: "grp2"
 
 ---

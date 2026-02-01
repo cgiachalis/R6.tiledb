@@ -1,6 +1,6 @@
 ---
 title: Time Travelling
-date: "2026-01-21"
+date: "2026-01-29"
 vignette: >
   %\VignetteIndexEntry{Time Travelling}
   %\VignetteEngine{litedown::vignette}
@@ -35,7 +35,7 @@ grp <- tdb_group(uri)
 
 grp
 # R6Class: <TileDBGroupExp>
-# → URI Basename: file3d74346a7c4e
+# → URI Basename: file9f2c79ac397f
 #   • Arrays: "testarray2" and "testarray1"
 #   • Groups: ""
 ```
@@ -45,9 +45,9 @@ The group and its members were created at the following timestamps:
 
 ```
 # Timestamps (UTC) ----------
-# Group   @t0: 2026-01-21 14:58:02
-# Member1 @t1: 2026-01-21 14:58:05
-# Member2 @t2: 2026-01-21 14:58:09
+# Group   @t0: 2026-01-29 12:27:38
+# Member1 @t1: 2026-01-29 12:27:42
+# Member2 @t2: 2026-01-29 12:27:45
 ```
 
 Let's open group object at previous time points and check its members:
@@ -61,7 +61,7 @@ grp$tiledb_timestamp <- res$group_ts$t0
 group_timestamps(grp, tz = "UTC")
 # Group Timestamps (ctx) • Mode (read) • TZ (UTC)
 #  • start: 1970-01-01 00:00:00
-#  • end  : 2026-01-21 14:58:02
+#  • end  : 2026-01-29 12:27:38
 
 # no members @t0
 grp$count_members()
@@ -95,7 +95,7 @@ grp$get_metadata()
 t1 <- res$group_ts$t1
 t1_char <- format(t1, tz = "UTC")
 t1_char
-# [1] "2026-01-21 14:58:05"
+# [1] "2026-01-29 12:27:42"
 
 # set metadata val1 @t1
 set_metadata(grp, list(val1 = t1_char), timestamp = t1)
@@ -115,7 +115,7 @@ grp$tiledb_timestamp <- NULL
 grp$get_metadata()
 # TileDB GROUP: <R6 Class: TileDBGroupExp>
 # Metadata: <key,value> • total 1
-#  • val1: '2026-01-21 14:58:05'
+#  • val1: '2026-01-29 12:27:42'
 ```
 
 ### Array Time - Travelling
@@ -140,8 +140,8 @@ uri_arr1 <- grp$members$testarray1$uri
 fraobj_1 <- tdb_fragments(uri_arr1)
 
 fraobj_1$get_ifragment(1)
-# ── FRAGMENT #1 ───────────────────────────────────────────────────────────────────────────
-#  ❯ URI: file:///C:/Users/Constantine/AppData/Local/Temp/RtmpghVEpK/file3d74346a7c4e/testarray1/__fragments/__1755533570000_1755533570000_0033033f4d3a80ba0970f498f7d449c5_22
+# ── FRAGMENT #1 ──────────────────────────────────────────────────────────────────────────────────────────────
+#  ❯ URI: file:///C:/Users/Constantine/AppData/Local/Temp/RtmpW2GPj3/file9f2c79ac397f/testarray1/__fragments/__1755533570000_1755533570000_6f2ea5440a1befeafae9f53a203226f0_22
 #  ❯ Type: sparse
 #  ❯ Non-empty domain: 
 #    • id: [1, 1] (INT32)
@@ -164,9 +164,9 @@ fraobj_1$frag_uris()
 # 3:       #3 2025-08-18 16:13:01 2025-08-18 16:13:01
 #                                                                  URI
 #                                                               <char>
-# 1: __1755533570000_1755533570000_0033033f4d3a80ba0970f498f7d449c5_22
-# 2: __1755533575000_1755533575000_5d6d9c30cd99f9a2d540ec5fe0354cc9_22
-# 3: __1755533581000_1755533581000_656fd6ebc113e5223a1666b88fac18a2_22
+# 1: __1755533570000_1755533570000_6f2ea5440a1befeafae9f53a203226f0_22
+# 2: __1755533575000_1755533575000_01d1ae9e6269bf4b457fbfb5a0359826_22
+# 3: __1755533581000_1755533581000_1ae96fac8f9cc5b7e8e03bff730d81d4_22
 ```
 
 
@@ -262,7 +262,7 @@ arrobj_1$reopen()
 arrobj_1$object[]
 #   id val
 # 1  1   1
-# 2  2   2
+# 2  2  22
 # 3  3   3
 ```
 
@@ -272,19 +272,8 @@ Notice that fragments 2, 3 have identical timestamp range:
 ``` r
 fraobj_1$reload_finfo()
 fraobj_1$get_last_ifragments(3)
-# ── FRAGMENT #2 ───────────────────────────────────────────────────────────────────────────
-#  ❯ URI: file:///C:/Users/Constantine/AppData/Local/Temp/RtmpghVEpK/file3d74346a7c4e/testarray1/__fragments/__1755533575000_1755533575000_10efc615be3065e1e2ff13c731c0d254_22
-#  ❯ Type: sparse
-#  ❯ Non-empty domain: 
-#    • id: [2, 2] (INT32)
-#  ❯ Size: 3.14 KiB
-#  ❯ Cell num: 1
-#  ❯ Timestamp range: [2025-08-18 16:12:55 UTC, 2025-08-18 16:12:55 UTC]
-#  ❯ Format version: 22
-#  ❯ Has consolidated metadata: FALSE
-# 
-# ── FRAGMENT #3 ───────────────────────────────────────────────────────────────────────────
-#  ❯ URI: file:///C:/Users/Constantine/AppData/Local/Temp/RtmpghVEpK/file3d74346a7c4e/testarray1/__fragments/__1755533575000_1755533575000_5d6d9c30cd99f9a2d540ec5fe0354cc9_22
+# ── FRAGMENT #2 ──────────────────────────────────────────────────────────────────────────────────────────────
+#  ❯ URI: file:///C:/Users/Constantine/AppData/Local/Temp/RtmpW2GPj3/file9f2c79ac397f/testarray1/__fragments/__1755533575000_1755533575000_01d1ae9e6269bf4b457fbfb5a0359826_22
 #  ❯ Type: sparse
 #  ❯ Non-empty domain: 
 #    • id: [2, 2] (INT32)
@@ -294,8 +283,19 @@ fraobj_1$get_last_ifragments(3)
 #  ❯ Format version: 22
 #  ❯ Has consolidated metadata: FALSE
 # 
-# ── FRAGMENT #4 ───────────────────────────────────────────────────────────────────────────
-#  ❯ URI: file:///C:/Users/Constantine/AppData/Local/Temp/RtmpghVEpK/file3d74346a7c4e/testarray1/__fragments/__1755533581000_1755533581000_656fd6ebc113e5223a1666b88fac18a2_22
+# ── FRAGMENT #3 ──────────────────────────────────────────────────────────────────────────────────────────────
+#  ❯ URI: file:///C:/Users/Constantine/AppData/Local/Temp/RtmpW2GPj3/file9f2c79ac397f/testarray1/__fragments/__1755533575000_1755533575000_47dcf6db63ae4d3ccafd388aadc164b7_22
+#  ❯ Type: sparse
+#  ❯ Non-empty domain: 
+#    • id: [2, 2] (INT32)
+#  ❯ Size: 3.14 KiB
+#  ❯ Cell num: 1
+#  ❯ Timestamp range: [2025-08-18 16:12:55 UTC, 2025-08-18 16:12:55 UTC]
+#  ❯ Format version: 22
+#  ❯ Has consolidated metadata: FALSE
+# 
+# ── FRAGMENT #4 ──────────────────────────────────────────────────────────────────────────────────────────────
+#  ❯ URI: file:///C:/Users/Constantine/AppData/Local/Temp/RtmpW2GPj3/file9f2c79ac397f/testarray1/__fragments/__1755533581000_1755533581000_1ae96fac8f9cc5b7e8e03bff730d81d4_22
 #  ❯ Type: sparse
 #  ❯ Non-empty domain: 
 #    • id: [3, 3] (INT32)

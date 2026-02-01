@@ -77,11 +77,13 @@ print.tiledb_timestamp <- function(x, ...) {
       x <- format(as.Date(as.numeric(x), tz = "UTC"))
     },
     DATETIME_MS = {
-      x <- format(as.POSIXct(as.numeric(x), tz = "UTC"))
+      x <- format(as.POSIXct(as.numeric(x) / 1000, tz = "UTC"))
     },
     DATETIME_NS = {
       if (requireNamespace("nanotime", quietly = TRUE)) {
       x <- format(nanotime::as.nanotime(x), tz = "UTC")
+      } else {
+      x <- format(as.POSIXct(bit64::as.integer64(x) / 1e9L, tz = "UTC"))
       }
     }
   )

@@ -169,6 +169,7 @@ TileDBArray <- R6::R6Class(
 
       tiledb::schema(self$object)
     },
+
     #' @description Retrieve schema information.
     #'
     #' @return A `data.frame` object with four column schema
@@ -267,9 +268,11 @@ TileDBArray <- R6::R6Class(
   ),
 
   active = list(
+
     #' @field object Access the underlying [tiledb::tiledb_array()] object. When
     #' used before open() method, the underlying array will be initialised at `"READ"`
     #' mode and kept open.
+    #'
     object = function(value) {
       if (!missing(value)) {
         private$check_read_only("object")
@@ -284,7 +287,8 @@ TileDBArray <- R6::R6Class(
   ),
 
   private = list(
-    # Internal pointer to the TileDB array.
+
+    # @field Internal pointer to the TileDB array.
     #
     # Important implementation note:
     # * In TileDB-R there is an unopened handle obtained by tiledb::tiledb_array, which takes
@@ -299,11 +303,15 @@ TileDBArray <- R6::R6Class(
     # For this reason there is a limit to how much handle-abstraction we can do in the TileDBObject
     # parent class. In particular, we cannot have a single .tiledb_object shared by both TileDBArray
     # and TileDBGroup.
+    #
     .tiledb_array = NULL,
 
-
+    # @description Initialise object
+    #
     # Once the array has been created this initializes the TileDB array object
     # and stores the reference in private$.tiledb_array.
+    #
+    # @param keep_open Should the array be kepted open?
     #
     initialize_object = function(keep_open = TRUE) {
       private$.tiledb_array <- tiledb::tiledb_array(

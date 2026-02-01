@@ -2,13 +2,16 @@
 
 <!-- badges: start -->
 
-[![repo-status](https://img.shields.io/badge/repo%20status-stable-brightgreen.svg)](#) [![CRAN status](https://www.r-pkg.org/badges/version/R6.tiledb)](https://CRAN.R-project.org/package=R6.tiledb) [![coverage](https://img.shields.io/badge/coverage-94.2%25-blue.svg)](#)
+[![repo-status](https://img.shields.io/badge/repo%20status-stable-brightgreen.svg)](#) 
+[![CRAN status](https://www.r-pkg.org/badges/version/R6.tiledb)](https://CRAN.R-project.org/package=R6.tiledb) 
+[![coverage](https://img.shields.io/badge/coverage-90.4%25-blue.svg)](#)
 
 <!-- badges: end -->
 
 An extension to [TileDB-R](https://cran.r-project.org/web/packages/tiledb/index.html) interface.
 
-[TileDB Embedded](https://github.com/TileDB-Inc/TileDB) is a high performant storage engine for dense and sparse multi-dimensional arrays. `R6.tiledb` is built on top of [R6](https://cloud.r-project.org/web/packages/R6/index.html) object-oriented system and offers base classes that represent `TileDB` Arrays and Groups, as well as subclasses that encapsulate additional methods, functional wrappers and S3 methods.
+[TileDB Embedded](https://github.com/TileDB-Inc/TileDB) is a high performant storage engine for dense and sparse multi-dimensional arrays. `R6.tiledb` is built on top of [R6](https://cloud.r-project.org/web/packages/R6/index.html) object-oriented system and
+extends [tiledb](https://github.com/TileDB-Inc/TileDB-R) R package with base classes that represent `TileDB` Arrays and Groups, as well as subclasses that encapsulate additional methods, functional wrappers and S3 methods.
 
 The package can be helpful to create domain specific applications and unified data architectures by extending the base classes, or using its functional interface to work with existing TileDB resources.
 
@@ -26,7 +29,7 @@ To use `R6.tiledb`, first create a TileDB resource:
   # Demo array from 'UCBAdmissions' built-in dataset
   demo_UCBAdmissions_array(uri)
   
-  # Create an instance that represents a TileDB Array
+  # Create an instance that represents the array
   arrobj <- tdb_array(uri)
   
   arrobj
@@ -49,7 +52,8 @@ Using class methods :
  #>[1] TRUE
 
   # Run query on 'Dept' dimension
-  arr <- arrobj$tiledb_array(selected_points = list(Dept = "A"), return_as = "data.frame")
+  arr <- arrobj$tiledb_array(selected_points = list(Dept = "A"),
+                             return_as = "data.frame")
   arr[]
 #>   Dept Gender    Admit Freq
 #> 1    A Female Admitted   89
@@ -58,7 +62,7 @@ Using class methods :
 #> 4    A   Male Admitted  512
 ```
 
-For more examples, see [Getting Started]().
+For more examples, see [Getting Started](https://cgiachalis.github.io/R6.tiledb/articles/getting_started.html) documentation.
 
 ## Installation
 
@@ -74,10 +78,10 @@ remotes::install_github("cgiachalis/R6.tiledb")
 
 ## Acknowledgements
 
-`R6.tiledb` has modified the R6 base classes: `TileDBArray` and `TileDBGroup` from `TileDB` [SOMA-R](https://github.com/single-cell-data/TileDB-SOMA/tree/main/apis/r) project -
-but can not be considered drop-in replacement[^1].
+`TileDB` [SOMA-R](https://github.com/single-cell-data/TileDB-SOMA/tree/main/apis/r) project for extracting from and modifying the R6 base classes: `TileDBArray` and `TileDBGroup`
+but they are not drop-in replacements[^1].
 
-[^1]: `TileDBArray` and `TileDBGroup` names are no longer used by SOMA-R
+[^1]: R6 class names: `TileDBArray` and `TileDBGroup` are no longer used by SOMA-R
 
 ## Resources
 
@@ -91,5 +95,5 @@ but can not be considered drop-in replacement[^1].
 
 ## Disclaimer
 
-`R6.tiledb` is not an official TileDB Inc product.
+Please note that this project is not an official TileDB-Inc product.
 

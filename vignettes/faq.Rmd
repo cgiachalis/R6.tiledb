@@ -1,6 +1,6 @@
 ---
 title: Frequently Asked Questions
-date: "2026-01-21"
+date: "2026-01-29"
 vignette: >
   %\VignetteIndexEntry{Frequently Asked Questions}
   %\VignetteEngine{litedown::vignette}

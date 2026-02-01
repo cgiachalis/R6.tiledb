@@ -27,6 +27,7 @@
 #' <li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBFragments" data-id="get_first_ifragments"><a href='../../R6.tiledb/html/TileDBFragments.html#method-TileDBFragments-get_first_ifragments'><code>$get_first_ifragments()</code></a></span></li>
 #' <li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBFragments" data-id="get_last_ifragments"><a href='../../R6.tiledb/html/TileDBFragments.html#method-TileDBFragments-get_last_ifragments'><code>$get_last_ifragments()</code></a></span></li>
 #' <li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBFragments" data-id="dump"><a href='../../R6.tiledb/html/TileDBFragments.html#method-TileDBFragments-dump'><code>$dump()</code></a></span></li>
+#' <li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBFragments" data-id="print"><a href='../../R6.tiledb/html/TileDBFragments.html#method-TileDBFragments-dump'><code>$print()</code></a></span></li>
 #' </ul>
 #' }}
 #'

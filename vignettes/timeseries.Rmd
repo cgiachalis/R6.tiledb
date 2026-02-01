@@ -1,6 +1,6 @@
 ---
 title: Time Series Storage
-date: "2026-01-23"
+date: "2026-02-01"
 vignette: >
   %\VignetteIndexEntry{Time Series Storage}
   %\VignetteEngine{litedown::vignette}
@@ -15,7 +15,7 @@ vignette: >
 
 This vignette showcases how to store time-series data and build a query interface similar to [xts](https://cran.r-project.org/web/packages/xts/index.html) package.
 
-A new class `TimeSeries1d` has been created that creates and manages a tabular time-series data; its data model and R6 class definition can be found in the Appendix.
+A new class `TimeSeries1d` has been created to work with tabular daily time-series data; its data model and R6 class definition can be found in the Appendix.
 
 **Prerequisites**: 
 
@@ -122,19 +122,19 @@ Note that schema has been evolved due to addition of new series (new attribute):
 
 ``` r
 vfs_dir_tree(tsobj$uri)
-# C:/Users/Constantine/AppData/Local/Temp/Rtmp25OKGc/file350476e17daf
+# C:/Users/Constantine/AppData/Local/Temp/Rtmp6JkFsL/file33e4e961897
 # ├── __commits
-# │   ├── __1769168154286_1769168154286_31a5e04e1f715a45419afd37a9d4c358_22.wrt
-# │   └── __1769168155141_1769168155141_70649e64fb1632ff926fb5f0c3bd7a34_22.wrt
+# │   ├── __1769941398404_1769941398404_4136f8ae903054d78272ab6b378ea126_22.wrt
+# │   └── __1769941399444_1769941399444_662c00de4e03839addba20ab4934789b_22.wrt
 # ├── __fragments
-# │   ├── __1769168154286_1769168154286_31a5e04e1f715a45419afd37a9d4c358_22
+# │   ├── __1769941398404_1769941398404_4136f8ae903054d78272ab6b378ea126_22
 # │   │   ├── a0.tdb
 # │   │   ├── a0_validity.tdb
 # │   │   ├── a1.tdb
 # │   │   ├── a1_validity.tdb
 # │   │   ├── d0.tdb
 # │   │   └── __fragment_metadata.tdb
-# │   └── __1769168155141_1769168155141_70649e64fb1632ff926fb5f0c3bd7a34_22
+# │   └── __1769941399444_1769941399444_662c00de4e03839addba20ab4934789b_22
 # │       ├── a0.tdb
 # │       ├── a0_validity.tdb
 # │       ├── a1.tdb
@@ -147,11 +147,11 @@ vfs_dir_tree(tsobj$uri)
 # ├── __labels
 # ├── __meta
 # └── __schema
-#     ├── __1769168154214_1769168154214_683be50c76f89ad00d53e22cd4ea3fa3
-#     ├── __1769168155047_1769168155047_6d2c0d60f972ae8f9f0bb327d23d0a94
+#     ├── __1769941398329_1769941398329_2f2845374bfd7b24cba73a8fa319dce4
+#     ├── __1769941399389_1769941399389_3bdf9ca23026edf29709cafca6e50284
 #     └── __enumerations
 # 
-# ❯ directories (5) • total size (9.95 KiB)
+# ❯ directories (6) • total size (9.95 KiB)
 ```
 
 
