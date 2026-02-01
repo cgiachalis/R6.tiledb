@@ -362,7 +362,7 @@ TileDBObject <- R6::R6Class(
     .metadata_cache = NULL,
 
     # ----------------------------------------------------------------
-    # Metadata-caching for Arrays and Groups
+    # @description Metadata-caching for Arrays and Groups
 
     # Fill Metadata Cache
     #
@@ -375,7 +375,7 @@ TileDBObject <- R6::R6Class(
       }
     },
 
-    # Update Metadata Cache
+    # @description Update Metadata Cache
     #
     # Array/Group must be opened for reading.
     #
@@ -457,7 +457,7 @@ TileDBObject <- R6::R6Class(
     # These are used by child classes. Do not remove or change without notification
     # or deprecation warning.
 
-    # Assert a TileDB object if it is open in 'READ' mode
+    # @description Assert a TileDB object if it is open in 'READ' mode
     #
     is_open_for_read = function() {
 
@@ -470,7 +470,7 @@ TileDBObject <- R6::R6Class(
       }
     },
 
-    # Assert a TileDB object if it is open in 'WRITE' mode
+    # @description Assert a TileDB object if it is open in 'WRITE' mode
     #
     is_open_for_write = function() {
       if (is.null(private$.mode)) {
@@ -482,14 +482,14 @@ TileDBObject <- R6::R6Class(
       }
     },
 
-    # Errors for read-only value for intended for active bindings
+    # @description Errors for read-only value, intended for active bindings
     #
     check_read_only = function(x) {
       cli::cli_abort(paste0(cli::style_italic("{.val {x}}"), " is a read-only field."), call = NULL)
 
     },
 
-    # Checks a TileDB object if it is open in 'WRITE' mode
+    # @description Checks a TileDB object if it is open in 'WRITE' mode
     #
     check_open_for_read = function() {
 
@@ -502,7 +502,8 @@ TileDBObject <- R6::R6Class(
       }
     },
 
-    # Write methods require to open in write mode.
+    # @description Write methods require to open in write mode
+    #
     check_open_for_write = function() {
 
       if (!private$is_open_for_write()) {
@@ -514,7 +515,7 @@ TileDBObject <- R6::R6Class(
       }
     },
 
-    # Checks a TileDB object if it is open, 'READ' or WRITE' mode
+    # @description Checks a TileDB object if it is open, 'READ' or WRITE' mode
     #
     check_open = function() {
 
@@ -527,7 +528,7 @@ TileDBObject <- R6::R6Class(
       }
     },
 
-    # Checks a method for internal use, useful for child classes.
+    # @description Checks a method for internal use, useful for child classes.
     #
     # param x status flag, use "permit" to escape abort
     # param method A character describing the method
@@ -541,7 +542,7 @@ TileDBObject <- R6::R6Class(
       }
     },
 
-    # Checks metadata input list. Intended for set_metadata()
+    # @description Checks metadata input list. Intended for set_metadata()
     #
     # param x A named list of key value pairs of metadata.
     #
@@ -566,7 +567,7 @@ TileDBObject <- R6::R6Class(
       }
     },
 
-    # Checks for scalar character
+    # @description Checks for scalar character
     #
     # param x An R object
     #
@@ -576,7 +577,7 @@ TileDBObject <- R6::R6Class(
       }
     },
 
-    # Checks TileDB object exists
+    # @description Checks TileDB object exists
     #
     check_object_exists = function() {
       if (!self$exists()) {
@@ -584,7 +585,7 @@ TileDBObject <- R6::R6Class(
       }
     },
 
-    # Checks a TileDB object is closed
+    # @description Checks a TileDB object is closed
     #
     check_object_is_closed = function() {
 
@@ -601,7 +602,7 @@ TileDBObject <- R6::R6Class(
       }
     },
 
-    # Debug logging
+    # @description Debug logging
     #
     # param method A character string describing the method you're calling from.
     # param comments Logging message
@@ -609,6 +610,7 @@ TileDBObject <- R6::R6Class(
     # `spdl::fmt`
     #
     # This function does not include uri in the logging message
+    #
     log_debug0 = function(method, comment, ...) {
 
       comment <- spdl::fmt(comment, ...)
@@ -620,7 +622,8 @@ TileDBObject <- R6::R6Class(
                   comment)
 
     },
-    # Debug logging
+
+    # @description Debug logging
     #
     # param method A character string describing the method you're calling from.
     # param comments Logging message

@@ -282,7 +282,7 @@ TileDBGroup <- R6::R6Class(
 
       # Explicitly add the new member to member_cache, see comments on
       # private method
-      private$add_cached_member(name, obj)
+      private$add_cache_member(name, obj)
 
       obj
     },
@@ -363,7 +363,7 @@ TileDBGroup <- R6::R6Class(
         name = name
       )
 
-      private$add_cached_member(name, object)
+      private$add_cache_member(name, object)
 
       invisible(self)
     },
@@ -445,6 +445,7 @@ TileDBGroup <- R6::R6Class(
 
      invisible(self)
    },
+
    #' @description Dump the TileDB Group structure to string.
    #'
    #' @param title A character string for title header. Set `NULL` to
@@ -539,7 +540,7 @@ TileDBGroup <- R6::R6Class(
 
   private = list(
 
-    # @description This is a handle at the TileDB-R level
+    # @field This is a handle at the TileDB-R level
     #
     # Important implementation note:
     # * In TileDB-R there is an unopened handle obtained by tiledb::tiledb_array, which takes
@@ -554,15 +555,23 @@ TileDBGroup <- R6::R6Class(
     # For this reason there is a limit to how much handle-abstraction we can do in the TileDBObject
     # parent class. In particular, we cannot have a single .tiledb_object shared by both TileDBArray
     # and TileDBGroup.
+    #
     .tiledb_group = NULL,
 
-    # @description List of cached group members
+    # @field List of cached group members
+    #
     # Initially NULL, once the group is created or opened, this is populated
     # with a list that's empty or contains the group members.
+    #
     .member_cache = NULL,
 
+    # @description Initialise object
+    #
     # Once the group has been created this initializes the TileDB group object
     # and stores the reference in private$.tiledb_group.
+    #
+    # @param mode Mode to initialise
+    #
     initialize_object = function(mode) {
 
       # * NOTE: By design, we don't to write at timestamps, so we revert the
@@ -580,7 +589,9 @@ TileDBGroup <- R6::R6Class(
       private$.mode <- mode
 
     },
-    # Instantiate a group member object.
+
+    # @description Instantiate a group member object.
+    #
     # Responsible for calling the appropriate R6 class constructor.
     construct_member = function(uri, type) {
 
@@ -617,8 +628,10 @@ TileDBGroup <- R6::R6Class(
     # Member caching
 
     # @description Retrieve all group members.
+    #
     # @return A list indexed by group member names where each element is a
     # list with names: name, uri, and type.
+    #
     get_all_members_uncached_read = function(group_handle) {
 
       count <- tiledb::tiledb_group_member_count(group_handle)
@@ -645,6 +658,8 @@ TileDBGroup <- R6::R6Class(
       }
     },
 
+    # @description Update member cache.
+    #
     update_member_cache = function() {
 
       private$log_debug("update_member_cache", "Updating member cache")
@@ -676,7 +691,12 @@ TileDBGroup <- R6::R6Class(
       }
     },
 
-    add_cached_member = function(name, object) {
+    # @description Add member to cache.
+    #
+    # @param name Object name
+    # @param object A TileDBArray or TileDBGroup
+    #
+    add_cache_member = function(name, object) {
 
       # TODO: Review legacy notes:
       #
