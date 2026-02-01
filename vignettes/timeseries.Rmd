@@ -1,6 +1,6 @@
 ---
 title: Time Series Storage
-date: "2026-01-29"
+date: "2026-02-01"
 vignette: >
   %\VignetteIndexEntry{Time Series Storage}
   %\VignetteEngine{litedown::vignette}
@@ -15,7 +15,7 @@ vignette: >
 
 This vignette showcases how to store time-series data and build a query interface similar to [xts](https://cran.r-project.org/web/packages/xts/index.html) package.
 
-A new class `TimeSeries1d` has been created that creates and manages a tabular time-series data; its data model and R6 class definition can be found in the Appendix.
+A new class `TimeSeries1d` has been created to work with tabular daily time-series data; its data model and R6 class definition can be found in the Appendix.
 
 **Prerequisites**: 
 
@@ -122,19 +122,19 @@ Note that schema has been evolved due to addition of new series (new attribute):
 
 ``` r
 vfs_dir_tree(tsobj$uri)
-# C:/Users/Constantine/AppData/Local/Temp/RtmpW2GPj3/file9f2c67650b8
+# C:/Users/Constantine/AppData/Local/Temp/Rtmp6JkFsL/file33e4e961897
 # ├── __commits
-# │   ├── __1769689655662_1769689655662_4a096ef9b5d23a2a7ebaec713583f15d_22.wrt
-# │   └── __1769689656525_1769689656525_569d6cc1106222ce3e67f4260d63a624_22.wrt
+# │   ├── __1769941398404_1769941398404_4136f8ae903054d78272ab6b378ea126_22.wrt
+# │   └── __1769941399444_1769941399444_662c00de4e03839addba20ab4934789b_22.wrt
 # ├── __fragments
-# │   ├── __1769689655662_1769689655662_4a096ef9b5d23a2a7ebaec713583f15d_22
+# │   ├── __1769941398404_1769941398404_4136f8ae903054d78272ab6b378ea126_22
 # │   │   ├── a0.tdb
 # │   │   ├── a0_validity.tdb
 # │   │   ├── a1.tdb
 # │   │   ├── a1_validity.tdb
 # │   │   ├── d0.tdb
 # │   │   └── __fragment_metadata.tdb
-# │   └── __1769689656525_1769689656525_569d6cc1106222ce3e67f4260d63a624_22
+# │   └── __1769941399444_1769941399444_662c00de4e03839addba20ab4934789b_22
 # │       ├── a0.tdb
 # │       ├── a0_validity.tdb
 # │       ├── a1.tdb
@@ -147,8 +147,8 @@ vfs_dir_tree(tsobj$uri)
 # ├── __labels
 # ├── __meta
 # └── __schema
-#     ├── __1769689655590_1769689655590_1fc5cea4aa29130930cd577f7332516a
-#     ├── __1769689656473_1769689656473_1ae153a479912d233e3323faf07b82d0
+#     ├── __1769941398329_1769941398329_2f2845374bfd7b24cba73a8fa319dce4
+#     ├── __1769941399389_1769941399389_3bdf9ca23026edf29709cafca6e50284
 #     └── __enumerations
 # 
 # ❯ directories (6) • total size (9.95 KiB)
