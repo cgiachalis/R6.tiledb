@@ -1,14 +1,32 @@
+
 template:
   bootstrap: 5
   bootswatch: zephyr
   bslib:
-    base_font: {google: "Roboto"} # ? Roboto Slab
-    heading_font: {google: "Rubik"}
-    primary: "#121b2b"
+    base_font: {google: "Rubik"}
+    heading_font: {google: "Roboto Slab"}
+    primary:  "#090d14"
     link-color: "#1c4bc4ed"
-    code-color: "#8a2d2d" ##101527
+    code-color: "#122f43"
     text-decoration-color: "#151b21"
     body-color: "#1B222B" # Black Perl
+
+home:
+  sidebar:
+    structure:
+      - links
+      - project
+      - license
+      - community
+      - citation
+      - authors
+      - dev
+    components:
+       project:
+        title: TileDB docs
+        text: >
+          [Academy](https://documentation.cloud.tiledb.com/academy/structure/arrays/) <br>
+          [TileDB-R](https://tiledb-inc.github.io/TileDB-R/)
 
 navbar:
   title: "R6.tiledb"
