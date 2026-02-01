@@ -221,6 +221,7 @@ TileDBObject <- R6::R6Class(
   active = list(
 
     #' @field ctx TileDB Context.
+    #'
     ctx = function(value) {
       if (!missing(value)) {
         private$check_read_only("ctx")
@@ -451,7 +452,10 @@ TileDBObject <- R6::R6Class(
 
 
     # ----------------------------------------------------------------
-    # Assertion - utilities
+    # Helpers
+    #
+    # These are used by child classes. Do not remove or change without notification
+    # or deprecation warning.
 
     # Assert a TileDB object if it is open in 'READ' mode
     #
