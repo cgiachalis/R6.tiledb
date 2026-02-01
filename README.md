@@ -27,7 +27,7 @@ To use `R6.tiledb`, first create a TileDB resource:
   # Demo array from 'UCBAdmissions' built-in dataset
   demo_UCBAdmissions_array(uri)
   
-  # Create an instance that represents a TileDB Array
+  # Create an instance that represents the array
   arrobj <- tdb_array(uri)
   
   arrobj
@@ -60,7 +60,7 @@ Using class methods :
 #> 4    A   Male Admitted  512
 ```
 
-For more examples, see [Getting Started](https://cgiachalis.github.io/R6.tiledb/articles/getting_started.html).
+For more examples, see [Getting Started](https://cgiachalis.github.io/R6.tiledb/articles/getting_started.html) documentation.
 
 ## Installation
 
@@ -76,8 +76,8 @@ remotes::install_github("cgiachalis/R6.tiledb")
 
 ## Acknowledgements
 
-`TileDB` [SOMA-R](https://github.com/single-cell-data/TileDB-SOMA/tree/main/apis/r) project from extracting and modifying the R6 base classes: `TileDBArray` and `TileDBGroup`;
-but that they are not drop-in replacements[^1].
+`TileDB` [SOMA-R](https://github.com/single-cell-data/TileDB-SOMA/tree/main/apis/r) project for extracting from and modifying the R6 base classes: `TileDBArray` and `TileDBGroup`
+but they are not drop-in replacements[^1].
 
 [^1]: R6 class names: `TileDBArray` and `TileDBGroup` are no longer used by SOMA-R
 
