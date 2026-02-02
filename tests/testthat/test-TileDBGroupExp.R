@@ -30,6 +30,10 @@ test_that("'TileDBGroupExp' class works as expected", {
   expect_true(grpObj$has_non_members())
   expect_equal( grpObj$non_members(), dm[2, ], ignore_attr = TRUE)
 
+  # prune non members
+  expect_no_error(pruned_uri <- grpObj$prune_non_members())
+  expect_equal(pruned_uri, dm[2, "URI"])
+
   # delete group layer with recursive deleting objects
   expect_invisible(obj <- grpObj$delete_group())
   expect_s3_class(obj, class = "TileDBGroupExp")
@@ -39,7 +43,7 @@ test_that("'TileDBGroupExp' class works as expected", {
 
   # check we have not deleted resources under uri path
   dm2 <- tiledb::tiledb_object_walk(uri)
-  expect_equal(dm2, dm, ignore_attr = TRUE)
+  expect_equal(dm2, dm[1, ], ignore_attr = TRUE)
   rm(grpObj)
 
 
