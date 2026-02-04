@@ -1,0 +1,93 @@
+# Introduction
+
+R6.tiledb extends TileDB’ R client
+[tiledb](https://cran.r-project.org/web/packages/tiledb/index.html)
+using encapsulated classes with reference semantics provided by
+[R6](https://cran.r-project.org/web/packages/R6/index.html). The package
+offers base classes with minimal functionality that can be shared with
+child classes. With the base classes, one can start building complex
+interactions between sub-classes (that represent arrays and groups) or
+other R objects in order to create coherent applications on any domain,
+e.g, time-series databases, model registries (statistical learning,
+econometrics etc) or key-value stores.
+
+R6.tiledb also provides classes with additional functionality, S3
+methods and convenient utilities to interact with TileDB objects.
+
+The rest of article outlines the project’s design structure.
+
+## Minimal Classes
+
+`TileDBArray` and `TileDBGroup` are the minimal classes and are intended
+to be used inside other packages, either as base classes or to be
+extended on the fly using R6 built-in method
+[\$set()](https://r6.r-lib.org/reference/R6Class.html#arg-lock-class) by
+adding new member functions to the generator object.
+
+Note that the light-weighted minimal classes are derived from the parent
+class `TileDBObject` that is used to share functionality across
+`TileDBArray` and `TileDBGroup` but it is not recommended for direct
+usage.
+
+## Expanded Classes
+
+`TileDBArrayExp` and `TileDBGroupExp` are based on `TileDBArray` and
+`TileDBGroup` respectively and encapsulate additional member functions
+in order to work conveniently with arrays and groups. They do not cover
+every possible functionality offered by
+[tiledb](https://cran.r-project.org/web/packages/tiledb/index.html) but
+can be extended should someone wish to.
+
+You can access these classes using their functional wrappers
+[`tdb_array()`](https://cgiachalis.github.io/R6.tiledb/reference/tdb_array.md)
+and
+[`tdb_group()`](https://cgiachalis.github.io/R6.tiledb/reference/tdb_group.md).
+Additionally, the helpers
+[`tdb_array_create()`](https://cgiachalis.github.io/R6.tiledb/reference/tdb_array_create.md)
+and
+[`tdb_group_create()`](https://cgiachalis.github.io/R6.tiledb/reference/tdb_group_create.md)
+can facilitate the creation of TileDB object and instantiation of the
+expanded class.
+
+## Fragments
+
+To work with fragments, the package provides a `TileDBFragments` class
+and a functional wrapper
+[`tdb_fragments()`](https://cgiachalis.github.io/R6.tiledb/reference/tdb_fragments.md).
+The latter can be also accessed from `TileDBArrayExp` active field
+`$fragments_object`. With the class methods you can view, query or
+delete array fragments.
+
+## Metadata
+
+Various S3 methods are offered to support metadata operations on single
+or multiple keys:
+[`metadata()`](https://cgiachalis.github.io/R6.tiledb/reference/metadata.md),
+[`set_metadata()`](https://cgiachalis.github.io/R6.tiledb/reference/set_metadata.md),
+[`fetch_metadata()`](https://cgiachalis.github.io/R6.tiledb/reference/fetch_metadata.md)
+and
+[`delete_metadata()`](https://cgiachalis.github.io/R6.tiledb/reference/delete_metadata.md).
+
+## Time-travelling
+
+R6.tiledb supports time-travelling operations (read, write) but with
+different interfaces.
+
+For read-only time-travelling, you can set the time-stamp(s) either at
+instantiation through `tiledb_timestamp` argument or using the mutable
+active field `$tiledb_timestamp`. Both options are applicable for `READ`
+mode.
+
+``` r
+# Set a timestamp range [origin, now - 10 days]
+arrobj <- TileDBArray$new(uri, tiledb_timestamp = Sys.Date() - 10)
+
+# Reset timestamps
+arrobj$tiledb_timestamp <- NULL
+```
+
+For time-travelling writes, use
+[`open_write()`](https://cgiachalis.github.io/R6.tiledb/reference/open_write.md)
+or
+[`set_metadata()`](https://cgiachalis.github.io/R6.tiledb/reference/set_metadata.md)
+methods with `timestamp` argument.

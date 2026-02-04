@@ -1,0 +1,44 @@
+# Frequently Asked Questions
+
+**R6.tiledb FAQ**
+
+------------------------------------------------------------------------
+
+#### 1. How can I get the underlying object from `TileDBArray` and `TileDBGroup`?
+
+Both classes have an active binding field `$object` that gives access to
+underlying tiledb object, i.e., either
+[`tiledb_array()`](https://tiledb-inc.github.io/TileDB-R/reference/tiledb_array.html)
+or
+[`tiledb_group()`](https://tiledb-inc.github.io/TileDB-R/reference/tiledb_group.html)
+objects.
+
+Note that with `TileDBArray` you can also use the `$tiledb_array()`
+method that gives access to a separate array handle.
+
+#### 2. How can I use time-travelling feature?
+
+Use either `tiledb_timestamp` argument at instantiation of `TileDBArray`
+and `TileDBGroup` classes or their mutable active field
+`tiledb_timestamp`. These options work for read mode only.
+
+For writing commits at arbitrary point in time, use
+[`open_write()`](https://cgiachalis.github.io/R6.tiledb/reference/open_write.md)
+and for metadata use
+[`set_metadata()`](https://cgiachalis.github.io/R6.tiledb/reference/set_metadata.md)
+method with its `timestamp` argument.
+
+#### 3. How can I see the last commit?
+
+Use `$get_last_ifragments()` method:
+
+``` r
+# array uri
+uri <- "array path here"
+
+# instantiate TileDBFragments
+fobj <- tdb_fragments(uri)
+
+# last i fragments
+fobj$get_last_ifragments(1)
+```
