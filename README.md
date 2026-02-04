@@ -22,7 +22,7 @@ its functional interface to work with existing TileDB resources.
 
 To use `R6.tiledb`, first create a TileDB resource:
 
-``` r
+```r
 
  library(R6.tiledb)
 
@@ -44,7 +44,7 @@ To use `R6.tiledb`, first create a TileDB resource:
 
 Using class methods :
 
-``` r
+```r
 
  # Query the number of fragments 
  arrobj$frag_num()
