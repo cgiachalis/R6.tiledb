@@ -1,7 +1,7 @@
 Package: R6.tiledb
 Title: R6 Classes for TileDB Arrays and Groups
-Version: 0.2.0.36
-Date: 2026-02-02
+Version: 0.2.0.37
+Date: 2026-02-04
 Authors@R: c(
     person("Constantinos", "Giachalis", ,
     "26255858+cgiachalis@users.noreply.github.com", role = c("aut", "cre")),
@@ -15,7 +15,7 @@ Description: Provides foundational R6 classes to interface with 'TileDB'
     classes 'TileDBArray' and 'TileDBGroup' can be easily extended to new
     subclasses for representing and support any data model.
 License: MIT + file LICENSE
-URL: https://github.com/cgiachalis/R6.tiledb
+URL: https://github.com/cgiachalis/R6.tiledb, https://cgiachalis.github.io/R6.tiledb/
 BugReports: https://github.com/cgiachalis/R6.tiledb/issues
 Depends:
     R (>= 4.4.0)
