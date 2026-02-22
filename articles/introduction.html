@@ -22,7 +22,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">R6.tiledb</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0.38</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0.39</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -68,7 +68,7 @@
 
       <h1>Introduction</h1>
             
-            <h4 data-toc-skip class="date">2026-01-29</h4>
+            <h4 data-toc-skip class="date">2026-02-22</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/cgiachalis/R6.tiledb/blob/master/vignettes/introduction.Rmd" class="external-link"><code>vignettes/introduction.Rmd</code></a></small>
       <div class="d-none name"><code>introduction.Rmd</code></div>
@@ -76,13 +76,13 @@
 
     
     
-<p>R6.tiledb extends TileDB’ R client <a href="https://cran.r-project.org/web/packages/tiledb/index.html" class="external-link">tiledb</a>
+<p>R6.tiledb extends TileDB R client <a href="https://cran.r-project.org/web/packages/tiledb/index.html" class="external-link">tiledb</a>
 using encapsulated classes with reference semantics provided by <a href="https://cran.r-project.org/web/packages/R6/index.html" class="external-link">R6</a>. The
 package offers base classes with minimal functionality that can be
-shared with child classes. With the base classes, one can start building
-complex interactions between sub-classes (that represent arrays and
-groups) or other R objects in order to create coherent applications on
-any domain, e.g, time-series databases, model registries (statistical
+shared across child classes. With the base classes, one can start
+building complex interactions between sub-classes (that represent arrays
+and groups) or other R objects in order to create coherent applications
+on any domain, e.g, time-series databases, model registries (statistical
 learning, econometrics etc) or key-value stores.</p>
 <p>R6.tiledb also provides classes with additional functionality, S3
 methods and convenient utilities to interact with TileDB objects.</p>
@@ -117,12 +117,13 @@ object and instantiation of the expanded class.</p>
 <div class="section level2">
 <h2 id="fragments">Fragments<a class="anchor" aria-label="anchor" href="#fragments"></a>
 </h2>
-<p>To work with fragments, the package provides a
-<code>TileDBFragments</code> class and a functional wrapper
-<code><a href="../reference/tdb_fragments.html">tdb_fragments()</a></code>. The latter can be also accessed from
-<code>TileDBArrayExp</code> active field <code>$fragments_object</code>.
-With the class methods you can view, query or delete array
-fragments.</p>
+<p>To work with fragments, the package provides a <a href="https://cgiachalis.github.io/R6.tiledb/reference/TileDBFragments.html">TileDBFragments</a>
+class and a functional wrapper <code><a href="../reference/tdb_fragments.html">tdb_fragments()</a></code>. The latter
+can be also accessed from <code>TileDBArrayExp</code> active field
+<code>$fragments_object</code>.</p>
+<p>Use <code>TileDBFragments</code> class methods to view and inspect
+fragments properties, get information about vacuuming, as well as to
+perform fragment deletions.</p>
 </div>
 <div class="section level2">
 <h2 id="metadata">Metadata<a class="anchor" aria-label="anchor" href="#metadata"></a>

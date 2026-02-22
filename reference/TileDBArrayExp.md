@@ -273,8 +273,9 @@ Consolidates the fragments of the array into a single fragment.
 
   A configuration object
   [`tiledb::tiledb_config()`](https://tiledb-inc.github.io/TileDB-R/reference/tiledb_config.html)
-  to set parameters for the consolidation. When `NULL` (default) the
-  configuration parameters will be retrieved from object's context.
+  to override context configuration except for parameters set by `mode`,
+  `start_time`, `end_time`. When `NULL` (default) the configuration
+  parameters will be retrieved from object's context.
 
 - `start_time, end_time`:
 
@@ -325,8 +326,9 @@ package**.
 
   A configuration object
   [`tiledb::tiledb_config()`](https://tiledb-inc.github.io/TileDB-R/reference/tiledb_config.html)
-  to set parameters for the consolidation. When `NULL` (default) the
-  configuration parameters will be retrieved from object's context.
+  to override context configuration except for parameters set by `mode`,
+  `start_time`, `end_time`. When `NULL` (default) the configuration
+  parameters will be retrieved from object's context.
 
 - `start_time, end_time`:
 
@@ -371,7 +373,7 @@ Clean up consolidated fragments and array metadata.
 
   A configuration object
   [`tiledb::tiledb_config()`](https://tiledb-inc.github.io/TileDB-R/reference/tiledb_config.html)
-  to set parameters for the vacuum. When `NULL` (default) the
+  to override context configuration. When `NULL` (default) the
   configuration parameters will be retrieved from object's context.
 
 #### Returns
@@ -414,7 +416,7 @@ package**.
 
   A configuration object
   [`tiledb::tiledb_config()`](https://tiledb-inc.github.io/TileDB-R/reference/tiledb_config.html)
-  to set parameters for the vacuum process. When `NULL` (default) the
+  to override context configuration. When `NULL` (default) the
   configuration parameters will be retrieved from object's context.
 
 #### Returns
@@ -455,9 +457,9 @@ Consolidates and vacuums the fragments.
 
   A configuration object
   [`tiledb::tiledb_config()`](https://tiledb-inc.github.io/TileDB-R/reference/tiledb_config.html)
-  to set parameters for the consolidation and vacuum. When `NULL`
-  (default) the configuration parameters will be retrieved from object's
-  context.
+  to override context configuration except for parameters set by `mode`,
+  `start_time`, `end_time`. When `NULL` (default) the configuration
+  parameters will be retrieved from object's context.
 
 - `start_time, end_time`:
 
@@ -507,9 +509,9 @@ package**.
 
   A configuration object
   [`tiledb::tiledb_config()`](https://tiledb-inc.github.io/TileDB-R/reference/tiledb_config.html)
-  to set parameters for the consolidation and vacuum. When `NULL`
-  (default) the configuration parameters will be retrieved from object's
-  context.
+  to override context configuration except for parameters set by `mode`,
+  `start_time`, `end_time`. When `NULL` (default) the configuration
+  parameters will be retrieved from object's context.
 
 - `start_time, end_time`:
 

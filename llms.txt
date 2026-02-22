@@ -24,47 +24,47 @@ To use `R6.tiledb`, first create a TileDB resource:
 
 ``` r
 
- library(R6.tiledb)
+library(R6.tiledb)
 
- # URI path
- uri <- tempfile()
+# URI path
+uri <- tempfile()
   
- # Demo array from 'UCBAdmissions' built-in dataset
- demo_UCBAdmissions_array(uri)
+# Demo array from 'UCBAdmissions' built-in dataset
+demo_UCBAdmissions_array(uri)
   
- # Create an instance that represents the array
- arrobj <- tdb_array(uri)
+# Create an instance that represents the array
+arrobj <- tdb_array(uri)
   
- arrobj
- #> R6Class: <TileDBArrayExp>
- #> → URI Basename: file3ea47b75133b
- #>   • Dimensions: "Dept" and "Gender"
- #>   • Attributes: "Admit" and "Freq"
+arrobj
+#> R6Class: <TileDBArrayExp>
+#> → URI Basename: file3ea47b75133b
+#>   • Dimensions: "Dept" and "Gender"
+#>   • Attributes: "Admit" and "Freq"
 ```
 
 Using class methods :
 
 ``` r
 
- # Query the number of fragments 
- arrobj$frag_num()
- #> [1] 3
+# Query the number of fragments 
+arrobj$frag_num()
+#> [1] 3
 
- # Does the array have factors (enums)
- arrobj$any_enums()
- #>[1] TRUE
+# Does the array have factors (enums)
+arrobj$any_enums()
+#>[1] TRUE
 
- # Run query on 'Dept' dimension
- arr <- arrobj$tiledb_array(selected_points = list(Dept = "A"),
-                            return_as = "data.frame")
+# Run query on 'Dept' dimension
+arr <- arrobj$tiledb_array(selected_points = list(Dept = "A"),
+                           return_as = "data.frame")
                             
- # Materialise array as 'data.frame'                   
- arr[]
- #>   Dept Gender    Admit Freq
- #> 1    A Female Admitted   89
- #> 2    A Female Rejected   19
- #> 3    A   Male Rejected  313
- #> 4    A   Male Admitted  512
+# Materialise array as 'data.frame'                   
+arr[]
+#>   Dept Gender    Admit Freq
+#> 1    A Female Admitted   89
+#> 2    A Female Rejected   19
+#> 3    A   Male Rejected  313
+#> 4    A   Male Admitted  512
 ```
 
 See [Getting
@@ -109,7 +109,8 @@ considered drop-in replacements[¹](#fn1).
 
 ## Disclaimer
 
-Please note that this project is not an official TileDB-Inc product.
+The `R6.tiledb` R package is an independent project and not a TileDB
+product offering, neither its maintainer is affiliated with TileDB-Inc.
 
 ------------------------------------------------------------------------
 

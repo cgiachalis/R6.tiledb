@@ -43,7 +43,7 @@ at READ mode.
 
     <a class="navbar-brand me-2" href="../index.html">R6.tiledb</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0.38</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0.39</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -311,9 +311,10 @@ a single fragment.</p><div class="section">
 
 
 <dt><code>cfg</code></dt>
-<dd><p>A configuration object <code><a href="https://tiledb-inc.github.io/TileDB-R/reference/tiledb_config.html" class="external-link">tiledb::tiledb_config()</a></code> to set parameters
-for the consolidation. When <code>NULL</code> (default) the configuration parameters will
-be retrieved from object's context.</p></dd>
+<dd><p>A configuration object <code><a href="https://tiledb-inc.github.io/TileDB-R/reference/tiledb_config.html" class="external-link">tiledb::tiledb_config()</a></code> to override context
+configuration except for parameters set by <code>mode</code>, <code>start_time</code>, <code>end_time</code>.
+When <code>NULL</code> (default) the configuration parameters will be retrieved from
+object's context.</p></dd>
 
 
 <dt><code>start_time, end_time</code></dt>
@@ -352,9 +353,10 @@ asynchronously.</p>
 
 
 <dt><code>cfg</code></dt>
-<dd><p>A configuration object <code><a href="https://tiledb-inc.github.io/TileDB-R/reference/tiledb_config.html" class="external-link">tiledb::tiledb_config()</a></code> to set parameters
-for the consolidation. When <code>NULL</code> (default) the configuration parameters will
-be retrieved from object's context.</p></dd>
+<dd><p>A configuration object <code><a href="https://tiledb-inc.github.io/TileDB-R/reference/tiledb_config.html" class="external-link">tiledb::tiledb_config()</a></code> to override context
+configuration except for parameters set by <code>mode</code>, <code>start_time</code>, <code>end_time</code>.
+When <code>NULL</code> (default) the configuration parameters will be retrieved from
+object's context.</p></dd>
 
 
 <dt><code>start_time, end_time</code></dt>
@@ -390,9 +392,9 @@ resolved, it returns <code>TRUE</code> indicating consolidation success.</p>
 
 
 <dt><code>cfg</code></dt>
-<dd><p>A configuration object <code><a href="https://tiledb-inc.github.io/TileDB-R/reference/tiledb_config.html" class="external-link">tiledb::tiledb_config()</a></code> to set parameters
-for the vacuum. When <code>NULL</code> (default) the configuration parameters
-will be retrieved from object's context.</p></dd>
+<dd><p>A configuration object <code><a href="https://tiledb-inc.github.io/TileDB-R/reference/tiledb_config.html" class="external-link">tiledb::tiledb_config()</a></code> to override context
+configuration. When <code>NULL</code> (default) the configuration parameters will be retrieved from
+object's context.</p></dd>
 
 
 </dl><p></p></div>
@@ -423,9 +425,9 @@ will be retrieved from object's context.</p></dd>
 
 
 <dt><code>cfg</code></dt>
-<dd><p>A configuration object <code><a href="https://tiledb-inc.github.io/TileDB-R/reference/tiledb_config.html" class="external-link">tiledb::tiledb_config()</a></code> to set parameters
-for the vacuum process. When <code>NULL</code> (default) the configuration parameters will
-be retrieved from object's context.</p></dd>
+<dd><p>A configuration object <code><a href="https://tiledb-inc.github.io/TileDB-R/reference/tiledb_config.html" class="external-link">tiledb::tiledb_config()</a></code> to override context
+configuration. When <code>NULL</code> (default) the configuration parameters will be retrieved from
+object's context.</p></dd>
 
 
 </dl><p></p></div>
@@ -456,9 +458,10 @@ resolved, it returns <code>TRUE</code> indicating vacuum success.</p>
 
 
 <dt><code>cfg</code></dt>
-<dd><p>A configuration object <code><a href="https://tiledb-inc.github.io/TileDB-R/reference/tiledb_config.html" class="external-link">tiledb::tiledb_config()</a></code> to set parameters
-for the consolidation and vacuum. When <code>NULL</code> (default) the configuration parameters will
-be retrieved from object's context.</p></dd>
+<dd><p>A configuration object <code><a href="https://tiledb-inc.github.io/TileDB-R/reference/tiledb_config.html" class="external-link">tiledb::tiledb_config()</a></code> to override context
+configuration except for parameters set by <code>mode</code>, <code>start_time</code>, <code>end_time</code>.
+When <code>NULL</code> (default) the configuration parameters will be retrieved from
+object's context.</p></dd>
 
 
 <dt><code>start_time, end_time</code></dt>
@@ -496,9 +499,10 @@ object will be used.</p></dd>
 
 
 <dt><code>cfg</code></dt>
-<dd><p>A configuration object <code><a href="https://tiledb-inc.github.io/TileDB-R/reference/tiledb_config.html" class="external-link">tiledb::tiledb_config()</a></code> to set parameters
-for the consolidation and vacuum. When <code>NULL</code> (default) the configuration parameters will
-be retrieved from object's context.</p></dd>
+<dd><p>A configuration object <code><a href="https://tiledb-inc.github.io/TileDB-R/reference/tiledb_config.html" class="external-link">tiledb::tiledb_config()</a></code> to override context
+configuration except for parameters set by <code>mode</code>, <code>start_time</code>, <code>end_time</code>.
+When <code>NULL</code> (default) the configuration parameters will be retrieved from
+object's context.</p></dd>
 
 
 <dt><code>start_time, end_time</code></dt>

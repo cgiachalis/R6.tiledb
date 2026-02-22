@@ -24,7 +24,7 @@
 
     <a class="navbar-brand me-2" href="index.html">R6.tiledb</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0.38</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0.39</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -77,44 +77,44 @@
 <p>To use <code>R6.tiledb</code>, first create a TileDB resource:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
-<span> <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/cgiachalis/R6.tiledb" class="external-link">R6.tiledb</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/cgiachalis/R6.tiledb" class="external-link">R6.tiledb</a></span><span class="op">)</span></span>
 <span></span>
-<span> <span class="co"># URI path</span></span>
-<span> <span class="va">uri</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co"># URI path</span></span>
+<span><span class="va">uri</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span><span class="op">)</span></span>
 <span>  </span>
-<span> <span class="co"># Demo array from 'UCBAdmissions' built-in dataset</span></span>
-<span> <span class="fu">demo_UCBAdmissions_array</span><span class="op">(</span><span class="va">uri</span><span class="op">)</span></span>
+<span><span class="co"># Demo array from 'UCBAdmissions' built-in dataset</span></span>
+<span><span class="fu">demo_UCBAdmissions_array</span><span class="op">(</span><span class="va">uri</span><span class="op">)</span></span>
 <span>  </span>
-<span> <span class="co"># Create an instance that represents the array</span></span>
-<span> <span class="va">arrobj</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/tdb_array.html">tdb_array</a></span><span class="op">(</span><span class="va">uri</span><span class="op">)</span></span>
+<span><span class="co"># Create an instance that represents the array</span></span>
+<span><span class="va">arrobj</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/tdb_array.html">tdb_array</a></span><span class="op">(</span><span class="va">uri</span><span class="op">)</span></span>
 <span>  </span>
-<span> <span class="va">arrobj</span></span>
-<span> <span class="co">#&gt; R6Class: &lt;TileDBArrayExp&gt;</span></span>
-<span> <span class="co">#&gt; → URI Basename: file3ea47b75133b</span></span>
-<span> <span class="co">#&gt;   • Dimensions: "Dept" and "Gender"</span></span>
-<span> <span class="co">#&gt;   • Attributes: "Admit" and "Freq"</span></span></code></pre></div>
+<span><span class="va">arrobj</span></span>
+<span><span class="co">#&gt; R6Class: &lt;TileDBArrayExp&gt;</span></span>
+<span><span class="co">#&gt; → URI Basename: file3ea47b75133b</span></span>
+<span><span class="co">#&gt;   • Dimensions: "Dept" and "Gender"</span></span>
+<span><span class="co">#&gt;   • Attributes: "Admit" and "Freq"</span></span></code></pre></div>
 <p>Using class methods :</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
-<span> <span class="co"># Query the number of fragments </span></span>
-<span> <span class="va">arrobj</span><span class="op">$</span><span class="fu">frag_num</span><span class="op">(</span><span class="op">)</span></span>
-<span> <span class="co">#&gt; [1] 3</span></span>
+<span><span class="co"># Query the number of fragments </span></span>
+<span><span class="va">arrobj</span><span class="op">$</span><span class="fu">frag_num</span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 3</span></span>
 <span></span>
-<span> <span class="co"># Does the array have factors (enums)</span></span>
-<span> <span class="va">arrobj</span><span class="op">$</span><span class="fu">any_enums</span><span class="op">(</span><span class="op">)</span></span>
-<span> <span class="co">#&gt;[1] TRUE</span></span>
+<span><span class="co"># Does the array have factors (enums)</span></span>
+<span><span class="va">arrobj</span><span class="op">$</span><span class="fu">any_enums</span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt;[1] TRUE</span></span>
 <span></span>
-<span> <span class="co"># Run query on 'Dept' dimension</span></span>
-<span> <span class="va">arr</span> <span class="op">&lt;-</span> <span class="va">arrobj</span><span class="op">$</span><span class="fu">tiledb_array</span><span class="op">(</span>selected_points <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>Dept <span class="op">=</span> <span class="st">"A"</span><span class="op">)</span>,</span>
-<span>                            return_as <span class="op">=</span> <span class="st">"data.frame"</span><span class="op">)</span></span>
+<span><span class="co"># Run query on 'Dept' dimension</span></span>
+<span><span class="va">arr</span> <span class="op">&lt;-</span> <span class="va">arrobj</span><span class="op">$</span><span class="fu">tiledb_array</span><span class="op">(</span>selected_points <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>Dept <span class="op">=</span> <span class="st">"A"</span><span class="op">)</span>,</span>
+<span>                           return_as <span class="op">=</span> <span class="st">"data.frame"</span><span class="op">)</span></span>
 <span>                            </span>
-<span> <span class="co"># Materialise array as 'data.frame'                   </span></span>
-<span> <span class="va">arr</span><span class="op">[</span><span class="op">]</span></span>
-<span> <span class="co">#&gt;   Dept Gender    Admit Freq</span></span>
-<span> <span class="co">#&gt; 1    A Female Admitted   89</span></span>
-<span> <span class="co">#&gt; 2    A Female Rejected   19</span></span>
-<span> <span class="co">#&gt; 3    A   Male Rejected  313</span></span>
-<span> <span class="co">#&gt; 4    A   Male Admitted  512</span></span></code></pre></div>
+<span><span class="co"># Materialise array as 'data.frame'                   </span></span>
+<span><span class="va">arr</span><span class="op">[</span><span class="op">]</span></span>
+<span><span class="co">#&gt;   Dept Gender    Admit Freq</span></span>
+<span><span class="co">#&gt; 1    A Female Admitted   89</span></span>
+<span><span class="co">#&gt; 2    A Female Rejected   19</span></span>
+<span><span class="co">#&gt; 3    A   Male Rejected  313</span></span>
+<span><span class="co">#&gt; 4    A   Male Admitted  512</span></span></code></pre></div>
 <p>See <a href="https://cgiachalis.github.io/R6.tiledb/articles/getting_started.html">Getting Started</a> documentation for more examples.</p>
 </div>
 <div class="section level2">
@@ -146,7 +146,7 @@
 <div class="section level2">
 <h2 id="disclaimer">Disclaimer<a class="anchor" aria-label="anchor" href="#disclaimer"></a>
 </h2>
-<p>Please note that this project is not an official TileDB-Inc product.</p>
+<p>The <code>R6.tiledb</code> R package is an independent project and not a TileDB product offering, neither its maintainer is affiliated with TileDB-Inc.</p>
 </div>
 </div>
 
@@ -195,6 +195,8 @@
 <ul class="list-unstyled">
 <li><a href="#"><img src="https://img.shields.io/badge/repo%20status-stable-brightgreen.svg" alt="repo-status"></a></li>
 <li><a href="https://CRAN.R-project.org/package=R6.tiledb" class="external-link"><img src="https://www.r-pkg.org/badges/version/R6.tiledb" alt="CRAN status"></a></li>
+<li><a href="https://github.com/cgiachalis/R6.tiledb/actions/workflows/R-CMD-check.yaml" class="external-link"><img src="https://github.com/cgiachalis/R6.tiledb/actions/workflows/R-CMD-check.yaml/badge.svg" alt="R-CMD-check"></a></li>
+<li><a href="https://github.com/cgiachalis/R6.tiledb" class="external-link"><img src="https://img.shields.io/github/last-commit/cgiachalis/R6.tiledb" alt="Last Commit"></a></li>
 <li><a href="#"><img src="https://img.shields.io/badge/coverage-95.2%25-blue.svg" alt="coverage"></a></li>
 </ul>
 </div>

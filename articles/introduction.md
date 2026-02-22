@@ -1,10 +1,10 @@
 # Introduction
 
-R6.tiledb extends TileDB’ R client
+R6.tiledb extends TileDB R client
 [tiledb](https://cran.r-project.org/web/packages/tiledb/index.html)
 using encapsulated classes with reference semantics provided by
 [R6](https://cran.r-project.org/web/packages/R6/index.html). The package
-offers base classes with minimal functionality that can be shared with
+offers base classes with minimal functionality that can be shared across
 child classes. With the base classes, one can start building complex
 interactions between sub-classes (that represent arrays and groups) or
 other R objects in order to create coherent applications on any domain,
@@ -51,12 +51,16 @@ expanded class.
 
 ## Fragments
 
-To work with fragments, the package provides a `TileDBFragments` class
-and a functional wrapper
+To work with fragments, the package provides a
+[TileDBFragments](https://cgiachalis.github.io/R6.tiledb/reference/TileDBFragments.html)
+class and a functional wrapper
 [`tdb_fragments()`](https://cgiachalis.github.io/R6.tiledb/reference/tdb_fragments.md).
 The latter can be also accessed from `TileDBArrayExp` active field
-`$fragments_object`. With the class methods you can view, query or
-delete array fragments.
+`$fragments_object`.
+
+Use `TileDBFragments` class methods to view and inspect fragments
+properties, get information about vacuuming, as well as to perform
+fragment deletions.
 
 ## Metadata
 
