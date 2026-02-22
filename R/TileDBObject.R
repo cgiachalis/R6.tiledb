@@ -305,6 +305,7 @@ TileDBObject <- R6::R6Class(
         private$.mode
       }
     },
+
     #' @field object_type The TileDB object type:
     #'
     #'  - `"ARRAY"`, for dense or sparse array resource

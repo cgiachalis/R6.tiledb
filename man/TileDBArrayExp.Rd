@@ -232,9 +232,10 @@ a single fragment.
 \item \code{"array_meta"}: - consolidate array metadata only
 }}
 
-\item{\code{cfg}}{A configuration object \code{\link[tiledb:tiledb_config]{tiledb::tiledb_config()}} to set parameters
-for the consolidation. When \code{NULL} (default) the configuration parameters will
-be retrieved from object's context.}
+\item{\code{cfg}}{A configuration object \code{\link[tiledb:tiledb_config]{tiledb::tiledb_config()}} to override context
+configuration except for parameters set by \code{mode}, \code{start_time}, \code{end_time}.
+When \code{NULL} (default) the configuration parameters will be retrieved from
+object's context.}
 
 \item{\code{start_time, end_time}}{Optional time stamp values. A date time objects
 of class \code{POSIXt}. If not provided, the default values from configuration
@@ -273,9 +274,10 @@ The consolidation will run in a separate R process in a clean environment.
 \item \code{"array_meta"}: - consolidate array metadata only
 }}
 
-\item{\code{cfg}}{A configuration object \code{\link[tiledb:tiledb_config]{tiledb::tiledb_config()}} to set parameters
-for the consolidation. When \code{NULL} (default) the configuration parameters will
-be retrieved from object's context.}
+\item{\code{cfg}}{A configuration object \code{\link[tiledb:tiledb_config]{tiledb::tiledb_config()}} to override context
+configuration except for parameters set by \code{mode}, \code{start_time}, \code{end_time}.
+When \code{NULL} (default) the configuration parameters will be retrieved from
+object's context.}
 
 \item{\code{start_time, end_time}}{Optional time stamp values. A date time objects
 of class \code{POSIXt}. If not provided, the default values from configuration
@@ -309,9 +311,9 @@ Clean up consolidated fragments and array metadata.
 \item \code{"array_meta"}: - vacuum array metadata only
 }}
 
-\item{\code{cfg}}{A configuration object \code{\link[tiledb:tiledb_config]{tiledb::tiledb_config()}} to set parameters
-for the vacuum. When \code{NULL} (default) the configuration parameters
-will be retrieved from object's context.}
+\item{\code{cfg}}{A configuration object \code{\link[tiledb:tiledb_config]{tiledb::tiledb_config()}} to override context
+configuration. When \code{NULL} (default) the configuration parameters will be retrieved from
+object's context.}
 }
 \if{html}{\out{</div>}}
 }
@@ -344,9 +346,9 @@ The clean up will run in a separate R process in a clean environment.
 \item \code{"array_meta"}: - vacuum array metadata only
 }}
 
-\item{\code{cfg}}{A configuration object \code{\link[tiledb:tiledb_config]{tiledb::tiledb_config()}} to set parameters
-for the vacuum process. When \code{NULL} (default) the configuration parameters will
-be retrieved from object's context.}
+\item{\code{cfg}}{A configuration object \code{\link[tiledb:tiledb_config]{tiledb::tiledb_config()}} to override context
+configuration. When \code{NULL} (default) the configuration parameters will be retrieved from
+object's context.}
 }
 \if{html}{\out{</div>}}
 }
@@ -377,9 +379,10 @@ Consolidates and vacuums the fragments.
 \item \code{"array_meta"}: - consolidate array metadata only
 }}
 
-\item{\code{cfg}}{A configuration object \code{\link[tiledb:tiledb_config]{tiledb::tiledb_config()}} to set parameters
-for the consolidation and vacuum. When \code{NULL} (default) the configuration parameters will
-be retrieved from object's context.}
+\item{\code{cfg}}{A configuration object \code{\link[tiledb:tiledb_config]{tiledb::tiledb_config()}} to override context
+configuration except for parameters set by \code{mode}, \code{start_time}, \code{end_time}.
+When \code{NULL} (default) the configuration parameters will be retrieved from
+object's context.}
 
 \item{\code{start_time, end_time}}{Optional time stamp values. A date time objects
 of class \code{POSIXt}. If not provided, the default values from configuration
@@ -417,9 +420,10 @@ The consolidation and vacuum will run in a separate R process in a clean environ
 \item \code{"array_meta"}: - consolidate array metadata only
 }}
 
-\item{\code{cfg}}{A configuration object \code{\link[tiledb:tiledb_config]{tiledb::tiledb_config()}} to set parameters
-for the consolidation and vacuum. When \code{NULL} (default) the configuration parameters will
-be retrieved from object's context.}
+\item{\code{cfg}}{A configuration object \code{\link[tiledb:tiledb_config]{tiledb::tiledb_config()}} to override context
+configuration except for parameters set by \code{mode}, \code{start_time}, \code{end_time}.
+When \code{NULL} (default) the configuration parameters will be retrieved from
+object's context.}
 
 \item{\code{start_time, end_time}}{Optional time stamp values. A date time objects
 of class \code{POSIXt}. If not provided, the default values from configuration

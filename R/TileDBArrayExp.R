@@ -99,6 +99,7 @@ TileDBArrayExp <- R6::R6Class(
     any_enums = function(){
       any(self$has_enumeration())
     },
+
     #' @description Retrieve factor columns (attributes).
     #'
     #' @return A character vector with factor columns (enumeration attributes).
@@ -109,6 +110,7 @@ TileDBArrayExp <- R6::R6Class(
       names(idx[idx])
 
     },
+
     #' @description Retrieve factor levels for a given attribute.
     #'
     #' @param x An attribute name.
@@ -134,6 +136,7 @@ TileDBArrayExp <- R6::R6Class(
       enum
 
     },
+
     #' @description Check columns for factors.
     #'
     #'
@@ -143,9 +146,6 @@ TileDBArrayExp <- R6::R6Class(
       tiledb::tiledb_array_has_enumeration(self$object)
     },
 
-    # TODO: add key https://github.com/TileDB-Inc/TileDB-Py/blob/28714d9b25d44d6c6c1f318525184d3784b7de00/tiledb/array.py#L729
-    # TODO: ctx? add example..
-    # TODO: ADD LIST OF CONFIGUREATION PARAMETERS
     #' @description Consolidates the fragments of the array into
     #'  a single fragment.
     #'
@@ -155,9 +155,11 @@ TileDBArrayExp <- R6::R6Class(
     #'  - `"commits"`: - consolidate all commit files
     #'  - `"fragment_meta"`: - consolidate only fragment metadata footers to a single file
     #'  - `"array_meta"`: - consolidate array metadata only
-    #' @param cfg A configuration object [tiledb::tiledb_config()] to set parameters
-    #'  for the consolidation. When `NULL` (default) the configuration parameters will
-    #'  be retrieved from object's context.
+    #'
+    #' @param cfg A configuration object [tiledb::tiledb_config()] to override context
+    #'  configuration except for parameters set by `mode`, `start_time`, `end_time`.
+    #'  When `NULL` (default) the configuration parameters will be retrieved from
+    #'  object's context.
     #' @param start_time,end_time Optional time stamp values. A date time objects
     #' of class `POSIXt`. If not provided, the default values from configuration
     #' object will be used.
@@ -194,6 +196,7 @@ TileDBArrayExp <- R6::R6Class(
 
       invisible(TRUE)
     },
+
     #' @description Consolidate fragments of the array into a single fragment
     #'  asynchronously.
     #'
@@ -207,9 +210,11 @@ TileDBArrayExp <- R6::R6Class(
     #'  - `"commits"`: - consolidate all commit files
     #'  - `"fragment_meta"`: - consolidate only fragment metadata footers to a single file
     #'  - `"array_meta"`: - consolidate array metadata only
-    #' @param cfg A configuration object [tiledb::tiledb_config()] to set parameters
-    #'  for the consolidation. When `NULL` (default) the configuration parameters will
-    #'  be retrieved from object's context.
+    #'
+    #' @param cfg A configuration object [tiledb::tiledb_config()] to override context
+    #'  configuration except for parameters set by `mode`, `start_time`, `end_time`.
+    #'  When `NULL` (default) the configuration parameters will be retrieved from
+    #'  object's context.
     #' @param start_time,end_time Optional time stamp values. A date time objects
     #' of class `POSIXt`. If not provided, the default values from configuration
     #' object will be used.
@@ -271,6 +276,7 @@ TileDBArrayExp <- R6::R6Class(
 
       m
     },
+
     #' @description Clean up consolidated fragments and array metadata.
     #'
     #' @param mode The vacuum mode, one of the following:
@@ -279,9 +285,10 @@ TileDBArrayExp <- R6::R6Class(
     #'  - `"commits"`: - vacuum all commit files
     #'  - `"fragment_meta"`: - vacuum only fragment metadata footers to a single file
     #'  - `"array_meta"`: - vacuum array metadata only
-    #' @param cfg A configuration object [tiledb::tiledb_config()] to set parameters
-    #'  for the vacuum. When `NULL` (default) the configuration parameters
-    #'  will be retrieved from object's context.
+    #'
+    #' @param cfg A configuration object [tiledb::tiledb_config()] to override context
+    #'  configuration. When `NULL` (default) the configuration parameters will be retrieved from
+    #'  object's context.
     #'
     #' @return `TRUE`, invisibly.
     #'
@@ -309,6 +316,7 @@ TileDBArrayExp <- R6::R6Class(
       invisible(TRUE)
 
     },
+
     #' @description Asynchronously clean up consolidated fragments and array metadata.
     #'
     #' The clean up will run in a separate R process in a clean environment.
@@ -321,9 +329,10 @@ TileDBArrayExp <- R6::R6Class(
     #'  - `"commits"`: - vacuum all commit files
     #'  - `"fragment_meta"`: - vacuum only fragment metadata footers to a single file
     #'  - `"array_meta"`: - vacuum array metadata only
-    #' @param cfg A configuration object [tiledb::tiledb_config()] to set parameters
-    #'  for the vacuum process. When `NULL` (default) the configuration parameters will
-    #'  be retrieved from object's context.
+    #'
+    #' @param cfg A configuration object [tiledb::tiledb_config()] to override context
+    #'  configuration. When `NULL` (default) the configuration parameters will be retrieved from
+    #'  object's context.
     #'
     #' @return This function will return a [mirai::mirai()] object immediately. When it is
     #' resolved, it returns `TRUE` indicating vacuum success.
@@ -375,6 +384,7 @@ TileDBArrayExp <- R6::R6Class(
 
       m
     },
+
     #' @description Consolidates and vacuums the fragments.
     #'
     #' @param mode The consolidate and vacuum mode, one of the following:
@@ -383,9 +393,11 @@ TileDBArrayExp <- R6::R6Class(
     #'  - `"commits"`: - consolidate all commit files
     #'  - `"fragment_meta"`: - consolidate only fragment metadata footers to a single file
     #'  - `"array_meta"`: - consolidate array metadata only
-    #' @param cfg A configuration object [tiledb::tiledb_config()] to set parameters
-    #'  for the consolidation and vacuum. When `NULL` (default) the configuration parameters will
-    #'  be retrieved from object's context.
+    #'
+    #' @param cfg A configuration object [tiledb::tiledb_config()] to override context
+    #'  configuration except for parameters set by `mode`, `start_time`, `end_time`.
+    #'  When `NULL` (default) the configuration parameters will be retrieved from
+    #'  object's context.
     #' @param start_time,end_time Optional time stamp values. A date time objects
     #' of class `POSIXt`. If not provided, the default values from configuration
     #' object will be used.
@@ -425,7 +437,6 @@ TileDBArrayExp <- R6::R6Class(
       invisible(TRUE)
     },
 
-
     #' @description Consolidate and vacuum fragments asynchronously.
     #'
     #' The consolidation and vacuum will run in a separate R process in a clean environment.
@@ -438,9 +449,11 @@ TileDBArrayExp <- R6::R6Class(
     #'  - `"commits"`: - consolidate all commit files
     #'  - `"fragment_meta"`: - consolidate only fragment metadata footers to a single file
     #'  - `"array_meta"`: - consolidate array metadata only
-    #' @param cfg A configuration object [tiledb::tiledb_config()] to set parameters
-    #'  for the consolidation and vacuum. When `NULL` (default) the configuration parameters will
-    #'  be retrieved from object's context.
+    #'
+    #' @param cfg A configuration object [tiledb::tiledb_config()] to override context
+    #'  configuration except for parameters set by `mode`, `start_time`, `end_time`.
+    #'  When `NULL` (default) the configuration parameters will be retrieved from
+    #'  object's context.
     #' @param start_time,end_time Optional time stamp values. A date time objects
     #' of class `POSIXt`. If not provided, the default values from configuration
     #' object will be used.
@@ -504,6 +517,7 @@ TileDBArrayExp <- R6::R6Class(
 
       m
     },
+
     #' @description Remove an attribute from array.
     #'
     #' @param x An attribute name.
@@ -548,6 +562,7 @@ TileDBArrayExp <- R6::R6Class(
     frag_num = function() {
       self$fragments_object$frag_num()
     },
+
     #' @description Consolidated fragments to be removed.
     #'
     #' @param trunc_uri `TRUE` to truncate uri path.
@@ -567,11 +582,13 @@ TileDBArrayExp <- R6::R6Class(
 
       self$fragments_object$to_vacuum(trunc_uri)
     },
+
     #' @description Dump to console the commit fragments.
     #'
     frag_dump = function() {
       self$fragments_object$dump()
     },
+
     #' @description Return a `data.frame` with  time stamps and
     #' fragments uris.
     #'
@@ -593,6 +610,7 @@ TileDBArrayExp <- R6::R6Class(
       self$fragments_object$frag_uris(trunc_uri)
 
     },
+
     #' @description Upgrade the array to the latest format version.
     #'
     #' @param cfg A configuration object [tiledb::tiledb_config()].

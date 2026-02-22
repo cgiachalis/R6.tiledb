@@ -58,7 +58,7 @@ TileDBFragments <- R6::R6Class(
       private$.frag_num
 
     },
-    #' @description Return a `data.frame` with  time stamps and
+    #' @description Return a `data.frame` with time stamps and
     #' fragments uris.
     #'
     #' @param trunc_uri `TRUE` for fragment name in the form:  *`__ts1_ts2_<label>_<ver>`*,
@@ -115,6 +115,7 @@ TileDBFragments <- R6::R6Class(
       out
 
     },
+
     #' @description Refresh the TileDB Fragment Info object.
     #'
     #' @return The object, invisibly.
@@ -403,6 +404,7 @@ TileDBFragments <- R6::R6Class(
   ),
 
   active = list(
+
     #' @field uri The URI of the TileDB object.
     #'
     uri = function(value) {
@@ -411,6 +413,7 @@ TileDBFragments <- R6::R6Class(
       }
       private$.tiledb_uri
     },
+
     #' @field fragment_info Get the TileDB Fragment Info object as returned by
     #' [tiledb::tiledb_fragment_info].
     #'

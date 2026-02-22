@@ -12,6 +12,7 @@ Provides foundational R6 classes to interface with 'TileDB' storage engine using
 Useful links:
 \itemize{
   \item \url{https://github.com/cgiachalis/R6.tiledb}
+  \item \url{https://cgiachalis.github.io/R6.tiledb/}
   \item Report bugs at \url{https://github.com/cgiachalis/R6.tiledb/issues}
 }
 

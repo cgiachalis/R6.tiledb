@@ -87,7 +87,7 @@ Get the number of fragments.
 \if{html}{\out{<a id="method-TileDBFragments-frag_uris"></a>}}
 \if{latex}{\out{\hypertarget{method-TileDBFragments-frag_uris}{}}}
 \subsection{Method \code{frag_uris()}}{
-Return a \code{data.frame} with  time stamps and
+Return a \code{data.frame} with time stamps and
 fragments uris.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{TileDBFragments$frag_uris(trunc_uri = TRUE)}\if{html}{\out{</div>}}
