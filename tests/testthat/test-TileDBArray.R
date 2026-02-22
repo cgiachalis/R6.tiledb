@@ -1,4 +1,4 @@
-#gc()
+gc()
 
 test_that("'TileDBArray' class tests on non-existent array", {
 
@@ -14,6 +14,8 @@ test_that("'TileDBArray' class tests on non-existent array", {
   # Print that array does not exist
   expect_no_error(suppressMessages(arrObj$print()))
   expect_snapshot(arrObj$print())
+
+  rm(arrObj)
 
   })
 
@@ -207,6 +209,8 @@ test_that("'TileDBArray' class works as expected", {
   expect_snapshot(arrObj$print())
 
   arrObj_new$close()
+  rm(arrObj_new)
+  rm(arrObj)
 
 })
 
@@ -335,5 +339,6 @@ test_that("Test metadata print method", {
   expect_snapshot(arrObj$get_metadata())
 
   arrObj$close()
+  rm(arrObj)
 
   })
