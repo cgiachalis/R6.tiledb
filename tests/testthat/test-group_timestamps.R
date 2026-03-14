@@ -69,6 +69,7 @@ test_that("Test 'group_timestamps()' works as expected", {
   expect_snapshot(group_timestamps(group$ctx, tz = "Europe/London"))
   expect_snapshot(group_timestamps(tiledb::config(group$ctx), tz = "Europe/London"))
 
+  group$close()
   rm(group)
 
 })
