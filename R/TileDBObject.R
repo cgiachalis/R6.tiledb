@@ -61,8 +61,12 @@ TileDBObject <- R6::R6Class(
         cli::cli_abort("Invalid 'tiledb_timestamp' input", call = NULL)
       }
 
-      # TODO: REVIEW
-      private$.tiledb_ctx <- .set_group_timestamps(ctx, private$.tiledb_timestamp)
+      private$.tiledb_ctx <- ctx
+
+      if (self$object_type == "GROUP") {
+        private$.tiledb_ctx <- .set_group_timestamps(ctx, private$.tiledb_timestamp)
+      }
+
 
       tend <- private$.tiledb_timestamp$timestamp_end
       tend <- if (length(tend) == 0) NULL else tend
@@ -416,12 +420,12 @@ TileDBObject <- R6::R6Class(
            array_handle <- private$.tiledb_array
 
            tstamp <- self$tiledb_timestamp
-           ts_info <- attr(tstamp, which = "ts_info", exact = TRUE)
+           ts_info <- attr(tstamp, which = "ts_info", exact = TRUE) %||% "default"
            tstart <- tstamp$timestamp_start
            tend <- tstamp$timestamp_end
 
            # NOTE: we should open new handle only when WRITE mode?
-          if (private$.mode == "WRITE" | ts_info != "default") {
+          if (private$.mode == "WRITE" || ts_info != "default") {
 
             if (length(tend) == 0) {
               tend <- Sys.time()

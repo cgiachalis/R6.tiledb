@@ -716,12 +716,6 @@ TileDBGroup <- R6::R6Class(
         name = name,
         object = object
       )
-
-      # We still need to update member_cache to pick up existing members.
-      # Otherwise if you open a group with existing members and add a new
-      # member, the initially empty member_cache will only contain the new
-      # member.
-      private$update_member_cache()
     }
   )
 )

@@ -1,12 +1,11 @@
 gc()
 
-cfg <- tiledb::tiledb_config()
-
-params <-  c("sm.consolidation.timestamp_start" = "100",
-             "sm.consolidation.timestamp_end" = "10000")
-
-
 test_that("'set_config_params()' works as expected", {
+
+  cfg <- tiledb::tiledb_config()
+
+  params <-  c("sm.consolidation.timestamp_start" = "100",
+               "sm.consolidation.timestamp_end" = "10000")
 
   expect_error(set_config_params(list(1), params))
   expect_error(set_config_params(cfg, unname(params)), label = "keyval should be a named vector")
@@ -18,11 +17,16 @@ test_that("'set_config_params()' works as expected", {
   expect_equal(cfg["sm.consolidation.timestamp_start"], c(sm.consolidation.timestamp_start = "100"))
   expect_equal(cfg["sm.consolidation.timestamp_end"], c(sm.consolidation.timestamp_end = "10000"))
 
-
+rm(cfg)
 
 })
 
 test_that("'unset_config_params()' works as expected", {
+
+  cfg <- tiledb::tiledb_config()
+
+  params <-  c("sm.consolidation.timestamp_start" = "100",
+               "sm.consolidation.timestamp_end" = "10000")
 
   keys <- names(params)
 
@@ -36,8 +40,6 @@ test_that("'unset_config_params()' works as expected", {
   expect_equal(cfg["sm.consolidation.timestamp_end"], c(sm.consolidation.timestamp_end =  "18446744073709551615"))
 
   rm(cfg)
-  gc()
 
 })
-
-rm(params)
+gc()
