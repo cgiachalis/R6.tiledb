@@ -39,7 +39,6 @@ VignetteBuilder:
     litedown
 Remotes: TileDB-Inc/TileDB-R
 Config/testthat/edition: 3
-Config/testthat/start-first:TileDBGroup
 Encoding: UTF-8
 Language: en-GB
 Roxygen: list(markdown = TRUE, old_usage = TRUE)
