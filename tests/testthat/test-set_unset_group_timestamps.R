@@ -24,7 +24,7 @@ test_that("'set_group_tstamps()' works as expected", {
   expect_equal(cfg["sm.group.timestamp_end"], c(sm.group.timestamp_end = "100000"))
 
   rm(cfg)
-  gc()
+
 })
 
 test_that("'unset_group_tstamps()' works as expected", {
@@ -41,7 +41,7 @@ test_that("'unset_group_tstamps()' works as expected", {
   expect_equal(cfg["sm.group.timestamp_end"], c(sm.group.timestamp_end =  "18446744073709551615"))
 
   rm(cfg)
-  gc()
+
 
 })
 
