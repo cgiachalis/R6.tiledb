@@ -420,12 +420,12 @@ TileDBObject <- R6::R6Class(
            array_handle <- private$.tiledb_array
 
            tstamp <- self$tiledb_timestamp
-           ts_info <- attr(tstamp, which = "ts_info", exact = TRUE)
+           ts_info <- attr(tstamp, which = "ts_info", exact = TRUE) %||% "default"
            tstart <- tstamp$timestamp_start
            tend <- tstamp$timestamp_end
 
            # NOTE: we should open new handle only when WRITE mode?
-          if (private$.mode == "WRITE" | ts_info != "default") {
+          if (private$.mode == "WRITE" || ts_info != "default") {
 
             if (length(tend) == 0) {
               tend <- Sys.time()
