@@ -1,3 +1,4 @@
+gc()
 
 test_that("'set_config_params()' works as expected", {
 
@@ -41,4 +42,4 @@ test_that("'unset_config_params()' works as expected", {
   rm(cfg)
 
 })
-
+gc()

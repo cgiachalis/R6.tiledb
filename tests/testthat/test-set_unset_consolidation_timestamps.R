@@ -1,3 +1,4 @@
+gc()
 
 test_that("'set_consolidation_timestamps()' works as expected", {
 
