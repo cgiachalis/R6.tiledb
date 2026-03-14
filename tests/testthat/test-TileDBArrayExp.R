@@ -31,8 +31,6 @@ test_that("'TileDBArrayExp' class works as expected", {
   expect_type(arrObj$size, "double")
   expect_s3_class(arrObj$size, "vfs_size")
 
-
-
   # Methods -------------------------------------------------------------
 
   ## enums
@@ -80,6 +78,8 @@ test_that("'TileDBArrayExp' class works as expected", {
   expect_error(arrObj$drop_attribute("Freq"), label = "`Freq` is not an attribute.")
 
   expect_null(arrObj$schema_upgrade())
+
+  arrObj$close()
 
 })
 
@@ -160,6 +160,8 @@ test_that("Test '$consolidate', '$consolidate_async' and '$vacuum' methods", {
 
  }
 
+ arrobj$close()
+
 })
 
 test_that("Test '$vacuum_async' method", {
@@ -182,6 +184,7 @@ test_that("Test '$vacuum_async' method", {
   expect_true(arrobj$vacuum_async()[])
   expect_equal(nrow(arrobj$frag_to_vacuum()), 0)
 
+  arrobj$close()
 })
 
 
@@ -216,6 +219,7 @@ test_that("Test '$consolidate_and_vacuum' method", {
   ts_range <- as.POSIXct(ts_range, tz = "UTC")
   expect_equal(ts_range, trg_range)
 
+  arrobj$close()
 })
 
 test_that("Test '$consolidate_and_vacuum_async' method", {
@@ -251,6 +255,7 @@ test_that("Test '$consolidate_and_vacuum_async' method", {
   ts_range <- as.POSIXct(ts_range, tz = "UTC")
   expect_equal(ts_range, trg_range)
 
+  arrobj$close()
 })
 
 test_that("Test '$reopen' method resets fragment info object", {
@@ -268,6 +273,8 @@ test_that("Test '$reopen' method resets fragment info object", {
 
   # now it works
   expect_equal(arrobj$frag_num(), 2)
+
+  arrobj$close()
 
 })
 
@@ -287,4 +294,6 @@ test_that("Test 'tdb_array_create()' and '$delete_array() method", {
   expect_invisible(arrobj$delete_array())
   expect_false(arrobj$exists())
   expect_equal(arrobj$object_type, "INVALID")
+
+  arrobj$close()
   })

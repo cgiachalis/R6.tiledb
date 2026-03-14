@@ -1,4 +1,4 @@
-gc()
+# gc()
 
 test_that("'set_config_params()' works as expected", {
 
@@ -18,7 +18,7 @@ test_that("'set_config_params()' works as expected", {
   expect_equal(cfg["sm.consolidation.timestamp_end"], c(sm.consolidation.timestamp_end = "10000"))
 
 rm(cfg)
-gc()
+# gc()
 
 })
 
@@ -41,7 +41,7 @@ test_that("'unset_config_params()' works as expected", {
   expect_equal(cfg["sm.consolidation.timestamp_end"], c(sm.consolidation.timestamp_end =  "18446744073709551615"))
 
   rm(cfg)
-  gc()
+  # gc()
 
 })
 

@@ -1,4 +1,4 @@
-gc()
+# gc()
 
 test_that("'set_consolidation_timestamps()' works as expected", {
 
@@ -24,7 +24,7 @@ test_that("'set_consolidation_timestamps()' works as expected", {
   expect_equal(cfg["sm.consolidation.timestamp_end"], c(sm.consolidation.timestamp_end = "100000"))
 
   rm(cfg)
-  gc()
+
 
 })
 
@@ -42,7 +42,7 @@ test_that("'unset_consolidation_tstamps()' works as expected", {
   expect_equal(cfg["sm.consolidation.timestamp_end"], c(sm.consolidation.timestamp_end =  "18446744073709551615"))
 
   rm(cfg)
-  gc()
+
 
 })
 

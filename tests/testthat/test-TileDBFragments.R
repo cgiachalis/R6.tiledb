@@ -1,4 +1,4 @@
-
+# gc()
 test_that("'TileDBFragments' class works as expected", {
 
   testthat::skip_on_os("mac")
@@ -84,7 +84,7 @@ test_that("'TileDBFragments' class works as expected", {
 
   expect_snapshot(val <- fragObj$delete_fragment(1))
   expect_false(val)
-
+  rm(fragObj)
 })
 
 
@@ -134,4 +134,5 @@ test_that("Test ifragments methods", {
   expect_snapshot(ifrag)
   expect_snapshot(ifrag_list)
 
+  rm(fobj)
   })

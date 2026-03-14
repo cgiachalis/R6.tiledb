@@ -1,4 +1,4 @@
-gc()
+# gc()
 
 test_that("'TileDBArray' class tests on non-existent array", {
 
@@ -209,6 +209,7 @@ test_that("'TileDBArray' class works as expected", {
   expect_snapshot(arrObj$print())
 
   arrObj_new$close()
+  arrObj$close()
   rm(arrObj_new)
   rm(arrObj)
 
@@ -313,7 +314,7 @@ test_that("Array, Metadata test time-traveling works", {
   arrobj$close()
 
   rm(arrobj)
-  gc()
+  #gc()
 })
 
 test_that("Test metadata print method", {
