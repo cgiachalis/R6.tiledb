@@ -42,16 +42,8 @@ TileDBArray <- R6::R6Class(
 
       mode <- match.arg(mode)
 
-      if (is.null(private$.tiledb_array)) {
-        # Tip: Creating a new instance will not initialise the object
-        #      until we open it. Here, we open, close and store the array handle.
-
-        private$log_debug("open", "Opening with initialisation")
-        private$initialize_object(keep_open = FALSE)
-      }
-
         tstamp <- self$tiledb_timestamp
-        ts_info <- attr(tstamp, which = "ts_info", exact = TRUE)
+        ts_info <- attr(tstamp, which = "ts_info", exact = TRUE) %||% "default"
         tstart <- tstamp$timestamp_start
         tend <- tstamp$timestamp_end
 
@@ -61,12 +53,14 @@ TileDBArray <- R6::R6Class(
 
         if (mode == "WRITE" || ts_info == "default") {
 
-          # NOTE: No time-travelling on WRITE mode
+          # NB: 1. Time-stamp info 'default' is <origin, current time>
+          #     2. On WRITE mode, time-travelling is allowed
           #
-          #  We could have used tiledb_array_open() but because of time-traveling
-          # the time range of array layer need to be reset; either we use a new handle
-          # as via tiledb_array, or set the range via libtiledb functionality and then
-          # use the cached handled.
+          # Here, we open a new array handle with time-range. It is possible to
+          # use tiledb_array_open() with existing handle but we might have to reset
+          # the time range in array layer; either we use a new handle
+          # as we do here, or set the range via libtiledb functionality and then
+          # use the cached handled; we do the first.
 
           private$log_debug("open", "Opening in {} mode", mode)
 
@@ -76,7 +70,7 @@ TileDBArray <- R6::R6Class(
                                                         keep_open = TRUE)
 
 
-        } else if (mode == "READ" & ts_info == "user trng") {
+        } else if (mode == "READ" && ts_info == "user trng") {
 
           private$log_debug("open",
                             "Opening in {} mode with time range '{}', '{}'",
@@ -91,15 +85,27 @@ TileDBArray <- R6::R6Class(
                                                         timestamp_start = tstart,
                                                         timestamp_end = tend)
 
-        } else if (mode == "READ" & ts_info == "user tpnt") {
+
+
+        } else if (mode == "READ" && ts_info == "user tpnt") {
 
           private$log_debug("open",
                             "Opening in {} mode with time point '{}'",
                             mode,
                             tend)
 
-          private$.tiledb_array <- .tiledb_array_open_at2(private$.tiledb_array, "READ", tend)
+          if (is.null(private$.tiledb_array)) {
 
+            # NB: A new instance will not initialise the object until we open it.
+            # For open read case at specific time-point, we go via
+            # 'tiledb_array_open_at' to set the time range <origin, end>
+            # at the array layer, but first we need the array handler.
+
+            private$log_debug("open", "Opening with initialisation")
+            private$initialize_object(keep_open = FALSE)
+          }
+
+          private$.tiledb_array <- .tiledb_array_open_at2(private$.tiledb_array, "READ", tend)
         }
 
       private$.mode <- mode
