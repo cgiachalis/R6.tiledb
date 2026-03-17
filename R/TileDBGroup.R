@@ -275,9 +275,6 @@ TileDBGroup <- R6::R6Class(
 
       if (!obj$is_open()) {
         obj$open(self$mode)
-
-      } else {
-        obj$reopen(self$mode)
       }
 
       # Explicitly add the new member to member_cache, see comments on
