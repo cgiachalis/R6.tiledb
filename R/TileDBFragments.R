@@ -14,6 +14,7 @@ TileDBFragments <- R6::R6Class(
   cloneable = FALSE,
   classname = "TileDBFragments",
   public = list(
+
     #' @description Create a new `TileDBFragments` instance.
     #'
     #' @param uri URI path for the `TileDB` Array.
@@ -42,11 +43,13 @@ TileDBFragments <- R6::R6Class(
       private$log_debug("initialize", "Initialize TileDBFragments")
 
     },
+
     #' @description Print the name of the R6 class.
     #'
     class = function() {
       class(self)[1]
     },
+
     #' @description Get the number of fragments.
     #'
     frag_num = function() {
@@ -58,6 +61,7 @@ TileDBFragments <- R6::R6Class(
       private$.frag_num
 
     },
+
     #' @description Return a `data.frame` with time stamps and
     #' fragments uris.
     #'
@@ -129,6 +133,7 @@ TileDBFragments <- R6::R6Class(
 
       invisible(self)
     },
+
     #' @description Consolidated fragments to be removed.
     #'
     #' @param trunc_uri `TRUE` for fragment name in the form:  *`__ts1_ts2_<label>_<ver>`*,
@@ -189,6 +194,7 @@ TileDBFragments <- R6::R6Class(
       out
 
     },
+
     #' @description Return the number of fragments to vacuum
     #'
     #' @return An numeric value.
@@ -196,6 +202,7 @@ TileDBFragments <- R6::R6Class(
     to_vacuum_num = function() {
       tiledb::tiledb_fragment_info_get_to_vacuum_num(private$finfo())
     },
+
     #' @description Delete fragments using a time-stamp range.
     #'
     #' @param start_time,end_time Time stamp values. A date time objects
@@ -229,6 +236,7 @@ TileDBFragments <- R6::R6Class(
       invisible(TRUE)
 
     },
+
     #' @description Delete fragments using a vector of fragment uris.
     #'
     #' Use `$frag_uris(trunc_uri = FALSE)` method to get a `data.frame`
@@ -256,6 +264,7 @@ TileDBFragments <- R6::R6Class(
       invisible(TRUE)
 
     },
+
     #' @description Delete a fragment by index.
     #'
     #' @param n A fragment index to be deleted (starts at 1).

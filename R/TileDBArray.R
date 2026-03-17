@@ -54,7 +54,7 @@ TileDBArray <- R6::R6Class(
         if (mode == "WRITE" || ts_info == "default") {
 
           # NB: 1. Time-stamp info 'default' is <origin, current time>
-          #     2. On WRITE mode, time-travelling is allowed
+          #     2. On WRITE mode, time-travelling is not allowed
           #
           # Here, we open a new array handle with time-range. It is possible to
           # use tiledb_array_open() with existing handle but we might have to reset
