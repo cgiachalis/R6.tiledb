@@ -7,6 +7,8 @@
 [![R-CMD-check](https://github.com/cgiachalis/R6.tiledb/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/cgiachalis/R6.tiledb/actions/workflows/R-CMD-check.yaml)
 [![Last Commit](https://img.shields.io/github/last-commit/cgiachalis/R6.tiledb)](https://github.com/cgiachalis/R6.tiledb)
 [![coverage](https://img.shields.io/badge/coverage-95.2%25-blue.svg)](#)
+[![License](https://img.shields.io/badge/License-MIT-003366.svg)](https://opensource.org/licenses/MIT)
+[![Documentation](https://img.shields.io/badge/documentation-4682b4)](https://cgiachalis.github.io/R6.tiledb/)
 
 <!-- badges: end -->
 
@@ -102,6 +104,5 @@ remotes::install_github("cgiachalis/R6.tiledb")
 
 ## Disclaimer
 
-The `R6.tiledb` R package is an independent project and not a TileDB product offering, neither its maintainer
-is affiliated with TileDB-Inc.
+`R6.tiledb` is not a TileDB product offering. It is an independent project and its maintainer is not affiliated with TileDB-Inc.
 
