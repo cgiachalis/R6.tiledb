@@ -110,19 +110,19 @@ attribute):
 
 ``` r
 vfs_dir_tree(tsobj$uri)
-# C:/Users/Constantine/AppData/Local/Temp/Rtmp6JkFsL/file33e4e961897
+# C:/Users/cgiac/AppData/Local/Temp/RtmpwtTYTB/filef04194f644b
 # ├── __commits
-# │   ├── __1769941398404_1769941398404_4136f8ae903054d78272ab6b378ea126_22.wrt
-# │   └── __1769941399444_1769941399444_662c00de4e03839addba20ab4934789b_22.wrt
+# │   ├── __1774166056687_1774166056687_7ba34a84690c31edef10dc5a5c16e8d7_22.wrt
+# │   └── __1774166057309_1774166057309_44fd52d5f1805151e0506a5c4572281e_22.wrt
 # ├── __fragments
-# │   ├── __1769941398404_1769941398404_4136f8ae903054d78272ab6b378ea126_22
+# │   ├── __1774166056687_1774166056687_7ba34a84690c31edef10dc5a5c16e8d7_22
 # │   │   ├── a0.tdb
 # │   │   ├── a0_validity.tdb
 # │   │   ├── a1.tdb
 # │   │   ├── a1_validity.tdb
 # │   │   ├── d0.tdb
 # │   │   └── __fragment_metadata.tdb
-# │   └── __1769941399444_1769941399444_662c00de4e03839addba20ab4934789b_22
+# │   └── __1774166057309_1774166057309_44fd52d5f1805151e0506a5c4572281e_22
 # │       ├── a0.tdb
 # │       ├── a0_validity.tdb
 # │       ├── a1.tdb
@@ -135,8 +135,8 @@ vfs_dir_tree(tsobj$uri)
 # ├── __labels
 # ├── __meta
 # └── __schema
-#     ├── __1769941398329_1769941398329_2f2845374bfd7b24cba73a8fa319dce4
-#     ├── __1769941399389_1769941399389_3bdf9ca23026edf29709cafca6e50284
+#     ├── __1774166056599_1774166056599_4144e32f9bfff0979c687f810c2b9b44
+#     ├── __1774166057208_1774166057208_14808011e181f6d9daddbabfd3d92c74
 #     └── __enumerations
 # 
 # ❯ directories (6) • total size (9.95 KiB)
@@ -201,6 +201,7 @@ TimeSeries1d <- R6::R6Class(
   inherit = TileDBArray,
   cloneable = FALSE,
   active = list(
+    
     #' @field index Retrieve Array's unique index.
     #'
     index = function(value) {
@@ -221,7 +222,7 @@ TimeSeries1d <- R6::R6Class(
         }
 
         attr(xi, "tclass") <- self$tclass
-        attr(xi, "tzone") <- self$tzone
+        attr(xi, "tzone") <-  Sys.getenv("TZ")
 
         private$.index <- xi
 
@@ -260,6 +261,7 @@ TimeSeries1d <- R6::R6Class(
       }
       private$.tclass
     },
+    
     #' @field tzone Retrieve Array timezone. This represents
     #' the timezone where the time series have been created.
     #'
@@ -288,6 +290,7 @@ TimeSeries1d <- R6::R6Class(
   ),
 
   public = list(
+    
     #' @description Create a schema only for time series `TileDB` array.
     #'
     #' @param schema_name Select a time series schema.
@@ -411,6 +414,7 @@ TimeSeries1d <- R6::R6Class(
 
       invisible(self)
     },
+    
     #' @description Get subset of time series array.
     #'
     #' @param i Extract time index rows. One of the following:
@@ -541,6 +545,7 @@ TimeSeries1d <- R6::R6Class(
     index_start = function(series = NULL) {
       self$first(n = 1, series = series)[, c("symbol", "index")]
     },
+    
     #' @description Get the last index of a series.
     #'
     #' @param series A character vector of symbol names. Defaults to `NULL`
@@ -553,6 +558,7 @@ TimeSeries1d <- R6::R6Class(
       self$last(n = 1, series = series)[, c("symbol", "index")]
 
     },
+    
     #' @description Get the N first values of a series.
     #'
     #' @param n A number of observations to return.
@@ -583,6 +589,7 @@ TimeSeries1d <- R6::R6Class(
       dt[dt[, .I[seq_len(.N) <= n], by  = "symbol"]$V1, ]
 
     },
+    
     #' @description Get the N last values of a series.
     #'
     #' @param n A number of observations to return.
@@ -632,6 +639,7 @@ TimeSeries1d <- R6::R6Class(
       dt
 
     },
+    
     #' @description Remove symbols from a Chronos Array.
     #'
     #' @param syms A character vector with symbol names for deletion.
@@ -741,8 +749,8 @@ TimeSeries1d <- R6::R6Class(
       length(self$attrnames())
     }
   ), # End public
+  
   private = list(
-    # TODO: what if it is really big? option to decide at init?
     .index = NULL,
     .tclass = NULL,
     .tzone = NULL,
@@ -753,64 +761,65 @@ TimeSeries1d <- R6::R6Class(
     # tc tclass
     # tz time-zone
     index_query = function(i, tc, tz) {
-
       # Sub-setting by date style strings
-
+      
       if (length(i) == 1) {
-
-        dt <- xts::.parseISO8601(i, tz = tz)
-
-        if (is.na(dt$last.time)) {
-          dt$last.time <- as.POSIXct(Sys.Date(), tz = tz)
-        }
-
         if (tc == "Date") {
+          dt <- xts::.parseISO8601(i, tz = "UTC")
+          
+          if (is.na(dt$last.time)) {
+            dt$last.time <- as.POSIXct(Sys.Date(), tz = "UTC")
+          }
+          
           dt <- sapply(dt, as.Date, tz = tz)
-
+          
           out <- list(index = cbind(dt[[1]], dt[[2]]))
-
+          
         } else {
-
+          dt <- xts::.parseISO8601(i, tz = tz)
+          
+          if (is.na(dt$last.time)) {
+            dt$last.time <- as.POSIXct(Sys.Date(), tz = tz)
+          }
+          
           out <- list(index = cbind(dt[1], dt[2]))
         }
-
+        
       } else{
         # Ranges  e.g c("2016", "2017") or c("2016-09-21","2016-09-26/")
         # Handle a vector of ISO8601 and return a matrix with ranges
-
+        
         if (tc == "Date") {
-
           dt <- lapply(i, function(.x) {
-            .tmp <- xts::.parseISO8601(.x, tz = tz)
-
+            .tmp <- xts::.parseISO8601(.x, tz = "UTC")
+            
             if (is.na(.tmp$last.time))
-              .tmp$last.time <- as.POSIXct(Sys.Date())
-
+              .tmp$last.time <- as.POSIXct(Sys.Date() , tz = "UTC")
+            
             sapply(.tmp, as.Date)
           })
-
+          
           dt <- do.call(rbind, dt)
-
+          
         } else {
-
           dt <- sapply(i, function(.x) {
             .tmp <- xts::.parseISO8601(.x, tz = tz)
-
+            
             if (is.na(.tmp$last.time)) {
-              .tmp$last.time <- as.POSIXct(Sys.Date())
+              .tmp$last.time <- as.POSIXct(Sys.Date(), tz = tz)
             }
-
+            
             .tmp
-
+            
           }, simplify = FALSE)
-
+          
           dt <- do.call(rbind, dt)
-
+          
         }
-
+        
         out <- list(index = dt)
       } # multiple ranges as matrix
-
+      
       out
     }
 

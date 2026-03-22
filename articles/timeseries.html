@@ -22,7 +22,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">R6.tiledb</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0.41</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0.42</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -68,7 +68,7 @@
 
       <h1>Time Series Storage</h1>
             
-            <h4 data-toc-skip class="date">2026-02-01</h4>
+            <h4 data-toc-skip class="date">2026-03-22</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/cgiachalis/R6.tiledb/blob/master/vignettes/timeseries.Rmd" class="external-link"><code>vignettes/timeseries.Rmd</code></a></small>
       <div class="d-none name"><code>timeseries.Rmd</code></div>
@@ -186,19 +186,19 @@ and <code>arrow</code>
 attribute):</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/vfs_dir_tree.html">vfs_dir_tree</a></span><span class="op">(</span><span class="va">tsobj</span><span class="op">$</span><span class="va">uri</span><span class="op">)</span></span>
-<span><span class="co"># C:/Users/Constantine/AppData/Local/Temp/Rtmp6JkFsL/file33e4e961897</span></span>
+<span><span class="co"># C:/Users/cgiac/AppData/Local/Temp/RtmpwtTYTB/filef04194f644b</span></span>
 <span><span class="co"># ├── __commits</span></span>
-<span><span class="co"># │   ├── __1769941398404_1769941398404_4136f8ae903054d78272ab6b378ea126_22.wrt</span></span>
-<span><span class="co"># │   └── __1769941399444_1769941399444_662c00de4e03839addba20ab4934789b_22.wrt</span></span>
+<span><span class="co"># │   ├── __1774166056687_1774166056687_7ba34a84690c31edef10dc5a5c16e8d7_22.wrt</span></span>
+<span><span class="co"># │   └── __1774166057309_1774166057309_44fd52d5f1805151e0506a5c4572281e_22.wrt</span></span>
 <span><span class="co"># ├── __fragments</span></span>
-<span><span class="co"># │   ├── __1769941398404_1769941398404_4136f8ae903054d78272ab6b378ea126_22</span></span>
+<span><span class="co"># │   ├── __1774166056687_1774166056687_7ba34a84690c31edef10dc5a5c16e8d7_22</span></span>
 <span><span class="co"># │   │   ├── a0.tdb</span></span>
 <span><span class="co"># │   │   ├── a0_validity.tdb</span></span>
 <span><span class="co"># │   │   ├── a1.tdb</span></span>
 <span><span class="co"># │   │   ├── a1_validity.tdb</span></span>
 <span><span class="co"># │   │   ├── d0.tdb</span></span>
 <span><span class="co"># │   │   └── __fragment_metadata.tdb</span></span>
-<span><span class="co"># │   └── __1769941399444_1769941399444_662c00de4e03839addba20ab4934789b_22</span></span>
+<span><span class="co"># │   └── __1774166057309_1774166057309_44fd52d5f1805151e0506a5c4572281e_22</span></span>
 <span><span class="co"># │       ├── a0.tdb</span></span>
 <span><span class="co"># │       ├── a0_validity.tdb</span></span>
 <span><span class="co"># │       ├── a1.tdb</span></span>
@@ -211,8 +211,8 @@ attribute):</p>
 <span><span class="co"># ├── __labels</span></span>
 <span><span class="co"># ├── __meta</span></span>
 <span><span class="co"># └── __schema</span></span>
-<span><span class="co">#     ├── __1769941398329_1769941398329_2f2845374bfd7b24cba73a8fa319dce4</span></span>
-<span><span class="co">#     ├── __1769941399389_1769941399389_3bdf9ca23026edf29709cafca6e50284</span></span>
+<span><span class="co">#     ├── __1774166056599_1774166056599_4144e32f9bfff0979c687f810c2b9b44</span></span>
+<span><span class="co">#     ├── __1774166057208_1774166057208_14808011e181f6d9daddbabfd3d92c74</span></span>
 <span><span class="co">#     └── __enumerations</span></span>
 <span><span class="co"># </span></span>
 <span><span class="co"># ❯ directories (6) • total size (9.95 KiB)</span></span></code></pre></div>
@@ -324,6 +324,7 @@ attribute):</p>
 <span>  inherit <span class="op">=</span> <span class="va">TileDBArray</span>,</span>
 <span>  cloneable <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  active <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    </span>
 <span>    <span class="co">#' @field index Retrieve Array's unique index.</span></span>
 <span>    <span class="co">#'</span></span>
 <span>    index <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">value</span><span class="op">)</span> <span class="op">{</span></span>
@@ -344,7 +345,7 @@ attribute):</p>
 <span>        <span class="op">}</span></span>
 <span></span>
 <span>        <span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">xi</span>, <span class="st">"tclass"</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">self</span><span class="op">$</span><span class="va">tclass</span></span>
-<span>        <span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">xi</span>, <span class="st">"tzone"</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">self</span><span class="op">$</span><span class="va">tzone</span></span>
+<span>        <span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">xi</span>, <span class="st">"tzone"</span><span class="op">)</span> <span class="op">&lt;-</span>  <span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html" class="external-link">Sys.getenv</a></span><span class="op">(</span><span class="st">"TZ"</span><span class="op">)</span></span>
 <span></span>
 <span>        <span class="va">private</span><span class="op">$</span><span class="va">.index</span> <span class="op">&lt;-</span> <span class="va">xi</span></span>
 <span></span>
@@ -383,6 +384,7 @@ attribute):</p>
 <span>      <span class="op">}</span></span>
 <span>      <span class="va">private</span><span class="op">$</span><span class="va">.tclass</span></span>
 <span>    <span class="op">}</span>,</span>
+<span>    </span>
 <span>    <span class="co">#' @field tzone Retrieve Array timezone. This represents</span></span>
 <span>    <span class="co">#' the timezone where the time series have been created.</span></span>
 <span>    <span class="co">#'</span></span>
@@ -411,6 +413,7 @@ attribute):</p>
 <span>  <span class="op">)</span>,</span>
 <span></span>
 <span>  public <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    </span>
 <span>    <span class="co">#' @description Create a schema only for time series `TileDB` array.</span></span>
 <span>    <span class="co">#'</span></span>
 <span>    <span class="co">#' @param schema_name Select a time series schema.</span></span>
@@ -534,6 +537,7 @@ attribute):</p>
 <span></span>
 <span>      <span class="fu"><a href="https://rdrr.io/r/base/invisible.html" class="external-link">invisible</a></span><span class="op">(</span><span class="va">self</span><span class="op">)</span></span>
 <span>    <span class="op">}</span>,</span>
+<span>    </span>
 <span>    <span class="co">#' @description Get subset of time series array.</span></span>
 <span>    <span class="co">#'</span></span>
 <span>    <span class="co">#' @param i Extract time index rows. One of the following:</span></span>
@@ -664,6 +668,7 @@ attribute):</p>
 <span>    index_start <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">series</span> <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span> <span class="op">{</span></span>
 <span>      <span class="va">self</span><span class="op">$</span><span class="fu">first</span><span class="op">(</span>n <span class="op">=</span> <span class="fl">1</span>, series <span class="op">=</span> <span class="va">series</span><span class="op">)</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"symbol"</span>, <span class="st">"index"</span><span class="op">)</span><span class="op">]</span></span>
 <span>    <span class="op">}</span>,</span>
+<span>    </span>
 <span>    <span class="co">#' @description Get the last index of a series.</span></span>
 <span>    <span class="co">#'</span></span>
 <span>    <span class="co">#' @param series A character vector of symbol names. Defaults to `NULL`</span></span>
@@ -676,6 +681,7 @@ attribute):</p>
 <span>      <span class="va">self</span><span class="op">$</span><span class="fu">last</span><span class="op">(</span>n <span class="op">=</span> <span class="fl">1</span>, series <span class="op">=</span> <span class="va">series</span><span class="op">)</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"symbol"</span>, <span class="st">"index"</span><span class="op">)</span><span class="op">]</span></span>
 <span></span>
 <span>    <span class="op">}</span>,</span>
+<span>    </span>
 <span>    <span class="co">#' @description Get the N first values of a series.</span></span>
 <span>    <span class="co">#'</span></span>
 <span>    <span class="co">#' @param n A number of observations to return.</span></span>
@@ -706,6 +712,7 @@ attribute):</p>
 <span>      <span class="va">dt</span><span class="op">[</span><span class="va">dt</span><span class="op">[</span>, <span class="va">.I</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_len</a></span><span class="op">(</span><span class="va">.N</span><span class="op">)</span> <span class="op">&lt;=</span> <span class="va">n</span><span class="op">]</span>, by  <span class="op">=</span> <span class="st">"symbol"</span><span class="op">]</span><span class="op">$</span><span class="va">V1</span>, <span class="op">]</span></span>
 <span></span>
 <span>    <span class="op">}</span>,</span>
+<span>    </span>
 <span>    <span class="co">#' @description Get the N last values of a series.</span></span>
 <span>    <span class="co">#'</span></span>
 <span>    <span class="co">#' @param n A number of observations to return.</span></span>
@@ -755,6 +762,7 @@ attribute):</p>
 <span>      <span class="va">dt</span></span>
 <span></span>
 <span>    <span class="op">}</span>,</span>
+<span>    </span>
 <span>    <span class="co">#' @description Remove symbols from a Chronos Array.</span></span>
 <span>    <span class="co">#'</span></span>
 <span>    <span class="co">#' @param syms A character vector with symbol names for deletion.</span></span>
@@ -864,8 +872,8 @@ attribute):</p>
 <span>      <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">self</span><span class="op">$</span><span class="fu">attrnames</span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
 <span>    <span class="op">}</span></span>
 <span>  <span class="op">)</span>, <span class="co"># End public</span></span>
+<span>  </span>
 <span>  private <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>    <span class="co"># TODO: what if it is really big? option to decide at init?</span></span>
 <span>    .index <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>    .tclass <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>    .tzone <span class="op">=</span> <span class="cn">NULL</span>,</span>
@@ -876,64 +884,65 @@ attribute):</p>
 <span>    <span class="co"># tc tclass</span></span>
 <span>    <span class="co"># tz time-zone</span></span>
 <span>    index_query <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">i</span>, <span class="va">tc</span>, <span class="va">tz</span><span class="op">)</span> <span class="op">{</span></span>
-<span></span>
 <span>      <span class="co"># Sub-setting by date style strings</span></span>
-<span></span>
+<span>      </span>
 <span>      <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">i</span><span class="op">)</span> <span class="op">==</span> <span class="fl">1</span><span class="op">)</span> <span class="op">{</span></span>
-<span></span>
-<span>        <span class="va">dt</span> <span class="op">&lt;-</span> <span class="fu">xts</span><span class="fu">::</span><span class="fu">.parseISO8601</span><span class="op">(</span><span class="va">i</span>, tz <span class="op">=</span> <span class="va">tz</span><span class="op">)</span></span>
-<span></span>
-<span>        <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">dt</span><span class="op">$</span><span class="va">last.time</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
-<span>          <span class="va">dt</span><span class="op">$</span><span class="va">last.time</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.POSIXlt.html" class="external-link">as.POSIXct</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.Date</a></span><span class="op">(</span><span class="op">)</span>, tz <span class="op">=</span> <span class="va">tz</span><span class="op">)</span></span>
-<span>        <span class="op">}</span></span>
-<span></span>
 <span>        <span class="kw">if</span> <span class="op">(</span><span class="va">tc</span> <span class="op">==</span> <span class="st">"Date"</span><span class="op">)</span> <span class="op">{</span></span>
+<span>          <span class="va">dt</span> <span class="op">&lt;-</span> <span class="fu">xts</span><span class="fu">::</span><span class="fu">.parseISO8601</span><span class="op">(</span><span class="va">i</span>, tz <span class="op">=</span> <span class="st">"UTC"</span><span class="op">)</span></span>
+<span>          </span>
+<span>          <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">dt</span><span class="op">$</span><span class="va">last.time</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
+<span>            <span class="va">dt</span><span class="op">$</span><span class="va">last.time</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.POSIXlt.html" class="external-link">as.POSIXct</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.Date</a></span><span class="op">(</span><span class="op">)</span>, tz <span class="op">=</span> <span class="st">"UTC"</span><span class="op">)</span></span>
+<span>          <span class="op">}</span></span>
+<span>          </span>
 <span>          <span class="va">dt</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">sapply</a></span><span class="op">(</span><span class="va">dt</span>, <span class="va">as.Date</span>, tz <span class="op">=</span> <span class="va">tz</span><span class="op">)</span></span>
-<span></span>
+<span>          </span>
 <span>          <span class="va">out</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>index <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="va">dt</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>, <span class="va">dt</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></span>
-<span></span>
+<span>          </span>
 <span>        <span class="op">}</span> <span class="kw">else</span> <span class="op">{</span></span>
-<span></span>
+<span>          <span class="va">dt</span> <span class="op">&lt;-</span> <span class="fu">xts</span><span class="fu">::</span><span class="fu">.parseISO8601</span><span class="op">(</span><span class="va">i</span>, tz <span class="op">=</span> <span class="va">tz</span><span class="op">)</span></span>
+<span>          </span>
+<span>          <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">dt</span><span class="op">$</span><span class="va">last.time</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
+<span>            <span class="va">dt</span><span class="op">$</span><span class="va">last.time</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.POSIXlt.html" class="external-link">as.POSIXct</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.Date</a></span><span class="op">(</span><span class="op">)</span>, tz <span class="op">=</span> <span class="va">tz</span><span class="op">)</span></span>
+<span>          <span class="op">}</span></span>
+<span>          </span>
 <span>          <span class="va">out</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>index <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="va">dt</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, <span class="va">dt</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></span>
 <span>        <span class="op">}</span></span>
-<span></span>
+<span>        </span>
 <span>      <span class="op">}</span> <span class="kw">else</span><span class="op">{</span></span>
 <span>        <span class="co"># Ranges  e.g c("2016", "2017") or c("2016-09-21","2016-09-26/")</span></span>
 <span>        <span class="co"># Handle a vector of ISO8601 and return a matrix with ranges</span></span>
-<span></span>
+<span>        </span>
 <span>        <span class="kw">if</span> <span class="op">(</span><span class="va">tc</span> <span class="op">==</span> <span class="st">"Date"</span><span class="op">)</span> <span class="op">{</span></span>
-<span></span>
 <span>          <span class="va">dt</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">i</span>, <span class="kw">function</span><span class="op">(</span><span class="va">.x</span><span class="op">)</span> <span class="op">{</span></span>
-<span>            <span class="va">.tmp</span> <span class="op">&lt;-</span> <span class="fu">xts</span><span class="fu">::</span><span class="fu">.parseISO8601</span><span class="op">(</span><span class="va">.x</span>, tz <span class="op">=</span> <span class="va">tz</span><span class="op">)</span></span>
-<span></span>
+<span>            <span class="va">.tmp</span> <span class="op">&lt;-</span> <span class="fu">xts</span><span class="fu">::</span><span class="fu">.parseISO8601</span><span class="op">(</span><span class="va">.x</span>, tz <span class="op">=</span> <span class="st">"UTC"</span><span class="op">)</span></span>
+<span>            </span>
 <span>            <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">.tmp</span><span class="op">$</span><span class="va">last.time</span><span class="op">)</span><span class="op">)</span></span>
-<span>              <span class="va">.tmp</span><span class="op">$</span><span class="va">last.time</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.POSIXlt.html" class="external-link">as.POSIXct</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.Date</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
-<span></span>
+<span>              <span class="va">.tmp</span><span class="op">$</span><span class="va">last.time</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.POSIXlt.html" class="external-link">as.POSIXct</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.Date</a></span><span class="op">(</span><span class="op">)</span> , tz <span class="op">=</span> <span class="st">"UTC"</span><span class="op">)</span></span>
+<span>            </span>
 <span>            <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">sapply</a></span><span class="op">(</span><span class="va">.tmp</span>, <span class="va">as.Date</span><span class="op">)</span></span>
 <span>          <span class="op">}</span><span class="op">)</span></span>
-<span></span>
+<span>          </span>
 <span>          <span class="va">dt</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/do.call.html" class="external-link">do.call</a></span><span class="op">(</span><span class="va">rbind</span>, <span class="va">dt</span><span class="op">)</span></span>
-<span></span>
+<span>          </span>
 <span>        <span class="op">}</span> <span class="kw">else</span> <span class="op">{</span></span>
-<span></span>
 <span>          <span class="va">dt</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">sapply</a></span><span class="op">(</span><span class="va">i</span>, <span class="kw">function</span><span class="op">(</span><span class="va">.x</span><span class="op">)</span> <span class="op">{</span></span>
 <span>            <span class="va">.tmp</span> <span class="op">&lt;-</span> <span class="fu">xts</span><span class="fu">::</span><span class="fu">.parseISO8601</span><span class="op">(</span><span class="va">.x</span>, tz <span class="op">=</span> <span class="va">tz</span><span class="op">)</span></span>
-<span></span>
+<span>            </span>
 <span>            <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">.tmp</span><span class="op">$</span><span class="va">last.time</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
-<span>              <span class="va">.tmp</span><span class="op">$</span><span class="va">last.time</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.POSIXlt.html" class="external-link">as.POSIXct</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.Date</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
+<span>              <span class="va">.tmp</span><span class="op">$</span><span class="va">last.time</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.POSIXlt.html" class="external-link">as.POSIXct</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.Date</a></span><span class="op">(</span><span class="op">)</span>, tz <span class="op">=</span> <span class="va">tz</span><span class="op">)</span></span>
 <span>            <span class="op">}</span></span>
-<span></span>
+<span>            </span>
 <span>            <span class="va">.tmp</span></span>
-<span></span>
+<span>            </span>
 <span>          <span class="op">}</span>, simplify <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
-<span></span>
+<span>          </span>
 <span>          <span class="va">dt</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/do.call.html" class="external-link">do.call</a></span><span class="op">(</span><span class="va">rbind</span>, <span class="va">dt</span><span class="op">)</span></span>
-<span></span>
+<span>          </span>
 <span>        <span class="op">}</span></span>
-<span></span>
+<span>        </span>
 <span>        <span class="va">out</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>index <span class="op">=</span> <span class="va">dt</span><span class="op">)</span></span>
 <span>      <span class="op">}</span> <span class="co"># multiple ranges as matrix</span></span>
-<span></span>
+<span>      </span>
 <span>      <span class="va">out</span></span>
 <span>    <span class="op">}</span></span>
 <span></span>
