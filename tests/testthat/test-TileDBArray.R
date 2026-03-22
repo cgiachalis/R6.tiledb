@@ -330,7 +330,7 @@ test_that("Test metadata print method", {
   arrObj$reopen(mode = "WRITE" )
   arrObj$set_metadata(md)
 
-  md <- list(d = "Boo", e = 3)
+  md <- list(d = "Boo", e = 3, f = paste(rep(letters[1:21], 3), collapse = ""))
   arrObj$set_metadata(md)
   expect_snapshot(arrObj$get_metadata())
 

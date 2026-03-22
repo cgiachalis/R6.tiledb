@@ -31,11 +31,12 @@
       arrObj$get_metadata()
     Output
       TileDB ARRAY: <R6 Class: TileDBArray>
-      Metadata: <key,value> * total 5
+      Metadata: <key,value> * total 6
        * a: 'Hi'
        * b: 'good'
        * c: 10
        * d: 'Boo'
        * e: 3
+       * f: 'abcdefghijklmnopqrstuabcdefghijklmnopqrstuabcdefghijklmnopqr...'
       
 

@@ -11,7 +11,18 @@ print.tdb_metadata <- function(x,...) {
       x0 <- x[seq_len(20L)]
     }
 
-    .l <- lapply(as.vector(unclass(x0)), function(.i) if(is.character(.i)) sQuote(.i) else .i)
+    .l <- lapply(as.vector(unclass(x0)), function(.i) {
+      if (is.character(.i)) {
+        # truncate, max width 60
+        if (nchar(.i) > 60) {
+          .i <-  paste0(substr(.i, 1, 60), "...")
+        }
+        sQuote(.i)
+      } else {
+        .i
+      }
+    })
+
     nms <- paste0(names(x0),": ", .l)
 
     out <- paste0(" ", cli::col_br_cyan(cli::symbol$bullet), " ", unname(nms), collapse = "\n")
