@@ -17,3 +17,5 @@
 ^vignettes\.R$
 ^vignettes/README.md$
 ^vignettes/src$
+^\.positai$
+^\.claude$
