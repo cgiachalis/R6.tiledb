@@ -1,6 +1,7 @@
 # Create a new TileDB Context
 
-Create a new TileDB Context
+Compared to `tiledb_ctx()`, this variant does not cache the context and
+does not accept a character vector of configuration parameters.
 
 ## Usage
 
