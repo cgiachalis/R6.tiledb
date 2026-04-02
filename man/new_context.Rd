@@ -10,6 +10,7 @@ new_context(cfg = NULL)
 \item{cfg}{A configuration object \code{\link[tiledb:tiledb_config]{tiledb::tiledb_config()}}.}
 }
 \description{
-Create a new TileDB Context
+Compared to \code{tiledb_ctx()}, this variant does not cache the
+context and does not accept a character vector of configuration parameters.
 }
 \keyword{internal}

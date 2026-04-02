@@ -43,7 +43,7 @@ TileDBObject <- R6::R6Class(
       private$.tiledb_uri <- uri
 
       if (is.null(ctx)) {
-        ctx <- tiledb::tiledb_ctx(cached = FALSE)
+        ctx <- new_context()
       }
 
       check_tiledb_ctx(ctx)

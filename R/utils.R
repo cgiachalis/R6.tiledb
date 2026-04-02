@@ -158,7 +158,10 @@ demo_array_UCBAdmissions <- function(uri) {
 
 #' Create a new TileDB Context
 #'
-#' @param cfg  A configuration object [tiledb::tiledb_config()].
+#' Compared to `tiledb_ctx()`, this variant does not cache the
+#' context and does not accept a character vector of configuration parameters.
+#'
+#' @param cfg A configuration object [tiledb::tiledb_config()].
 #'
 #' @keywords internal
 #'
@@ -174,6 +177,21 @@ new_context <- function(cfg = NULL) {
   }
 
   ctx <- new("tiledb_ctx", ptr = ptr)
+
+  # set context tags
+  tiledb::tiledb_ctx_set_tag(ctx, "x-tiledb-api-language", "r")
+  tiledb::tiledb_ctx_set_tag(ctx, "x-tiledb-api-language-version",
+                     as.character(packageVersion("tiledb")))
+
+  # Maybe use osVersion?
+  if (.Platform$OS.type == "windows") {
+    si <- utils::win.version()
+  } else {
+    info <- Sys.info()
+    si <- paste(info["sysname"], info["release"], info["machine"], collapse = "")
+  }
+
+  tiledb::tiledb_ctx_set_tag(ctx, "x-tiledb-api-sys-platform", si)
 
   ctx
 }
