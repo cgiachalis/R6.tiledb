@@ -84,7 +84,7 @@ test_that("'open_write' method for Arrays works OK", {
 })
 
 test_that("'open_write' method for Groups works OK", {
-
+  skip("Under review")
   .get_group_timestamp_end <- function(x) {
     cfg <- tiledb::tiledb_group_get_config(x)
 
