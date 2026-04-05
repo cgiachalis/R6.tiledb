@@ -223,7 +223,7 @@ TileDBFragments <- R6::R6Class(
           call = NULL)
       }
 
-      arr <- tiledb::tiledb_array(self$uri, keep_open = FALSE)
+      arr <- tiledb::tiledb_array(self$uri, keep_open = FALSE, ctx = private$.tiledb_ctx)
 
       tiledb::tiledb_array_delete_fragments(arr,
                                             ts_start = start_time[1],
@@ -252,7 +252,7 @@ TileDBFragments <- R6::R6Class(
         cli::cli_abort("{.arg {deparse(substitute(frag_uris))}} should be a character vector.", call = NULL)
       }
 
-      arr <- tiledb::tiledb_array(self$uri, keep_open = FALSE)
+      arr <- tiledb::tiledb_array(self$uri, keep_open = FALSE, ctx = private$.tiledb_ctx)
 
       tiledb::tiledb_array_delete_fragments_list(arr,
                                                  fragments = frag_uris,
@@ -294,7 +294,7 @@ TileDBFragments <- R6::R6Class(
 
       old_frags <- furis$URI[n]
 
-      arr <- tiledb::tiledb_array(self$uri, keep_open = FALSE)
+      arr <- tiledb::tiledb_array(self$uri, keep_open = FALSE, ctx = private$.tiledb_ctx)
 
       tiledb::tiledb_array_delete_fragments_list(arr,
                                                  fragments = old_frags,
