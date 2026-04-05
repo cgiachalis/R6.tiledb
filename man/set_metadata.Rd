@@ -17,7 +17,7 @@
 
 \method{set_metadata}{tiledb_group}(x, keys, timestamp = NULL)
 
-\method{set_metadata}{character}(x, keys, timestamp = NULL)
+\method{set_metadata}{character}(x, keys, timestamp = NULL, ctx = NULL)
 }
 \arguments{
 \item{x}{An \code{R} object that points to a \code{TileDB} resource whose
@@ -27,6 +27,8 @@ metadata are to be written.}
 
 \item{timestamp}{Optional datetime object of class \code{"POSIXct"} to write
 at this timestamp.}
+
+\item{ctx}{Optional \code{\link[tiledb:tiledb_ctx]{tiledb::tiledb_ctx()}} object.}
 }
 \value{
 A logical \code{TRUE}, invisibly.

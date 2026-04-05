@@ -132,7 +132,7 @@ metadata.character <- function(x, which) {
 
   check_uri(x)
 
-  object_type <- tiledb::tiledb_object_type(x)
+  object_type <- tiledb::tiledb_object_type(x, ctx = new_context())
 
   cstor <- switch(object_type, ARRAY = TileDBArray, GROUP = TileDBGroup, {
     cli::cli_abort(c("Invalid TileDB resource.", "i" = "Please check {.arg uri} is a valid path."),  call = NULL)
@@ -285,7 +285,7 @@ metadata.character <- function(x, which) {
     cli::cli_abort("Replacement value: {.arg {deparse(substitute(value))}} should be a scalar or NULL.", call = NULL)
   }
 
-  object_type <- tiledb::tiledb_object_type(x)
+  object_type <- tiledb::tiledb_object_type(x, ctx = new_context())
 
   cstor <- switch(object_type, ARRAY = TileDBArray, GROUP = TileDBGroup, {
     cli::cli_abort(c("Invalid TileDB resource.", "i" = "Please check {.arg uri} is a valid path."),  call = NULL)
@@ -324,6 +324,7 @@ metadata.character <- function(x, which) {
 #' @param x An `R` object that points to a `TileDB` resource whose
 #'  metadata are to be written.
 #' @param keys A named list of key value metadata.
+#' @param ctx Optional [tiledb::tiledb_ctx()] object.
 #' @inheritParams open_write
 #'
 #' @returns A logical `TRUE`, invisibly.
@@ -442,17 +443,21 @@ set_metadata.tiledb_group <- function(x, keys, timestamp = NULL) {
 
 #' @export
 #' @rdname set_metadata
-set_metadata.character <- function(x, keys, timestamp = NULL) {
+set_metadata.character <- function(x, keys, timestamp = NULL, ctx = NULL) {
 
   check_uri(x)
 
-  object_type <- tiledb::tiledb_object_type(x)
+  if (is.null(ctx)) {
+    ctx <- new_context()
+  }
+
+  object_type <- tiledb::tiledb_object_type(x, ctx = ctx)
 
   cstor <- switch(object_type, ARRAY = TileDBArray, GROUP = TileDBGroup, {
     cli::cli_abort(c("Invalid TileDB resource.", "i" = "Please check {.arg uri} is a valid path."),  call = NULL)
   })
 
-  obj <- cstor$new(x)
+  obj <- cstor$new(x, ctx = ctx)
 
   set_metadata(obj, keys, timestamp)
 
@@ -479,6 +484,7 @@ set_metadata.character <- function(x, keys, timestamp = NULL) {
 #'  metadata are to be accessed.
 #' @param keys A character vector of metadata key names to be accessed. When
 #' `NULL` (default) all metadata will be accessed.
+#' @param ctx Optional [tiledb::tiledb_ctx()] object.
 #' @inheritParams open_write
 #'
 #' @returns A named list of class `tdb_metadata`.
@@ -574,17 +580,21 @@ fetch_metadata.tiledb_group <- function(x, keys = NULL, timestamp = NULL) {
 
 #' @export
 #' @rdname fetch_metadata
-fetch_metadata.character <- function(x, keys = NULL, timestamp = NULL) {
+fetch_metadata.character <- function(x, keys = NULL, timestamp = NULL, ctx = NULL) {
 
   check_uri(x)
 
-  object_type <- tiledb::tiledb_object_type(x)
+  if (is.null(ctx)) {
+    ctx <- new_context()
+  }
+
+  object_type <- tiledb::tiledb_object_type(x, ctx = ctx)
 
   cstor <- switch(object_type, ARRAY = TileDBArray, GROUP = TileDBGroup, {
     cli::cli_abort(c("Invalid TileDB resource.", "i" = "Please check {.arg uri} is a valid path."),  call = NULL)
   })
 
-  obj <- cstor$new(x)
+  obj <- cstor$new(x, ctx = ctx)
 
   fetch_metadata(obj, keys, timestamp)
 
@@ -607,6 +617,7 @@ fetch_metadata.character <- function(x, keys = NULL, timestamp = NULL) {
 #' @param x An `R` object that points to a `TileDB` resource whose
 #'  metadata are to be accessed.
 #' @param keys A character vector of metadata key names to be accessed.
+#' @param ctx Optional [tiledb::tiledb_ctx()] object.
 #'
 #' @returns A logical `TRUE`, invisibly.
 #'
@@ -699,17 +710,21 @@ delete_metadata.tiledb_group <- function(x, keys) {
 
 #' @export
 #' @rdname delete_metadata
-delete_metadata.character <- function(x, keys) {
+delete_metadata.character <- function(x, keys, ctx = NULL) {
 
   check_uri(x)
 
-  object_type <- tiledb::tiledb_object_type(x)
+  if (is.null(ctx)) {
+    ctx <- new_context()
+  }
+
+  object_type <- tiledb::tiledb_object_type(x, ctx = ctx)
 
   cstor <- switch(object_type, ARRAY = TileDBArray, GROUP = TileDBGroup, {
     cli::cli_abort(c("Invalid TileDB resource.", "i" = "Please check {.arg uri} is a valid path."),  call = NULL)
   })
 
-  obj <- cstor$new(x)
+  obj <- cstor$new(x, ctx = ctx)
 
   delete_metadata(obj, keys)
 
