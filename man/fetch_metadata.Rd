@@ -9,15 +9,18 @@
 \alias{fetch_metadata.character}
 \title{Fetch TileDB Metadata}
 \usage{
-\method{fetch_metadata}{TileDBArray}(x, keys = NULL, timestamp = NULL)
+\method{fetch_metadata}{TileDBArray}(x, keys = NULL, timestamp = NULL, ...)
 
-\method{fetch_metadata}{TileDBGroup}(x, keys = NULL, timestamp = NULL)
+\method{fetch_metadata}{TileDBGroup}(x, keys = NULL, timestamp = NULL, ...)
 
-\method{fetch_metadata}{tiledb_array}(x, keys = NULL, timestamp = NULL)
+\method{fetch_metadata}{tiledb_array}(x, keys = NULL, timestamp = NULL,
+  ...)
 
-\method{fetch_metadata}{tiledb_group}(x, keys = NULL, timestamp = NULL)
+\method{fetch_metadata}{tiledb_group}(x, keys = NULL, timestamp = NULL,
+  ...)
 
-\method{fetch_metadata}{character}(x, keys = NULL, timestamp = NULL)
+\method{fetch_metadata}{character}(x, keys = NULL, timestamp = NULL,
+  ctx = NULL, ...)
 }
 \arguments{
 \item{x}{An \code{R} object that points to a \code{TileDB} resource whose
@@ -28,6 +31,10 @@ metadata are to be accessed.}
 
 \item{timestamp}{Optional datetime object of class \code{"POSIXct"} to write
 at this timestamp.}
+
+\item{...}{Other arguments passed to methods. Not used.}
+
+\item{ctx}{Optional \code{\link[tiledb:tiledb_ctx]{tiledb::tiledb_ctx()}} object.}
 }
 \value{
 A named list of class \code{tdb_metadata}.

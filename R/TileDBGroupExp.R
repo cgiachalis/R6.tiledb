@@ -37,7 +37,7 @@ TileDBGroupExp <- R6::R6Class(
     #' @return `TRUE` for having non members, `FALSE` otherwise.
     #'
     has_non_members = function() {
-      ls_uris <- tiledb::tiledb_object_ls(self$uri)$URI
+      ls_uris <- tiledb::tiledb_object_ls(self$uri, ctx = private$.tiledb_ctx)$URI
       m_uris <- self$get_members_df()$uri
       idx <- ls_uris %in% m_uris
       isFALSE(all(idx))
@@ -54,7 +54,7 @@ TileDBGroupExp <- R6::R6Class(
     #' and `URI` of non member `TileDB` resources.
     #'
     non_members = function(){
-      obj_df <- tiledb::tiledb_object_ls(self$uri)
+      obj_df <- tiledb::tiledb_object_ls(self$uri, ctx = private$.tiledb_ctx)
       m_df <- self$get_members_df()
 
       idx <- obj_df$URI %in% m_df$uri
@@ -76,7 +76,7 @@ TileDBGroupExp <- R6::R6Class(
       non_member_uris <- df$URI
 
       out <- vapply_char(non_member_uris, function(.uri) {
-        tiledb::tiledb_object_rm(.uri, private$.tiledb_ctx)
+        tiledb::tiledb_object_rm(.uri, ctx = private$.tiledb_ctx)
       })
 
       unname(out)

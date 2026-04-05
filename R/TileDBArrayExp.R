@@ -532,7 +532,7 @@ TileDBArrayExp <- R6::R6Class(
         cli::cli_abort("{.arg {deparse(substitute(x))}} is not an attribute.", call = NULL)
       }
 
-      ase <- tiledb::tiledb_array_schema_evolution()
+      ase <- tiledb::tiledb_array_schema_evolution(ctx = self$ctx)
       ase <- tiledb::tiledb_array_schema_evolution_drop_attribute(ase, x)
       ase <- tiledb::tiledb_array_schema_evolution_array_evolve(ase, self$uri)
 

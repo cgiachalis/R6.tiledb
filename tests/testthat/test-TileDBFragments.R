@@ -4,7 +4,6 @@ test_that("'TileDBFragments' class works as expected", {
   testthat::skip_on_os("mac")
 
   withr::local_timezone(tz = "UTC")
-  ctx <- tiledb::tiledb_ctx(cached = FALSE)
   uri <- file.path(withr::local_tempdir(), "test-TileDBFragments")
 
   expect_error(TileDBFragments$new())
@@ -43,8 +42,8 @@ test_that("'TileDBFragments' class works as expected", {
   expect_equal(dump_str[[1]], "- Fragment num: 3")
 
   expect_equal(fragObj$to_vacuum(), data.frame(Fragment = character(0),
-                                               start_timestamp = numeric(0),
-                                               end_timestamp = numeric(0),
+                                               start_timestamp = as.POSIXct(double()),
+                                               end_timestamp = as.POSIXct(double()),
                                                URI = character(0)))
 
   expect_equal(fragObj$to_vacuum_num(), 0)
@@ -78,8 +77,8 @@ test_that("'TileDBFragments' class works as expected", {
   expect_true(fragObj$delete_fragment_list(frag_uris))
   expect_identical(fragObj$frag_num(), 0)
   expect_equal( fragObj$frag_uris(), data.frame(Fragment = character(0),
-                                                start_timestamp = numeric(0),
-                                                end_timestamp = numeric(0),
+                                                start_timestamp = as.POSIXct(double()),
+                                                end_timestamp = as.POSIXct(double()),
                                                 URI = character(0)))
 
   expect_snapshot(val <- fragObj$delete_fragment(1))

@@ -23,6 +23,7 @@ open_write <- function(object, ...) {
 #' @param object An `R` object that contains a `TileDB` resource pointer.
 #' @param timestamp Optional datetime object of class `"POSIXct"` to write
 #'  at this timestamp.
+#' @param ctx Optional [tiledb::tiledb_ctx()] object.
 #' @param ... Other arguments passed to methods. Not used.
 #'
 #' @returns An object of class `tiledb_array` or `tiledb_group` depending on
@@ -116,17 +117,23 @@ open_write.TileDBGroup <- function(object, timestamp = NULL, ...) {
 open_write.tiledb_group <- function(object, timestamp = NULL, ...) {
 
    uri <- tiledb::tiledb_group_uri(object)
-   grp <- TileDBGroup$new(uri)
+   cfg <- tiledb::tiledb_group_get_config(object)
+   ctx <- new_context(cfg)
+   grp <- TileDBGroup$new(uri, ctx = ctx)
    open_write(grp, timestamp)
 }
 
 #' @export
 #' @rdname open_write
-open_write.character <- function(object, timestamp = NULL, ...) {
+open_write.character <- function(object, timestamp = NULL, ctx = NULL, ...) {
 
   check_uri(object)
 
-  object_type <- tiledb::tiledb_object_type(object)
+  if (is.null(ctx)) {
+    ctx <- new_context()
+  }
+
+  object_type <- tiledb::tiledb_object_type(object, ctx = ctx)
 
   if (object_type == "INVALID") {
     cli::cli_abort(c("Invalid TileDB resource.",
@@ -135,6 +142,6 @@ open_write.character <- function(object, timestamp = NULL, ...) {
 
   cstor <- switch(object_type, ARRAY = TileDBArray, GROUP = TileDBGroup)
 
-  obj <- cstor$new(object)
+  obj <- cstor$new(object, ctx = ctx)
   open_write(obj, timestamp)
 }

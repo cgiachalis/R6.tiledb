@@ -62,7 +62,7 @@
 vfs_dir_tree <- function(uri, recursive = TRUE, vfs = NULL) {
 
   if (is.null(vfs)) {
-    vfs <- tiledb::tiledb_vfs()
+    vfs <- tiledb::tiledb_vfs(ctx = new_context())
   }
 
   if (recursive) {

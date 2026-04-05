@@ -180,7 +180,7 @@ TileDBGroup <- R6::R6Class(
       group_handle <- tiledb::tiledb_group_close(group_handle)
 
       # Remove TileDB resource TODO: USE CONFIG?
-      tiledb::tiledb_object_rm(uri_member, private$.tiledb_ctx)
+      tiledb::tiledb_object_rm(uri_member, ctx = private$.tiledb_ctx)
 
       # Drop member if cache has been initialized
       if (is.list(private$.member_cache)) {

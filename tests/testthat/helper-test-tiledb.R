@@ -6,8 +6,10 @@ create_empty_test_array <- function(uri) {
   schema <- tiledb::tiledb_array_schema(
     domain = dom,
     attrs = c(tiledb::tiledb_attr("a", type = "INT32")),
-    sparse = TRUE
+    sparse = TRUE,
+    ctx =  new_context()
   )
+
   tiledb::tiledb_array_create(uri, schema)
 
   invisible(uri)
@@ -17,7 +19,7 @@ create_empty_test_group <- function(uri) {
 
   stopifnot(!dir.exists(uri))
 
-  tiledb::tiledb_group_create(uri)
+  tiledb::tiledb_group_create(uri, ctx = new_context())
 
   invisible(uri)
 }
@@ -32,7 +34,7 @@ write_test_array <- function(uri) {
   # Writes 3 parts
   tiledb::fromDataFrame(df[1:8, ], uri, col_index = idx_cols, sparse = TRUE)
 
-  arr <- tiledb::tiledb_array(uri)
+  arr <- tiledb::tiledb_array(uri,  ctx =  new_context())
   arr[] <- df[9:16, ]
   arr[] <- df[17:24, ]
 
@@ -50,8 +52,9 @@ write_test_array_tstamps <- function(uri, frags = 3) {
   df <- data.frame(id = 1L, val = 1.0)
   tiledb::fromDataFrame(df, uri, col_index = 1, mode = "schema_only")
 
+  ctx <- new_context()
   for (i in seq_len(frags) ) {
-    arr <- tiledb::tiledb_array(uri, "WRITE", timestamp_end = ts(i))
+    arr <- tiledb::tiledb_array(uri, "WRITE", timestamp_end = ts(i), ctx = ctx)
     arr[] <- data.frame(id = 1, val = i)
   }
 }
@@ -65,7 +68,7 @@ write_test_array_tstamps2 <- function(uri, frags = 3) {
 
   out <- vector("numeric", frags)
 
-  arr <- tiledb::tiledb_array(uri)
+  arr <- tiledb::tiledb_array(uri, ctx = new_context())
 
   for (i in seq_len(frags) ) {
 
@@ -81,7 +84,7 @@ write_test_array_tstamps2 <- function(uri, frags = 3) {
 
 write_test_group <- function(uri) {
 
-  ctx <- tiledb::tiledb_ctx(cached = FALSE)
+  ctx <- new_context()
 
   group_uri <- uri
   uri1 <- R6.tiledb:::file_path(group_uri, "testarray1")
@@ -128,7 +131,7 @@ write_test_group <- function(uri) {
 
 write_test_group2 <- function(uri) {
 
-  ctx <- tiledb::tiledb_ctx(cached = FALSE)
+  ctx <-   ctx <- new_context()
 
   group_uri <- uri
   uri1 <- R6.tiledb:::file_path(group_uri, "testarray1")

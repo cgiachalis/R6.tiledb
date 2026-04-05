@@ -32,7 +32,7 @@ TileDBFragments <- R6::R6Class(
 
       # Set context
       if (is.null(ctx)) {
-        ctx <- tiledb::tiledb_ctx(cached = FALSE)
+        ctx <- new_context()
       }
 
       check_tiledb_ctx(ctx)
@@ -88,8 +88,8 @@ TileDBFragments <- R6::R6Class(
       # No fragments, then return empty data.frame
       if (idx == 0) {
         out <-  data.frame(Fragment = character(),
-                           start_timestamp = numeric(),
-                           end_timestamp = numeric(),
+                           start_timestamp = as.POSIXct(double()),
+                           end_timestamp = as.POSIXct(double()),
                            URI = character())
         return(out)
 
@@ -126,7 +126,7 @@ TileDBFragments <- R6::R6Class(
     #'
     reload_finfo = function() {
 
-      private$.finfo <- tiledb::tiledb_fragment_info(self$uri)
+      private$.finfo <- tiledb::tiledb_fragment_info(self$uri, ctx = private$.tiledb_ctx)
       private$.frag_num <- NULL
 
       private$log_debug0("reload_finfo", "Fragment Info reloaded")
@@ -161,8 +161,8 @@ TileDBFragments <- R6::R6Class(
         private$log_debug0("to_vacuum", "No fragments found to vacuum")
 
           out <-  data.frame(Fragment = character(),
-                             start_timestamp = numeric(),
-                             end_timestamp = numeric(),
+                             start_timestamp = as.POSIXct(double()),
+                             end_timestamp = as.POSIXct(double()),
                              URI = character())
           return(out)
 
@@ -223,7 +223,7 @@ TileDBFragments <- R6::R6Class(
           call = NULL)
       }
 
-      arr <- tiledb::tiledb_array(self$uri, keep_open = FALSE)
+      arr <- tiledb::tiledb_array(self$uri, keep_open = FALSE, ctx = private$.tiledb_ctx)
 
       tiledb::tiledb_array_delete_fragments(arr,
                                             ts_start = start_time[1],
@@ -252,7 +252,7 @@ TileDBFragments <- R6::R6Class(
         cli::cli_abort("{.arg {deparse(substitute(frag_uris))}} should be a character vector.", call = NULL)
       }
 
-      arr <- tiledb::tiledb_array(self$uri, keep_open = FALSE)
+      arr <- tiledb::tiledb_array(self$uri, keep_open = FALSE, ctx = private$.tiledb_ctx)
 
       tiledb::tiledb_array_delete_fragments_list(arr,
                                                  fragments = frag_uris,
@@ -294,7 +294,7 @@ TileDBFragments <- R6::R6Class(
 
       old_frags <- furis$URI[n]
 
-      arr <- tiledb::tiledb_array(self$uri, keep_open = FALSE)
+      arr <- tiledb::tiledb_array(self$uri, keep_open = FALSE, ctx = private$.tiledb_ctx)
 
       tiledb::tiledb_array_delete_fragments_list(arr,
                                                  fragments = old_frags,
@@ -446,7 +446,7 @@ TileDBFragments <- R6::R6Class(
     finfo = function(){
 
       if (is.null(private$.finfo)){
-        private$.finfo <- tiledb::tiledb_fragment_info(private$.tiledb_uri)
+        private$.finfo <- tiledb::tiledb_fragment_info(private$.tiledb_uri, ctx = private$.tiledb_ctx)
       }
       private$.finfo
     },

@@ -4,12 +4,12 @@
 #'
 #' @export
 #' @keywords internal
-`metadata<-` <- function(x, which, value) {
+`metadata<-` <- function(x, which, ..., value) {
   UseMethod("metadata<-", x)
 }
 
 #' @export
-metadata <- function(x, which) {
+metadata <- function(x, which, ...) {
   UseMethod("metadata")
 }
 
@@ -41,6 +41,7 @@ metadata <- function(x, which) {
 #' is to be accessed.
 #' @param value An object, the new value of the metadata, or `NULL` to remove
 #' the key. Note that character vectors should be of length one (scalar).
+#' @inheritParams open_write
 #'
 #' @returns For the extractor, the key value of the metadata matched, or `NULL`
 #' if no exact match is found.
@@ -55,7 +56,7 @@ NULL
 # Getters -----------------------------------------------------------
 
 #' @export
-metadata.default <- function(x, which) {
+metadata.default <- function(x, which, ...) {
   cli::cli_abort("No method for class {.cls {class(x)[1]}}.
                  See {.help [{.fun metadata}](R6.tiledb::metadata)} for details.",
                  call = NULL)
@@ -63,7 +64,7 @@ metadata.default <- function(x, which) {
 
 #' @export
 #' @rdname metadata
-metadata.TileDBArray <- function(x, which) {
+metadata.TileDBArray <- function(x, which, ...) {
 
   if (isFALSE(.is_scalar_character(which))) {
     cli::cli_abort("{.arg {deparse(substitute(which))}} should be a single character string.", call = NULL)
@@ -89,15 +90,16 @@ metadata.TileDBGroup <- metadata.TileDBArray
 
 #' @export
 #' @rdname metadata
-metadata.tiledb_array <- function(x, which) {
+metadata.tiledb_array <- function(x, which, ...) {
 
   if (isFALSE(.is_scalar_character(which))) {
     cli::cli_abort("{.arg {deparse(substitute(which))}} should be a single character string.", call = NULL)
   }
 
   uri <- x@uri
+  ctx <- x@ctx
 
-  obj <- TileDBArray$new(uri)
+  obj <- TileDBArray$new(uri, ctx = ctx)
 
   metadata(obj, which)
 
@@ -105,15 +107,17 @@ metadata.tiledb_array <- function(x, which) {
 
 #' @export
 #' @rdname metadata
-metadata.tiledb_group <- function(x, which) {
+metadata.tiledb_group <- function(x, which, ...) {
 
   if (isFALSE(.is_scalar_character(which))) {
     cli::cli_abort("{.arg {deparse(substitute(which))}} should be a single character string.", call = NULL)
   }
 
   uri <- tiledb::tiledb_group_uri(x)
+  cfg <- tiledb::tiledb_group_get_config(x)
+  ctx <- new_context(cfg)
 
-  obj <- TileDBGroup$new(uri)
+  obj <- TileDBGroup$new(uri, ctx = ctx)
 
   metadata(obj, which)
 
@@ -121,7 +125,7 @@ metadata.tiledb_group <- function(x, which) {
 
 #' @export
 #' @rdname metadata
-metadata.character <- function(x, which) {
+metadata.character <- function(x, which, ctx = NULL, ...) {
 
   if (isFALSE(.is_scalar_character(which))) {
     cli::cli_abort("{.arg {deparse(substitute(which))}} should be a single character string.", call = NULL)
@@ -129,13 +133,17 @@ metadata.character <- function(x, which) {
 
   check_uri(x)
 
-  object_type <- tiledb::tiledb_object_type(x)
+  if (is.null(ctx)) {
+    ctx <- new_context()
+  }
+
+  object_type <- tiledb::tiledb_object_type(x, ctx = ctx)
 
   cstor <- switch(object_type, ARRAY = TileDBArray, GROUP = TileDBGroup, {
     cli::cli_abort(c("Invalid TileDB resource.", "i" = "Please check {.arg uri} is a valid path."),  call = NULL)
   })
 
-  obj <- cstor$new(x)
+  obj <- cstor$new(x, ctx = ctx)
 
   metadata(obj, which)
 }
@@ -144,7 +152,7 @@ metadata.character <- function(x, which) {
 
 #' @export
 #' @rdname metadata
-`metadata<-.TileDBArray` <- function(x, which, value) {
+`metadata<-.TileDBArray` <- function(x, which, ..., value) {
 
   if (isFALSE(.is_scalar_character(which))) {
     cli::cli_abort("{.arg {deparse(substitute(which))}} should be a single character string.", call = NULL)
@@ -187,7 +195,7 @@ metadata.character <- function(x, which) {
 
 #' @export
 #' @rdname metadata
-`metadata<-.TileDBGroup` <- function(x, which, value) {
+`metadata<-.TileDBGroup` <- function(x, which,..., value) {
 
   if (isFALSE(.is_scalar_character(which))) {
     cli::cli_abort("{.arg {deparse(substitute(which))}} should be a single character string.", call = NULL)
@@ -229,7 +237,7 @@ metadata.character <- function(x, which) {
 
 #' @export
 #' @rdname metadata
-`metadata<-.tiledb_array` <- function(x, which, value) {
+`metadata<-.tiledb_array` <- function(x, which, ..., value) {
 
   if (isFALSE(.is_scalar_character(which))) {
     cli::cli_abort("{.arg {deparse(substitute(which))}} should be a single character string.", call = NULL)
@@ -240,8 +248,8 @@ metadata.character <- function(x, which) {
   }
 
   uri <- x@uri
-
-  obj <- TileDBArray$new(uri)
+  ctx <- x@ctx
+  obj <- TileDBArray$new(uri, ctx = ctx)
 
   metadata(obj, which) <- value
 
@@ -249,7 +257,7 @@ metadata.character <- function(x, which) {
 
 #' @export
 #' @rdname metadata
-`metadata<-.tiledb_group` <- function(x, which, value) {
+`metadata<-.tiledb_group` <- function(x, which, ..., value) {
 
   if (isFALSE(.is_scalar_character(which))) {
     cli::cli_abort("{.arg {deparse(substitute(which))}} should be a single character string.", call = NULL)
@@ -260,8 +268,9 @@ metadata.character <- function(x, which) {
   }
 
   uri <- tiledb::tiledb_group_uri(x)
-
-  obj <- TileDBGroup$new(uri)
+  cfg <- tiledb::tiledb_group_get_config(x)
+  ctx <- new_context(cfg)
+  obj <- TileDBGroup$new(uri, ctx = ctx)
 
   metadata(obj, which) <- value
 }
@@ -269,7 +278,7 @@ metadata.character <- function(x, which) {
 
 #' @export
 #' @rdname metadata
-`metadata<-.character` <- function(x, which, value) {
+`metadata<-.character` <- function(x, which, ctx = NULL, ..., value) {
 
   check_uri(x)
 
@@ -281,13 +290,17 @@ metadata.character <- function(x, which) {
     cli::cli_abort("Replacement value: {.arg {deparse(substitute(value))}} should be a scalar or NULL.", call = NULL)
   }
 
-  object_type <- tiledb::tiledb_object_type(x)
+  if (is.null(ctx)) {
+    ctx <- new_context()
+  }
+
+  object_type <- tiledb::tiledb_object_type(x, ctx = ctx)
 
   cstor <- switch(object_type, ARRAY = TileDBArray, GROUP = TileDBGroup, {
     cli::cli_abort(c("Invalid TileDB resource.", "i" = "Please check {.arg uri} is a valid path."),  call = NULL)
   })
 
-  obj <- cstor$new(x)
+  obj <- cstor$new(x, ctx = ctx)
 
   metadata(obj, which) <- value
 
@@ -331,13 +344,13 @@ metadata.character <- function(x, which) {
 NULL
 
 #' @export
-set_metadata <- function(x, keys, timestamp) {
+set_metadata <- function(x, keys, timestamp, ...) {
   UseMethod("set_metadata")
 }
 
 
 #' @export
-set_metadata.default <- function(x, keys, timestamp = NULL) {
+set_metadata.default <- function(x, keys, timestamp = NULL, ...) {
   cli::cli_abort("No method for class {.cls {class(x)[1]}}.
                  See {.help [{.fun set_metadata}](R6.tiledb::set_metadata)} for details.",
                  call = NULL)
@@ -345,7 +358,7 @@ set_metadata.default <- function(x, keys, timestamp = NULL) {
 
 #' @export
 #' @rdname set_metadata
-set_metadata.TileDBArray <- function(x, keys, timestamp = NULL) {
+set_metadata.TileDBArray <- function(x, keys, timestamp = NULL, ...) {
 
   mode <- x$mode
 
@@ -413,10 +426,11 @@ set_metadata.TileDBGroup <- set_metadata.TileDBArray
 
 #' @export
 #' @rdname set_metadata
-set_metadata.tiledb_array <- function(x, keys, timestamp = NULL) {
+set_metadata.tiledb_array <- function(x, keys, timestamp = NULL, ...) {
 
   uri <- x@uri
-  obj <- TileDBArray$new(uri)
+  ctx <- x@ctx
+  obj <- TileDBArray$new(uri, ctx = ctx)
 
   set_metadata(obj, keys, timestamp)
 
@@ -424,10 +438,12 @@ set_metadata.tiledb_array <- function(x, keys, timestamp = NULL) {
 
 #' @export
 #' @rdname set_metadata
-set_metadata.tiledb_group <- function(x, keys, timestamp = NULL) {
+set_metadata.tiledb_group <- function(x, keys, timestamp = NULL, ...) {
 
   uri <- tiledb::tiledb_group_uri(x)
-  obj <- TileDBGroup$new(uri)
+  cfg <- tiledb::tiledb_group_get_config(x)
+  ctx <- new_context(cfg)
+  obj <- TileDBGroup$new(uri, ctx = ctx)
 
   set_metadata(obj, keys, timestamp)
 
@@ -435,17 +451,21 @@ set_metadata.tiledb_group <- function(x, keys, timestamp = NULL) {
 
 #' @export
 #' @rdname set_metadata
-set_metadata.character <- function(x, keys, timestamp = NULL) {
+set_metadata.character <- function(x, keys, timestamp = NULL, ctx = NULL, ...) {
 
   check_uri(x)
 
-  object_type <- tiledb::tiledb_object_type(x)
+  if (is.null(ctx)) {
+    ctx <- new_context()
+  }
+
+  object_type <- tiledb::tiledb_object_type(x, ctx = ctx)
 
   cstor <- switch(object_type, ARRAY = TileDBArray, GROUP = TileDBGroup, {
     cli::cli_abort(c("Invalid TileDB resource.", "i" = "Please check {.arg uri} is a valid path."),  call = NULL)
   })
 
-  obj <- cstor$new(x)
+  obj <- cstor$new(x, ctx = ctx)
 
   set_metadata(obj, keys, timestamp)
 
@@ -483,12 +503,12 @@ set_metadata.character <- function(x, keys, timestamp = NULL) {
 NULL
 
 #' @export
-fetch_metadata <- function(x, keys, timestamp) {
+fetch_metadata <- function(x, keys, timestamp, ...) {
   UseMethod("fetch_metadata")
 }
 
 #' @export
-fetch_metadata.default <- function(x, keys = NULL, timestamp = NULL) {
+fetch_metadata.default <- function(x, keys = NULL, timestamp = NULL, ...) {
   cli::cli_abort("No method for class {.cls {class(x)[1]}}.
                  See {.help [{.fun fetch_metadata}](R6.tiledb::fetch_metadata)} for details.",
                  call = NULL)
@@ -497,7 +517,7 @@ fetch_metadata.default <- function(x, keys = NULL, timestamp = NULL) {
 
 #' @export
 #' @rdname fetch_metadata
-fetch_metadata.TileDBArray <- function(x, keys = NULL, timestamp = NULL) {
+fetch_metadata.TileDBArray <- function(x, keys = NULL, timestamp = NULL, ...) {
 
   mode <- x$mode
 
@@ -540,10 +560,11 @@ fetch_metadata.TileDBGroup <- fetch_metadata.TileDBArray
 
 #' @export
 #' @rdname fetch_metadata
-fetch_metadata.tiledb_array <- function(x, keys = NULL, timestamp = NULL) {
+fetch_metadata.tiledb_array <- function(x, keys = NULL, timestamp = NULL, ...) {
 
   uri <- x@uri
-  obj <- TileDBArray$new(uri)
+  ctx <- x@ctx
+  obj <- TileDBArray$new(uri, ctx = ctx)
 
   fetch_metadata(obj, keys, timestamp)
 
@@ -552,10 +573,12 @@ fetch_metadata.tiledb_array <- function(x, keys = NULL, timestamp = NULL) {
 
 #' @export
 #' @rdname fetch_metadata
-fetch_metadata.tiledb_group <- function(x, keys = NULL, timestamp = NULL) {
+fetch_metadata.tiledb_group <- function(x, keys = NULL, timestamp = NULL, ...) {
 
   uri <- tiledb::tiledb_group_uri(x)
-  obj <- TileDBGroup$new(uri)
+  cfg <- tiledb::tiledb_group_get_config(x)
+  ctx <- new_context(cfg)
+  obj <- TileDBGroup$new(uri, ctx = ctx)
 
   fetch_metadata(obj, keys, timestamp)
 
@@ -564,17 +587,21 @@ fetch_metadata.tiledb_group <- function(x, keys = NULL, timestamp = NULL) {
 
 #' @export
 #' @rdname fetch_metadata
-fetch_metadata.character <- function(x, keys = NULL, timestamp = NULL) {
+fetch_metadata.character <- function(x, keys = NULL, timestamp = NULL, ctx = NULL, ...) {
 
   check_uri(x)
 
-  object_type <- tiledb::tiledb_object_type(x)
+  if (is.null(ctx)) {
+    ctx <- new_context()
+  }
+
+  object_type <- tiledb::tiledb_object_type(x, ctx = ctx)
 
   cstor <- switch(object_type, ARRAY = TileDBArray, GROUP = TileDBGroup, {
     cli::cli_abort(c("Invalid TileDB resource.", "i" = "Please check {.arg uri} is a valid path."),  call = NULL)
   })
 
-  obj <- cstor$new(x)
+  obj <- cstor$new(x, ctx = ctx)
 
   fetch_metadata(obj, keys, timestamp)
 
@@ -597,6 +624,7 @@ fetch_metadata.character <- function(x, keys = NULL, timestamp = NULL) {
 #' @param x An `R` object that points to a `TileDB` resource whose
 #'  metadata are to be accessed.
 #' @param keys A character vector of metadata key names to be accessed.
+#' @inheritParams open_write
 #'
 #' @returns A logical `TRUE`, invisibly.
 #'
@@ -606,13 +634,13 @@ fetch_metadata.character <- function(x, keys = NULL, timestamp = NULL) {
 #'
 NULL
 #' @export
-delete_metadata <- function(x, keys) {
+delete_metadata <- function(x, keys, ...) {
   UseMethod("delete_metadata")
 }
 
 
 #' @export
-delete_metadata.default <- function(x, keys) {
+delete_metadata.default <- function(x, keys, ...) {
   cli::cli_abort("No method for class {.cls {class(x)[1]}}.
                  See {.help [{.fun delete_metadata}](R6.tiledb::delete_metadata)} for details.",
                  call = NULL)
@@ -620,7 +648,7 @@ delete_metadata.default <- function(x, keys) {
 
 #' @export
 #' @rdname delete_metadata
-delete_metadata.TileDBArray <- function(x, keys) {
+delete_metadata.TileDBArray <- function(x, keys, ...) {
 
   mode <- x$mode
 
@@ -664,10 +692,11 @@ delete_metadata.TileDBGroup <- delete_metadata.TileDBArray
 
 #' @export
 #' @rdname delete_metadata
-delete_metadata.tiledb_array <- function(x, keys) {
+delete_metadata.tiledb_array <- function(x, keys, ...) {
 
   uri <- x@uri
-  obj <- TileDBArray$new(uri)
+  ctx <- x@ctx
+  obj <- TileDBArray$new(uri, ctx = ctx)
 
   delete_metadata(obj, keys)
 
@@ -675,10 +704,12 @@ delete_metadata.tiledb_array <- function(x, keys) {
 
 #' @export
 #' @rdname delete_metadata
-delete_metadata.tiledb_group <- function(x, keys) {
+delete_metadata.tiledb_group <- function(x, keys, ...) {
 
   uri <- tiledb::tiledb_group_uri(x)
-  obj <- TileDBGroup$new(uri)
+  cfg <- tiledb::tiledb_group_get_config(x)
+  ctx <- new_context(cfg)
+  obj <- TileDBGroup$new(uri, ctx = ctx)
 
   delete_metadata(obj, keys)
 
@@ -686,17 +717,21 @@ delete_metadata.tiledb_group <- function(x, keys) {
 
 #' @export
 #' @rdname delete_metadata
-delete_metadata.character <- function(x, keys) {
+delete_metadata.character <- function(x, keys, ctx = NULL, ...) {
 
   check_uri(x)
 
-  object_type <- tiledb::tiledb_object_type(x)
+  if (is.null(ctx)) {
+    ctx <- new_context()
+  }
+
+  object_type <- tiledb::tiledb_object_type(x, ctx = ctx)
 
   cstor <- switch(object_type, ARRAY = TileDBArray, GROUP = TileDBGroup, {
     cli::cli_abort(c("Invalid TileDB resource.", "i" = "Please check {.arg uri} is a valid path."),  call = NULL)
   })
 
-  obj <- cstor$new(x)
+  obj <- cstor$new(x, ctx = ctx)
 
   delete_metadata(obj, keys)
 
