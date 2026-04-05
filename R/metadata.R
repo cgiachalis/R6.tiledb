@@ -550,7 +550,8 @@ fetch_metadata.TileDBGroup <- fetch_metadata.TileDBArray
 fetch_metadata.tiledb_array <- function(x, keys = NULL, timestamp = NULL) {
 
   uri <- x@uri
-  obj <- TileDBArray$new(uri)
+  ctx <- ctx@ctx
+  obj <- TileDBArray$new(uri, ctx = ctx)
 
   fetch_metadata(obj, keys, timestamp)
 
