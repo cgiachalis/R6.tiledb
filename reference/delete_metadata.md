@@ -6,19 +6,19 @@ Delete metadata using keys names for a `TileDB` array or group.
 
 ``` r
 # S3 method for class 'TileDBArray'
-delete_metadata(x, keys)
+delete_metadata(x, keys, ...)
 
 # S3 method for class 'TileDBGroup'
-delete_metadata(x, keys)
+delete_metadata(x, keys, ...)
 
 # S3 method for class 'tiledb_array'
-delete_metadata(x, keys)
+delete_metadata(x, keys, ...)
 
 # S3 method for class 'tiledb_group'
-delete_metadata(x, keys)
+delete_metadata(x, keys, ...)
 
 # S3 method for class 'character'
-delete_metadata(x, keys)
+delete_metadata(x, keys, ctx = NULL, ...)
 ```
 
 ## Arguments
@@ -31,6 +31,16 @@ delete_metadata(x, keys)
 - keys:
 
   A character vector of metadata key names to be accessed.
+
+- ...:
+
+  Other arguments passed to methods. Not used.
+
+- ctx:
+
+  Optional
+  [`tiledb::tiledb_ctx()`](https://tiledb-inc.github.io/TileDB-R/reference/tiledb_ctx.html)
+  object.
 
 ## Value
 

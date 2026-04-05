@@ -6,34 +6,34 @@ Get or set a metadata key for a `TileDB` array or group.
 
 ``` r
 # S3 method for class 'TileDBArray'
-metadata(x, which)
+metadata(x, which, ...)
 
 # S3 method for class 'TileDBGroup'
-metadata(x, which)
+metadata(x, which, ...)
 
 # S3 method for class 'tiledb_array'
-metadata(x, which)
+metadata(x, which, ...)
 
 # S3 method for class 'tiledb_group'
-metadata(x, which)
+metadata(x, which, ...)
 
 # S3 method for class 'character'
-metadata(x, which)
+metadata(x, which, ctx = NULL, ...)
 
 # S3 method for class 'TileDBArray'
-metadata(x, which) <- value
+metadata(x, which, ...) <- value
 
 # S3 method for class 'TileDBGroup'
-metadata(x, which) <- value
+metadata(x, which, ...) <- value
 
 # S3 method for class 'tiledb_array'
-metadata(x, which) <- value
+metadata(x, which, ...) <- value
 
 # S3 method for class 'tiledb_group'
-metadata(x, which) <- value
+metadata(x, which, ...) <- value
 
 # S3 method for class 'character'
-metadata(x, which) <- value
+metadata(x, which, ctx = NULL, ...) <- value
 ```
 
 ## Arguments
@@ -47,6 +47,16 @@ metadata(x, which) <- value
 
   A non-empty character string specifying which metadata key is to be
   accessed.
+
+- ...:
+
+  Other arguments passed to methods. Not used.
+
+- ctx:
+
+  Optional
+  [`tiledb::tiledb_ctx()`](https://tiledb-inc.github.io/TileDB-R/reference/tiledb_ctx.html)
+  object.
 
 - value:
 

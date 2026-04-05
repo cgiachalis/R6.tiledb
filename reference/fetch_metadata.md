@@ -8,19 +8,22 @@ group. Optionally, you can access metadata at specific point in time
 
 ``` r
 # S3 method for class 'TileDBArray'
-fetch_metadata(x, keys = NULL, timestamp = NULL)
+fetch_metadata(x, keys = NULL, timestamp = NULL, ...)
 
 # S3 method for class 'TileDBGroup'
-fetch_metadata(x, keys = NULL, timestamp = NULL)
+fetch_metadata(x, keys = NULL, timestamp = NULL, ...)
 
 # S3 method for class 'tiledb_array'
-fetch_metadata(x, keys = NULL, timestamp = NULL)
+fetch_metadata(x, keys = NULL, timestamp = NULL,
+  ...)
 
 # S3 method for class 'tiledb_group'
-fetch_metadata(x, keys = NULL, timestamp = NULL)
+fetch_metadata(x, keys = NULL, timestamp = NULL,
+  ...)
 
 # S3 method for class 'character'
-fetch_metadata(x, keys = NULL, timestamp = NULL)
+fetch_metadata(x, keys = NULL, timestamp = NULL,
+  ctx = NULL, ...)
 ```
 
 ## Arguments
@@ -39,6 +42,16 @@ fetch_metadata(x, keys = NULL, timestamp = NULL)
 
   Optional datetime object of class `"POSIXct"` to write at this
   timestamp.
+
+- ...:
+
+  Other arguments passed to methods. Not used.
+
+- ctx:
+
+  Optional
+  [`tiledb::tiledb_ctx()`](https://tiledb-inc.github.io/TileDB-R/reference/tiledb_ctx.html)
+  object.
 
 ## Value
 

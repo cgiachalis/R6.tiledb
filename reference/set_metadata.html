@@ -11,7 +11,7 @@ Optionally, you can write metadata at specific point in time
 
     <a class="navbar-brand me-2" href="../index.html">R6.tiledb</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0.44</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0.45</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -58,19 +58,20 @@ Optionally, you can write metadata at specific point in time
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="co"># S3 method for class 'TileDBArray'</span></span>
-<span><span class="fu">set_metadata</span><span class="op">(</span><span class="va">x</span>, <span class="va">keys</span>, timestamp <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span>
+<span><span class="fu">set_metadata</span><span class="op">(</span><span class="va">x</span>, <span class="va">keys</span>, timestamp <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S3 method for class 'TileDBGroup'</span></span>
-<span><span class="fu">set_metadata</span><span class="op">(</span><span class="va">x</span>, <span class="va">keys</span>, timestamp <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span>
+<span><span class="fu">set_metadata</span><span class="op">(</span><span class="va">x</span>, <span class="va">keys</span>, timestamp <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S3 method for class 'tiledb_array'</span></span>
-<span><span class="fu">set_metadata</span><span class="op">(</span><span class="va">x</span>, <span class="va">keys</span>, timestamp <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span>
+<span><span class="fu">set_metadata</span><span class="op">(</span><span class="va">x</span>, <span class="va">keys</span>, timestamp <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S3 method for class 'tiledb_group'</span></span>
-<span><span class="fu">set_metadata</span><span class="op">(</span><span class="va">x</span>, <span class="va">keys</span>, timestamp <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span>
+<span><span class="fu">set_metadata</span><span class="op">(</span><span class="va">x</span>, <span class="va">keys</span>, timestamp <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S3 method for class 'character'</span></span>
-<span><span class="fu">set_metadata</span><span class="op">(</span><span class="va">x</span>, <span class="va">keys</span>, timestamp <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">set_metadata</span><span class="op">(</span><span class="va">x</span>, <span class="va">keys</span>, timestamp <span class="op">=</span> <span class="cn">NULL</span>, ctx <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -89,6 +90,14 @@ metadata are to be written.</p></dd>
 <dt id="arg-timestamp">timestamp<a class="anchor" aria-label="anchor" href="#arg-timestamp"></a></dt>
 <dd><p>Optional datetime object of class <code>"POSIXct"</code> to write
 at this timestamp.</p></dd>
+
+
+<dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
+<dd><p>Other arguments passed to methods. Not used.</p></dd>
+
+
+<dt id="arg-ctx">ctx<a class="anchor" aria-label="anchor" href="#arg-ctx"></a></dt>
+<dd><p>Optional <code><a href="https://tiledb-inc.github.io/TileDB-R/reference/tiledb_ctx.html" class="external-link">tiledb::tiledb_ctx()</a></code> object.</p></dd>
 
 </dl></div>
     <div class="section level2">

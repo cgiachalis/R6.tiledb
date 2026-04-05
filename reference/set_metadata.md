@@ -8,19 +8,20 @@ group. Optionally, you can write metadata at specific point in time
 
 ``` r
 # S3 method for class 'TileDBArray'
-set_metadata(x, keys, timestamp = NULL)
+set_metadata(x, keys, timestamp = NULL, ...)
 
 # S3 method for class 'TileDBGroup'
-set_metadata(x, keys, timestamp = NULL)
+set_metadata(x, keys, timestamp = NULL, ...)
 
 # S3 method for class 'tiledb_array'
-set_metadata(x, keys, timestamp = NULL)
+set_metadata(x, keys, timestamp = NULL, ...)
 
 # S3 method for class 'tiledb_group'
-set_metadata(x, keys, timestamp = NULL)
+set_metadata(x, keys, timestamp = NULL, ...)
 
 # S3 method for class 'character'
-set_metadata(x, keys, timestamp = NULL)
+set_metadata(x, keys, timestamp = NULL, ctx = NULL,
+  ...)
 ```
 
 ## Arguments
@@ -38,6 +39,16 @@ set_metadata(x, keys, timestamp = NULL)
 
   Optional datetime object of class `"POSIXct"` to write at this
   timestamp.
+
+- ...:
+
+  Other arguments passed to methods. Not used.
+
+- ctx:
+
+  Optional
+  [`tiledb::tiledb_ctx()`](https://tiledb-inc.github.io/TileDB-R/reference/tiledb_ctx.html)
+  object.
 
 ## Value
 

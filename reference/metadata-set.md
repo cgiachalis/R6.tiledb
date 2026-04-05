@@ -7,5 +7,5 @@ documentation.
 ## Usage
 
 ``` r
-metadata(x, which) <- value
+metadata(x, which, ...) <- value
 ```

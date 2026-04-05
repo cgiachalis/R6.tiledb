@@ -24,7 +24,7 @@ open_write(object, timestamp = NULL, ...)
 open_write(object, timestamp = NULL, ...)
 
 # S3 method for class 'character'
-open_write(object, timestamp = NULL, ...)
+open_write(object, timestamp = NULL, ctx = NULL, ...)
 ```
 
 ## Arguments
@@ -41,6 +41,12 @@ open_write(object, timestamp = NULL, ...)
 - ...:
 
   Other arguments passed to methods. Not used.
+
+- ctx:
+
+  Optional
+  [`tiledb::tiledb_ctx()`](https://tiledb-inc.github.io/TileDB-R/reference/tiledb_ctx.html)
+  object.
 
 ## Value
 
