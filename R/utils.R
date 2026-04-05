@@ -103,7 +103,7 @@ vapply_int <- function(X, FUN, ..., USE.NAMES = TRUE) {
     cfg["sm.group.timestamp_end"] <- "18446744073709551615"
   }
 
-  tiledb::tiledb_ctx(cfg)
+  new_context(cfg)
 }
 
 
