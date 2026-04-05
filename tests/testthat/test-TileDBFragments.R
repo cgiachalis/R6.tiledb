@@ -42,8 +42,8 @@ test_that("'TileDBFragments' class works as expected", {
   expect_equal(dump_str[[1]], "- Fragment num: 3")
 
   expect_equal(fragObj$to_vacuum(), data.frame(Fragment = character(0),
-                                               start_timestamp = numeric(0),
-                                               end_timestamp = numeric(0),
+                                               start_timestamp = as.POSIXct(double()),
+                                               end_timestamp = as.POSIXct(double()),
                                                URI = character(0)))
 
   expect_equal(fragObj$to_vacuum_num(), 0)
