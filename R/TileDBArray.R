@@ -67,7 +67,8 @@ TileDBArray <- R6::R6Class(
           private$.tiledb_array <- tiledb::tiledb_array(self$uri,
                                                         query_type = mode,
                                                         query_layout = "UNORDERED",
-                                                        keep_open = TRUE)
+                                                        keep_open = TRUE,
+                                                        ctx = self$ctx)
 
 
         } else if (mode == "READ" && ts_info == "user trng") {
@@ -83,7 +84,8 @@ TileDBArray <- R6::R6Class(
                                                         query_layout = "UNORDERED",
                                                         keep_open = TRUE,
                                                         timestamp_start = tstart,
-                                                        timestamp_end = tend)
+                                                        timestamp_end = tend,
+                                                        ctx = self$ctx)
 
 
 
