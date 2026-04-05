@@ -335,6 +335,7 @@ metadata.character <- function(x, which, ctx = NULL, ...) {
 #'  metadata are to be written.
 #' @param keys A named list of key value metadata.
 #' @param ctx Optional [tiledb::tiledb_ctx()] object.
+#' @param ... Unused
 #' @inheritParams open_write
 #'
 #' @returns A logical `TRUE`, invisibly.
@@ -495,6 +496,7 @@ set_metadata.character <- function(x, keys, timestamp = NULL, ctx = NULL, ...) {
 #' @param keys A character vector of metadata key names to be accessed. When
 #' `NULL` (default) all metadata will be accessed.
 #' @param ctx Optional [tiledb::tiledb_ctx()] object.
+#' @param ... Unused
 #' @inheritParams open_write
 #'
 #' @returns A named list of class `tdb_metadata`.
@@ -506,12 +508,12 @@ set_metadata.character <- function(x, keys, timestamp = NULL, ctx = NULL, ...) {
 NULL
 
 #' @export
-fetch_metadata <- function(x, keys, timestamp) {
+fetch_metadata <- function(x, keys, timestamp, ...) {
   UseMethod("fetch_metadata")
 }
 
 #' @export
-fetch_metadata.default <- function(x, keys = NULL, timestamp = NULL) {
+fetch_metadata.default <- function(x, keys = NULL, timestamp = NULL, ...) {
   cli::cli_abort("No method for class {.cls {class(x)[1]}}.
                  See {.help [{.fun fetch_metadata}](R6.tiledb::fetch_metadata)} for details.",
                  call = NULL)
@@ -520,7 +522,7 @@ fetch_metadata.default <- function(x, keys = NULL, timestamp = NULL) {
 
 #' @export
 #' @rdname fetch_metadata
-fetch_metadata.TileDBArray <- function(x, keys = NULL, timestamp = NULL) {
+fetch_metadata.TileDBArray <- function(x, keys = NULL, timestamp = NULL, ...) {
 
   mode <- x$mode
 
@@ -563,7 +565,7 @@ fetch_metadata.TileDBGroup <- fetch_metadata.TileDBArray
 
 #' @export
 #' @rdname fetch_metadata
-fetch_metadata.tiledb_array <- function(x, keys = NULL, timestamp = NULL) {
+fetch_metadata.tiledb_array <- function(x, keys = NULL, timestamp = NULL, ...) {
 
   uri <- x@uri
   ctx <- x@ctx
@@ -576,7 +578,7 @@ fetch_metadata.tiledb_array <- function(x, keys = NULL, timestamp = NULL) {
 
 #' @export
 #' @rdname fetch_metadata
-fetch_metadata.tiledb_group <- function(x, keys = NULL, timestamp = NULL) {
+fetch_metadata.tiledb_group <- function(x, keys = NULL, timestamp = NULL, ...) {
 
   uri <- tiledb::tiledb_group_uri(x)
   cfg <- tiledb::tiledb_group_get_config(x)
@@ -590,7 +592,7 @@ fetch_metadata.tiledb_group <- function(x, keys = NULL, timestamp = NULL) {
 
 #' @export
 #' @rdname fetch_metadata
-fetch_metadata.character <- function(x, keys = NULL, timestamp = NULL, ctx = NULL) {
+fetch_metadata.character <- function(x, keys = NULL, timestamp = NULL, ctx = NULL, ...) {
 
   check_uri(x)
 
