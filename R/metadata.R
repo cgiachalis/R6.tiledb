@@ -624,6 +624,7 @@ fetch_metadata.character <- function(x, keys = NULL, timestamp = NULL, ctx = NUL
 #' @param x An `R` object that points to a `TileDB` resource whose
 #'  metadata are to be accessed.
 #' @param keys A character vector of metadata key names to be accessed.
+#' @inheritParams open_write
 #'
 #' @returns A logical `TRUE`, invisibly.
 #'

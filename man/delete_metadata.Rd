@@ -24,6 +24,10 @@
 metadata are to be accessed.}
 
 \item{keys}{A character vector of metadata key names to be accessed.}
+
+\item{...}{Other arguments passed to methods. Not used.}
+
+\item{ctx}{Optional \code{\link[tiledb:tiledb_ctx]{tiledb::tiledb_ctx()}} object.}
 }
 \value{
 A logical \code{TRUE}, invisibly.
