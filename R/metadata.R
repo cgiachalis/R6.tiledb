@@ -630,6 +630,7 @@ fetch_metadata.character <- function(x, keys = NULL, timestamp = NULL, ctx = NUL
 #'  metadata are to be accessed.
 #' @param keys A character vector of metadata key names to be accessed.
 #' @param ctx Optional [tiledb::tiledb_ctx()] object.
+#' @param ... Unused
 #'
 #' @returns A logical `TRUE`, invisibly.
 #'
@@ -639,13 +640,13 @@ fetch_metadata.character <- function(x, keys = NULL, timestamp = NULL, ctx = NUL
 #'
 NULL
 #' @export
-delete_metadata <- function(x, keys) {
+delete_metadata <- function(x, keys, ...) {
   UseMethod("delete_metadata")
 }
 
 
 #' @export
-delete_metadata.default <- function(x, keys) {
+delete_metadata.default <- function(x, keys, ...) {
   cli::cli_abort("No method for class {.cls {class(x)[1]}}.
                  See {.help [{.fun delete_metadata}](R6.tiledb::delete_metadata)} for details.",
                  call = NULL)
@@ -653,7 +654,7 @@ delete_metadata.default <- function(x, keys) {
 
 #' @export
 #' @rdname delete_metadata
-delete_metadata.TileDBArray <- function(x, keys) {
+delete_metadata.TileDBArray <- function(x, keys, ...) {
 
   mode <- x$mode
 
@@ -697,7 +698,7 @@ delete_metadata.TileDBGroup <- delete_metadata.TileDBArray
 
 #' @export
 #' @rdname delete_metadata
-delete_metadata.tiledb_array <- function(x, keys) {
+delete_metadata.tiledb_array <- function(x, keys, ...) {
 
   uri <- x@uri
   ctx <- x@ctx
@@ -709,7 +710,7 @@ delete_metadata.tiledb_array <- function(x, keys) {
 
 #' @export
 #' @rdname delete_metadata
-delete_metadata.tiledb_group <- function(x, keys) {
+delete_metadata.tiledb_group <- function(x, keys, ...) {
 
   uri <- tiledb::tiledb_group_uri(x)
   cfg <- tiledb::tiledb_group_get_config(x)
@@ -722,7 +723,7 @@ delete_metadata.tiledb_group <- function(x, keys) {
 
 #' @export
 #' @rdname delete_metadata
-delete_metadata.character <- function(x, keys, ctx = NULL) {
+delete_metadata.character <- function(x, keys, ctx = NULL, ...) {
 
   check_uri(x)
 

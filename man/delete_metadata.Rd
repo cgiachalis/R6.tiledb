@@ -9,21 +9,23 @@
 \alias{delete_metadata.character}
 \title{Delete TileDB Metadata}
 \usage{
-\method{delete_metadata}{TileDBArray}(x, keys)
+\method{delete_metadata}{TileDBArray}(x, keys, ...)
 
-\method{delete_metadata}{TileDBGroup}(x, keys)
+\method{delete_metadata}{TileDBGroup}(x, keys, ...)
 
-\method{delete_metadata}{tiledb_array}(x, keys)
+\method{delete_metadata}{tiledb_array}(x, keys, ...)
 
-\method{delete_metadata}{tiledb_group}(x, keys)
+\method{delete_metadata}{tiledb_group}(x, keys, ...)
 
-\method{delete_metadata}{character}(x, keys, ctx = NULL)
+\method{delete_metadata}{character}(x, keys, ctx = NULL, ...)
 }
 \arguments{
 \item{x}{An \code{R} object that points to a \code{TileDB} resource whose
 metadata are to be accessed.}
 
 \item{keys}{A character vector of metadata key names to be accessed.}
+
+\item{...}{Unused}
 
 \item{ctx}{Optional \code{\link[tiledb:tiledb_ctx]{tiledb::tiledb_ctx()}} object.}
 }
