@@ -243,8 +243,8 @@ metadata.character <- function(x, which) {
   }
 
   uri <- x@uri
-
-  obj <- TileDBArray$new(uri)
+  ctx <- x@ctx
+  obj <- TileDBArray$new(uri, ctx = ctx)
 
   metadata(obj, which) <- value
 
