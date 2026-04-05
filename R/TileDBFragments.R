@@ -446,7 +446,7 @@ TileDBFragments <- R6::R6Class(
     finfo = function(){
 
       if (is.null(private$.finfo)){
-        private$.finfo <- tiledb::tiledb_fragment_info(private$.tiledb_uri)
+        private$.finfo <- tiledb::tiledb_fragment_info(private$.tiledb_uri, ctx = private$.tiledb_ctx)
       }
       private$.finfo
     },
