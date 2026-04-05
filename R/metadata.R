@@ -4,12 +4,12 @@
 #'
 #' @export
 #' @keywords internal
-`metadata<-` <- function(x, which, value) {
+`metadata<-` <- function(x, which, ..., value) {
   UseMethod("metadata<-", x)
 }
 
 #' @export
-metadata <- function(x, which) {
+metadata <- function(x, which, ...) {
   UseMethod("metadata")
 }
 
@@ -41,6 +41,8 @@ metadata <- function(x, which) {
 #' is to be accessed.
 #' @param value An object, the new value of the metadata, or `NULL` to remove
 #' the key. Note that character vectors should be of length one (scalar).
+#' @param ctx Optional [tiledb::tiledb_ctx()] object.
+#' @param ... Unused
 #'
 #' @returns For the extractor, the key value of the metadata matched, or `NULL`
 #' if no exact match is found.
@@ -55,7 +57,7 @@ NULL
 # Getters -----------------------------------------------------------
 
 #' @export
-metadata.default <- function(x, which) {
+metadata.default <- function(x, which, ...) {
   cli::cli_abort("No method for class {.cls {class(x)[1]}}.
                  See {.help [{.fun metadata}](R6.tiledb::metadata)} for details.",
                  call = NULL)
@@ -63,7 +65,7 @@ metadata.default <- function(x, which) {
 
 #' @export
 #' @rdname metadata
-metadata.TileDBArray <- function(x, which) {
+metadata.TileDBArray <- function(x, which, ...) {
 
   if (isFALSE(.is_scalar_character(which))) {
     cli::cli_abort("{.arg {deparse(substitute(which))}} should be a single character string.", call = NULL)
@@ -89,7 +91,7 @@ metadata.TileDBGroup <- metadata.TileDBArray
 
 #' @export
 #' @rdname metadata
-metadata.tiledb_array <- function(x, which) {
+metadata.tiledb_array <- function(x, which, ...) {
 
   if (isFALSE(.is_scalar_character(which))) {
     cli::cli_abort("{.arg {deparse(substitute(which))}} should be a single character string.", call = NULL)
@@ -106,7 +108,7 @@ metadata.tiledb_array <- function(x, which) {
 
 #' @export
 #' @rdname metadata
-metadata.tiledb_group <- function(x, which) {
+metadata.tiledb_group <- function(x, which, ...) {
 
   if (isFALSE(.is_scalar_character(which))) {
     cli::cli_abort("{.arg {deparse(substitute(which))}} should be a single character string.", call = NULL)
@@ -124,7 +126,7 @@ metadata.tiledb_group <- function(x, which) {
 
 #' @export
 #' @rdname metadata
-metadata.character <- function(x, which) {
+metadata.character <- function(x, which, ctx = NULL, ...) {
 
   if (isFALSE(.is_scalar_character(which))) {
     cli::cli_abort("{.arg {deparse(substitute(which))}} should be a single character string.", call = NULL)
@@ -132,13 +134,17 @@ metadata.character <- function(x, which) {
 
   check_uri(x)
 
-  object_type <- tiledb::tiledb_object_type(x, ctx = new_context())
+  if (is.null(ctx)) {
+    ctx <- new_context()
+  }
+
+  object_type <- tiledb::tiledb_object_type(x, ctx = ctx)
 
   cstor <- switch(object_type, ARRAY = TileDBArray, GROUP = TileDBGroup, {
     cli::cli_abort(c("Invalid TileDB resource.", "i" = "Please check {.arg uri} is a valid path."),  call = NULL)
   })
 
-  obj <- cstor$new(x)
+  obj <- cstor$new(x, ctx = ctx)
 
   metadata(obj, which)
 }
@@ -147,7 +153,7 @@ metadata.character <- function(x, which) {
 
 #' @export
 #' @rdname metadata
-`metadata<-.TileDBArray` <- function(x, which, value) {
+`metadata<-.TileDBArray` <- function(x, which, ..., value) {
 
   if (isFALSE(.is_scalar_character(which))) {
     cli::cli_abort("{.arg {deparse(substitute(which))}} should be a single character string.", call = NULL)
@@ -190,7 +196,7 @@ metadata.character <- function(x, which) {
 
 #' @export
 #' @rdname metadata
-`metadata<-.TileDBGroup` <- function(x, which, value) {
+`metadata<-.TileDBGroup` <- function(x, which,..., value) {
 
   if (isFALSE(.is_scalar_character(which))) {
     cli::cli_abort("{.arg {deparse(substitute(which))}} should be a single character string.", call = NULL)
@@ -232,7 +238,7 @@ metadata.character <- function(x, which) {
 
 #' @export
 #' @rdname metadata
-`metadata<-.tiledb_array` <- function(x, which, value) {
+`metadata<-.tiledb_array` <- function(x, which, ..., value) {
 
   if (isFALSE(.is_scalar_character(which))) {
     cli::cli_abort("{.arg {deparse(substitute(which))}} should be a single character string.", call = NULL)
@@ -252,7 +258,7 @@ metadata.character <- function(x, which) {
 
 #' @export
 #' @rdname metadata
-`metadata<-.tiledb_group` <- function(x, which, value) {
+`metadata<-.tiledb_group` <- function(x, which, ..., value) {
 
   if (isFALSE(.is_scalar_character(which))) {
     cli::cli_abort("{.arg {deparse(substitute(which))}} should be a single character string.", call = NULL)
@@ -273,7 +279,7 @@ metadata.character <- function(x, which) {
 
 #' @export
 #' @rdname metadata
-`metadata<-.character` <- function(x, which, value) {
+`metadata<-.character` <- function(x, which, ctx = NULL, ..., value) {
 
   check_uri(x)
 
@@ -285,13 +291,17 @@ metadata.character <- function(x, which) {
     cli::cli_abort("Replacement value: {.arg {deparse(substitute(value))}} should be a scalar or NULL.", call = NULL)
   }
 
-  object_type <- tiledb::tiledb_object_type(x, ctx = new_context())
+  if (is.null(ctx)) {
+    ctx <- new_context()
+  }
+
+  object_type <- tiledb::tiledb_object_type(x, ctx = ctx)
 
   cstor <- switch(object_type, ARRAY = TileDBArray, GROUP = TileDBGroup, {
     cli::cli_abort(c("Invalid TileDB resource.", "i" = "Please check {.arg uri} is a valid path."),  call = NULL)
   })
 
-  obj <- cstor$new(x)
+  obj <- cstor$new(x, ctx = ctx)
 
   metadata(obj, which) <- value
 

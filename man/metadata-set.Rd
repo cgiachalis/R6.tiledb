@@ -4,7 +4,7 @@
 \alias{metadata<-}
 \title{Replacement method}
 \usage{
-metadata(x, which) <- value
+metadata(x, which, ...) <- value
 }
 \description{
 See \code{\link[=metadata]{metadata()}} documentation.

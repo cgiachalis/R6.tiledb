@@ -14,25 +14,25 @@
 \alias{metadata<-.character}
 \title{Get, Set a TileDB Metadata Key}
 \usage{
-\method{metadata}{TileDBArray}(x, which)
+\method{metadata}{TileDBArray}(x, which, ...)
 
-\method{metadata}{TileDBGroup}(x, which)
+\method{metadata}{TileDBGroup}(x, which, ...)
 
-\method{metadata}{tiledb_array}(x, which)
+\method{metadata}{tiledb_array}(x, which, ...)
 
-\method{metadata}{tiledb_group}(x, which)
+\method{metadata}{tiledb_group}(x, which, ...)
 
-\method{metadata}{character}(x, which)
+\method{metadata}{character}(x, which, ctx = NULL, ...)
 
-\method{metadata}{TileDBArray}(x, which) <- value
+\method{metadata}{TileDBArray}(x, which, ...) <- value
 
-\method{metadata}{TileDBGroup}(x, which) <- value
+\method{metadata}{TileDBGroup}(x, which, ...) <- value
 
-\method{metadata}{tiledb_array}(x, which) <- value
+\method{metadata}{tiledb_array}(x, which, ...) <- value
 
-\method{metadata}{tiledb_group}(x, which) <- value
+\method{metadata}{tiledb_group}(x, which, ...) <- value
 
-\method{metadata}{character}(x, which) <- value
+\method{metadata}{character}(x, which, ctx = NULL, ...) <- value
 }
 \arguments{
 \item{x}{An \code{R} object that points to a \code{TileDB} resource whose
@@ -40,6 +40,10 @@ metadata are to be accessed.}
 
 \item{which}{A non-empty character string specifying which metadata key
 is to be accessed.}
+
+\item{...}{Unused}
+
+\item{ctx}{Optional \code{\link[tiledb:tiledb_ctx]{tiledb::tiledb_ctx()}} object.}
 
 \item{value}{An object, the new value of the metadata, or \code{NULL} to remove
 the key. Note that character vectors should be of length one (scalar).}
