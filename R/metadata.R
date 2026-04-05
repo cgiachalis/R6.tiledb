@@ -96,8 +96,9 @@ metadata.tiledb_array <- function(x, which) {
   }
 
   uri <- x@uri
+  ctx <- x@ctx
 
-  obj <- TileDBArray$new(uri)
+  obj <- TileDBArray$new(uri, ctx = ctx)
 
   metadata(obj, which)
 
