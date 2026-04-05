@@ -126,7 +126,7 @@ TileDBFragments <- R6::R6Class(
     #'
     reload_finfo = function() {
 
-      private$.finfo <- tiledb::tiledb_fragment_info(self$uri)
+      private$.finfo <- tiledb::tiledb_fragment_info(self$uri, ctx = private$.tiledb_ctx)
       private$.frag_num <- NULL
 
       private$log_debug0("reload_finfo", "Fragment Info reloaded")
