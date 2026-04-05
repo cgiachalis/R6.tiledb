@@ -113,8 +113,10 @@ metadata.tiledb_group <- function(x, which) {
   }
 
   uri <- tiledb::tiledb_group_uri(x)
+  cfg <- tiledb::tiledb_group_get_config(x)
+  ctx <- new_context(cfg)
 
-  obj <- TileDBGroup$new(uri)
+  obj <- TileDBGroup$new(uri, ctx = ctx)
 
   metadata(obj, which)
 
