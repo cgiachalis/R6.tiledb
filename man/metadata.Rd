@@ -41,7 +41,7 @@ metadata are to be accessed.}
 \item{which}{A non-empty character string specifying which metadata key
 is to be accessed.}
 
-\item{...}{Unused}
+\item{...}{Other arguments passed to methods. Not used.}
 
 \item{ctx}{Optional \code{\link[tiledb:tiledb_ctx]{tiledb::tiledb_ctx()}} object.}
 

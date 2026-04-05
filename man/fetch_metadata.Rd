@@ -32,7 +32,7 @@ metadata are to be accessed.}
 \item{timestamp}{Optional datetime object of class \code{"POSIXct"} to write
 at this timestamp.}
 
-\item{...}{Unused}
+\item{...}{Other arguments passed to methods. Not used.}
 
 \item{ctx}{Optional \code{\link[tiledb:tiledb_ctx]{tiledb::tiledb_ctx()}} object.}
 }

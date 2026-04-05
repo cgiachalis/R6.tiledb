@@ -41,8 +41,7 @@ metadata <- function(x, which, ...) {
 #' is to be accessed.
 #' @param value An object, the new value of the metadata, or `NULL` to remove
 #' the key. Note that character vectors should be of length one (scalar).
-#' @param ctx Optional [tiledb::tiledb_ctx()] object.
-#' @param ... Unused
+#' @inheritParams open_write
 #'
 #' @returns For the extractor, the key value of the metadata matched, or `NULL`
 #' if no exact match is found.
@@ -334,8 +333,6 @@ metadata.character <- function(x, which, ctx = NULL, ...) {
 #' @param x An `R` object that points to a `TileDB` resource whose
 #'  metadata are to be written.
 #' @param keys A named list of key value metadata.
-#' @param ctx Optional [tiledb::tiledb_ctx()] object.
-#' @param ... Unused
 #' @inheritParams open_write
 #'
 #' @returns A logical `TRUE`, invisibly.
@@ -495,8 +492,6 @@ set_metadata.character <- function(x, keys, timestamp = NULL, ctx = NULL, ...) {
 #'  metadata are to be accessed.
 #' @param keys A character vector of metadata key names to be accessed. When
 #' `NULL` (default) all metadata will be accessed.
-#' @param ctx Optional [tiledb::tiledb_ctx()] object.
-#' @param ... Unused
 #' @inheritParams open_write
 #'
 #' @returns A named list of class `tdb_metadata`.
@@ -629,8 +624,6 @@ fetch_metadata.character <- function(x, keys = NULL, timestamp = NULL, ctx = NUL
 #' @param x An `R` object that points to a `TileDB` resource whose
 #'  metadata are to be accessed.
 #' @param keys A character vector of metadata key names to be accessed.
-#' @param ctx Optional [tiledb::tiledb_ctx()] object.
-#' @param ... Unused
 #'
 #' @returns A logical `TRUE`, invisibly.
 #'
