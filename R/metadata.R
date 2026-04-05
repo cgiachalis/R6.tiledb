@@ -420,7 +420,8 @@ set_metadata.TileDBGroup <- set_metadata.TileDBArray
 set_metadata.tiledb_array <- function(x, keys, timestamp = NULL) {
 
   uri <- x@uri
-  obj <- TileDBArray$new(uri)
+  ctx <- x@ctx
+  obj <- TileDBArray$new(uri, ctx = ctx)
 
   set_metadata(obj, keys, timestamp)
 
