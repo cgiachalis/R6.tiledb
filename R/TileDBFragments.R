@@ -32,7 +32,7 @@ TileDBFragments <- R6::R6Class(
 
       # Set context
       if (is.null(ctx)) {
-        ctx <- tiledb::tiledb_ctx(cached = FALSE)
+        ctx <- new_context()
       }
 
       check_tiledb_ctx(ctx)
