@@ -263,8 +263,9 @@ metadata.character <- function(x, which) {
   }
 
   uri <- tiledb::tiledb_group_uri(x)
-
-  obj <- TileDBGroup$new(uri)
+  cfg <- tiledb::tiledb_group_get_config(x)
+  ctx <- new_context(cfg)
+  obj <- TileDBGroup$new(uri, ctx = ctx)
 
   metadata(obj, which) <- value
 }
