@@ -48,8 +48,8 @@ test_that("'TileDBArrayExp' class works as expected", {
   expect_equal(dump_str[[1]], "- Fragment num: 3")
   expect_identical(arrObj$frag_num(), 3)
   expect_equal(arrObj$frag_to_vacuum(), data.frame(Fragment = character(0),
-                                                   start_timestamp = numeric(0),
-                                                   end_timestamp = numeric(0),
+                                                   start_timestamp = as.POSIXct(double()),
+                                                   end_timestamp = as.POSIXct(double()),
                                                    URI = character(0)))
   expect_no_error(dfrags <- arrObj$frag_uris())
   expect_s3_class(dfrags, "data.frame")
@@ -71,8 +71,8 @@ test_that("'TileDBArrayExp' class works as expected", {
   expect_error(arrObj$vacuum(mode = "fragments", cfg = "nope"), label = "cfg should be'tiledb_config'")
   expect_true(arrObj$vacuum(mode = "fragments")) # default
   expect_equal(arrObj$frag_to_vacuum(), data.frame(Fragment = character(0),
-                                                   start_timestamp = numeric(0),
-                                                   end_timestamp = numeric(0),
+                                                   start_timestamp = as.POSIXct(double()),
+                                                   end_timestamp = as.POSIXct(double()),
                                                    URI = character(0)))
   ## drop attribute
   expect_invisible(arrObj$drop_attribute("Freq"))
