@@ -689,7 +689,9 @@ delete_metadata.tiledb_array <- function(x, keys) {
 delete_metadata.tiledb_group <- function(x, keys) {
 
   uri <- tiledb::tiledb_group_uri(x)
-  obj <- TileDBGroup$new(uri)
+  cfg <- tiledb::tiledb_group_get_config(x)
+  ctx <- new_context(cfg)
+  obj <- TileDBGroup$new(uri, ctx = ctx)
 
   delete_metadata(obj, keys)
 
