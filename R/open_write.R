@@ -117,7 +117,7 @@ open_write.TileDBGroup <- function(object, timestamp = NULL, ...) {
 open_write.tiledb_group <- function(object, timestamp = NULL, ...) {
 
    uri <- tiledb::tiledb_group_uri(object)
-   cfg <- tiledb::tiledb_group_get_config(x)
+   cfg <- tiledb::tiledb_group_get_config(object)
    ctx <- new_context(cfg)
    grp <- TileDBGroup$new(uri, ctx = ctx)
    open_write(grp, timestamp)
