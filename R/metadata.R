@@ -346,13 +346,13 @@ metadata.character <- function(x, which, ctx = NULL, ...) {
 NULL
 
 #' @export
-set_metadata <- function(x, keys, timestamp) {
+set_metadata <- function(x, keys, timestamp, ...) {
   UseMethod("set_metadata")
 }
 
 
 #' @export
-set_metadata.default <- function(x, keys, timestamp = NULL) {
+set_metadata.default <- function(x, keys, timestamp = NULL, ...) {
   cli::cli_abort("No method for class {.cls {class(x)[1]}}.
                  See {.help [{.fun set_metadata}](R6.tiledb::set_metadata)} for details.",
                  call = NULL)
@@ -360,7 +360,7 @@ set_metadata.default <- function(x, keys, timestamp = NULL) {
 
 #' @export
 #' @rdname set_metadata
-set_metadata.TileDBArray <- function(x, keys, timestamp = NULL) {
+set_metadata.TileDBArray <- function(x, keys, timestamp = NULL, ...) {
 
   mode <- x$mode
 
@@ -428,7 +428,7 @@ set_metadata.TileDBGroup <- set_metadata.TileDBArray
 
 #' @export
 #' @rdname set_metadata
-set_metadata.tiledb_array <- function(x, keys, timestamp = NULL) {
+set_metadata.tiledb_array <- function(x, keys, timestamp = NULL, ...) {
 
   uri <- x@uri
   ctx <- x@ctx
@@ -440,7 +440,7 @@ set_metadata.tiledb_array <- function(x, keys, timestamp = NULL) {
 
 #' @export
 #' @rdname set_metadata
-set_metadata.tiledb_group <- function(x, keys, timestamp = NULL) {
+set_metadata.tiledb_group <- function(x, keys, timestamp = NULL, ...) {
 
   uri <- tiledb::tiledb_group_uri(x)
   cfg <- tiledb::tiledb_group_get_config(x)
@@ -453,7 +453,7 @@ set_metadata.tiledb_group <- function(x, keys, timestamp = NULL) {
 
 #' @export
 #' @rdname set_metadata
-set_metadata.character <- function(x, keys, timestamp = NULL, ctx = NULL) {
+set_metadata.character <- function(x, keys, timestamp = NULL, ctx = NULL, ...) {
 
   check_uri(x)
 
