@@ -677,7 +677,8 @@ delete_metadata.TileDBGroup <- delete_metadata.TileDBArray
 delete_metadata.tiledb_array <- function(x, keys) {
 
   uri <- x@uri
-  obj <- TileDBArray$new(uri)
+  ctx <- x@ctx
+  obj <- TileDBArray$new(uri, ctx = ctx)
 
   delete_metadata(obj, keys)
 
