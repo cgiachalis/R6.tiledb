@@ -88,8 +88,8 @@ TileDBFragments <- R6::R6Class(
       # No fragments, then return empty data.frame
       if (idx == 0) {
         out <-  data.frame(Fragment = character(),
-                           start_timestamp = numeric(),
-                           end_timestamp = numeric(),
+                           start_timestamp = as.POSIXct(double()),
+                           end_timestamp = as.POSIXct(double()),
                            URI = character())
         return(out)
 
