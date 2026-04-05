@@ -17,7 +17,7 @@
 
 \method{open_write}{tiledb_group}(object, timestamp = NULL, ...)
 
-\method{open_write}{character}(object, timestamp = NULL, ...)
+\method{open_write}{character}(object, timestamp = NULL, ctx = NULL, ...)
 }
 \arguments{
 \item{object}{An \code{R} object that contains a \code{TileDB} resource pointer.}
@@ -26,6 +26,8 @@
 at this timestamp.}
 
 \item{...}{Other arguments passed to methods. Not used.}
+
+\item{ctx}{Optional \code{\link[tiledb:tiledb_ctx]{tiledb::tiledb_ctx()}} object.}
 }
 \value{
 An object of class \code{tiledb_array} or \code{tiledb_group} depending on
