@@ -160,7 +160,10 @@ TileDBArray <- R6::R6Class(
         args$query_type <- ifelse(mode == "CLOSED", "READ", mode)
       }
       args$query_layout <- "UNORDERED"
-      args$ctx <- self$ctx
+
+      if (is.null(args$ctx)) {
+        args$ctx <- self$ctx
+      }
 
       private$log_debug("tiledb_array", "Array handle with query type '{}' and layout '{}'", args$query_type, args$query_layout)
 
