@@ -253,6 +253,7 @@ metadata.character <- function(x, which, ctx = NULL, ...) {
 
   metadata(obj, which) <- value
 
+  invisible(x)
 }
 
 #' @export
@@ -273,6 +274,8 @@ metadata.character <- function(x, which, ctx = NULL, ...) {
   obj <- TileDBGroup$new(uri, ctx = ctx)
 
   metadata(obj, which) <- value
+
+  invisible(x)
 }
 
 
@@ -304,7 +307,7 @@ metadata.character <- function(x, which, ctx = NULL, ...) {
 
   metadata(obj, which) <- value
 
-  return(x)
+  invisible(x)
 }
 
 # * Set_metadata ----
