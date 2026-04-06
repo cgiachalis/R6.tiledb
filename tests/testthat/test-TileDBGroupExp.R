@@ -57,7 +57,6 @@ test_that("'TileDBGroupExp' class works as expected", {
   expect_no_error(grpObj$delete_group(recursive = TRUE))
   dm2 <- tiledb::tiledb_object_walk(uri)
   expect_equal(dm2, data.frame(TYPE = character(0), URI = character(0)))
-  rm(grpObj)
 
 })
 
@@ -73,5 +72,4 @@ test_that("Test 'tdb_group_create()'", {
 
   # Verify that group reference is opened at WRITE mode
   expect_equal(tiledb::tiledb_group_query_type(grpobj$object), "WRITE")
-  rm(grpobj)
   })
