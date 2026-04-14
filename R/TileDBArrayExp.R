@@ -249,14 +249,6 @@ TileDBArrayExp <- R6::R6Class(
         cfg <- set_consolidation_timestamps(cfg, start_time, end_time)
       }
 
-      # mirai namespace compute profile
-      ns <- "r6.tiledb"
-
-      # Start non-dispatcher background process if not already started
-      if (is.null(mirai::nextget("n", .compute = ns))) {
-       mirai::daemons(1L, dispatcher = FALSE, autoexit = tools::SIGINT, .compute = ns)
-      }
-
       m <- mirai::mirai({
 
         # * Note: We cannot serialise external pointers without custom serialisers,
@@ -269,7 +261,7 @@ TileDBArrayExp <- R6::R6Class(
 
         return(TRUE)
 
-        }, uri = self$uri, config_params = as.vector(cfg), .compute = ns)
+        }, uri = self$uri, config_params = as.vector(cfg), .compute = NULL)
 
       # reset fragment object
       private$.fragments_object <- NULL
@@ -357,14 +349,6 @@ TileDBArrayExp <- R6::R6Class(
 
       cfg["sm.vacuum.mode"] <- mode
 
-      # mirai namespace compute profile
-      ns <- "r6.tiledb"
-
-      # Start non-dispatcher background process if not already started
-      if (is.null(mirai::nextget("n", .compute = ns))) {
-        mirai::daemons(1L, dispatcher = FALSE, autoexit = tools::SIGINT, .compute = ns)
-      }
-
       m <- mirai::mirai({
 
         # * Note: We cannot serialise external pointers without custom serialisers,
@@ -377,7 +361,7 @@ TileDBArrayExp <- R6::R6Class(
 
         return(TRUE)
 
-      }, uri = self$uri, config_params = as.vector(cfg), .compute = ns)
+      }, uri = self$uri, config_params = as.vector(cfg), .compute = NULL)
 
       # reset fragment object
       private$.fragments_object <- NULL
@@ -489,14 +473,6 @@ TileDBArrayExp <- R6::R6Class(
         cfg <- set_consolidation_timestamps(cfg, start_time, end_time)
       }
 
-      # mirai namespace compute profile
-      ns <- "r6.tiledb"
-
-      # Start non-dispatcher background process if not already started
-      if (is.null(mirai::nextget("n", .compute = ns))) {
-        mirai::daemons(1L, dispatcher = FALSE, autoexit = tools::SIGINT, .compute = ns)
-      }
-
       m <- mirai::mirai({
 
         # * Note: We cannot serialise external pointers without custom serialisers,
@@ -510,7 +486,7 @@ TileDBArrayExp <- R6::R6Class(
 
         return(TRUE)
 
-      }, uri = self$uri, config_params = as.vector(cfg), .compute = ns)
+      }, uri = self$uri, config_params = as.vector(cfg), .compute = NULL)
 
       # reset fragment object
       private$.fragments_object <- NULL
