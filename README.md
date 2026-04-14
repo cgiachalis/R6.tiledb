@@ -3,7 +3,7 @@
 <!-- badges: start -->
 
 [![repo-status](https://img.shields.io/badge/repo%20status-stable-brightgreen.svg)](#) 
-[![CRAN status](https://www.r-pkg.org/badges/version/R6.tiledb)](https://CRAN.R-project.org/package=R6.tiledb) 
+[![CRAN status](https://img.shields.io/badge/CRAN-not%20published-orange)](https://CRAN.R-project.org/package=R6.tiledb) 
 [![R CMD Check](https://github.com/cgiachalis/R6.tiledb/actions/workflows/R-CMD-check.yaml/badge.svg?branch=master)](https://github.com/cgiachalis/R6.tiledb/actions/workflows/R-CMD-check.yaml)
 [![Last Commit](https://img.shields.io/github/last-commit/cgiachalis/R6.tiledb)](https://github.com/cgiachalis/R6.tiledb)
 [![coverage](https://img.shields.io/badge/coverage-95.2%25-blue.svg)](#)
