@@ -159,7 +159,6 @@ TileDBArray <- R6::R6Class(
         mode <- self$mode
         args$query_type <- ifelse(mode == "CLOSED", "READ", mode)
       }
-      args$query_layout <- "UNORDERED"
 
       if (is.null(args$ctx)) {
         args$ctx <- self$ctx
