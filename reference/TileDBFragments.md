@@ -99,6 +99,10 @@ Get the number of fragments.
 
     TileDBFragments$frag_num()
 
+#### Returns
+
+A numeric value.
+
 ------------------------------------------------------------------------
 
 ### Method `frag_uris()`
@@ -191,7 +195,7 @@ Return the number of fragments to vacuum
 
 #### Returns
 
-An numeric value.
+A numeric value.
 
 ------------------------------------------------------------------------
 
@@ -292,7 +296,7 @@ Get the first `n` fragments.
 
 - `n`:
 
-  An numeric value.
+  A numeric value.
 
 #### Returns
 
@@ -312,7 +316,7 @@ Get the last `n` fragments.
 
 - `n`:
 
-  An numeric value.
+  A numeric value.
 
 #### Returns
 

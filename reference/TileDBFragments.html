@@ -21,7 +21,7 @@ with the functional interface tdb_fragments().
 
     <a class="navbar-brand me-2" href="../index.html">R6.tiledb</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.0.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -144,6 +144,10 @@ with the functional interface <code><a href="tdb_fragments.html">tdb_fragments()
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">TileDBFragments</span><span class="op">$</span><span class="fu">frag_num</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
+<div class="section">
+<h4 id="returns">Returns<a class="anchor" aria-label="anchor" href="#returns"></a></h4>
+<p>A numeric value.</p>
+</div>
 
 </div><p></p><hr><a id="method-TileDBFragments-frag_uris"></a><div class="section">
 <h3 id="method-frag-uris-">Method <code>frag_uris()</code><a class="anchor" aria-label="anchor" href="#method-frag-uris-"></a></h3>
@@ -163,7 +167,7 @@ otherwise <code>FALSE</code> for full path.</p></dd>
 </dl><p></p></div>
 </div>
 <div class="section">
-<h4 id="returns">Returns<a class="anchor" aria-label="anchor" href="#returns"></a></h4>
+<h4 id="returns-1">Returns<a class="anchor" aria-label="anchor" href="#returns-1"></a></h4>
 <p>An object of class <code>data.frame</code> with four columns:</p><ul><li><p><code>Fragment</code>: the fragment index (start at 1)</p></li>
 <li><p><code>start_timestamp</code>: start time-stamp of when fragment was written</p></li>
 <li><p><code>end_timestamp</code>: end time-stamp of when fragment was written</p></li>
@@ -181,7 +185,7 @@ package is found in your system.</p>
 </div>
 
 <div class="section">
-<h4 id="returns-1">Returns<a class="anchor" aria-label="anchor" href="#returns-1"></a></h4>
+<h4 id="returns-2">Returns<a class="anchor" aria-label="anchor" href="#returns-2"></a></h4>
 <p>The object, invisibly.</p>
 </div>
 
@@ -202,7 +206,7 @@ otherwise <code>FALSE</code> for full path.</p></dd>
 </dl><p></p></div>
 </div>
 <div class="section">
-<h4 id="returns-2">Returns<a class="anchor" aria-label="anchor" href="#returns-2"></a></h4>
+<h4 id="returns-3">Returns<a class="anchor" aria-label="anchor" href="#returns-3"></a></h4>
 <p>An object of class <code>data.frame</code> with four columns:</p><ul><li><p><code>Fragment</code>: the fragment index (starts at 1)</p></li>
 <li><p><code>start_timestamp</code>: fragment's start time stamp</p></li>
 <li><p><code>end_timestamp</code>: fragment's end time stamp</p></li>
@@ -220,8 +224,8 @@ package is found in your system.</p>
 </div>
 
 <div class="section">
-<h4 id="returns-3">Returns<a class="anchor" aria-label="anchor" href="#returns-3"></a></h4>
-<p>An numeric value.</p>
+<h4 id="returns-4">Returns<a class="anchor" aria-label="anchor" href="#returns-4"></a></h4>
+<p>A numeric value.</p>
 </div>
 
 </div><p></p><hr><a id="method-TileDBFragments-delete_fragment_range"></a><div class="section">
@@ -241,7 +245,7 @@ of class <code>POSIXct</code>.</p></dd>
 </dl><p></p></div>
 </div>
 <div class="section">
-<h4 id="returns-4">Returns<a class="anchor" aria-label="anchor" href="#returns-4"></a></h4>
+<h4 id="returns-5">Returns<a class="anchor" aria-label="anchor" href="#returns-5"></a></h4>
 <p>A logical <code>TRUE</code>, invisibly. Note that if time stamps fall
 outside fragments' time range no deletion will incur.</p>
 </div>
@@ -264,7 +268,7 @@ with all fragment uri paths.</p><div class="section">
 </dl><p></p></div>
 </div>
 <div class="section">
-<h4 id="returns-5">Returns<a class="anchor" aria-label="anchor" href="#returns-5"></a></h4>
+<h4 id="returns-6">Returns<a class="anchor" aria-label="anchor" href="#returns-6"></a></h4>
 <p><code>TRUE</code> for successful deletion, invisibly.</p>
 </div>
 
@@ -284,7 +288,7 @@ with all fragment uri paths.</p><div class="section">
 </dl><p></p></div>
 </div>
 <div class="section">
-<h4 id="returns-6">Returns<a class="anchor" aria-label="anchor" href="#returns-6"></a></h4>
+<h4 id="returns-7">Returns<a class="anchor" aria-label="anchor" href="#returns-7"></a></h4>
 <p>A boolean,  invisibly. <code>TRUE</code> for successful deletion and
 <code>FALSE</code> for no fragment to delete.</p>
 </div>
@@ -305,7 +309,7 @@ with all fragment uri paths.</p><div class="section">
 </dl><p></p></div>
 </div>
 <div class="section">
-<h4 id="returns-7">Returns<a class="anchor" aria-label="anchor" href="#returns-7"></a></h4>
+<h4 id="returns-8">Returns<a class="anchor" aria-label="anchor" href="#returns-8"></a></h4>
 <p>An object of class <code>ifragment</code>.</p>
 </div>
 
@@ -319,13 +323,13 @@ with all fragment uri paths.</p><div class="section">
 <div class="section">
 <h4 id="arguments-7">Arguments<a class="anchor" aria-label="anchor" href="#arguments-7"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>n</code></dt>
-<dd><p>An numeric value.</p></dd>
+<dd><p>A numeric value.</p></dd>
 
 
 </dl><p></p></div>
 </div>
 <div class="section">
-<h4 id="returns-8">Returns<a class="anchor" aria-label="anchor" href="#returns-8"></a></h4>
+<h4 id="returns-9">Returns<a class="anchor" aria-label="anchor" href="#returns-9"></a></h4>
 <p>An object of class <code>ifragment_list</code>.</p>
 </div>
 
@@ -339,13 +343,13 @@ with all fragment uri paths.</p><div class="section">
 <div class="section">
 <h4 id="arguments-8">Arguments<a class="anchor" aria-label="anchor" href="#arguments-8"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>n</code></dt>
-<dd><p>An numeric value.</p></dd>
+<dd><p>A numeric value.</p></dd>
 
 
 </dl><p></p></div>
 </div>
 <div class="section">
-<h4 id="returns-9">Returns<a class="anchor" aria-label="anchor" href="#returns-9"></a></h4>
+<h4 id="returns-10">Returns<a class="anchor" aria-label="anchor" href="#returns-10"></a></h4>
 <p>An object of class <code>ifragment_list</code>.</p>
 </div>
 
