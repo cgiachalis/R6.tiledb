@@ -6,9 +6,9 @@
 [![CRAN status](https://img.shields.io/badge/CRAN-not%20published-orange)](https://CRAN.R-project.org/package=R6.tiledb) 
 [![R CMD Check](https://github.com/cgiachalis/R6.tiledb/actions/workflows/R-CMD-check.yaml/badge.svg?branch=master)](https://github.com/cgiachalis/R6.tiledb/actions/workflows/R-CMD-check.yaml)
 [![Last Commit](https://img.shields.io/github/last-commit/cgiachalis/R6.tiledb)](https://github.com/cgiachalis/R6.tiledb)
-[![coverage](https://img.shields.io/badge/coverage-95.2%25-blue.svg)](#)
+[![coverage](https://img.shields.io/badge/coverage-94.8%25-blue.svg)](#)
 [![License](https://img.shields.io/badge/License-MIT-003366.svg)](https://opensource.org/licenses/MIT)
-[![Documentation](https://img.shields.io/badge/documentation-4682b4)](https://cgiachalis.github.io/R6.tiledb/)
+[![Documentation](https://img.shields.io/badge/docs-GitHub_Pages-blue)](https://cgiachalis.github.io/R6.tiledb/)
 
 <!-- badges: end -->
 
