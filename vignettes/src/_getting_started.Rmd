@@ -320,13 +320,13 @@ arrobj_2$frag_to_vacuum() # none
 
 Inspect array directory
 
-```{r}
+```{r, collapse=FALSE}
 arrobj_2$dir_tree()
 ```
 
 Get fragment info
 
-```{r}
+```{r, collapse=FALSE}
 fobj$get_ifragment(1)
 ```
 

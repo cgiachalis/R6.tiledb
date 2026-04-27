@@ -52,6 +52,8 @@ TileDBFragments <- R6::R6Class(
 
     #' @description Get the number of fragments.
     #'
+    #' @return A numeric value.
+    #'
     frag_num = function() {
 
       if (is.null(private$.frag_num)) {
@@ -197,7 +199,7 @@ TileDBFragments <- R6::R6Class(
 
     #' @description Return the number of fragments to vacuum
     #'
-    #' @return An numeric value.
+    #' @return A numeric value.
     #'
     to_vacuum_num = function() {
       tiledb::tiledb_fragment_info_get_to_vacuum_num(private$finfo())
@@ -331,7 +333,7 @@ TileDBFragments <- R6::R6Class(
 
     #' @description Get the first `n` fragments.
     #'
-    #' @param n An numeric value.
+    #' @param n A numeric value.
     #'
     #' @return An object of class `ifragment_list`.
     #'
@@ -361,7 +363,7 @@ TileDBFragments <- R6::R6Class(
 
     #' @description Get the last `n` fragments.
     #'
-    #' @param n An numeric value.
+    #' @param n A numeric value.
     #'
     #' @return An object of class `ifragment_list`.
     #'

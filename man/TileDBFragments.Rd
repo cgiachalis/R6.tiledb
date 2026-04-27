@@ -82,6 +82,9 @@ Get the number of fragments.
 \if{html}{\out{<div class="r">}}\preformatted{TileDBFragments$frag_num()}\if{html}{\out{</div>}}
 }
 
+\subsection{Returns}{
+A numeric value.
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-TileDBFragments-frag_uris"></a>}}
@@ -169,7 +172,7 @@ Return the number of fragments to vacuum
 }
 
 \subsection{Returns}{
-An numeric value.
+A numeric value.
 }
 }
 \if{html}{\out{<hr>}}
@@ -270,7 +273,7 @@ Get the first \code{n} fragments.
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{n}}{An numeric value.}
+\item{\code{n}}{A numeric value.}
 }
 \if{html}{\out{</div>}}
 }
@@ -290,7 +293,7 @@ Get the last \code{n} fragments.
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{n}}{An numeric value.}
+\item{\code{n}}{A numeric value.}
 }
 \if{html}{\out{</div>}}
 }

@@ -1,29 +1,30 @@
 # Test Coverage --------------------
-Timestamp: Mon Feb  2 11:41:05 2026
-R6.tiledb Coverage: 95.21%
-R/utils.R: 87.76%
-R/TileDBArrayExp.R: 88.24%
-R/methods.R: 90.79%
+Timestamp: Wed Apr 22 10:00:51 2026
+R6.tiledb Coverage: 94.85%
+R/close.R: 75.00%
+R/open_write.R: 83.72%
+R/TileDBArrayExp.R: 88.89%
+R/utils.R: 89.47%
 R/utils-uris.R: 91.30%
-R/TileDBObject.R: 91.82%
+R/methods.R: 91.76%
+R/TileDBObject.R: 91.89%
 R/schemas.R: 93.24%
+R/tiledb-lib.R: 93.75%
 R/TileDBFragments.R: 94.04%
 R/TileDBGroupExp.R: 94.29%
 R/group_timestamps.R: 94.74%
 R/array_timestamps.R: 95.71%
 R/set_tiledb_timestamp.R: 97.22%
-R/TileDBGroup.R: 98.03%
+R/TileDBGroup.R: 97.62%
 R/vfs_dir_tree.R: 98.44%
-R/metadata.R: 99.53%
-R/close.R: 100.00%
-R/open_write.R: 100.00%
+R/metadata.R: 99.58%
 R/set_config_params.R: 100.00%
 R/set_consolidation_timestamps.R: 100.00%
 R/set_group_timestamps.R: 100.00%
 R/tdb_array.R: 100.00%
 R/tdb_fragments.R: 100.00%
 R/tdb_group.R: 100.00%
-R/tiledb-lib.R: 100.00%
 R/TileDBArray.R: 100.00%
 R/utils-assertions.R: 100.00%
 R/vfs_size.R: 100.00%
+
