@@ -28,6 +28,7 @@ group creation.
 ### Group Time - Travelling
 
 ``` r
+
 uri <- tempfile()
 res <- demo_tstamped_group(uri)
 grp <- tdb_group(uri)
@@ -49,6 +50,7 @@ The group and its members were created at the following timestamps:
 Let’s open group object at previous time points and check its members:
 
 ``` r
+
 # open group @t0
 grp$tiledb_timestamp <- res$group_ts$t0
 
@@ -81,6 +83,7 @@ Note that `grp` has no metadata. Let’s add a key value at group’s `t1`
 timestamp (the time when member 1 was added):
 
 ``` r
+
 # no metadata
 grp$get_metadata()
 # TileDB GROUP: <R6 Class: TileDBGroupExp>
@@ -126,6 +129,7 @@ with 3 fragments and metadata with the following timestamps:
 Verify commit with expected timestamps was written on disk:
 
 ``` r
+
 # uri array1
 uri_arr1 <- grp$members$testarray1$uri
 
@@ -147,6 +151,7 @@ fraobj_1$get_ifragment(1)
 or alternatively:
 
 ``` r
+
 fraobj_1$frag_uris()
 #    Fragment     start_timestamp       end_timestamp
 #      <char>              <POSc>              <POSc>
@@ -163,6 +168,7 @@ fraobj_1$frag_uris()
 Now, let’s time travel:
 
 ``` r
+
 # toggle the result output
 tiledb::set_return_as_preference("data.frame")
 
@@ -226,6 +232,7 @@ update:
 
 ``` r
 
+
 # open write @t1
 arr <- open_write(arrobj_1, 
                   timestamp = as.POSIXct("2025-08-18 16:12:55",
@@ -260,6 +267,7 @@ arrobj_1$object[]
 Notice that fragments 2, 3 have identical timestamp range:
 
 ``` r
+
 fraobj_1$reload_finfo()
 fraobj_1$get_last_ifragments(3)
 # ── FRAGMENT #2 ──────────────────────────────────────────────────────────────────────────────────────────────
@@ -299,6 +307,7 @@ fraobj_1$get_last_ifragments(3)
 ## Appendix
 
 ``` r
+
 
 demo_tstamped_arrays <- function(uri, frags = 3) {
 

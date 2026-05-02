@@ -24,6 +24,7 @@ To use `R6.tiledb`, first create a TileDB resource:
 
 ``` r
 
+
 library(R6.tiledb)
 
 # URI path
@@ -45,6 +46,7 @@ arrobj
 Using class methods :
 
 ``` r
+
 
 # Query the number of fragments 
 arrobj$frag_num()
@@ -76,6 +78,7 @@ documentation for more examples.
 Development version from GitHub:
 
 ``` r
+
 # pak
 pak::pkg_install("cgiachalis/R6.tiledb")
 
@@ -89,7 +92,7 @@ remotes::install_github("cgiachalis/R6.tiledb")
 [SOMA-R](https://github.com/single-cell-data/TileDB-SOMA/tree/main/apis/r)
 project for extracting the R6 base classes from: `TileDBArray` and
 `TileDBGroup` which this repo has modified extensively that can not be
-considered drop-in replacements[¹](#fn1).
+considered drop-in replacements[^1].
 
 ## Resources
 
@@ -112,9 +115,7 @@ considered drop-in replacements[¹](#fn1).
 `R6.tiledb` is not a TileDB product offering. It is an independent
 project and its maintainer is not affiliated with TileDB-Inc.
 
-------------------------------------------------------------------------
-
-1.  R6 class names: `TileDBArray` and `TileDBGroup` are no longer used
+[^1]: R6 class names: `TileDBArray` and `TileDBGroup` are no longer used
     by SOMA-R
 
 # Package index

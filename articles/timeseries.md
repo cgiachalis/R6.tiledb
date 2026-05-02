@@ -20,6 +20,7 @@ the Appendix.
 ### Create Time-Series Array
 
 ``` r
+
 # URI path to store array
 uri <- tempfile()
 
@@ -40,6 +41,7 @@ tsobj$schema_info()
 ### Generate data
 
 ``` r
+
 # times-series data
 dat <- data.frame(index = seq.Date("2010-01-01", length.out = 10),
                   A = as.numeric(1:10),
@@ -60,6 +62,7 @@ dat2 <- dat[, c("index", "C")]
 ### Write and Ingest Series
 
 ``` r
+
 # Write data
 tsobj$write(dat1)
 
@@ -86,6 +89,7 @@ tsobj$subset(c("2010-01-01", "2010-01-06"), cols = "A", as_xts = TRUE)
 ```
 
 ``` r
+
 t0 <- Sys.time()
 # Ingest new series
 tsobj$ingest(dat2)
@@ -109,6 +113,7 @@ Note that schema has been evolved due to addition of new series (new
 attribute):
 
 ``` r
+
 vfs_dir_tree(tsobj$uri)
 # C:/Users/cgiac/AppData/Local/Temp/RtmpwtTYTB/filef04194f644b
 # ├── __commits
@@ -145,6 +150,7 @@ vfs_dir_tree(tsobj$uri)
 ### Built-in functions
 
 ``` r
+
 # Index domain
 tsobj$domain_index()
 # [1] "1970-01-01" "2200-01-01"
@@ -196,6 +202,7 @@ tsobj$symbols()
 ### `TimeSeries1d` Class
 
 ``` r
+
 TimeSeries1d <- R6::R6Class(
   classname = "TimeSeries1d",
   inherit = TileDBArray,

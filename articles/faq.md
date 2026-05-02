@@ -33,6 +33,7 @@ method with its `timestamp` argument.
 Use `$get_last_ifragments()` method:
 
 ``` r
+
 # array uri
 uri <- "array path here"
 

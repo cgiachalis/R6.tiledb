@@ -24,6 +24,7 @@ Use
 to create a group and instantiate the `TileDBGroupExp` object.
 
 ``` r
+
 # group uri
 uri_root <- tempfile()
 
@@ -38,6 +39,7 @@ grp$exists()
 Checking for members:
 
 ``` r
+
 # no members (empty list)
 grp$members
 # list()
@@ -62,6 +64,7 @@ is a convenient way to create an array given a schema and instantiate a
 `TileDBArrayExp` object.
 
 ``` r
+
 # array uri
 uri_array1 <- file.path(grp$uri, "array_1")
 
@@ -78,6 +81,7 @@ arrobj_1 <- tdb_array_create(uri_array1, sch = schema)
 #### Array 2
 
 ``` r
+
 # array uri
 uri_array2 <- file.path(grp$uri, "array_2")
 
@@ -94,6 +98,7 @@ Having created a TileDB group and two arrays, we can organise everything
 as a collection by adding the above arrays as group members:
 
 ``` r
+
 # add array_1
 grp$set_member(arrobj_1)
 
@@ -107,6 +112,7 @@ grp$reopen()
 Checking for members:
 
 ``` r
+
 # members names
 grp$names()
 # [1] "array_1" "array_2"
@@ -119,6 +125,7 @@ grp$count_members()
 Print group structure:
 
 ``` r
+
 # dump raw string
 grp$dump()
 # 
@@ -139,6 +146,7 @@ grp
 
 ``` r
 
+
 # get array_1
 arr1 <- grp$get_member("array_1")
 
@@ -155,6 +163,7 @@ arr1
 Let’s remove `array_1` from group (but do not delete it from disk).
 
 ``` r
+
 # reopen group in WRITE mode
 grp$reopen("WRITE")
 
@@ -171,6 +180,7 @@ grp
 List all `TileDB` resources at group’s uri path:
 
 ``` r
+
 # Find all TileDB resources (members and non-members)
 grp$walk_group()
 #    TYPE
@@ -186,6 +196,7 @@ grp$walk_group()
 Checking group folder for non-members:
 
 ``` r
+
 # check for non-members
 grp$has_non_members()
 # [1] TRUE
@@ -203,6 +214,7 @@ grp$non_members()
 Now delete group non-members:
 
 ``` r
+
 # delete non-members
 grp$prune_non_members()
 # [1] "file:///C:/Users/cgiac/AppData/Local/Temp/RtmpqCes68/file76f8729a43ad/array_1"
@@ -220,6 +232,7 @@ using the OO interface via `$get_metadata()` and `$set_metadata()` and
 2. using the functional interface with S3 methods:
 
 ``` r
+
 
 # set a single key metadata
 metadata(grp, "description") <- "metadata value"
@@ -266,6 +279,7 @@ Using either `TileDBArray` or `TileDBArrayExp` makes it easier to work
 with arrays:
 
 ``` r
+
 # schema info
 arrobj_2$schema_info()
 #    names   types status  enum
@@ -297,6 +311,7 @@ invokes the
 [`tiledb::tiledb_array()`](https://tiledb-inc.github.io/TileDB-R/reference/tiledb_array.html).
 
 ``` r
+
 arr <- arrobj_2$object
 tiledb::selected_points(arr) <- list(Dept = "A")
 tiledb::return_as(arr) <- "data.frame"
@@ -312,6 +327,7 @@ arr[]
 Using separate array handle:
 
 ``` r
+
 arr <- arrobj_2$tiledb_array(selected_points = list(Dept = "A"),
                             return_as = "data.frame")
 
@@ -331,6 +347,7 @@ fragments. It can be accessed either from `TileDBArrayExp` ’s
 [`tdb_fragments()`](https://cgiachalis.github.io/R6.tiledb/reference/tdb_fragments.md).
 
 ``` r
+
 # fragment object
 fobj <- arrobj_2$fragments_object
 
@@ -361,6 +378,7 @@ either stand-alone or combined and with asynchronous variations
 package is found in your system).
 
 ``` r
+
 # consolidate
 arrobj_2$consolidate()
 
@@ -400,6 +418,7 @@ arrobj_2$frag_to_vacuum() # none
 Inspect array directory
 
 ``` r
+
 arrobj_2$dir_tree()
 ```
 
@@ -429,6 +448,7 @@ arrobj_2$dir_tree()
 Get fragment info
 
 ``` r
+
 fobj$get_ifragment(1)
 ```
 

@@ -84,6 +84,7 @@ active field `$tiledb_timestamp`. Both options are applicable for `READ`
 mode.
 
 ``` r
+
 # Set a timestamp range [origin, now - 10 days]
 arrobj <- TileDBArray$new(uri, tiledb_timestamp = Sys.Date() - 10)
 
