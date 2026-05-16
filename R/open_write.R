@@ -140,8 +140,15 @@ open_write.character <- function(object, timestamp = NULL, ctx = NULL, ...) {
                      "i" = "Please check {.arg uri} is a valid path."), call = NULL)
   }
 
-  cstor <- switch(object_type, ARRAY = TileDBArray, GROUP = TileDBGroup)
+  # cstor <- switch(object_type, ARRAY = TileDBArray, GROUP = TileDBGroup)
 
-  obj <- cstor$new(object, ctx = ctx)
+  if (object_type == "ARRAY") {
+
+    obj <- tiledb::tiledb_array(object, ctx = ctx)
+  } else {
+    obj <- tiledb::tiledb_group(object, ctx = ctx)
+  }
+
+  # obj <- cstor$new(object, ctx = ctx)
   open_write(obj, timestamp)
 }
