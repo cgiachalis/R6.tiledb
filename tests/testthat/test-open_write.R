@@ -107,7 +107,7 @@ test_that("'open_write' method - array,TileDBArray", {
 
 test_that("'open_write' method - group,uri", {
 
-  skip()
+  # skip()
 
   ts <- as.POSIXct("2025-08-18 13:12:50 UTC", tz = "UTC")
 
