@@ -14,13 +14,13 @@ Source:
 [`DESCRIPTION`](https://github.com/cgiachalis/R6.tiledb/blob/master/DESCRIPTION)
 
 Giachalis C (2026). *R6.tiledb: R6 Classes for TileDB Arrays and
-Groups*. R package version 0.3.0.1,
+Groups*. R package version 0.3.0.2,
 <https://github.com/cgiachalis/R6.tiledb>.
 
     @Manual{,
       title = {R6.tiledb: R6 Classes for TileDB Arrays and Groups},
       author = {Constantinos Giachalis},
       year = {2026},
-      note = {R package version 0.3.0.1},
+      note = {R package version 0.3.0.2},
       url = {https://github.com/cgiachalis/R6.tiledb},
     }
