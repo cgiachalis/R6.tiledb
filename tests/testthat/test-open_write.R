@@ -7,7 +7,9 @@ trg_tstamps_t1 <- list(
   timestamp_end = structure(1755522770, class = c("POSIXct", "POSIXt"))
 )
 
-test_that("'open_write' method for Arrays works OK", {
+
+
+test_that("'open_write' method - array,uri", {
 
   uri <- file.path(withr::local_tempdir(), "test-open_write")
   ts <- as.POSIXct("2025-08-18 13:12:50 UTC", tz = "UTC")
@@ -36,6 +38,16 @@ test_that("'open_write' method for Arrays works OK", {
   expect_true(close(arr))
   expect_false(tiledb::tiledb_array_is_open(arr))
 
+})
+
+
+test_that("'open_write' method - array,tiledb_array", {
+
+  uri <- file.path(withr::local_tempdir(), "test-open_write")
+  ts <- as.POSIXct("2025-08-18 13:12:50 UTC", tz = "UTC")
+  df <- data.frame(id = 1L, val = 1.0)
+  tiledb::fromDataFrame(df, uri, col_index = 1, mode = "schema_only")
+
   # 'tiledb_array' method ---
   arrobj <- TileDBArray$new(uri)
   arr <- arrobj$object
@@ -56,7 +68,16 @@ test_that("'open_write' method for Arrays works OK", {
 
   expect_true(close(arrobj))
   expect_false(arrobj$is_open())
+})
 
+
+
+test_that("'open_write' method - array,TileDBArray", {
+
+  uri <- file.path(withr::local_tempdir(), "test-open_write")
+  ts <- as.POSIXct("2025-08-18 13:12:50 UTC", tz = "UTC")
+  df <- data.frame(id = 1L, val = 1.0)
+  tiledb::fromDataFrame(df, uri, col_index = 1, mode = "schema_only")
 
   # 'TileDBArray' method ---
   uri_no <- file.path(withr::local_tempdir(), "test-array-no")
@@ -83,19 +104,11 @@ test_that("'open_write' method for Arrays works OK", {
 
 })
 
-test_that("'open_write' method for Groups works OK", {
-  skip("Under review")
-  .get_group_timestamp_end <- function(x) {
-    cfg <- tiledb::tiledb_group_get_config(x)
 
-    tend <- cfg[c("sm.group.timestamp_end")]
+test_that("'open_write' method - group,uri", {
 
-    if (tend == "18446744073709551615") {
-      tend <- NA
-    }
-    tend <-  as.POSIXct(as.numeric(tend) / 1000, tz = "UTC")
-
-    tend
+  if (Sys.getenv("CI", FALSE)) {
+    skip()
   }
 
   ts <- as.POSIXct("2025-08-18 13:12:50 UTC", tz = "UTC")
@@ -122,6 +135,23 @@ test_that("'open_write' method for Groups works OK", {
   expect_equal(end_time, ts[1])
 
   grp <- tiledb::tiledb_group_close(grp)
+})
+
+
+
+test_that("'open_write' method - group,tiledb_group", {
+
+  if (Sys.getenv("CI", FALSE)) {
+    skip()
+  }
+
+  ts <- as.POSIXct("2025-08-18 13:12:50 UTC", tz = "UTC")
+
+  uri <- file.path(withr::local_tempdir(), "test-group")
+  group <- TileDBGroup$new(uri)
+
+  # Create a group object on disk
+  group$create()
 
   # 'tiledb_group' method ---
   group <- TileDBGroup$new(uri)
@@ -140,12 +170,22 @@ test_that("'open_write' method for Groups works OK", {
   expect_equal(end_time, ts[1])
 
   grp <- tiledb::tiledb_group_close(grp)
+})
 
-  # Call gc() as we get
-  # what():  [TileDB::C++API] Error: Non-retrievable error occurred
-  # Exited with status -1073740791.
-  # gc()
-  # Now, we create a new context and seems to resolve it
+
+test_that("'open_write' method for Groups works OK", {
+
+  if (Sys.getenv("CI", FALSE)) {
+    skip()
+  }
+
+  ts <- as.POSIXct("2025-08-18 13:12:50 UTC", tz = "UTC")
+
+  uri <- file.path(withr::local_tempdir(), "test-group")
+  group <- TileDBGroup$new(uri)
+
+  # Create a group object on disk
+  group$create()
 
   # 'TileDBGroup' method ---
   uri_no <- file.path(withr::local_tempdir(), "test-group-no")

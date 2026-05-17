@@ -1,3 +1,16 @@
+.get_group_timestamp_end <- function(x) {
+  cfg <- tiledb::tiledb_group_get_config(x)
+
+  tend <- cfg[c("sm.group.timestamp_end")]
+
+  if (tend == "18446744073709551615") {
+    tend <- NA
+  }
+  tend <-  as.POSIXct(as.numeric(tend) / 1000, tz = "UTC")
+
+  tend
+}
+
 
 create_empty_test_array <- function(uri) {
   stopifnot(!dir.exists(uri))
