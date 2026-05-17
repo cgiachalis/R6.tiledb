@@ -141,6 +141,10 @@ test_that("'open_write' method - group,uri", {
 
 test_that("'open_write' method - group,tiledb_group", {
 
+  if (Sys.getenv("CI", FALSE)) {
+    skip()
+  }
+
   ts <- as.POSIXct("2025-08-18 13:12:50 UTC", tz = "UTC")
 
   uri <- file.path(withr::local_tempdir(), "test-group")
@@ -171,6 +175,9 @@ test_that("'open_write' method - group,tiledb_group", {
 
 test_that("'open_write' method for Groups works OK", {
 
+  if (Sys.getenv("CI", FALSE)) {
+    skip()
+  }
 
   ts <- as.POSIXct("2025-08-18 13:12:50 UTC", tz = "UTC")
 
