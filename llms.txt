@@ -14,9 +14,10 @@ classes, which represent `TileDB` Arrays and Groups, as well as with
 subclasses that encapsulate additional methods. It provides also
 functional wrappers, convenient utilities and S3 methods.
 
-The package can be helpful to create domain specific applications and
-unified data architectures by extending the base classes, or using its
-functional interface to work with existing TileDB resources.
+The package can be helpful for developing domain specific applications
+or unified data architectures by extending the base classes. For
+day-to-day operations, the functional interface makes it easier to work
+with existing TileDB resources.
 
 ## Usage
 
