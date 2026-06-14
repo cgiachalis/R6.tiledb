@@ -2,6 +2,7 @@
 
 <!-- badges: start -->
 
+![R Language](https://img.shields.io/badge/R_Language-blue?logo=r&logoSize=auto)
 [![repo-status](https://img.shields.io/badge/repo%20status-stable-brightgreen.svg)](#) 
 [![CRAN status](https://img.shields.io/badge/CRAN-not%20published-orange)](https://CRAN.R-project.org/package=R6.tiledb) 
 [![R CMD Check](https://github.com/cgiachalis/R6.tiledb/actions/workflows/R-CMD-check.yaml/badge.svg?branch=master)](https://github.com/cgiachalis/R6.tiledb/actions/workflows/R-CMD-check.yaml)
@@ -22,9 +23,21 @@ It provides also functional wrappers, convenient utilities and S3 methods.
 The package can be helpful for developing domain specific applications or unified data architectures by extending the base classes.
 For day-to-day operations, the functional interface makes it easier to work with existing TileDB resources.
 
-## Usage
+[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/cgiachalis/R6.tiledb)
 
-To use `R6.tiledb`, first create a TileDB resource:
+## Installation
+
+Development version from GitHub:
+
+``` r
+# pak
+pak::pkg_install("cgiachalis/R6.tiledb")
+
+# remotes
+remotes::install_github("cgiachalis/R6.tiledb")
+```
+
+## How to Get Started
 
 ```r
 
@@ -73,17 +86,11 @@ arr[]
 
 See [Getting Started](https://cgiachalis.github.io/R6.tiledb/articles/getting_started.html) documentation for more examples.
 
-## Installation
+## Applications
 
-Development version from GitHub:
+R packages built on top of `R6.tiledb`:
 
-``` r
-# pak
-pak::pkg_install("cgiachalis/R6.tiledb")
-
-# remotes
-remotes::install_github("cgiachalis/R6.tiledb")
-```
+ - [storr.tiledb](https://github.com/cgiachalis/storr.tiledb) - A [storr](https://cran.r-project.org/web/packages/storr/index.html) driver using TileDB storage engine
 
 ## Acknowledgements
 
