@@ -133,10 +133,10 @@ TimeSeries1d <- R6::R6Class(
       sch <- switch(
         schema_name,
         generic_date = {
-          .gen_ts1dim_schema(attr = attr_names, type_index = 0)
+          R6.tiledb:::.gen_ts1dim_schema(attr = attr_names, type_index = 0, ctx = self$ctx)
         },
         generic_datetime = {
-          .gen_ts1dim_schema(attr = attr_names, type_index = 1)
+          R6.tiledb:::.gen_ts1dim_schema(attr = attr_names, type_index = 1, ctx = self$ctx)
         },
         cli::cli_abort("Unkown schema", call = NULL)
       )
@@ -470,7 +470,7 @@ TimeSeries1d <- R6::R6Class(
     remove_symbols = function(syms) {
 
       lapply(syms, function(.s) {
-        ase <- tiledb::tiledb_array_schema_evolution()
+        ase <- tiledb::tiledb_array_schema_evolution(ctx = self$ctx)
         ase <- tiledb::tiledb_array_schema_evolution_drop_attribute(ase, .s)
         ase <- tiledb::tiledb_array_schema_evolution_array_evolve(ase, self$uri)
       })
@@ -525,9 +525,10 @@ TimeSeries1d <- R6::R6Class(
           type = "FLOAT64",
           ncells = 1,
           nullable = TRUE,
-          filter_list = .tiledb_flist(level = -1, name = "ZSTD"))
+          filter_list = .tiledb_flist(level = -1, name = "ZSTD", ctx = self$ctx),
+          ctx = self$ctx)
 
-        ase <- tiledb::tiledb_array_schema_evolution()
+        ase <- tiledb::tiledb_array_schema_evolution(ctx = self$ctx)
 
         ase <- tiledb::tiledb_array_schema_evolution_add_attribute(ase, attr)
 
@@ -646,6 +647,7 @@ TimeSeries1d <- R6::R6Class(
 
   )
 )
+
 ```
 
 ## Introduction
@@ -904,10 +906,10 @@ TimeSeries1d <- R6::R6Class(
       sch <- switch(
         schema_name,
         generic_date = {
-          .gen_ts1dim_schema(attr = attr_names, type_index = 0)
+          R6.tiledb:::.gen_ts1dim_schema(attr = attr_names, type_index = 0, ctx = self$ctx)
         },
         generic_datetime = {
-          .gen_ts1dim_schema(attr = attr_names, type_index = 1)
+          R6.tiledb:::.gen_ts1dim_schema(attr = attr_names, type_index = 1, ctx = self$ctx)
         },
         cli::cli_abort("Unkown schema", call = NULL)
       )
@@ -1241,7 +1243,7 @@ TimeSeries1d <- R6::R6Class(
     remove_symbols = function(syms) {
 
       lapply(syms, function(.s) {
-        ase <- tiledb::tiledb_array_schema_evolution()
+        ase <- tiledb::tiledb_array_schema_evolution(ctx = self$ctx)
         ase <- tiledb::tiledb_array_schema_evolution_drop_attribute(ase, .s)
         ase <- tiledb::tiledb_array_schema_evolution_array_evolve(ase, self$uri)
       })
@@ -1296,9 +1298,10 @@ TimeSeries1d <- R6::R6Class(
           type = "FLOAT64",
           ncells = 1,
           nullable = TRUE,
-          filter_list = .tiledb_flist(level = -1, name = "ZSTD"))
+          filter_list = .tiledb_flist(level = -1, name = "ZSTD", ctx = self$ctx),
+          ctx = self$ctx)
 
-        ase <- tiledb::tiledb_array_schema_evolution()
+        ase <- tiledb::tiledb_array_schema_evolution(ctx = self$ctx)
 
         ase <- tiledb::tiledb_array_schema_evolution_add_attribute(ase, attr)
 

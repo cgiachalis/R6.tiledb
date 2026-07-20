@@ -1,29 +1,31 @@
 
 # Set up TileDB filter
-.tiledb_filter <- function(level = -1L, name = "ZSTD") {
+.tiledb_filter <- function(level = -1L, name = "ZSTD", ctx) {
   tiledb::tiledb_filter_set_option(
-    object = tiledb::tiledb_filter(name),
+    object = tiledb::tiledb_filter(name, ctx = ctx),
     option = "COMPRESSION_LEVEL",
     value = level)
 }
 
 # Filter list includes only one filter
-.tiledb_flist <- function(level = -1, name = "ZSTD") {
+.tiledb_flist <- function(level = -1, name = "ZSTD", ctx) {
 
-  tiledb::tiledb_filter_list(.tiledb_filter(level = level, name = name))
+  tiledb::tiledb_filter_list(.tiledb_filter(level = level, name = name, ctx = ctx),
+                             ctx = ctx)
 }
 
 # Set up common Dims
-.dim_ascii <- function(name, level = -1L, fname = "ZSTD") {
+.dim_ascii <- function(name, level = -1L, fname = "ZSTD", ctx) {
 
   tiledb::tiledb_dim(name = name,
                      domain = c(NULL, NULL),
                      tile = NULL,
                      type = "ASCII",
-                     filter_list = .tiledb_flist(level = level, name = fname))
+                     filter_list = .tiledb_flist(level = level, name = fname, ctx = ctx),
+                     ctx = ctx)
 }
 
-.dim_datetime_day <- function(name, level = -1L, type_index = 0, fname = "ZSTD") {
+.dim_datetime_day <- function(name, level = -1L, type_index = 0, fname = "ZSTD", ctx) {
 
   if (type_index == 0) {
     dim_type <- "DATETIME_DAY" # R's Date
@@ -39,7 +41,8 @@
                      domain = dom,
                      tile = 1000,
                      type = dim_type,
-                     filter_list = .tiledb_flist(level = level, name = fname))
+                     filter_list = .tiledb_flist(level = level, name = fname, ctx = ctx),
+                     ctx = ctx)
 }
 
 # Schemas -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
@@ -50,14 +53,15 @@
 #   Attrs:  character vector
 #   type_index: 0 for date class, 1 for datetime (POSIXct)
 .gen_ts2dim_schema <- function(attr = "close",
-                               type_index = 0) {
+                               type_index = 0, ctx) {
 
-  .filter_zstd <- .tiledb_flist(level = -1, name = "ZSTD")
-  .filter_rle <- .tiledb_flist(level = -1, name = "RLE")
+  .filter_zstd <- .tiledb_flist(level = -1, name = "ZSTD", ctx = ctx)
+  .filter_rle <- .tiledb_flist(level = -1, name = "RLE", ctx = ctx)
 
   dom <- tiledb::tiledb_domain(c(.dim_datetime_day("index",
-                                                   type_index = type_index),
-                                 .dim_ascii("symbol")))
+                                                   type_index = type_index,
+                                                   ctx = ctx),
+                                 .dim_ascii("symbol", ctx = ctx)))
 
   attrs <- sapply(attr, function(.x) {
     tiledb::tiledb_attr(
@@ -65,7 +69,8 @@
       type = "FLOAT64",
       ncells = 1,
       nullable = TRUE,
-      filter_list = .filter_zstd
+      filter_list = .filter_zstd,
+      ctx = ctx
     )
   })
 
@@ -79,7 +84,8 @@
     allows_dups = FALSE,
     coords_filter_list = .filter_zstd,
     offsets_filter_list = .filter_zstd,
-    validity_filter_list = .filter_rle
+    validity_filter_list = .filter_rle,
+    ctx = ctx
   )
 
   sch
@@ -89,12 +95,12 @@
 #   Dims : "index"
 #   Attrs:  character vector
 #   type_index: 0 for date class, 1 for date-time (POSIXct)
-.gen_ts1dim_schema <- function(attr = "close", type_index = 0) {
+.gen_ts1dim_schema <- function(attr = "close", type_index = 0, ctx) {
 
-  .filter_zstd <- .tiledb_flist(level = -1, name = "ZSTD")
-  .filter_rle <- .tiledb_flist(level = -1, name = "RLE")
+  .filter_zstd <- .tiledb_flist(level = -1, name = "ZSTD", ctx = ctx)
+  .filter_rle <- .tiledb_flist(level = -1, name = "RLE", ctx = ctx)
 
-  dom <- tiledb::tiledb_domain(c(.dim_datetime_day("index", type_index = type_index)))
+  dom <- tiledb::tiledb_domain(c(.dim_datetime_day("index", type_index = type_index, ctx = ctx)), ctx = ctx)
 
   attrs <- sapply(attr, function(.x) {
     tiledb::tiledb_attr(
@@ -102,7 +108,8 @@
       type = "FLOAT64",
       ncells = 1,
       nullable = TRUE,
-      filter_list = .filter_zstd)
+      filter_list = .filter_zstd,
+      ctx = ctx)
   })
 
   sch <- tiledb::tiledb_array_schema(
@@ -115,7 +122,8 @@
     allows_dups = FALSE,
     coords_filter_list = .filter_zstd,
     offsets_filter_list = .filter_zstd,
-    validity_filter_list = .filter_rle
+    validity_filter_list = .filter_rle,
+    ctx = ctx
   )
 
   sch
