@@ -8,11 +8,12 @@ test_that("Test demo array creation", {
 
 test_that("Test demo schemas", {
 
-  expect_no_error(sch <- .gen_ts1dim_schema())
+  ctx <- new_context()
+  expect_no_error(sch <- .gen_ts1dim_schema(ctx = ctx))
   expect_s4_class(sch, "tiledb_array_schema")
   expect_true(tiledb::schema_check(sch))
 
-  expect_no_error(sch <- .gen_ts2dim_schema())
+  expect_no_error(sch <- .gen_ts2dim_schema(ctx = ctx))
   expect_s4_class(sch, "tiledb_array_schema")
   expect_true(tiledb::schema_check(sch))
 

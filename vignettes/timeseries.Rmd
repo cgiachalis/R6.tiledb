@@ -1,6 +1,6 @@
 ---
 title: Time Series Storage
-date: "2026-03-22"
+date: "2026-07-20"
 vignette: >
   %\VignetteIndexEntry{Time Series Storage}
   %\VignetteEngine{litedown::vignette}
@@ -122,19 +122,19 @@ Note that schema has been evolved due to addition of new series (new attribute):
 
 ``` r
 vfs_dir_tree(tsobj$uri)
-# C:/Users/cgiac/AppData/Local/Temp/RtmpwtTYTB/filef04194f644b
+# C:/Users/cgiac/AppData/Local/Temp/Rtmp4kyD4C/file2e9c661b3b74
 # ├── __commits
-# │   ├── __1774166056687_1774166056687_7ba34a84690c31edef10dc5a5c16e8d7_22.wrt
-# │   └── __1774166057309_1774166057309_44fd52d5f1805151e0506a5c4572281e_22.wrt
+# │   ├── __1784534701510_1784534701510_76243f7438b6f85d79ccdd42df93b7c6_22.wrt
+# │   └── __1784534701884_1784534701884_49022ebbbaa9e56f047bc20fdefded3b_22.wrt
 # ├── __fragments
-# │   ├── __1774166056687_1774166056687_7ba34a84690c31edef10dc5a5c16e8d7_22
+# │   ├── __1784534701510_1784534701510_76243f7438b6f85d79ccdd42df93b7c6_22
 # │   │   ├── a0.tdb
 # │   │   ├── a0_validity.tdb
 # │   │   ├── a1.tdb
 # │   │   ├── a1_validity.tdb
 # │   │   ├── d0.tdb
 # │   │   └── __fragment_metadata.tdb
-# │   └── __1774166057309_1774166057309_44fd52d5f1805151e0506a5c4572281e_22
+# │   └── __1784534701884_1784534701884_49022ebbbaa9e56f047bc20fdefded3b_22
 # │       ├── a0.tdb
 # │       ├── a0_validity.tdb
 # │       ├── a1.tdb
@@ -147,8 +147,8 @@ vfs_dir_tree(tsobj$uri)
 # ├── __labels
 # ├── __meta
 # └── __schema
-#     ├── __1774166056599_1774166056599_4144e32f9bfff0979c687f810c2b9b44
-#     ├── __1774166057208_1774166057208_14808011e181f6d9daddbabfd3d92c74
+#     ├── __1784534701436_1784534701436_1b85456fd2a9f9ac73cadc4c4cd34a9b
+#     ├── __1784534701804_1784534701804_32c542f45215a36cbfa9e923035a0134
 #     └── __enumerations
 # 
 # ❯ directories (6) • total size (9.95 KiB)
@@ -334,10 +334,10 @@ TimeSeries1d <- R6::R6Class(
       sch <- switch(
         schema_name,
         generic_date = {
-          .gen_ts1dim_schema(attr = attr_names, type_index = 0)
+          R6.tiledb:::.gen_ts1dim_schema(attr = attr_names, type_index = 0, ctx = self$ctx)
         },
         generic_datetime = {
-          .gen_ts1dim_schema(attr = attr_names, type_index = 1)
+          R6.tiledb:::.gen_ts1dim_schema(attr = attr_names, type_index = 1, ctx = self$ctx)
         },
         cli::cli_abort("Unkown schema", call = NULL)
       )
@@ -670,7 +670,7 @@ TimeSeries1d <- R6::R6Class(
     remove_symbols = function(syms) {
 
       lapply(syms, function(.s) {
-        ase <- tiledb::tiledb_array_schema_evolution()
+        ase <- tiledb::tiledb_array_schema_evolution(ctx = self$ctx)
         ase <- tiledb::tiledb_array_schema_evolution_drop_attribute(ase, .s)
         ase <- tiledb::tiledb_array_schema_evolution_array_evolve(ase, self$uri)
       })
@@ -725,9 +725,10 @@ TimeSeries1d <- R6::R6Class(
           type = "FLOAT64",
           ncells = 1,
           nullable = TRUE,
-          filter_list = .tiledb_flist(level = -1, name = "ZSTD"))
+          filter_list = .tiledb_flist(level = -1, name = "ZSTD", ctx = self$ctx),
+          ctx = self$ctx)
 
-        ase <- tiledb::tiledb_array_schema_evolution()
+        ase <- tiledb::tiledb_array_schema_evolution(ctx = self$ctx)
 
         ase <- tiledb::tiledb_array_schema_evolution_add_attribute(ase, attr)
 
