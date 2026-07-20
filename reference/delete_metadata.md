@@ -39,7 +39,7 @@ delete_metadata(x, keys, ctx = NULL, ...)
 - ctx:
 
   Optional
-  [`tiledb::tiledb_ctx()`](https://tiledb-inc.github.io/TileDB-R/reference/tiledb_ctx.html)
+  [`tiledb::tiledb_ctx()`](https://rdrr.io/pkg/tiledb/man/tiledb_ctx.html)
   object.
 
 ## Value

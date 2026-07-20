@@ -308,7 +308,7 @@ You can built queries by using the underlying array object accessed by
 active field `$object` and then using the standard `tiledb` interface or
 use the `$tiledb_array()` that opens a separate array handle which
 invokes the
-[`tiledb::tiledb_array()`](https://tiledb-inc.github.io/TileDB-R/reference/tiledb_array.html).
+[`tiledb::tiledb_array()`](https://rdrr.io/pkg/tiledb/man/tiledb_array.html).
 
 ``` r
 

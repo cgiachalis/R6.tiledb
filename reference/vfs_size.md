@@ -17,7 +17,7 @@ vfs_size(uri, vfs = NULL)
 - vfs:
 
   A
-  [`tiledb::tiledb_vfs()`](https://tiledb-inc.github.io/TileDB-R/reference/tiledb_vfs.html)
+  [`tiledb::tiledb_vfs()`](https://rdrr.io/pkg/tiledb/man/tiledb_vfs.html)
   object. If `NULL` (default) will create a new VFS object.
 
 ## Value

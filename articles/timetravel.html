@@ -22,7 +22,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">R6.tiledb</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.0.4</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.0.5</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -225,7 +225,7 @@ timestamps:</p>
 <p>Now, let’s time travel:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># toggle the result output</span></span>
-<span><span class="fu">tiledb</span><span class="fu">::</span><span class="fu"><a href="https://tiledb-inc.github.io/TileDB-R/reference/save_return_as_preference.html" class="external-link">set_return_as_preference</a></span><span class="op">(</span><span class="st">"data.frame"</span><span class="op">)</span></span>
+<span><span class="fu">tiledb</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/tiledb/man/save_return_as_preference.html" class="external-link">set_return_as_preference</a></span><span class="op">(</span><span class="st">"data.frame"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">arrobj_1</span> <span class="op">&lt;-</span> <span class="va">grp</span><span class="op">$</span><span class="fu">get_member</span><span class="op">(</span><span class="st">"testarray1"</span><span class="op">)</span></span>
 <span></span>
@@ -302,7 +302,7 @@ the most recent update:</p>
 <span><span class="va">arr</span><span class="op">[</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>id <span class="op">=</span> <span class="fl">2</span>, val <span class="op">=</span> <span class="fl">22L</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># close</span></span>
-<span><span class="va">arr</span> <span class="op">&lt;-</span> <span class="fu">tiledb</span><span class="fu">::</span><span class="fu"><a href="https://tiledb-inc.github.io/TileDB-R/reference/tiledb_array_close.html" class="external-link">tiledb_array_close</a></span><span class="op">(</span><span class="va">arr</span><span class="op">)</span></span>
+<span><span class="va">arr</span> <span class="op">&lt;-</span> <span class="fu">tiledb</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/tiledb/man/tiledb_array_close.html" class="external-link">tiledb_array_close</a></span><span class="op">(</span><span class="va">arr</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/rm.html" class="external-link">rm</a></span><span class="op">(</span><span class="va">arr</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># print updated array</span></span>
@@ -363,47 +363,47 @@ the most recent update:</p>
 <span>                   tz <span class="op">=</span> <span class="st">"UTC"</span><span class="op">)</span></span>
 <span></span>
 <span>  <span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>id <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="va">frags</span>, val <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="va">frags</span><span class="op">)</span></span>
-<span>  <span class="fu">tiledb</span><span class="fu">::</span><span class="fu"><a href="https://tiledb-inc.github.io/TileDB-R/reference/fromDataFrame.html" class="external-link">fromDataFrame</a></span><span class="op">(</span><span class="va">df</span>, <span class="va">uri</span>, col_index <span class="op">=</span> <span class="fl">1</span>, mode <span class="op">=</span> <span class="st">"schema_only"</span>, allows_dups <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span>  <span class="fu">tiledb</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/tiledb/man/fromDataFrame.html" class="external-link">fromDataFrame</a></span><span class="op">(</span><span class="va">df</span>, <span class="va">uri</span>, col_index <span class="op">=</span> <span class="fl">1</span>, mode <span class="op">=</span> <span class="st">"schema_only"</span>, allows_dups <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span></span>
 <span>  <span class="va">out</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/vector.html" class="external-link">vector</a></span><span class="op">(</span><span class="st">"numeric"</span>, <span class="va">frags</span><span class="op">)</span></span>
 <span></span>
-<span>  <span class="va">arr</span> <span class="op">&lt;-</span> <span class="fu">tiledb</span><span class="fu">::</span><span class="fu"><a href="https://tiledb-inc.github.io/TileDB-R/reference/tiledb_array.html" class="external-link">tiledb_array</a></span><span class="op">(</span><span class="va">uri</span><span class="op">)</span></span>
+<span>  <span class="va">arr</span> <span class="op">&lt;-</span> <span class="fu">tiledb</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/tiledb/man/tiledb_array.html" class="external-link">tiledb_array</a></span><span class="op">(</span><span class="va">uri</span><span class="op">)</span></span>
 <span></span>
 <span>  <span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_len</a></span><span class="op">(</span><span class="va">frags</span><span class="op">)</span> <span class="op">)</span> <span class="op">{</span></span>
 <span></span>
 <span>    <span class="va">tm</span> <span class="op">&lt;-</span> <span class="va">ts</span><span class="op">[</span><span class="va">i</span><span class="op">]</span></span>
-<span>    <span class="va">arr</span> <span class="op">&lt;-</span> <span class="fu">tiledb</span><span class="fu">::</span><span class="fu"><a href="https://tiledb-inc.github.io/TileDB-R/reference/tiledb_array_open_at.html" class="external-link">tiledb_array_open_at</a></span><span class="op">(</span><span class="va">arr</span>, <span class="st">"WRITE"</span>, timestamp <span class="op">=</span> <span class="va">tm</span><span class="op">)</span></span>
+<span>    <span class="va">arr</span> <span class="op">&lt;-</span> <span class="fu">tiledb</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/tiledb/man/tiledb_array_open_at.html" class="external-link">tiledb_array_open_at</a></span><span class="op">(</span><span class="va">arr</span>, <span class="st">"WRITE"</span>, timestamp <span class="op">=</span> <span class="va">tm</span><span class="op">)</span></span>
 <span>    <span class="va">arr</span><span class="op">[</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>id <span class="op">=</span> <span class="va">i</span>, val <span class="op">=</span> <span class="va">i</span><span class="op">)</span></span>
-<span>    <span class="va">arr</span> <span class="op">&lt;-</span> <span class="fu">tiledb</span><span class="fu">::</span><span class="fu"><a href="https://tiledb-inc.github.io/TileDB-R/reference/tiledb_array_open_at.html" class="external-link">tiledb_array_open_at</a></span><span class="op">(</span><span class="va">arr</span>, <span class="st">"WRITE"</span>, timestamp <span class="op">=</span> <span class="va">tm</span><span class="op">)</span></span>
-<span>    <span class="fu">tiledb</span><span class="fu">::</span><span class="fu"><a href="https://tiledb-inc.github.io/TileDB-R/reference/tiledb_put_metadata.html" class="external-link">tiledb_put_metadata</a></span><span class="op">(</span><span class="va">arr</span>, <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"key"</span>, <span class="va">i</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">as.character</a></span><span class="op">(</span><span class="va">tm</span><span class="op">)</span><span class="op">)</span></span>
-<span>    <span class="va">arr</span> <span class="op">&lt;-</span> <span class="fu">tiledb</span><span class="fu">::</span><span class="fu"><a href="https://tiledb-inc.github.io/TileDB-R/reference/tiledb_array_close.html" class="external-link">tiledb_array_close</a></span><span class="op">(</span><span class="va">arr</span><span class="op">)</span></span>
+<span>    <span class="va">arr</span> <span class="op">&lt;-</span> <span class="fu">tiledb</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/tiledb/man/tiledb_array_open_at.html" class="external-link">tiledb_array_open_at</a></span><span class="op">(</span><span class="va">arr</span>, <span class="st">"WRITE"</span>, timestamp <span class="op">=</span> <span class="va">tm</span><span class="op">)</span></span>
+<span>    <span class="fu">tiledb</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/tiledb/man/tiledb_put_metadata.html" class="external-link">tiledb_put_metadata</a></span><span class="op">(</span><span class="va">arr</span>, <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"key"</span>, <span class="va">i</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">as.character</a></span><span class="op">(</span><span class="va">tm</span><span class="op">)</span><span class="op">)</span></span>
+<span>    <span class="va">arr</span> <span class="op">&lt;-</span> <span class="fu">tiledb</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/tiledb/man/tiledb_array_close.html" class="external-link">tiledb_array_close</a></span><span class="op">(</span><span class="va">arr</span><span class="op">)</span></span>
 <span>  <span class="op">}</span></span>
 <span>  <span class="va">ts</span></span>
 <span><span class="op">}</span></span>
 <span></span>
 <span><span class="va">demo_tstamped_group</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">uri</span><span class="op">)</span> <span class="op">{</span></span>
 <span></span>
-<span>  <span class="va">ctx</span> <span class="op">&lt;-</span> <span class="fu">tiledb</span><span class="fu">::</span><span class="fu"><a href="https://tiledb-inc.github.io/TileDB-R/reference/tiledb_ctx.html" class="external-link">tiledb_ctx</a></span><span class="op">(</span>cached <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span>  <span class="va">ctx</span> <span class="op">&lt;-</span> <span class="fu">tiledb</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/tiledb/man/tiledb_ctx.html" class="external-link">tiledb_ctx</a></span><span class="op">(</span>cached <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span></span>
 <span>  <span class="va">group_uri</span> <span class="op">&lt;-</span> <span class="va">uri</span></span>
 <span>  <span class="va">uri1</span> <span class="op">&lt;-</span> <span class="fu">R6.tiledb</span><span class="fu">:::</span><span class="fu">file_path</span><span class="op">(</span><span class="va">group_uri</span>, <span class="st">"testarray1"</span><span class="op">)</span></span>
 <span>  <span class="va">uri2</span> <span class="op">&lt;-</span> <span class="fu">R6.tiledb</span><span class="fu">:::</span><span class="fu">file_path</span><span class="op">(</span><span class="va">group_uri</span>, <span class="st">"testarray2"</span><span class="op">)</span></span>
 <span></span>
 <span>  <span class="co"># create group @ t0</span></span>
-<span>  <span class="va">grp</span> <span class="op">&lt;-</span> <span class="fu">tiledb</span><span class="fu">::</span><span class="fu"><a href="https://tiledb-inc.github.io/TileDB-R/reference/tiledb_group_create.html" class="external-link">tiledb_group_create</a></span><span class="op">(</span><span class="va">group_uri</span>, ctx <span class="op">=</span> <span class="va">ctx</span><span class="op">)</span></span>
+<span>  <span class="va">grp</span> <span class="op">&lt;-</span> <span class="fu">tiledb</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/tiledb/man/tiledb_group_create.html" class="external-link">tiledb_group_create</a></span><span class="op">(</span><span class="va">group_uri</span>, ctx <span class="op">=</span> <span class="va">ctx</span><span class="op">)</span></span>
 <span>  <span class="va">t0</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.time</a></span><span class="op">(</span><span class="op">)</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/Sys.sleep.html" class="external-link">Sys.sleep</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span></span>
 <span></span>
 <span>  <span class="co"># create arr1 and add as member @ t1</span></span>
 <span>  <span class="va">arr1</span> <span class="op">&lt;-</span> <span class="fu">demo_tstamped_arrays</span><span class="op">(</span><span class="va">uri1</span><span class="op">)</span></span>
-<span>  <span class="va">grp</span> <span class="op">&lt;-</span> <span class="fu">tiledb</span><span class="fu">::</span><span class="fu"><a href="https://tiledb-inc.github.io/TileDB-R/reference/tiledb_group.html" class="external-link">tiledb_group</a></span><span class="op">(</span><span class="va">group_uri</span>, type <span class="op">=</span> <span class="st">"WRITE"</span>, ctx <span class="op">=</span> <span class="va">ctx</span><span class="op">)</span></span>
-<span>  <span class="fu">tiledb</span><span class="fu">::</span><span class="fu"><a href="https://tiledb-inc.github.io/TileDB-R/reference/tiledb_group_add_member.html" class="external-link">tiledb_group_add_member</a></span><span class="op">(</span></span>
+<span>  <span class="va">grp</span> <span class="op">&lt;-</span> <span class="fu">tiledb</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/tiledb/man/tiledb_group.html" class="external-link">tiledb_group</a></span><span class="op">(</span><span class="va">group_uri</span>, type <span class="op">=</span> <span class="st">"WRITE"</span>, ctx <span class="op">=</span> <span class="va">ctx</span><span class="op">)</span></span>
+<span>  <span class="fu">tiledb</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/tiledb/man/tiledb_group_add_member.html" class="external-link">tiledb_group_add_member</a></span><span class="op">(</span></span>
 <span>    grp <span class="op">=</span> <span class="va">grp</span>,</span>
 <span>    uri <span class="op">=</span> <span class="va">uri1</span>,</span>
 <span>    relative <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>    name <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/basename.html" class="external-link">basename</a></span><span class="op">(</span><span class="va">uri1</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
-<span>  <span class="va">grp</span> <span class="op">&lt;-</span> <span class="fu">tiledb</span><span class="fu">::</span><span class="fu"><a href="https://tiledb-inc.github.io/TileDB-R/reference/tiledb_group_close.html" class="external-link">tiledb_group_close</a></span><span class="op">(</span><span class="va">grp</span><span class="op">)</span></span>
+<span>  <span class="va">grp</span> <span class="op">&lt;-</span> <span class="fu">tiledb</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/tiledb/man/tiledb_group_close.html" class="external-link">tiledb_group_close</a></span><span class="op">(</span><span class="va">grp</span><span class="op">)</span></span>
 <span>  <span class="va">t1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.time</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/Sys.sleep.html" class="external-link">Sys.sleep</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span></span>
@@ -411,14 +411,14 @@ the most recent update:</p>
 <span>  <span class="co"># create arr2 and add as member @ t2</span></span>
 <span>  <span class="va">arr2</span> <span class="op">&lt;-</span> <span class="fu">demo_tstamped_arrays</span><span class="op">(</span><span class="va">uri2</span><span class="op">)</span></span>
 <span></span>
-<span>  <span class="va">grp</span> <span class="op">&lt;-</span> <span class="fu">tiledb</span><span class="fu">::</span><span class="fu"><a href="https://tiledb-inc.github.io/TileDB-R/reference/tiledb_group_open.html" class="external-link">tiledb_group_open</a></span><span class="op">(</span><span class="va">grp</span>, type <span class="op">=</span> <span class="st">"WRITE"</span><span class="op">)</span></span>
-<span>  <span class="fu">tiledb</span><span class="fu">::</span><span class="fu"><a href="https://tiledb-inc.github.io/TileDB-R/reference/tiledb_group_add_member.html" class="external-link">tiledb_group_add_member</a></span><span class="op">(</span></span>
+<span>  <span class="va">grp</span> <span class="op">&lt;-</span> <span class="fu">tiledb</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/tiledb/man/tiledb_group_open.html" class="external-link">tiledb_group_open</a></span><span class="op">(</span><span class="va">grp</span>, type <span class="op">=</span> <span class="st">"WRITE"</span><span class="op">)</span></span>
+<span>  <span class="fu">tiledb</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/tiledb/man/tiledb_group_add_member.html" class="external-link">tiledb_group_add_member</a></span><span class="op">(</span></span>
 <span>    grp <span class="op">=</span> <span class="va">grp</span>,</span>
 <span>    uri <span class="op">=</span> <span class="va">uri2</span>,</span>
 <span>    relative <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>    name <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/basename.html" class="external-link">basename</a></span><span class="op">(</span><span class="va">uri2</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
-<span>  <span class="va">grp</span> <span class="op">&lt;-</span> <span class="fu">tiledb</span><span class="fu">::</span><span class="fu"><a href="https://tiledb-inc.github.io/TileDB-R/reference/tiledb_group_close.html" class="external-link">tiledb_group_close</a></span><span class="op">(</span><span class="va">grp</span><span class="op">)</span></span>
+<span>  <span class="va">grp</span> <span class="op">&lt;-</span> <span class="fu">tiledb</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/tiledb/man/tiledb_group_close.html" class="external-link">tiledb_group_close</a></span><span class="op">(</span><span class="va">grp</span><span class="op">)</span></span>
 <span>  <span class="va">t2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.time</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>uri <span class="op">=</span> <span class="va">group_uri</span>,</span>
@@ -438,7 +438,7 @@ the most recent update:</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.1.</p>
 </div>
 
     </footer>

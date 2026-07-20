@@ -37,7 +37,7 @@ A new TileDBArray instance is initialized using the new() method:
 
     <a class="navbar-brand me-2" href="../index.html">R6.tiledb</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.0.4</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.0.5</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -105,7 +105,7 @@ A new TileDBArray instance is initialized using the new() method:
     <div class="section level2">
     <h2 id="active-bindings">Active bindings<a class="anchor" aria-label="anchor" href="#active-bindings"></a></h2>
     <p></p><div class="r6-active-bindings"><dl><dt><code>object</code></dt>
-<dd><p>Access the underlying <code><a href="https://tiledb-inc.github.io/TileDB-R/reference/tiledb_array.html" class="external-link">tiledb::tiledb_array()</a></code> object. When
+<dd><p>Access the underlying <code><a href="https://rdrr.io/pkg/tiledb/man/tiledb_array.html" class="external-link">tiledb::tiledb_array()</a></code> object. When
 used before open() method, the underlying array will be initialised at <code>"READ"</code>
 mode and kept open.</p></dd>
 
@@ -140,7 +140,7 @@ mode and kept open.</p></dd>
 </ul></details></p><hr><a id="method-TileDBArray-open"></a><div class="section">
 <h3 id="method-open-">Method <code><a href="https://rdrr.io/r/base/connections.html" class="external-link">open()</a></code><a class="anchor" aria-label="anchor" href="#method-open-"></a></h3>
 <p>Open TileDB array object for read or write.</p>
-<p>This methods opens the underlying <code><a href="https://tiledb-inc.github.io/TileDB-R/reference/tiledb_array.html" class="external-link">tiledb::tiledb_array()</a></code> object in the
+<p>This methods opens the underlying <code><a href="https://rdrr.io/pkg/tiledb/man/tiledb_array.html" class="external-link">tiledb::tiledb_array()</a></code> object in the
 new mode if it is different from the current mode.</p>
 <p>When the new mode and current mode is the same, no action is taken.
 To force close and then open again use <code>reopen()</code> method.</p>
@@ -176,7 +176,7 @@ To force close and then open again use <code>reopen()</code> method.</p>
 
 </div><p></p><hr><a id="method-TileDBArray-tiledb_array"></a><div class="section">
 <h3 id="method-tiledb-array-">Method <code>tiledb_array()</code><a class="anchor" aria-label="anchor" href="#method-tiledb-array-"></a></h3>
-<p>Return a <a href="https://tiledb-inc.github.io/TileDB-R/reference/tiledb_array.html" class="external-link">tiledb::tiledb_array</a> object.</p>
+<p>Return a <a href="https://rdrr.io/pkg/tiledb/man/tiledb_array.html" class="external-link">tiledb::tiledb_array</a> object.</p>
 <p>If a <code>query_type</code> not provided then it will be inherited from class
 mode; in case the class mode is <code>"CLOSED"</code>, then the query type
 defaults to <code>"READ"</code>.</p><div class="section">
@@ -187,14 +187,14 @@ defaults to <code>"READ"</code>.</p><div class="section">
 <div class="section">
 <h4 id="arguments-1">Arguments<a class="anchor" aria-label="anchor" href="#arguments-1"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>...</code></dt>
-<dd><p>Optional arguments to pass to <code><a href="https://tiledb-inc.github.io/TileDB-R/reference/tiledb_array.html" class="external-link">tiledb::tiledb_array()</a></code>.</p></dd>
+<dd><p>Optional arguments to pass to <code><a href="https://rdrr.io/pkg/tiledb/man/tiledb_array.html" class="external-link">tiledb::tiledb_array()</a></code>.</p></dd>
 
 
 </dl><p></p></div>
 </div>
 <div class="section">
 <h4 id="returns-2">Returns<a class="anchor" aria-label="anchor" href="#returns-2"></a></h4>
-<p>A <a href="https://tiledb-inc.github.io/TileDB-R/reference/tiledb_array.html" class="external-link">tiledb::tiledb_array</a> object.</p>
+<p>A <a href="https://rdrr.io/pkg/tiledb/man/tiledb_array.html" class="external-link">tiledb::tiledb_array</a> object.</p>
 </div>
 
 </div><p></p><hr><a id="method-TileDBArray-schema"></a><div class="section">
@@ -206,7 +206,7 @@ defaults to <code>"READ"</code>.</p><div class="section">
 
 <div class="section">
 <h4 id="returns-3">Returns<a class="anchor" aria-label="anchor" href="#returns-3"></a></h4>
-<p>A <a href="https://tiledb-inc.github.io/TileDB-R/reference/tiledb_array_schema.html" class="external-link">tiledb::tiledb_array_schema</a> object.</p>
+<p>A <a href="https://rdrr.io/pkg/tiledb/man/tiledb_array_schema.html" class="external-link">tiledb::tiledb_array_schema</a> object.</p>
 </div>
 
 </div><p></p><hr><a id="method-TileDBArray-schema_info"></a><div class="section">
@@ -231,7 +231,7 @@ information: <code>names</code>, <code>types</code>, <code>status</code> and <co
 
 <div class="section">
 <h4 id="returns-5">Returns<a class="anchor" aria-label="anchor" href="#returns-5"></a></h4>
-<p>A named list of <a href="https://tiledb-inc.github.io/TileDB-R/reference/tiledb_dim.html" class="external-link">tiledb::tiledb_dim</a> objects.</p>
+<p>A named list of <a href="https://rdrr.io/pkg/tiledb/man/tiledb_dim.html" class="external-link">tiledb::tiledb_dim</a> objects.</p>
 </div>
 
 </div><p></p><hr><a id="method-TileDBArray-attributes"></a><div class="section">
@@ -243,7 +243,7 @@ information: <code>names</code>, <code>types</code>, <code>status</code> and <co
 
 <div class="section">
 <h4 id="returns-6">Returns<a class="anchor" aria-label="anchor" href="#returns-6"></a></h4>
-<p>A list of <a href="https://tiledb-inc.github.io/TileDB-R/reference/tiledb_attr.html" class="external-link">tiledb::tiledb_attr</a> objects.</p>
+<p>A list of <a href="https://rdrr.io/pkg/tiledb/man/tiledb_attr.html" class="external-link">tiledb::tiledb_attr</a> objects.</p>
 </div>
 
 </div><p></p><hr><a id="method-TileDBArray-dimnames"></a><div class="section">
@@ -320,7 +320,7 @@ attributes.</p><div class="section">
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.1.</p>
 </div>
 
     </footer></div>

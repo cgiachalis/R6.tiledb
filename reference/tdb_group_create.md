@@ -23,7 +23,7 @@ tdb_group_create(uri, mode = "WRITE", ctx = NULL)
 - ctx:
 
   A TileDB Context. See
-  [`tiledb::tiledb_ctx()`](https://tiledb-inc.github.io/TileDB-R/reference/tiledb_ctx.html).
+  [`tiledb::tiledb_ctx()`](https://rdrr.io/pkg/tiledb/man/tiledb_ctx.html).
 
 ## Value
 

@@ -21,7 +21,7 @@ An object of class `TileDBFragments`, `R6`.
 - `fragment_info`:
 
   Get the TileDB Fragment Info object as returned by
-  [tiledb::tiledb_fragment_info](https://tiledb-inc.github.io/TileDB-R/reference/tiledb_fragment_info.html).
+  [tiledb::tiledb_fragment_info](https://rdrr.io/pkg/tiledb/man/tiledb_fragment_info.html).
 
 ## Methods
 
@@ -76,7 +76,7 @@ Create a new `TileDBFragments` instance.
 - `ctx`:
 
   Optional
-  [`tiledb::tiledb_ctx()`](https://tiledb-inc.github.io/TileDB-R/reference/tiledb_ctx.html)
+  [`tiledb::tiledb_ctx()`](https://rdrr.io/pkg/tiledb/man/tiledb_ctx.html)
   object.
 
 ------------------------------------------------------------------------

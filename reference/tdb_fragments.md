@@ -19,7 +19,7 @@ tdb_fragments(uri, ctx = NULL)
 - ctx:
 
   Optional
-  [`tiledb::tiledb_ctx()`](https://tiledb-inc.github.io/TileDB-R/reference/tiledb_ctx.html)
+  [`tiledb::tiledb_ctx()`](https://rdrr.io/pkg/tiledb/man/tiledb_ctx.html)
   object.
 
 ## Value
@@ -31,7 +31,7 @@ A `TileDBFragments`, `R6` object.
 - `uri` : The URI of the `TileDB` object
 
 - `fragment_info` : Get the TileDB Fragment Info object as returned by
-  [tiledb::tiledb_fragment_info](https://tiledb-inc.github.io/TileDB-R/reference/tiledb_fragment_info.html).
+  [tiledb::tiledb_fragment_info](https://rdrr.io/pkg/tiledb/man/tiledb_fragment_info.html).
 
 ## Methods
 

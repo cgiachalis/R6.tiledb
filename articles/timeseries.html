@@ -22,7 +22,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">R6.tiledb</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.0.4</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.0.5</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -68,7 +68,7 @@
 
       <h1>Time Series Storage</h1>
             
-            <h4 data-toc-skip class="date">2026-03-22</h4>
+            <h4 data-toc-skip class="date">2026-07-20</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/cgiachalis/R6.tiledb/blob/master/vignettes/timeseries.Rmd" class="external-link"><code>vignettes/timeseries.Rmd</code></a></small>
       <div class="d-none name"><code>timeseries.Rmd</code></div>
@@ -186,19 +186,19 @@ and <code>arrow</code>
 attribute):</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/vfs_dir_tree.html">vfs_dir_tree</a></span><span class="op">(</span><span class="va">tsobj</span><span class="op">$</span><span class="va">uri</span><span class="op">)</span></span>
-<span><span class="co"># C:/Users/cgiac/AppData/Local/Temp/RtmpwtTYTB/filef04194f644b</span></span>
+<span><span class="co"># C:/Users/cgiac/AppData/Local/Temp/Rtmp4kyD4C/file2e9c661b3b74</span></span>
 <span><span class="co"># ├── __commits</span></span>
-<span><span class="co"># │   ├── __1774166056687_1774166056687_7ba34a84690c31edef10dc5a5c16e8d7_22.wrt</span></span>
-<span><span class="co"># │   └── __1774166057309_1774166057309_44fd52d5f1805151e0506a5c4572281e_22.wrt</span></span>
+<span><span class="co"># │   ├── __1784534701510_1784534701510_76243f7438b6f85d79ccdd42df93b7c6_22.wrt</span></span>
+<span><span class="co"># │   └── __1784534701884_1784534701884_49022ebbbaa9e56f047bc20fdefded3b_22.wrt</span></span>
 <span><span class="co"># ├── __fragments</span></span>
-<span><span class="co"># │   ├── __1774166056687_1774166056687_7ba34a84690c31edef10dc5a5c16e8d7_22</span></span>
+<span><span class="co"># │   ├── __1784534701510_1784534701510_76243f7438b6f85d79ccdd42df93b7c6_22</span></span>
 <span><span class="co"># │   │   ├── a0.tdb</span></span>
 <span><span class="co"># │   │   ├── a0_validity.tdb</span></span>
 <span><span class="co"># │   │   ├── a1.tdb</span></span>
 <span><span class="co"># │   │   ├── a1_validity.tdb</span></span>
 <span><span class="co"># │   │   ├── d0.tdb</span></span>
 <span><span class="co"># │   │   └── __fragment_metadata.tdb</span></span>
-<span><span class="co"># │   └── __1774166057309_1774166057309_44fd52d5f1805151e0506a5c4572281e_22</span></span>
+<span><span class="co"># │   └── __1784534701884_1784534701884_49022ebbbaa9e56f047bc20fdefded3b_22</span></span>
 <span><span class="co"># │       ├── a0.tdb</span></span>
 <span><span class="co"># │       ├── a0_validity.tdb</span></span>
 <span><span class="co"># │       ├── a1.tdb</span></span>
@@ -211,8 +211,8 @@ attribute):</p>
 <span><span class="co"># ├── __labels</span></span>
 <span><span class="co"># ├── __meta</span></span>
 <span><span class="co"># └── __schema</span></span>
-<span><span class="co">#     ├── __1774166056599_1774166056599_4144e32f9bfff0979c687f810c2b9b44</span></span>
-<span><span class="co">#     ├── __1774166057208_1774166057208_14808011e181f6d9daddbabfd3d92c74</span></span>
+<span><span class="co">#     ├── __1784534701436_1784534701436_1b85456fd2a9f9ac73cadc4c4cd34a9b</span></span>
+<span><span class="co">#     ├── __1784534701804_1784534701804_32c542f45215a36cbfa9e923035a0134</span></span>
 <span><span class="co">#     └── __enumerations</span></span>
 <span><span class="co"># </span></span>
 <span><span class="co"># ❯ directories (6) • total size (9.95 KiB)</span></span></code></pre></div>
@@ -369,7 +369,7 @@ attribute):</p>
 <span>        <span class="va">dt</span> <span class="op">&lt;-</span> <span class="va">self</span><span class="op">$</span><span class="fu">get_metadata</span><span class="op">(</span><span class="st">"tclass"</span><span class="op">)</span></span>
 <span></span>
 <span>        <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/NULL.html" class="external-link">is.null</a></span><span class="op">(</span><span class="va">dt</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
-<span>          <span class="va">dt</span> <span class="op">&lt;-</span> <span class="fu">tiledb</span><span class="fu">::</span><span class="fu"><a href="https://tiledb-inc.github.io/TileDB-R/reference/generics.html" class="external-link">datatype</a></span><span class="op">(</span><span class="va">self</span><span class="op">$</span><span class="fu">dimensions</span><span class="op">(</span><span class="op">)</span><span class="op">[[</span><span class="st">"index"</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span>
+<span>          <span class="va">dt</span> <span class="op">&lt;-</span> <span class="fu">tiledb</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/tiledb/man/generics.html" class="external-link">datatype</a></span><span class="op">(</span><span class="va">self</span><span class="op">$</span><span class="fu">dimensions</span><span class="op">(</span><span class="op">)</span><span class="op">[[</span><span class="st">"index"</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span>
 <span>          <span class="kw">if</span> <span class="op">(</span><span class="va">dt</span> <span class="op">==</span> <span class="st">"DATETIME_DAY"</span><span class="op">)</span> <span class="op">{</span> <span class="co"># Either "DATETIME_DAY" or "DATETIME_SEC/MS"</span></span>
 <span>            <span class="va">private</span><span class="op">$</span><span class="va">.tclass</span> <span class="op">&lt;-</span> <span class="st">"Date"</span></span>
 <span>          <span class="op">}</span> <span class="kw">else</span> <span class="op">{</span></span>
@@ -436,18 +436,18 @@ attribute):</p>
 <span>      <span class="va">sch</span> <span class="op">&lt;-</span> <span class="kw"><a href="https://rdrr.io/r/base/switch.html" class="external-link">switch</a></span><span class="op">(</span></span>
 <span>        <span class="va">schema_name</span>,</span>
 <span>        generic_date <span class="op">=</span> <span class="op">{</span></span>
-<span>          <span class="fu">.gen_ts1dim_schema</span><span class="op">(</span>attr <span class="op">=</span> <span class="va">attr_names</span>, type_index <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span>
+<span>          <span class="fu">R6.tiledb</span><span class="fu">:::</span><span class="fu">.gen_ts1dim_schema</span><span class="op">(</span>attr <span class="op">=</span> <span class="va">attr_names</span>, type_index <span class="op">=</span> <span class="fl">0</span>, ctx <span class="op">=</span> <span class="va">self</span><span class="op">$</span><span class="va">ctx</span><span class="op">)</span></span>
 <span>        <span class="op">}</span>,</span>
 <span>        generic_datetime <span class="op">=</span> <span class="op">{</span></span>
-<span>          <span class="fu">.gen_ts1dim_schema</span><span class="op">(</span>attr <span class="op">=</span> <span class="va">attr_names</span>, type_index <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
+<span>          <span class="fu">R6.tiledb</span><span class="fu">:::</span><span class="fu">.gen_ts1dim_schema</span><span class="op">(</span>attr <span class="op">=</span> <span class="va">attr_names</span>, type_index <span class="op">=</span> <span class="fl">1</span>, ctx <span class="op">=</span> <span class="va">self</span><span class="op">$</span><span class="va">ctx</span><span class="op">)</span></span>
 <span>        <span class="op">}</span>,</span>
 <span>        <span class="fu">cli</span><span class="fu">::</span><span class="fu"><a href="https://cli.r-lib.org/reference/cli_abort.html" class="external-link">cli_abort</a></span><span class="op">(</span><span class="st">"Unkown schema"</span>, call <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span>
 <span>      <span class="op">)</span></span>
 <span></span>
 <span>      <span class="co"># Add schema only</span></span>
-<span>      <span class="fu">tiledb</span><span class="fu">::</span><span class="fu"><a href="https://tiledb-inc.github.io/TileDB-R/reference/tiledb_array_create.html" class="external-link">tiledb_array_create</a></span><span class="op">(</span><span class="va">self</span><span class="op">$</span><span class="va">uri</span>, schema <span class="op">=</span> <span class="va">sch</span><span class="op">)</span></span>
+<span>      <span class="fu">tiledb</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/tiledb/man/tiledb_array_create.html" class="external-link">tiledb_array_create</a></span><span class="op">(</span><span class="va">self</span><span class="op">$</span><span class="va">uri</span>, schema <span class="op">=</span> <span class="va">sch</span><span class="op">)</span></span>
 <span></span>
-<span>      <span class="va">private</span><span class="op">$</span><span class="va">.tiledb_array</span> <span class="op">&lt;-</span> <span class="fu">tiledb</span><span class="fu">::</span><span class="fu"><a href="https://tiledb-inc.github.io/TileDB-R/reference/tiledb_array.html" class="external-link">tiledb_array</a></span><span class="op">(</span><span class="va">self</span><span class="op">$</span><span class="va">uri</span>,</span>
+<span>      <span class="va">private</span><span class="op">$</span><span class="va">.tiledb_array</span> <span class="op">&lt;-</span> <span class="fu">tiledb</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/tiledb/man/tiledb_array.html" class="external-link">tiledb_array</a></span><span class="op">(</span><span class="va">self</span><span class="op">$</span><span class="va">uri</span>,</span>
 <span>                                                    ctx <span class="op">=</span> <span class="va">self</span><span class="op">$</span><span class="va">ctx</span>,</span>
 <span>                                                    query_type <span class="op">=</span> <span class="va">mode</span>,</span>
 <span>                                                    query_layout <span class="op">=</span> <span class="st">"UNORDERED"</span>,</span>
@@ -606,7 +606,7 @@ attribute):</p>
 <span></span>
 <span>      <span class="va">dim_index</span> <span class="op">&lt;-</span> <span class="va">self</span><span class="op">$</span><span class="fu">dimensions</span><span class="op">(</span><span class="op">)</span><span class="op">[[</span><span class="st">"index"</span><span class="op">]</span><span class="op">]</span></span>
 <span></span>
-<span>      <span class="va">dom_index</span> <span class="op">&lt;-</span> <span class="fu">tiledb</span><span class="fu">::</span><span class="fu"><a href="https://tiledb-inc.github.io/TileDB-R/reference/generics.html" class="external-link">domain</a></span><span class="op">(</span><span class="va">dim_index</span><span class="op">)</span></span>
+<span>      <span class="va">dom_index</span> <span class="op">&lt;-</span> <span class="fu">tiledb</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/tiledb/man/generics.html" class="external-link">domain</a></span><span class="op">(</span><span class="va">dim_index</span><span class="op">)</span></span>
 <span></span>
 <span>      <span class="va">tc</span> <span class="op">&lt;-</span> <span class="va">self</span><span class="op">$</span><span class="va">tclass</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span></span>
 <span>      <span class="kw">if</span> <span class="op">(</span><span class="va">tc</span> <span class="op">==</span> <span class="st">"Date"</span><span class="op">)</span> <span class="op">{</span></span>
@@ -772,9 +772,9 @@ attribute):</p>
 <span>    remove_symbols <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">syms</span><span class="op">)</span> <span class="op">{</span></span>
 <span></span>
 <span>      <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">syms</span>, <span class="kw">function</span><span class="op">(</span><span class="va">.s</span><span class="op">)</span> <span class="op">{</span></span>
-<span>        <span class="va">ase</span> <span class="op">&lt;-</span> <span class="fu">tiledb</span><span class="fu">::</span><span class="fu"><a href="https://tiledb-inc.github.io/TileDB-R/reference/tiledb_array_schema_evolution.html" class="external-link">tiledb_array_schema_evolution</a></span><span class="op">(</span><span class="op">)</span></span>
-<span>        <span class="va">ase</span> <span class="op">&lt;-</span> <span class="fu">tiledb</span><span class="fu">::</span><span class="fu"><a href="https://tiledb-inc.github.io/TileDB-R/reference/tiledb_array_schema_evolution_drop_attribute.html" class="external-link">tiledb_array_schema_evolution_drop_attribute</a></span><span class="op">(</span><span class="va">ase</span>, <span class="va">.s</span><span class="op">)</span></span>
-<span>        <span class="va">ase</span> <span class="op">&lt;-</span> <span class="fu">tiledb</span><span class="fu">::</span><span class="fu"><a href="https://tiledb-inc.github.io/TileDB-R/reference/tiledb_array_schema_evolution_array_evolve.html" class="external-link">tiledb_array_schema_evolution_array_evolve</a></span><span class="op">(</span><span class="va">ase</span>, <span class="va">self</span><span class="op">$</span><span class="va">uri</span><span class="op">)</span></span>
+<span>        <span class="va">ase</span> <span class="op">&lt;-</span> <span class="fu">tiledb</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/tiledb/man/tiledb_array_schema_evolution.html" class="external-link">tiledb_array_schema_evolution</a></span><span class="op">(</span>ctx <span class="op">=</span> <span class="va">self</span><span class="op">$</span><span class="va">ctx</span><span class="op">)</span></span>
+<span>        <span class="va">ase</span> <span class="op">&lt;-</span> <span class="fu">tiledb</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/tiledb/man/tiledb_array_schema_evolution_drop_attribute.html" class="external-link">tiledb_array_schema_evolution_drop_attribute</a></span><span class="op">(</span><span class="va">ase</span>, <span class="va">.s</span><span class="op">)</span></span>
+<span>        <span class="va">ase</span> <span class="op">&lt;-</span> <span class="fu">tiledb</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/tiledb/man/tiledb_array_schema_evolution_array_evolve.html" class="external-link">tiledb_array_schema_evolution_array_evolve</a></span><span class="op">(</span><span class="va">ase</span>, <span class="va">self</span><span class="op">$</span><span class="va">uri</span><span class="op">)</span></span>
 <span>      <span class="op">}</span><span class="op">)</span></span>
 <span></span>
 <span>      <span class="fu"><a href="https://rdrr.io/r/base/invisible.html" class="external-link">invisible</a></span><span class="op">(</span><span class="va">self</span><span class="op">)</span></span>
@@ -822,18 +822,19 @@ attribute):</p>
 <span>      <span class="op">}</span></span>
 <span></span>
 <span>      <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">syms</span>, <span class="kw">function</span><span class="op">(</span><span class="va">.s</span><span class="op">)</span> <span class="op">{</span></span>
-<span>        <span class="va">attr</span> <span class="op">&lt;-</span> <span class="fu">tiledb</span><span class="fu">::</span><span class="fu"><a href="https://tiledb-inc.github.io/TileDB-R/reference/tiledb_attr.html" class="external-link">tiledb_attr</a></span><span class="op">(</span></span>
+<span>        <span class="va">attr</span> <span class="op">&lt;-</span> <span class="fu">tiledb</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/tiledb/man/tiledb_attr.html" class="external-link">tiledb_attr</a></span><span class="op">(</span></span>
 <span>          name <span class="op">=</span> <span class="va">.s</span>,</span>
 <span>          type <span class="op">=</span> <span class="st">"FLOAT64"</span>,</span>
 <span>          ncells <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>          nullable <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>          filter_list <span class="op">=</span> <span class="fu">.tiledb_flist</span><span class="op">(</span>level <span class="op">=</span> <span class="op">-</span><span class="fl">1</span>, name <span class="op">=</span> <span class="st">"ZSTD"</span><span class="op">)</span><span class="op">)</span></span>
+<span>          filter_list <span class="op">=</span> <span class="fu">.tiledb_flist</span><span class="op">(</span>level <span class="op">=</span> <span class="op">-</span><span class="fl">1</span>, name <span class="op">=</span> <span class="st">"ZSTD"</span>, ctx <span class="op">=</span> <span class="va">self</span><span class="op">$</span><span class="va">ctx</span><span class="op">)</span>,</span>
+<span>          ctx <span class="op">=</span> <span class="va">self</span><span class="op">$</span><span class="va">ctx</span><span class="op">)</span></span>
 <span></span>
-<span>        <span class="va">ase</span> <span class="op">&lt;-</span> <span class="fu">tiledb</span><span class="fu">::</span><span class="fu"><a href="https://tiledb-inc.github.io/TileDB-R/reference/tiledb_array_schema_evolution.html" class="external-link">tiledb_array_schema_evolution</a></span><span class="op">(</span><span class="op">)</span></span>
+<span>        <span class="va">ase</span> <span class="op">&lt;-</span> <span class="fu">tiledb</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/tiledb/man/tiledb_array_schema_evolution.html" class="external-link">tiledb_array_schema_evolution</a></span><span class="op">(</span>ctx <span class="op">=</span> <span class="va">self</span><span class="op">$</span><span class="va">ctx</span><span class="op">)</span></span>
 <span></span>
-<span>        <span class="va">ase</span> <span class="op">&lt;-</span> <span class="fu">tiledb</span><span class="fu">::</span><span class="fu"><a href="https://tiledb-inc.github.io/TileDB-R/reference/tiledb_array_schema_evolution_add_attribute.html" class="external-link">tiledb_array_schema_evolution_add_attribute</a></span><span class="op">(</span><span class="va">ase</span>, <span class="va">attr</span><span class="op">)</span></span>
+<span>        <span class="va">ase</span> <span class="op">&lt;-</span> <span class="fu">tiledb</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/tiledb/man/tiledb_array_schema_evolution_add_attribute.html" class="external-link">tiledb_array_schema_evolution_add_attribute</a></span><span class="op">(</span><span class="va">ase</span>, <span class="va">attr</span><span class="op">)</span></span>
 <span></span>
-<span>        <span class="fu">tiledb</span><span class="fu">::</span><span class="fu"><a href="https://tiledb-inc.github.io/TileDB-R/reference/tiledb_array_schema_evolution_array_evolve.html" class="external-link">tiledb_array_schema_evolution_array_evolve</a></span><span class="op">(</span><span class="va">ase</span>, <span class="va">self</span><span class="op">$</span><span class="va">uri</span><span class="op">)</span></span>
+<span>        <span class="fu">tiledb</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/tiledb/man/tiledb_array_schema_evolution_array_evolve.html" class="external-link">tiledb_array_schema_evolution_array_evolve</a></span><span class="op">(</span><span class="va">ase</span>, <span class="va">self</span><span class="op">$</span><span class="va">uri</span><span class="op">)</span></span>
 <span>      <span class="op">}</span><span class="op">)</span></span>
 <span></span>
 <span>      <span class="fu"><a href="https://rdrr.io/r/base/invisible.html" class="external-link">invisible</a></span><span class="op">(</span><span class="va">self</span><span class="op">)</span></span>
@@ -961,7 +962,7 @@ attribute):</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.1.</p>
 </div>
 
     </footer>

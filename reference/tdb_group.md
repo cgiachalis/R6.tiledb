@@ -23,7 +23,7 @@ tdb_group(uri, mode = "READ", ctx = NULL, tiledb_timestamp = NULL)
 - ctx:
 
   Optional
-  [`tiledb::tiledb_ctx()`](https://tiledb-inc.github.io/TileDB-R/reference/tiledb_ctx.html)
+  [`tiledb::tiledb_ctx()`](https://rdrr.io/pkg/tiledb/man/tiledb_ctx.html)
   object.
 
 - tiledb_timestamp:
@@ -48,7 +48,7 @@ A `TileDBGroupExp`, `R6` object.
 ## Active bindings
 
 - `ctx` : A TileDB Context. See
-  [`tiledb::tiledb_ctx()`](https://tiledb-inc.github.io/TileDB-R/reference/tiledb_ctx.html)
+  [`tiledb::tiledb_ctx()`](https://rdrr.io/pkg/tiledb/man/tiledb_ctx.html)
 
 - `tiledb_timestamp` : A `TileDB` timestamp range that the resource will
   be opened at. See
@@ -63,7 +63,7 @@ A `TileDBGroupExp`, `R6` object.
   `"INVALID"`
 
 - `object` : Access the underlying
-  [`tiledb::tiledb_group()`](https://tiledb-inc.github.io/TileDB-R/reference/tiledb_group.html)
+  [`tiledb::tiledb_group()`](https://rdrr.io/pkg/tiledb/man/tiledb_group.html)
   object
 
 - `members`: Access the list of group members.

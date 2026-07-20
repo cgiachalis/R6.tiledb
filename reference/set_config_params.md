@@ -16,7 +16,7 @@ unset_config_params(cfg, keys)
 - cfg:
 
   A configuration object
-  [`tiledb::tiledb_config()`](https://tiledb-inc.github.io/TileDB-R/reference/tiledb_config.html).
+  [`tiledb::tiledb_config()`](https://rdrr.io/pkg/tiledb/man/tiledb_config.html).
 
 - keyval:
 
@@ -32,7 +32,7 @@ The modified `tiledb_config` object.
 
 ## See also
 
-[`tiledb::tiledb_config()`](https://tiledb-inc.github.io/TileDB-R/reference/tiledb_config.html)
+[`tiledb::tiledb_config()`](https://rdrr.io/pkg/tiledb/man/tiledb_config.html)
 
 ## Examples
 
