@@ -8,8 +8,9 @@
 
 Both classes have an active binding field `$object` that gives access to
 underlying tiledb object, i.e., either
-[`tiledb_array()`](https://rdrr.io/pkg/tiledb/man/tiledb_array.html) or
-[`tiledb_group()`](https://rdrr.io/pkg/tiledb/man/tiledb_group.html)
+[`tiledb_array()`](https://tiledb-inc.github.io/TileDB-R/reference/tiledb_array.html)
+or
+[`tiledb_group()`](https://tiledb-inc.github.io/TileDB-R/reference/tiledb_group.html)
 objects.
 
 Note that with `TileDBArray` you can also use the `$tiledb_array()`

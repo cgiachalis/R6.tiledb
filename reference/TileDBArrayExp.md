@@ -135,7 +135,7 @@ accessed via active field `$object`.
 - `sch`:
 
   A TileDB schema. See constructor
-  [`tiledb::tiledb_array_schema()`](https://rdrr.io/pkg/tiledb/man/tiledb_array_schema.html).
+  [`tiledb::tiledb_array_schema()`](https://tiledb-inc.github.io/TileDB-R/reference/tiledb_array_schema.html).
 
 - `mode`:
 
@@ -272,7 +272,7 @@ Consolidates the fragments of the array into a single fragment.
 - `cfg`:
 
   A configuration object
-  [`tiledb::tiledb_config()`](https://rdrr.io/pkg/tiledb/man/tiledb_config.html)
+  [`tiledb::tiledb_config()`](https://tiledb-inc.github.io/TileDB-R/reference/tiledb_config.html)
   to override context configuration except for parameters set by `mode`,
   `start_time`, `end_time`. When `NULL` (default) the configuration
   parameters will be retrieved from object's context.
@@ -325,7 +325,7 @@ package**.
 - `cfg`:
 
   A configuration object
-  [`tiledb::tiledb_config()`](https://rdrr.io/pkg/tiledb/man/tiledb_config.html)
+  [`tiledb::tiledb_config()`](https://tiledb-inc.github.io/TileDB-R/reference/tiledb_config.html)
   to override context configuration except for parameters set by `mode`,
   `start_time`, `end_time`. When `NULL` (default) the configuration
   parameters will be retrieved from object's context.
@@ -372,7 +372,7 @@ Clean up consolidated fragments and array metadata.
 - `cfg`:
 
   A configuration object
-  [`tiledb::tiledb_config()`](https://rdrr.io/pkg/tiledb/man/tiledb_config.html)
+  [`tiledb::tiledb_config()`](https://tiledb-inc.github.io/TileDB-R/reference/tiledb_config.html)
   to override context configuration. When `NULL` (default) the
   configuration parameters will be retrieved from object's context.
 
@@ -415,7 +415,7 @@ package**.
 - `cfg`:
 
   A configuration object
-  [`tiledb::tiledb_config()`](https://rdrr.io/pkg/tiledb/man/tiledb_config.html)
+  [`tiledb::tiledb_config()`](https://tiledb-inc.github.io/TileDB-R/reference/tiledb_config.html)
   to override context configuration. When `NULL` (default) the
   configuration parameters will be retrieved from object's context.
 
@@ -456,7 +456,7 @@ Consolidates and vacuums the fragments.
 - `cfg`:
 
   A configuration object
-  [`tiledb::tiledb_config()`](https://rdrr.io/pkg/tiledb/man/tiledb_config.html)
+  [`tiledb::tiledb_config()`](https://tiledb-inc.github.io/TileDB-R/reference/tiledb_config.html)
   to override context configuration except for parameters set by `mode`,
   `start_time`, `end_time`. When `NULL` (default) the configuration
   parameters will be retrieved from object's context.
@@ -508,7 +508,7 @@ package**.
 - `cfg`:
 
   A configuration object
-  [`tiledb::tiledb_config()`](https://rdrr.io/pkg/tiledb/man/tiledb_config.html)
+  [`tiledb::tiledb_config()`](https://tiledb-inc.github.io/TileDB-R/reference/tiledb_config.html)
   to override context configuration except for parameters set by `mode`,
   `start_time`, `end_time`. When `NULL` (default) the configuration
   parameters will be retrieved from object's context.
@@ -645,12 +645,12 @@ Upgrade the array to the latest format version.
 - `cfg`:
 
   A configuration object
-  [`tiledb::tiledb_config()`](https://rdrr.io/pkg/tiledb/man/tiledb_config.html).
+  [`tiledb::tiledb_config()`](https://tiledb-inc.github.io/TileDB-R/reference/tiledb_config.html).
 
 - `ctx`:
 
   Optional
-  [`tiledb::tiledb_ctx()`](https://rdrr.io/pkg/tiledb/man/tiledb_ctx.html)
+  [`tiledb::tiledb_ctx()`](https://tiledb-inc.github.io/TileDB-R/reference/tiledb_ctx.html)
   object. By default, object's context is used.
 
 ------------------------------------------------------------------------

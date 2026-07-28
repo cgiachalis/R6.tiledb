@@ -19,7 +19,7 @@ tdb_array_create(uri, sch, mode = "WRITE", ctx = NULL)
 - sch:
 
   A TileDB schema. See constructor
-  [`tiledb::tiledb_array_schema()`](https://rdrr.io/pkg/tiledb/man/tiledb_array_schema.html).
+  [`tiledb::tiledb_array_schema()`](https://tiledb-inc.github.io/TileDB-R/reference/tiledb_array_schema.html).
 
 - mode:
 
@@ -28,7 +28,7 @@ tdb_array_create(uri, sch, mode = "WRITE", ctx = NULL)
 - ctx:
 
   A TileDB Context. See
-  [`tiledb::tiledb_ctx()`](https://rdrr.io/pkg/tiledb/man/tiledb_ctx.html).
+  [`tiledb::tiledb_ctx()`](https://tiledb-inc.github.io/TileDB-R/reference/tiledb_ctx.html).
 
 ## Value
 

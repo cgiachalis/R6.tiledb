@@ -29,7 +29,7 @@ An object of class `TileDBArray`, `R6`.
 - `object`:
 
   Access the underlying
-  [`tiledb::tiledb_array()`](https://rdrr.io/pkg/tiledb/man/tiledb_array.html)
+  [`tiledb::tiledb_array()`](https://tiledb-inc.github.io/TileDB-R/reference/tiledb_array.html)
   object. When used before open() method, the underlying array will be
   initialised at `"READ"` mode and kept open.
 
@@ -78,7 +78,7 @@ Inherited methods
 Open TileDB array object for read or write.
 
 This methods opens the underlying
-[`tiledb::tiledb_array()`](https://rdrr.io/pkg/tiledb/man/tiledb_array.html)
+[`tiledb::tiledb_array()`](https://tiledb-inc.github.io/TileDB-R/reference/tiledb_array.html)
 object in the new mode if it is different from the current mode.
 
 When the new mode and current mode is the same, no action is taken. To
@@ -120,7 +120,7 @@ The object, invisibly.
 ### Method `tiledb_array()`
 
 Return a
-[tiledb::tiledb_array](https://rdrr.io/pkg/tiledb/man/tiledb_array.html)
+[tiledb::tiledb_array](https://tiledb-inc.github.io/TileDB-R/reference/tiledb_array.html)
 object.
 
 If a `query_type` not provided then it will be inherited from class
@@ -136,12 +136,12 @@ to `"READ"`.
 - `...`:
 
   Optional arguments to pass to
-  [`tiledb::tiledb_array()`](https://rdrr.io/pkg/tiledb/man/tiledb_array.html).
+  [`tiledb::tiledb_array()`](https://tiledb-inc.github.io/TileDB-R/reference/tiledb_array.html).
 
 #### Returns
 
 A
-[tiledb::tiledb_array](https://rdrr.io/pkg/tiledb/man/tiledb_array.html)
+[tiledb::tiledb_array](https://tiledb-inc.github.io/TileDB-R/reference/tiledb_array.html)
 object.
 
 ------------------------------------------------------------------------
@@ -157,7 +157,7 @@ Retrieve the array schema as TileDB schema.
 #### Returns
 
 A
-[tiledb::tiledb_array_schema](https://rdrr.io/pkg/tiledb/man/tiledb_array_schema.html)
+[tiledb::tiledb_array_schema](https://tiledb-inc.github.io/TileDB-R/reference/tiledb_array_schema.html)
 object.
 
 ------------------------------------------------------------------------
@@ -188,7 +188,7 @@ Retrieve the array dimensions.
 #### Returns
 
 A named list of
-[tiledb::tiledb_dim](https://rdrr.io/pkg/tiledb/man/tiledb_dim.html)
+[tiledb::tiledb_dim](https://tiledb-inc.github.io/TileDB-R/reference/tiledb_dim.html)
 objects.
 
 ------------------------------------------------------------------------
@@ -204,7 +204,7 @@ Retrieve the array attributes.
 #### Returns
 
 A list of
-[tiledb::tiledb_attr](https://rdrr.io/pkg/tiledb/man/tiledb_attr.html)
+[tiledb::tiledb_attr](https://tiledb-inc.github.io/TileDB-R/reference/tiledb_attr.html)
 objects.
 
 ------------------------------------------------------------------------

@@ -23,7 +23,7 @@ tdb_array(uri, mode = "READ", ctx = NULL, tiledb_timestamp = NULL)
 - ctx:
 
   Optional
-  [`tiledb::tiledb_ctx()`](https://rdrr.io/pkg/tiledb/man/tiledb_ctx.html)
+  [`tiledb::tiledb_ctx()`](https://tiledb-inc.github.io/TileDB-R/reference/tiledb_ctx.html)
   object.
 
 - tiledb_timestamp:
@@ -48,7 +48,7 @@ A `TileDBArrayExp`, `R6` object.
 ## Active bindings
 
 - `ctx` : A TileDB Context. See
-  [`tiledb::tiledb_ctx()`](https://rdrr.io/pkg/tiledb/man/tiledb_ctx.html)
+  [`tiledb::tiledb_ctx()`](https://tiledb-inc.github.io/TileDB-R/reference/tiledb_ctx.html)
 
 - `tiledb_timestamp` : A `TileDB` timestamp range that the resource will
   be opened at. See
@@ -63,7 +63,7 @@ A `TileDBArrayExp`, `R6` object.
   `"INVALID"`
 
 - `object` : Access the underlying
-  [`tiledb::tiledb_array()`](https://rdrr.io/pkg/tiledb/man/tiledb_array.html)
+  [`tiledb::tiledb_array()`](https://tiledb-inc.github.io/TileDB-R/reference/tiledb_array.html)
   object. When used before open() method, the underlying array will be
   initialised at `"READ"` mode and kept open
 

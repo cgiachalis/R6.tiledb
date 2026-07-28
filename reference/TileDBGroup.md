@@ -29,7 +29,7 @@ An object of class `TileDBGroup`, `R6`.
 - `object`:
 
   Access the underlying
-  [`tiledb::tiledb_group()`](https://rdrr.io/pkg/tiledb/man/tiledb_group.html)
+  [`tiledb::tiledb_group()`](https://tiledb-inc.github.io/TileDB-R/reference/tiledb_group.html)
   object.
 
 - `members`:

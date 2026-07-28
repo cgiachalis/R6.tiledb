@@ -1,8 +1,8 @@
 # Open a TileDB Resource at Write Mode
 
 Open a URI,
-[`tiledb::tiledb_array()`](https://rdrr.io/pkg/tiledb/man/tiledb_array.html),
-[`tiledb::tiledb_group()`](https://rdrr.io/pkg/tiledb/man/tiledb_group.html),
+[`tiledb::tiledb_array()`](https://tiledb-inc.github.io/TileDB-R/reference/tiledb_array.html),
+[`tiledb::tiledb_group()`](https://tiledb-inc.github.io/TileDB-R/reference/tiledb_group.html),
 [TileDBArray](https://cgiachalis.github.io/R6.tiledb/reference/TileDBArray.md)
 or
 [TileDBGroup](https://cgiachalis.github.io/R6.tiledb/reference/TileDBGroup.md)
@@ -45,7 +45,7 @@ open_write(object, timestamp = NULL, ctx = NULL, ...)
 - ctx:
 
   Optional
-  [`tiledb::tiledb_ctx()`](https://rdrr.io/pkg/tiledb/man/tiledb_ctx.html)
+  [`tiledb::tiledb_ctx()`](https://tiledb-inc.github.io/TileDB-R/reference/tiledb_ctx.html)
   object.
 
 ## Value

@@ -15,7 +15,7 @@ unset_consolidation_timestamps(cfg)
 - cfg:
 
   A configuration object
-  [`tiledb::tiledb_config()`](https://rdrr.io/pkg/tiledb/man/tiledb_config.html).
+  [`tiledb::tiledb_config()`](https://tiledb-inc.github.io/TileDB-R/reference/tiledb_config.html).
 
 - start_time, end_time:
 
