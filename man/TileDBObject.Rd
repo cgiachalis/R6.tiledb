@@ -14,11 +14,11 @@ A parent class to implement shared functionality for \link{TileDBArray} and
 }
 \keyword{internal}
 \section{Active bindings}{
-\if{html}{\out{<div class="r6-active-bindings">}}
-\describe{
-\item{\code{ctx}}{TileDB Context.}
+  \if{html}{\out{<div class="r6-active-bindings">}}
+  \describe{
+    \item{\code{ctx}}{TileDB Context.}
 
-\item{\code{tiledb_timestamp}}{Set or retrieve a \code{TileDB} timestamp range that
+    \item{\code{tiledb_timestamp}}{Set or retrieve a \code{TileDB} timestamp range that
 the resource will be opened at. Effective in \code{"READ"} mode only.
 
 This is a \strong{mutable} field to set timestamps dynamically
@@ -34,50 +34,49 @@ or length 2 with start, end timestamps
 \code{"READ"} mode. For \code{TileDBGroup} objects will clear the member cache and will reopen
 the group resource so as to propagate the \code{TileDB} time-stamp to members.}
 
-\item{\code{uri}}{The URI of the \code{TileDB} object.}
+    \item{\code{uri}}{The URI of the \code{TileDB} object.}
 
-\item{\code{mode}}{Get the mode of the object: one of the following:
+    \item{\code{mode}}{Get the mode of the object: one of the following:
 \code{"CLOSED"}, \code{"READ"} or \code{"WRITE"}.}
 
-\item{\code{object_type}}{The TileDB object type:
+    \item{\code{object_type}}{The TileDB object type:
 \itemize{
 \item \code{"ARRAY"}, for dense or sparse array resource
 \item \code{"GROUP"}, for group resource
 \item \code{"INVALID"}, for not a TileDB resource
 }}
-}
-\if{html}{\out{</div>}}
+  }
+  \if{html}{\out{</div>}}
 }
 \section{Methods}{
 \subsection{Public methods}{
-\itemize{
-\item \href{#method-TileDBObject-new}{\code{TileDBObject$new()}}
-\item \href{#method-TileDBObject-class}{\code{TileDBObject$class()}}
-\item \href{#method-TileDBObject-is_open}{\code{TileDBObject$is_open()}}
-\item \href{#method-TileDBObject-reopen}{\code{TileDBObject$reopen()}}
-\item \href{#method-TileDBObject-exists}{\code{TileDBObject$exists()}}
-\item \href{#method-TileDBObject-get_metadata}{\code{TileDBObject$get_metadata()}}
-\item \href{#method-TileDBObject-set_metadata}{\code{TileDBObject$set_metadata()}}
-\item \href{#method-TileDBObject-clone}{\code{TileDBObject$clone()}}
-}
+  \itemize{
+    \item \href{#method-TileDBObject-initialize}{\code{TileDBObject$new()}}
+    \item \href{#method-TileDBObject-class}{\code{TileDBObject$class()}}
+    \item \href{#method-TileDBObject-is_open}{\code{TileDBObject$is_open()}}
+    \item \href{#method-TileDBObject-reopen}{\code{TileDBObject$reopen()}}
+    \item \href{#method-TileDBObject-exists}{\code{TileDBObject$exists()}}
+    \item \href{#method-TileDBObject-get_metadata}{\code{TileDBObject$get_metadata()}}
+    \item \href{#method-TileDBObject-set_metadata}{\code{TileDBObject$set_metadata()}}
+    \item \href{#method-TileDBObject-clone}{\code{TileDBObject$clone()}}
+  }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-TileDBObject-new"></a>}}
-\if{latex}{\out{\hypertarget{method-TileDBObject-new}{}}}
-\subsection{Method \code{new()}}{
-Create a new \code{TileDB} object.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{TileDBObject$new(uri, ctx = NULL, tiledb_timestamp = NULL)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{uri}}{URI path for the \code{TileDB} object.}
-
-\item{\code{ctx}}{Optional \code{\link[tiledb:tiledb_ctx]{tiledb::tiledb_ctx()}} object.}
-
-\item{\code{tiledb_timestamp}}{Set a \code{TileDB} timestamp range that
+\if{html}{\out{<a id="method-TileDBObject-initialize"></a>}}
+\if{latex}{\out{\hypertarget{method-TileDBObject-initialize}{}}}
+\subsection{\code{TileDBObject$new()}}{
+  Create a new \code{TileDB} object.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{TileDBObject$new(uri, ctx = NULL, tiledb_timestamp = NULL)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{uri}}{URI path for the \code{TileDB} object.}
+      \item{\code{ctx}}{Optional \code{\link[tiledb:tiledb_ctx]{tiledb::tiledb_ctx()}} object.}
+      \item{\code{tiledb_timestamp}}{Set a \code{TileDB} timestamp range that
 the resource will be opened at. Effective in \code{"READ"} mode only.
 Valid options:
 \itemize{
@@ -89,134 +88,149 @@ or length 2 with start, end timestamps
 
 \strong{Note:} When setting new a time-stamp, the object will be reopened only if it is in
 \code{"READ"} mode.}
+    }
+    \if{html}{\out{</div>}}
+  }
 }
-\if{html}{\out{</div>}}
-}
-}
+
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-TileDBObject-class"></a>}}
 \if{latex}{\out{\hypertarget{method-TileDBObject-class}{}}}
-\subsection{Method \code{class()}}{
-Print the name of the R6 class.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{TileDBObject$class()}\if{html}{\out{</div>}}
+\subsection{\code{TileDBObject$class()}}{
+  Print the name of the R6 class.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{TileDBObject$class()}
+    \if{html}{\out{</div>}}
+  }
 }
 
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-TileDBObject-is_open"></a>}}
 \if{latex}{\out{\hypertarget{method-TileDBObject-is_open}{}}}
-\subsection{Method \code{is_open()}}{
-Determine if the object is open for reading or writing.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{TileDBObject$is_open()}\if{html}{\out{</div>}}
+\subsection{\code{TileDBObject$is_open()}}{
+  Determine if the object is open for reading or writing.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{TileDBObject$is_open()}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    \code{TRUE} if the object is open, otherwise \code{FALSE}.
+  }
 }
 
-\subsection{Returns}{
-\code{TRUE} if the object is open, otherwise \code{FALSE}.
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-TileDBObject-reopen"></a>}}
 \if{latex}{\out{\hypertarget{method-TileDBObject-reopen}{}}}
-\subsection{Method \code{reopen()}}{
-Close and reopen the TileDB object in a new mode.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{TileDBObject$reopen(mode = c("READ", "WRITE"))}\if{html}{\out{</div>}}
+\subsection{\code{TileDBObject$reopen()}}{
+  Close and reopen the TileDB object in a new mode.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{TileDBObject$reopen(mode = c("READ", "WRITE"))}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{mode}}{New mode to open the object in; choose from: \code{"READ"} or \code{"WRITE"}.}
+    }
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    The object, invisibly.
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{mode}}{New mode to open the object in; choose from: \code{"READ"} or \code{"WRITE"}.}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-The object, invisibly.
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-TileDBObject-exists"></a>}}
 \if{latex}{\out{\hypertarget{method-TileDBObject-exists}{}}}
-\subsection{Method \code{exists()}}{
-Check if the object exists.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{TileDBObject$exists()}\if{html}{\out{</div>}}
+\subsection{\code{TileDBObject$exists()}}{
+  Check if the object exists.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{TileDBObject$exists()}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    \code{TRUE} if the object exists, \code{FALSE} otherwise.
+  }
 }
 
-\subsection{Returns}{
-\code{TRUE} if the object exists, \code{FALSE} otherwise.
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-TileDBObject-get_metadata"></a>}}
 \if{latex}{\out{\hypertarget{method-TileDBObject-get_metadata}{}}}
-\subsection{Method \code{get_metadata()}}{
-Retrieve metadata from a \code{TileDB} Object.
+\subsection{\code{TileDBObject$get_metadata()}}{
+  Retrieve metadata from a \code{TileDB} Object.
 
 When a \code{TileDB} object (array or group) is in \code{"CLOSED"} mode, then it will be
 opened in \code{"READ"} mode in order to fetch the metadata; and be kept opened until
 is closed by the user.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{TileDBObject$get_metadata(keys = NULL)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{keys}}{A character vector of metadata keys to retrieve. For \code{NULL} (default),
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{TileDBObject$get_metadata(keys = NULL)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{keys}}{A character vector of metadata keys to retrieve. For \code{NULL} (default),
 it returns all metadata.}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-\itemize{
+    }
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    \itemize{
 \item For scalar key, it returns the key metadata value; if nothing is found
 it returns \code{NULL}
 \item For character vector, it returns \code{list} of metadata with valid keys only;
 if nothing is found it returns an empty \code{list}
 \item For \code{NULL} (default), it returns a list of all metadata
 }
+  }
 }
-}
+
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-TileDBObject-set_metadata"></a>}}
 \if{latex}{\out{\hypertarget{method-TileDBObject-set_metadata}{}}}
-\subsection{Method \code{set_metadata()}}{
-Add list of metadata to a \code{TileDB} Object.
+\subsection{\code{TileDBObject$set_metadata()}}{
+  Add list of metadata to a \code{TileDB} Object.
 
 The \code{TileDB} object should be open in \code{"WRITE"} mode.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{TileDBObject$set_metadata(metadata)}\if{html}{\out{</div>}}
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{TileDBObject$set_metadata(metadata)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{metadata}}{A named list of metadata.}
+    }
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    The object, invisibly.
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{metadata}}{A named list of metadata.}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-The object, invisibly.
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-TileDBObject-clone"></a>}}
 \if{latex}{\out{\hypertarget{method-TileDBObject-clone}{}}}
-\subsection{Method \code{clone()}}{
-The objects of this class are cloneable with this method.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{TileDBObject$clone(deep = FALSE)}\if{html}{\out{</div>}}
+\subsection{\code{TileDBObject$clone()}}{
+  The objects of this class are cloneable with this method.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{TileDBObject$clone(deep = FALSE)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{deep}}{Whether to make a deep clone.}
+    }
+    \if{html}{\out{</div>}}
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{deep}}{Whether to make a deep clone.}
-}
-\if{html}{\out{</div>}}
-}
-}
 }

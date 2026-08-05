@@ -1,7 +1,7 @@
 Package: R6.tiledb
 Title: R6 Classes for TileDB Arrays and Groups
-Version: 0.3.0.5
-Date: 2026-07-20
+Version: 0.3.0.6
+Date: 2026-08-05
 Authors@R: c(
     person("Constantinos", "Giachalis", ,
     "26255858+cgiachalis@users.noreply.github.com", role = c("aut", "cre")),
@@ -13,7 +13,7 @@ Description: Provides foundational R6 classes to interface with 'TileDB'
     minimum classes based on the R6 object oriented system in order to
     make it easier to work with 'TileDB' Arrays and Groups. The base
     classes 'TileDBArray' and 'TileDBGroup' can be easily extended to new
-    subclasses for representing and support any data model.
+    subclasses to represent and support any data model.
 License: MIT + file LICENSE
 URL: https://github.com/cgiachalis/R6.tiledb, https://cgiachalis.github.io/R6.tiledb/
 BugReports: https://github.com/cgiachalis/R6.tiledb/issues
@@ -39,8 +39,8 @@ VignetteBuilder:
     litedown
 Remotes: TileDB-Inc/TileDB-R@0.33.1
 Config/testthat/edition: 3
-Config/testthat/start-first:TileDBGroup
+Config/testthat/start-first: TileDBGroup
 Encoding: UTF-8
 Language: en-GB
 Roxygen: list(markdown = TRUE, old_usage = TRUE)
-RoxygenNote: 7.3.3
+Config/roxygen2/version: 8.0.0

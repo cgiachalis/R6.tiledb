@@ -15,97 +15,103 @@ with the functional interface \code{\link[=tdb_fragments]{tdb_fragments()}}.
 }
 }
 \section{Active bindings}{
-\if{html}{\out{<div class="r6-active-bindings">}}
-\describe{
-\item{\code{uri}}{The URI of the TileDB object.}
+  \if{html}{\out{<div class="r6-active-bindings">}}
+  \describe{
+    \item{\code{uri}}{The URI of the TileDB object.}
 
-\item{\code{fragment_info}}{Get the TileDB Fragment Info object as returned by
+    \item{\code{fragment_info}}{Get the TileDB Fragment Info object as returned by
 \link[tiledb:tiledb_fragment_info]{tiledb::tiledb_fragment_info}.}
-}
-\if{html}{\out{</div>}}
+  }
+  \if{html}{\out{</div>}}
 }
 \section{Methods}{
 \subsection{Public methods}{
-\itemize{
-\item \href{#method-TileDBFragments-new}{\code{TileDBFragments$new()}}
-\item \href{#method-TileDBFragments-class}{\code{TileDBFragments$class()}}
-\item \href{#method-TileDBFragments-frag_num}{\code{TileDBFragments$frag_num()}}
-\item \href{#method-TileDBFragments-frag_uris}{\code{TileDBFragments$frag_uris()}}
-\item \href{#method-TileDBFragments-reload_finfo}{\code{TileDBFragments$reload_finfo()}}
-\item \href{#method-TileDBFragments-to_vacuum}{\code{TileDBFragments$to_vacuum()}}
-\item \href{#method-TileDBFragments-to_vacuum_num}{\code{TileDBFragments$to_vacuum_num()}}
-\item \href{#method-TileDBFragments-delete_fragment_range}{\code{TileDBFragments$delete_fragment_range()}}
-\item \href{#method-TileDBFragments-delete_fragment_list}{\code{TileDBFragments$delete_fragment_list()}}
-\item \href{#method-TileDBFragments-delete_fragment}{\code{TileDBFragments$delete_fragment()}}
-\item \href{#method-TileDBFragments-get_ifragment}{\code{TileDBFragments$get_ifragment()}}
-\item \href{#method-TileDBFragments-get_first_ifragments}{\code{TileDBFragments$get_first_ifragments()}}
-\item \href{#method-TileDBFragments-get_last_ifragments}{\code{TileDBFragments$get_last_ifragments()}}
-\item \href{#method-TileDBFragments-dump}{\code{TileDBFragments$dump()}}
-\item \href{#method-TileDBFragments-print}{\code{TileDBFragments$print()}}
-}
+  \itemize{
+    \item \href{#method-TileDBFragments-initialize}{\code{TileDBFragments$new()}}
+    \item \href{#method-TileDBFragments-class}{\code{TileDBFragments$class()}}
+    \item \href{#method-TileDBFragments-frag_num}{\code{TileDBFragments$frag_num()}}
+    \item \href{#method-TileDBFragments-frag_uris}{\code{TileDBFragments$frag_uris()}}
+    \item \href{#method-TileDBFragments-reload_finfo}{\code{TileDBFragments$reload_finfo()}}
+    \item \href{#method-TileDBFragments-to_vacuum}{\code{TileDBFragments$to_vacuum()}}
+    \item \href{#method-TileDBFragments-to_vacuum_num}{\code{TileDBFragments$to_vacuum_num()}}
+    \item \href{#method-TileDBFragments-delete_fragment_range}{\code{TileDBFragments$delete_fragment_range()}}
+    \item \href{#method-TileDBFragments-delete_fragment_list}{\code{TileDBFragments$delete_fragment_list()}}
+    \item \href{#method-TileDBFragments-delete_fragment}{\code{TileDBFragments$delete_fragment()}}
+    \item \href{#method-TileDBFragments-get_ifragment}{\code{TileDBFragments$get_ifragment()}}
+    \item \href{#method-TileDBFragments-get_first_ifragments}{\code{TileDBFragments$get_first_ifragments()}}
+    \item \href{#method-TileDBFragments-get_last_ifragments}{\code{TileDBFragments$get_last_ifragments()}}
+    \item \href{#method-TileDBFragments-dump}{\code{TileDBFragments$dump()}}
+    \item \href{#method-TileDBFragments-print}{\code{TileDBFragments$print()}}
+  }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-TileDBFragments-new"></a>}}
-\if{latex}{\out{\hypertarget{method-TileDBFragments-new}{}}}
-\subsection{Method \code{new()}}{
-Create a new \code{TileDBFragments} instance.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{TileDBFragments$new(uri, ctx = NULL)}\if{html}{\out{</div>}}
+\if{html}{\out{<a id="method-TileDBFragments-initialize"></a>}}
+\if{latex}{\out{\hypertarget{method-TileDBFragments-initialize}{}}}
+\subsection{\code{TileDBFragments$new()}}{
+  Create a new \code{TileDBFragments} instance.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{TileDBFragments$new(uri, ctx = NULL)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{uri}}{URI path for the \code{TileDB} Array.}
+      \item{\code{ctx}}{Optional \code{\link[tiledb:tiledb_ctx]{tiledb::tiledb_ctx()}} object.}
+    }
+    \if{html}{\out{</div>}}
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{uri}}{URI path for the \code{TileDB} Array.}
-
-\item{\code{ctx}}{Optional \code{\link[tiledb:tiledb_ctx]{tiledb::tiledb_ctx()}} object.}
-}
-\if{html}{\out{</div>}}
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-TileDBFragments-class"></a>}}
 \if{latex}{\out{\hypertarget{method-TileDBFragments-class}{}}}
-\subsection{Method \code{class()}}{
-Print the name of the R6 class.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{TileDBFragments$class()}\if{html}{\out{</div>}}
+\subsection{\code{TileDBFragments$class()}}{
+  Print the name of the R6 class.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{TileDBFragments$class()}
+    \if{html}{\out{</div>}}
+  }
 }
 
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-TileDBFragments-frag_num"></a>}}
 \if{latex}{\out{\hypertarget{method-TileDBFragments-frag_num}{}}}
-\subsection{Method \code{frag_num()}}{
-Get the number of fragments.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{TileDBFragments$frag_num()}\if{html}{\out{</div>}}
+\subsection{\code{TileDBFragments$frag_num()}}{
+  Get the number of fragments.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{TileDBFragments$frag_num()}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    A numeric value.
+  }
 }
 
-\subsection{Returns}{
-A numeric value.
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-TileDBFragments-frag_uris"></a>}}
 \if{latex}{\out{\hypertarget{method-TileDBFragments-frag_uris}{}}}
-\subsection{Method \code{frag_uris()}}{
-Return a \code{data.frame} with time stamps and
+\subsection{\code{TileDBFragments$frag_uris()}}{
+  Return a \code{data.frame} with time stamps and
 fragments uris.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{TileDBFragments$frag_uris(trunc_uri = TRUE)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{trunc_uri}}{\code{TRUE} for fragment name in the form:  \emph{\verb{__ts1_ts2_<label>_<ver>}},
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{TileDBFragments$frag_uris(trunc_uri = TRUE)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{trunc_uri}}{\code{TRUE} for fragment name in the form:  \emph{\verb{__ts1_ts2_<label>_<ver>}},
 otherwise \code{FALSE} for full path.}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-An object of class \code{data.frame} with four columns:
+    }
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    An object of class \code{data.frame} with four columns:
 \itemize{
 \item \code{Fragment}: the fragment index (start at 1)
 \item \code{start_timestamp}: start time-stamp of when fragment was written
@@ -116,40 +122,44 @@ An object of class \code{data.frame} with four columns:
 
 Note that the return object will be of class \code{data.table} if the
 package is found in your system.
+  }
 }
-}
+
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-TileDBFragments-reload_finfo"></a>}}
 \if{latex}{\out{\hypertarget{method-TileDBFragments-reload_finfo}{}}}
-\subsection{Method \code{reload_finfo()}}{
-Refresh the TileDB Fragment Info object.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{TileDBFragments$reload_finfo()}\if{html}{\out{</div>}}
+\subsection{\code{TileDBFragments$reload_finfo()}}{
+  Refresh the TileDB Fragment Info object.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{TileDBFragments$reload_finfo()}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    The object, invisibly.
+  }
 }
 
-\subsection{Returns}{
-The object, invisibly.
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-TileDBFragments-to_vacuum"></a>}}
 \if{latex}{\out{\hypertarget{method-TileDBFragments-to_vacuum}{}}}
-\subsection{Method \code{to_vacuum()}}{
-Consolidated fragments to be removed.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{TileDBFragments$to_vacuum(trunc_uri = TRUE)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{trunc_uri}}{\code{TRUE} for fragment name in the form:  \emph{\verb{__ts1_ts2_<label>_<ver>}},
+\subsection{\code{TileDBFragments$to_vacuum()}}{
+  Consolidated fragments to be removed.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{TileDBFragments$to_vacuum(trunc_uri = TRUE)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{trunc_uri}}{\code{TRUE} for fragment name in the form:  \emph{\verb{__ts1_ts2_<label>_<ver>}},
 otherwise \code{FALSE} for full path.}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-An object of class \code{data.frame} with four columns:
+    }
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    An object of class \code{data.frame} with four columns:
 \itemize{
 \item \code{Fragment}: the fragment index (starts at 1)
 \item \code{start_timestamp}: fragment's start time stamp
@@ -160,165 +170,184 @@ An object of class \code{data.frame} with four columns:
 
 Note that the return object will be of class \code{data.table} if the
 package is found in your system.
+  }
 }
-}
+
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-TileDBFragments-to_vacuum_num"></a>}}
 \if{latex}{\out{\hypertarget{method-TileDBFragments-to_vacuum_num}{}}}
-\subsection{Method \code{to_vacuum_num()}}{
-Return the number of fragments to vacuum
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{TileDBFragments$to_vacuum_num()}\if{html}{\out{</div>}}
+\subsection{\code{TileDBFragments$to_vacuum_num()}}{
+  Return the number of fragments to vacuum
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{TileDBFragments$to_vacuum_num()}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    A numeric value.
+  }
 }
 
-\subsection{Returns}{
-A numeric value.
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-TileDBFragments-delete_fragment_range"></a>}}
 \if{latex}{\out{\hypertarget{method-TileDBFragments-delete_fragment_range}{}}}
-\subsection{Method \code{delete_fragment_range()}}{
-Delete fragments using a time-stamp range.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{TileDBFragments$delete_fragment_range(start_time, end_time)}\if{html}{\out{</div>}}
+\subsection{\code{TileDBFragments$delete_fragment_range()}}{
+  Delete fragments using a time-stamp range.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{TileDBFragments$delete_fragment_range(start_time, end_time)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{start_time, end_time}}{Time stamp values. A date time objects
+of class \code{POSIXct}.}
+    }
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    A logical \code{TRUE}, invisibly. Note that if time stamps fall
+outside fragments' time range no deletion will incur.
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{start_time, end_time}}{Time stamp values. A date time objects
-of class \code{POSIXct}.}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-A logical \code{TRUE}, invisibly. Note that if time stamps fall
-outside fragments' time range no deletion will incur.
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-TileDBFragments-delete_fragment_list"></a>}}
 \if{latex}{\out{\hypertarget{method-TileDBFragments-delete_fragment_list}{}}}
-\subsection{Method \code{delete_fragment_list()}}{
-Delete fragments using a vector of fragment uris.
+\subsection{\code{TileDBFragments$delete_fragment_list()}}{
+  Delete fragments using a vector of fragment uris.
 
 Use \verb{$frag_uris(trunc_uri = FALSE)} method to get a \code{data.frame}
 with all fragment uri paths.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{TileDBFragments$delete_fragment_list(frag_uris)}\if{html}{\out{</div>}}
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{TileDBFragments$delete_fragment_list(frag_uris)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{frag_uris}}{A vector of fragment uris.}
+    }
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    \code{TRUE} for successful deletion, invisibly.
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{frag_uris}}{A vector of fragment uris.}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-\code{TRUE} for successful deletion, invisibly.
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-TileDBFragments-delete_fragment"></a>}}
 \if{latex}{\out{\hypertarget{method-TileDBFragments-delete_fragment}{}}}
-\subsection{Method \code{delete_fragment()}}{
-Delete a fragment by index.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{TileDBFragments$delete_fragment(n)}\if{html}{\out{</div>}}
+\subsection{\code{TileDBFragments$delete_fragment()}}{
+  Delete a fragment by index.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{TileDBFragments$delete_fragment(n)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{n}}{A fragment index to be deleted (starts at 1).}
+    }
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    A boolean,  invisibly. \code{TRUE} for successful deletion and
+\code{FALSE} for no fragment to delete.
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{n}}{A fragment index to be deleted (starts at 1).}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-A boolean,  invisibly. \code{TRUE} for successful deletion and
-\code{FALSE} for no fragment to delete.
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-TileDBFragments-get_ifragment"></a>}}
 \if{latex}{\out{\hypertarget{method-TileDBFragments-get_ifragment}{}}}
-\subsection{Method \code{get_ifragment()}}{
-Get a fragment by index.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{TileDBFragments$get_ifragment(fid)}\if{html}{\out{</div>}}
+\subsection{\code{TileDBFragments$get_ifragment()}}{
+  Get a fragment by index.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{TileDBFragments$get_ifragment(fid)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{fid}}{A fragment index (starts at 1).}
+    }
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    An object of class \code{ifragment}.
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{fid}}{A fragment index (starts at 1).}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-An object of class \code{ifragment}.
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-TileDBFragments-get_first_ifragments"></a>}}
 \if{latex}{\out{\hypertarget{method-TileDBFragments-get_first_ifragments}{}}}
-\subsection{Method \code{get_first_ifragments()}}{
-Get the first \code{n} fragments.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{TileDBFragments$get_first_ifragments(n)}\if{html}{\out{</div>}}
+\subsection{\code{TileDBFragments$get_first_ifragments()}}{
+  Get the first \code{n} fragments.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{TileDBFragments$get_first_ifragments(n)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{n}}{A numeric value.}
+    }
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    An object of class \code{ifragment_list}.
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{n}}{A numeric value.}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-An object of class \code{ifragment_list}.
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-TileDBFragments-get_last_ifragments"></a>}}
 \if{latex}{\out{\hypertarget{method-TileDBFragments-get_last_ifragments}{}}}
-\subsection{Method \code{get_last_ifragments()}}{
-Get the last \code{n} fragments.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{TileDBFragments$get_last_ifragments(n)}\if{html}{\out{</div>}}
+\subsection{\code{TileDBFragments$get_last_ifragments()}}{
+  Get the last \code{n} fragments.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{TileDBFragments$get_last_ifragments(n)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{n}}{A numeric value.}
+    }
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    An object of class \code{ifragment_list}.
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{n}}{A numeric value.}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-An object of class \code{ifragment_list}.
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-TileDBFragments-dump"></a>}}
 \if{latex}{\out{\hypertarget{method-TileDBFragments-dump}{}}}
-\subsection{Method \code{dump()}}{
-Dump to console the commit fragments.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{TileDBFragments$dump()}\if{html}{\out{</div>}}
+\subsection{\code{TileDBFragments$dump()}}{
+  Dump to console the commit fragments.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{TileDBFragments$dump()}
+    \if{html}{\out{</div>}}
+  }
 }
 
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-TileDBFragments-print"></a>}}
 \if{latex}{\out{\hypertarget{method-TileDBFragments-print}{}}}
-\subsection{Method \code{print()}}{
-Print Fragments class.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{TileDBFragments$print()}\if{html}{\out{</div>}}
+\subsection{\code{TileDBFragments$print()}}{
+  Print Fragments class.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{TileDBFragments$print()}
+    \if{html}{\out{</div>}}
+  }
 }
 
-}
 }

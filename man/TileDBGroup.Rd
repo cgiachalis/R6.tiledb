@@ -24,319 +24,342 @@ A new \code{TileDBGroup} instance is initialized using the \code{new()} method:
 }
 }
 \section{Super class}{
-\code{\link[R6.tiledb:TileDBObject]{R6.tiledb::TileDBObject}} -> \code{TileDBGroup}
+\code{\link[R6.tiledb:TileDBObject]{TileDBObject}} -> \code{TileDBGroup}
 }
 \section{Active bindings}{
-\if{html}{\out{<div class="r6-active-bindings">}}
-\describe{
-\item{\code{object}}{Access the underlying \code{\link[tiledb:tiledb_group]{tiledb::tiledb_group()}} object.}
+  \if{html}{\out{<div class="r6-active-bindings">}}
+  \describe{
+    \item{\code{object}}{Access the underlying \code{\link[tiledb:tiledb_group]{tiledb::tiledb_group()}} object.}
 
-\item{\code{members}}{Access the \code{list} of group members.
+    \item{\code{members}}{Access the \code{list} of group members.
 
 If TileDB group object is closed, it will be opened to get members and
 close on exit.}
-}
-\if{html}{\out{</div>}}
+  }
+  \if{html}{\out{</div>}}
 }
 \section{Methods}{
 \subsection{Public methods}{
-\itemize{
-\item \href{#method-TileDBGroup-create}{\code{TileDBGroup$create()}}
-\item \href{#method-TileDBGroup-open}{\code{TileDBGroup$open()}}
-\item \href{#method-TileDBGroup-close}{\code{TileDBGroup$close()}}
-\item \href{#method-TileDBGroup-remove}{\code{TileDBGroup$remove()}}
-\item \href{#method-TileDBGroup-delete}{\code{TileDBGroup$delete()}}
-\item \href{#method-TileDBGroup-count_members}{\code{TileDBGroup$count_members()}}
-\item \href{#method-TileDBGroup-get_members_df}{\code{TileDBGroup$get_members_df()}}
-\item \href{#method-TileDBGroup-get_member}{\code{TileDBGroup$get_member()}}
-\item \href{#method-TileDBGroup-set_member}{\code{TileDBGroup$set_member()}}
-\item \href{#method-TileDBGroup-names}{\code{TileDBGroup$names()}}
-\item \href{#method-TileDBGroup-member_exists}{\code{TileDBGroup$member_exists()}}
-\item \href{#method-TileDBGroup-print}{\code{TileDBGroup$print()}}
-\item \href{#method-TileDBGroup-dump}{\code{TileDBGroup$dump()}}
-\item \href{#method-TileDBGroup-clone}{\code{TileDBGroup$clone()}}
+  \itemize{
+    \item \href{#method-TileDBGroup-create}{\code{TileDBGroup$create()}}
+    \item \href{#method-TileDBGroup-open}{\code{TileDBGroup$open()}}
+    \item \href{#method-TileDBGroup-close}{\code{TileDBGroup$close()}}
+    \item \href{#method-TileDBGroup-remove}{\code{TileDBGroup$remove()}}
+    \item \href{#method-TileDBGroup-delete}{\code{TileDBGroup$delete()}}
+    \item \href{#method-TileDBGroup-count_members}{\code{TileDBGroup$count_members()}}
+    \item \href{#method-TileDBGroup-get_members_df}{\code{TileDBGroup$get_members_df()}}
+    \item \href{#method-TileDBGroup-get_member}{\code{TileDBGroup$get_member()}}
+    \item \href{#method-TileDBGroup-set_member}{\code{TileDBGroup$set_member()}}
+    \item \href{#method-TileDBGroup-names}{\code{TileDBGroup$names()}}
+    \item \href{#method-TileDBGroup-member_exists}{\code{TileDBGroup$member_exists()}}
+    \item \href{#method-TileDBGroup-print}{\code{TileDBGroup$print()}}
+    \item \href{#method-TileDBGroup-dump}{\code{TileDBGroup$dump()}}
+    \item \href{#method-TileDBGroup-clone}{\code{TileDBGroup$clone()}}
+  }
 }
-}
-\if{html}{\out{
-<details><summary>Inherited methods</summary>
+\if{html}{\out{<details><summary>Inherited methods</summary>
 <ul>
-<li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBObject" data-id="class"><a href='../../R6.tiledb/html/TileDBObject.html#method-TileDBObject-class'><code>R6.tiledb::TileDBObject$class()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBObject" data-id="exists"><a href='../../R6.tiledb/html/TileDBObject.html#method-TileDBObject-exists'><code>R6.tiledb::TileDBObject$exists()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBObject" data-id="get_metadata"><a href='../../R6.tiledb/html/TileDBObject.html#method-TileDBObject-get_metadata'><code>R6.tiledb::TileDBObject$get_metadata()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBObject" data-id="initialize"><a href='../../R6.tiledb/html/TileDBObject.html#method-TileDBObject-initialize'><code>R6.tiledb::TileDBObject$initialize()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBObject" data-id="is_open"><a href='../../R6.tiledb/html/TileDBObject.html#method-TileDBObject-is_open'><code>R6.tiledb::TileDBObject$is_open()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBObject" data-id="reopen"><a href='../../R6.tiledb/html/TileDBObject.html#method-TileDBObject-reopen'><code>R6.tiledb::TileDBObject$reopen()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBObject" data-id="set_metadata"><a href='../../R6.tiledb/html/TileDBObject.html#method-TileDBObject-set_metadata'><code>R6.tiledb::TileDBObject$set_metadata()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBObject" data-id="class"><a href='../../R6.tiledb/html/TileDBObject.html#method-TileDBObject-class'><code>TileDBObject$class()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBObject" data-id="exists"><a href='../../R6.tiledb/html/TileDBObject.html#method-TileDBObject-exists'><code>TileDBObject$exists()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBObject" data-id="get_metadata"><a href='../../R6.tiledb/html/TileDBObject.html#method-TileDBObject-get_metadata'><code>TileDBObject$get_metadata()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBObject" data-id="initialize"><a href='../../R6.tiledb/html/TileDBObject.html#method-TileDBObject-initialize'><code>TileDBObject$initialize()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBObject" data-id="is_open"><a href='../../R6.tiledb/html/TileDBObject.html#method-TileDBObject-is_open'><code>TileDBObject$is_open()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBObject" data-id="reopen"><a href='../../R6.tiledb/html/TileDBObject.html#method-TileDBObject-reopen'><code>TileDBObject$reopen()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBObject" data-id="set_metadata"><a href='../../R6.tiledb/html/TileDBObject.html#method-TileDBObject-set_metadata'><code>TileDBObject$set_metadata()</code></a></span></li>
 </ul>
-</details>
-}}
+</details>}}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-TileDBGroup-create"></a>}}
 \if{latex}{\out{\hypertarget{method-TileDBGroup-create}{}}}
-\subsection{Method \code{create()}}{
-Create a TileDB Group object at the given URI path.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{TileDBGroup$create(mode = "WRITE")}\if{html}{\out{</div>}}
+\subsection{\code{TileDBGroup$create()}}{
+  Create a TileDB Group object at the given URI path.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{TileDBGroup$create(mode = "WRITE")}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{mode}}{Mode to open : either \code{"READ"} or \code{"WRITE"} (default).}
+    }
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    The object, invisibly.
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{mode}}{Mode to open : either \code{"READ"} or \code{"WRITE"} (default).}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-The object, invisibly.
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-TileDBGroup-open"></a>}}
 \if{latex}{\out{\hypertarget{method-TileDBGroup-open}{}}}
-\subsection{Method \code{open()}}{
-Open TileDB group object in read or write mode.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{TileDBGroup$open(mode = c("READ", "WRITE"))}\if{html}{\out{</div>}}
+\subsection{\code{TileDBGroup$open()}}{
+  Open TileDB group object in read or write mode.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{TileDBGroup$open(mode = c("READ", "WRITE"))}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{mode}}{Mode to open : either \code{"READ"} or \code{"WRITE"}. Default is
+\code{"READ"}.}
+    }
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    The object, invisibly.
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{mode}}{Mode to open : either \code{"READ"} or \code{"WRITE"}. Default is
-\code{"READ"}.}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-The object, invisibly.
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-TileDBGroup-close"></a>}}
 \if{latex}{\out{\hypertarget{method-TileDBGroup-close}{}}}
-\subsection{Method \code{close()}}{
-Close the group object.
+\subsection{\code{TileDBGroup$close()}}{
+  Close the group object.
 
 All instantiated group members will be closed if opened, and before
 closing the group object.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{TileDBGroup$close()}\if{html}{\out{</div>}}
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{TileDBGroup$close()}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    The object, invisibly.
+  }
 }
 
-\subsection{Returns}{
-The object, invisibly.
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-TileDBGroup-remove"></a>}}
 \if{latex}{\out{\hypertarget{method-TileDBGroup-remove}{}}}
-\subsection{Method \code{remove()}}{
-Remove member.
+\subsection{\code{TileDBGroup$remove()}}{
+  Remove member.
 
 Removes an array or group resource from \code{TileDBGroup} member list.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{TileDBGroup$remove(name)}\if{html}{\out{</div>}}
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{TileDBGroup$remove(name)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{name}}{Name of the member to remove.}
+    }
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    The object, invisibly.
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{name}}{Name of the member to remove.}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-The object, invisibly.
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-TileDBGroup-delete"></a>}}
 \if{latex}{\out{\hypertarget{method-TileDBGroup-delete}{}}}
-\subsection{Method \code{delete()}}{
-Delete member.
+\subsection{\code{TileDBGroup$delete()}}{
+  Delete member.
 
 Deletes a \code{TileDBGroup}'s member from disk and removes it from
 member list.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{TileDBGroup$delete(name)}\if{html}{\out{</div>}}
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{TileDBGroup$delete(name)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{name}}{Name of the member to delete.}
+    }
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    The object, invisibly.
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{name}}{Name of the member to delete.}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-The object, invisibly.
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-TileDBGroup-count_members"></a>}}
 \if{latex}{\out{\hypertarget{method-TileDBGroup-count_members}{}}}
-\subsection{Method \code{count_members()}}{
-Count the number of members in the group.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{TileDBGroup$count_members()}\if{html}{\out{</div>}}
+\subsection{\code{TileDBGroup$count_members()}}{
+  Count the number of members in the group.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{TileDBGroup$count_members()}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    The number of members in the group.
+  }
 }
 
-\subsection{Returns}{
-The number of members in the group.
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-TileDBGroup-get_members_df"></a>}}
 \if{latex}{\out{\hypertarget{method-TileDBGroup-get_members_df}{}}}
-\subsection{Method \code{get_members_df()}}{
-List group members.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{TileDBGroup$get_members_df(type = c("ALL", "GROUP", "ARRAY"))}\if{html}{\out{</div>}}
+\subsection{\code{TileDBGroup$get_members_df()}}{
+  List group members.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{TileDBGroup$get_members_df(type = c("ALL", "GROUP", "ARRAY"))}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{type}}{Select type member, either\code{"ALL"}, \code{"GROUP"}
+or \code{"ARRAY"}. By default all member types are listed.}
+    }
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    A \code{data.frame} with columns \code{name}, \code{type}, and \code{uri}.
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{type}}{Select type member, either\code{"ALL"}, \code{"GROUP"}
-or \code{"ARRAY"}. By default all member types are listed.}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-A \code{data.frame} with columns \code{name}, \code{type}, and \code{uri}.
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-TileDBGroup-get_member"></a>}}
 \if{latex}{\out{\hypertarget{method-TileDBGroup-get_member}{}}}
-\subsection{Method \code{get_member()}}{
-Retrieve a group member by name. If the member isn't already
+\subsection{\code{TileDBGroup$get_member()}}{
+  Retrieve a group member by name. If the member isn't already
 open, it is opened in the same mode as the parent.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{TileDBGroup$get_member(name)}\if{html}{\out{</div>}}
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{TileDBGroup$get_member(name)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{name}}{The name of the member.}
+    }
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    A \code{TileDBArray} or \code{TileDBGroup}.
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{name}}{The name of the member.}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-A \code{TileDBArray} or \code{TileDBGroup}.
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-TileDBGroup-set_member"></a>}}
 \if{latex}{\out{\hypertarget{method-TileDBGroup-set_member}{}}}
-\subsection{Method \code{set_member()}}{
-Add new member to the group.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{TileDBGroup$set_member(object, name = NULL, relative = NULL)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{object}}{A \code{TileDBArray} or \code{TileDBGroup} object to add.}
-
-\item{\code{name}}{Name to use for the member. By default the base name of
+\subsection{\code{TileDBGroup$set_member()}}{
+  Add new member to the group.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{TileDBGroup$set_member(object, name = NULL, relative = NULL)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{object}}{A \code{TileDBArray} or \code{TileDBGroup} object to add.}
+      \item{\code{name}}{Name to use for the member. By default the base name of
 the object's URI is used.}
-
-\item{\code{relative}}{An optional logical value indicating whether the new
+      \item{\code{relative}}{An optional logical value indicating whether the new
 object's URI is relative to the group's URI. If \code{NULL} (the
 default), the object's URI is assumed to be relative unless it is a
 \verb{tiledb://} URI.}
+    }
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    The object, invisibly.
+  }
 }
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-The object, invisibly.
-}
-}
+
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-TileDBGroup-names"></a>}}
 \if{latex}{\out{\hypertarget{method-TileDBGroup-names}{}}}
-\subsection{Method \code{names()}}{
-Retrieve the members' names.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{TileDBGroup$names()}\if{html}{\out{</div>}}
+\subsection{\code{TileDBGroup$names()}}{
+  Retrieve the members' names.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{TileDBGroup$names()}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    A \code{character} vector of member names.
+  }
 }
 
-\subsection{Returns}{
-A \code{character} vector of member names.
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-TileDBGroup-member_exists"></a>}}
 \if{latex}{\out{\hypertarget{method-TileDBGroup-member_exists}{}}}
-\subsection{Method \code{member_exists()}}{
-Check if a member exists.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{TileDBGroup$member_exists(name)}\if{html}{\out{</div>}}
+\subsection{\code{TileDBGroup$member_exists()}}{
+  Check if a member exists.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{TileDBGroup$member_exists(name)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{name}}{Name of the member to check.}
+    }
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    A logical value.
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{name}}{Name of the member to check.}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-A logical value.
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-TileDBGroup-print"></a>}}
 \if{latex}{\out{\hypertarget{method-TileDBGroup-print}{}}}
-\subsection{Method \code{print()}}{
-Print summary of the group.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{TileDBGroup$print()}\if{html}{\out{</div>}}
+\subsection{\code{TileDBGroup$print()}}{
+  Print summary of the group.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{TileDBGroup$print()}
+    \if{html}{\out{</div>}}
+  }
 }
 
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-TileDBGroup-dump"></a>}}
 \if{latex}{\out{\hypertarget{method-TileDBGroup-dump}{}}}
-\subsection{Method \code{dump()}}{
-Dump the TileDB Group structure to string.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{TileDBGroup$dump(title = "TileDB Directory", recursive = TRUE)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{title}}{A character string for title header. Set \code{NULL} to
+\subsection{\code{TileDBGroup$dump()}}{
+  Dump the TileDB Group structure to string.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{TileDBGroup$dump(title = "TileDB Directory", recursive = TRUE)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{title}}{A character string for title header. Set \code{NULL} to
 omit.}
-
-\item{\code{recursive}}{Should the nested uris be returned recursively?
+      \item{\code{recursive}}{Should the nested uris be returned recursively?
 Default is \code{TRUE}.}
+    }
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    A \code{character} string, invisibly.
+  }
 }
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-A \code{character} string, invisibly.
-}
-}
+
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-TileDBGroup-clone"></a>}}
 \if{latex}{\out{\hypertarget{method-TileDBGroup-clone}{}}}
-\subsection{Method \code{clone()}}{
-The objects of this class are cloneable with this method.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{TileDBGroup$clone(deep = FALSE)}\if{html}{\out{</div>}}
+\subsection{\code{TileDBGroup$clone()}}{
+  The objects of this class are cloneable with this method.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{TileDBGroup$clone(deep = FALSE)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{deep}}{Whether to make a deep clone.}
+    }
+    \if{html}{\out{</div>}}
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{deep}}{Whether to make a deep clone.}
-}
-\if{html}{\out{</div>}}
-}
-}
 }
