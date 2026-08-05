@@ -27,463 +27,481 @@ at \code{READ} mode.
 }
 }
 \section{Super classes}{
-\code{\link[R6.tiledb:TileDBObject]{R6.tiledb::TileDBObject}} -> \code{\link[R6.tiledb:TileDBArray]{R6.tiledb::TileDBArray}} -> \code{TileDBArrayExp}
+\code{\link[R6.tiledb:TileDBObject]{TileDBObject}} -> \code{\link[R6.tiledb:TileDBArray]{TileDBArray}} -> \code{TileDBArrayExp}
 }
 \section{Active bindings}{
-\if{html}{\out{<div class="r6-active-bindings">}}
-\describe{
-\item{\code{fragments_object}}{Access the \link{TileDBFragments} instance for this
+  \if{html}{\out{<div class="r6-active-bindings">}}
+  \describe{
+    \item{\code{fragments_object}}{Access the \link{TileDBFragments} instance for this
 array.}
 
-\item{\code{schema_version}}{Retrieve the schema version for this array.}
+    \item{\code{schema_version}}{Retrieve the schema version for this array.}
 
-\item{\code{is_sparse}}{Check array schema for sparsity.}
+    \item{\code{is_sparse}}{Check array schema for sparsity.}
 
-\item{\code{size}}{Directory size.}
-}
-\if{html}{\out{</div>}}
+    \item{\code{size}}{Directory size.}
+  }
+  \if{html}{\out{</div>}}
 }
 \section{Methods}{
 \subsection{Public methods}{
-\itemize{
-\item \href{#method-TileDBArrayExp-create}{\code{TileDBArrayExp$create()}}
-\item \href{#method-TileDBArrayExp-delete_array}{\code{TileDBArrayExp$delete_array()}}
-\item \href{#method-TileDBArrayExp-reopen}{\code{TileDBArrayExp$reopen()}}
-\item \href{#method-TileDBArrayExp-any_enums}{\code{TileDBArrayExp$any_enums()}}
-\item \href{#method-TileDBArrayExp-enum_columns}{\code{TileDBArrayExp$enum_columns()}}
-\item \href{#method-TileDBArrayExp-enum_levels}{\code{TileDBArrayExp$enum_levels()}}
-\item \href{#method-TileDBArrayExp-has_enumeration}{\code{TileDBArrayExp$has_enumeration()}}
-\item \href{#method-TileDBArrayExp-consolidate}{\code{TileDBArrayExp$consolidate()}}
-\item \href{#method-TileDBArrayExp-consolidate_async}{\code{TileDBArrayExp$consolidate_async()}}
-\item \href{#method-TileDBArrayExp-vacuum}{\code{TileDBArrayExp$vacuum()}}
-\item \href{#method-TileDBArrayExp-vacuum_async}{\code{TileDBArrayExp$vacuum_async()}}
-\item \href{#method-TileDBArrayExp-consolidate_and_vacuum}{\code{TileDBArrayExp$consolidate_and_vacuum()}}
-\item \href{#method-TileDBArrayExp-consolidate_and_vacuum_async}{\code{TileDBArrayExp$consolidate_and_vacuum_async()}}
-\item \href{#method-TileDBArrayExp-drop_attribute}{\code{TileDBArrayExp$drop_attribute()}}
-\item \href{#method-TileDBArrayExp-frag_num}{\code{TileDBArrayExp$frag_num()}}
-\item \href{#method-TileDBArrayExp-frag_to_vacuum}{\code{TileDBArrayExp$frag_to_vacuum()}}
-\item \href{#method-TileDBArrayExp-frag_dump}{\code{TileDBArrayExp$frag_dump()}}
-\item \href{#method-TileDBArrayExp-frag_uris}{\code{TileDBArrayExp$frag_uris()}}
-\item \href{#method-TileDBArrayExp-schema_upgrade}{\code{TileDBArrayExp$schema_upgrade()}}
-\item \href{#method-TileDBArrayExp-dir_tree}{\code{TileDBArrayExp$dir_tree()}}
-\item \href{#method-TileDBArrayExp-clone}{\code{TileDBArrayExp$clone()}}
+  \itemize{
+    \item \href{#method-TileDBArrayExp-create}{\code{TileDBArrayExp$create()}}
+    \item \href{#method-TileDBArrayExp-delete_array}{\code{TileDBArrayExp$delete_array()}}
+    \item \href{#method-TileDBArrayExp-reopen}{\code{TileDBArrayExp$reopen()}}
+    \item \href{#method-TileDBArrayExp-any_enums}{\code{TileDBArrayExp$any_enums()}}
+    \item \href{#method-TileDBArrayExp-enum_columns}{\code{TileDBArrayExp$enum_columns()}}
+    \item \href{#method-TileDBArrayExp-enum_levels}{\code{TileDBArrayExp$enum_levels()}}
+    \item \href{#method-TileDBArrayExp-has_enumeration}{\code{TileDBArrayExp$has_enumeration()}}
+    \item \href{#method-TileDBArrayExp-consolidate}{\code{TileDBArrayExp$consolidate()}}
+    \item \href{#method-TileDBArrayExp-consolidate_async}{\code{TileDBArrayExp$consolidate_async()}}
+    \item \href{#method-TileDBArrayExp-vacuum}{\code{TileDBArrayExp$vacuum()}}
+    \item \href{#method-TileDBArrayExp-vacuum_async}{\code{TileDBArrayExp$vacuum_async()}}
+    \item \href{#method-TileDBArrayExp-consolidate_and_vacuum}{\code{TileDBArrayExp$consolidate_and_vacuum()}}
+    \item \href{#method-TileDBArrayExp-consolidate_and_vacuum_async}{\code{TileDBArrayExp$consolidate_and_vacuum_async()}}
+    \item \href{#method-TileDBArrayExp-drop_attribute}{\code{TileDBArrayExp$drop_attribute()}}
+    \item \href{#method-TileDBArrayExp-frag_num}{\code{TileDBArrayExp$frag_num()}}
+    \item \href{#method-TileDBArrayExp-frag_to_vacuum}{\code{TileDBArrayExp$frag_to_vacuum()}}
+    \item \href{#method-TileDBArrayExp-frag_dump}{\code{TileDBArrayExp$frag_dump()}}
+    \item \href{#method-TileDBArrayExp-frag_uris}{\code{TileDBArrayExp$frag_uris()}}
+    \item \href{#method-TileDBArrayExp-schema_upgrade}{\code{TileDBArrayExp$schema_upgrade()}}
+    \item \href{#method-TileDBArrayExp-dir_tree}{\code{TileDBArrayExp$dir_tree()}}
+    \item \href{#method-TileDBArrayExp-clone}{\code{TileDBArrayExp$clone()}}
+  }
 }
-}
-\if{html}{\out{
-<details><summary>Inherited methods</summary>
+\if{html}{\out{<details><summary>Inherited methods</summary>
 <ul>
-<li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBObject" data-id="class"><a href='../../R6.tiledb/html/TileDBObject.html#method-TileDBObject-class'><code>R6.tiledb::TileDBObject$class()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBObject" data-id="exists"><a href='../../R6.tiledb/html/TileDBObject.html#method-TileDBObject-exists'><code>R6.tiledb::TileDBObject$exists()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBObject" data-id="get_metadata"><a href='../../R6.tiledb/html/TileDBObject.html#method-TileDBObject-get_metadata'><code>R6.tiledb::TileDBObject$get_metadata()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBObject" data-id="initialize"><a href='../../R6.tiledb/html/TileDBObject.html#method-TileDBObject-initialize'><code>R6.tiledb::TileDBObject$initialize()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBObject" data-id="is_open"><a href='../../R6.tiledb/html/TileDBObject.html#method-TileDBObject-is_open'><code>R6.tiledb::TileDBObject$is_open()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBObject" data-id="set_metadata"><a href='../../R6.tiledb/html/TileDBObject.html#method-TileDBObject-set_metadata'><code>R6.tiledb::TileDBObject$set_metadata()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBArray" data-id="attributes"><a href='../../R6.tiledb/html/TileDBArray.html#method-TileDBArray-attributes'><code>R6.tiledb::TileDBArray$attributes()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBArray" data-id="attrnames"><a href='../../R6.tiledb/html/TileDBArray.html#method-TileDBArray-attrnames'><code>R6.tiledb::TileDBArray$attrnames()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBArray" data-id="close"><a href='../../R6.tiledb/html/TileDBArray.html#method-TileDBArray-close'><code>R6.tiledb::TileDBArray$close()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBArray" data-id="colnames"><a href='../../R6.tiledb/html/TileDBArray.html#method-TileDBArray-colnames'><code>R6.tiledb::TileDBArray$colnames()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBArray" data-id="dimensions"><a href='../../R6.tiledb/html/TileDBArray.html#method-TileDBArray-dimensions'><code>R6.tiledb::TileDBArray$dimensions()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBArray" data-id="dimnames"><a href='../../R6.tiledb/html/TileDBArray.html#method-TileDBArray-dimnames'><code>R6.tiledb::TileDBArray$dimnames()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBArray" data-id="open"><a href='../../R6.tiledb/html/TileDBArray.html#method-TileDBArray-open'><code>R6.tiledb::TileDBArray$open()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBArray" data-id="print"><a href='../../R6.tiledb/html/TileDBArray.html#method-TileDBArray-print'><code>R6.tiledb::TileDBArray$print()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBArray" data-id="schema"><a href='../../R6.tiledb/html/TileDBArray.html#method-TileDBArray-schema'><code>R6.tiledb::TileDBArray$schema()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBArray" data-id="schema_info"><a href='../../R6.tiledb/html/TileDBArray.html#method-TileDBArray-schema_info'><code>R6.tiledb::TileDBArray$schema_info()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBArray" data-id="tiledb_array"><a href='../../R6.tiledb/html/TileDBArray.html#method-TileDBArray-tiledb_array'><code>R6.tiledb::TileDBArray$tiledb_array()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBObject" data-id="class"><a href='../../R6.tiledb/html/TileDBObject.html#method-TileDBObject-class'><code>TileDBObject$class()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBObject" data-id="exists"><a href='../../R6.tiledb/html/TileDBObject.html#method-TileDBObject-exists'><code>TileDBObject$exists()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBObject" data-id="get_metadata"><a href='../../R6.tiledb/html/TileDBObject.html#method-TileDBObject-get_metadata'><code>TileDBObject$get_metadata()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBObject" data-id="initialize"><a href='../../R6.tiledb/html/TileDBObject.html#method-TileDBObject-initialize'><code>TileDBObject$initialize()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBObject" data-id="is_open"><a href='../../R6.tiledb/html/TileDBObject.html#method-TileDBObject-is_open'><code>TileDBObject$is_open()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBObject" data-id="set_metadata"><a href='../../R6.tiledb/html/TileDBObject.html#method-TileDBObject-set_metadata'><code>TileDBObject$set_metadata()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBArray" data-id="attributes"><a href='../../R6.tiledb/html/TileDBArray.html#method-TileDBArray-attributes'><code>TileDBArray$attributes()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBArray" data-id="attrnames"><a href='../../R6.tiledb/html/TileDBArray.html#method-TileDBArray-attrnames'><code>TileDBArray$attrnames()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBArray" data-id="close"><a href='../../R6.tiledb/html/TileDBArray.html#method-TileDBArray-close'><code>TileDBArray$close()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBArray" data-id="colnames"><a href='../../R6.tiledb/html/TileDBArray.html#method-TileDBArray-colnames'><code>TileDBArray$colnames()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBArray" data-id="dimensions"><a href='../../R6.tiledb/html/TileDBArray.html#method-TileDBArray-dimensions'><code>TileDBArray$dimensions()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBArray" data-id="dimnames"><a href='../../R6.tiledb/html/TileDBArray.html#method-TileDBArray-dimnames'><code>TileDBArray$dimnames()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBArray" data-id="open"><a href='../../R6.tiledb/html/TileDBArray.html#method-TileDBArray-open'><code>TileDBArray$open()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBArray" data-id="print"><a href='../../R6.tiledb/html/TileDBArray.html#method-TileDBArray-print'><code>TileDBArray$print()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBArray" data-id="schema"><a href='../../R6.tiledb/html/TileDBArray.html#method-TileDBArray-schema'><code>TileDBArray$schema()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBArray" data-id="schema_info"><a href='../../R6.tiledb/html/TileDBArray.html#method-TileDBArray-schema_info'><code>TileDBArray$schema_info()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBArray" data-id="tiledb_array"><a href='../../R6.tiledb/html/TileDBArray.html#method-TileDBArray-tiledb_array'><code>TileDBArray$tiledb_array()</code></a></span></li>
 </ul>
-</details>
-}}
+</details>}}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-TileDBArrayExp-create"></a>}}
 \if{latex}{\out{\hypertarget{method-TileDBArrayExp-create}{}}}
-\subsection{Method \code{create()}}{
-Create an empty Array with user defined schema.
+\subsection{\code{TileDBArrayExp$create()}}{
+  Create an empty Array with user defined schema.
 
 The array will be opened at the given mode and kept opened; it can
 be accessed via active field \verb{$object}.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{TileDBArrayExp$create(sch, mode = "WRITE")}\if{html}{\out{</div>}}
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{TileDBArrayExp$create(sch, mode = "WRITE")}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{sch}}{A TileDB schema. See constructor \code{\link[tiledb:tiledb_array_schema]{tiledb::tiledb_array_schema()}}.}
+      \item{\code{mode}}{Mode to open: either \code{"READ"} or \code{"WRITE"} (default).}
+    }
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    The object, invisibly.
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{sch}}{A TileDB schema. See constructor \code{\link[tiledb:tiledb_array_schema]{tiledb::tiledb_array_schema()}}.}
-
-\item{\code{mode}}{Mode to open: either \code{"READ"} or \code{"WRITE"} (default).}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-The object, invisibly.
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-TileDBArrayExp-delete_array"></a>}}
 \if{latex}{\out{\hypertarget{method-TileDBArrayExp-delete_array}{}}}
-\subsection{Method \code{delete_array()}}{
-Delete the array.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{TileDBArrayExp$delete_array()}\if{html}{\out{</div>}}
+\subsection{\code{TileDBArrayExp$delete_array()}}{
+  Delete the array.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{TileDBArrayExp$delete_array()}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    The object, invisibly.
+  }
 }
 
-\subsection{Returns}{
-The object, invisibly.
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-TileDBArrayExp-reopen"></a>}}
 \if{latex}{\out{\hypertarget{method-TileDBArrayExp-reopen}{}}}
-\subsection{Method \code{reopen()}}{
-Close and reopen the TileDB object in a new mode.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{TileDBArrayExp$reopen(mode = c("READ", "WRITE"))}\if{html}{\out{</div>}}
+\subsection{\code{TileDBArrayExp$reopen()}}{
+  Close and reopen the TileDB object in a new mode.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{TileDBArrayExp$reopen(mode = c("READ", "WRITE"))}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{mode}}{New mode to open the object in; choose from: \code{"READ"} or \code{"WRITE"}.}
+    }
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    The object, invisibly.
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{mode}}{New mode to open the object in; choose from: \code{"READ"} or \code{"WRITE"}.}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-The object, invisibly.
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-TileDBArrayExp-any_enums"></a>}}
 \if{latex}{\out{\hypertarget{method-TileDBArrayExp-any_enums}{}}}
-\subsection{Method \code{any_enums()}}{
-Checks array for factors (enumerations).
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{TileDBArrayExp$any_enums()}\if{html}{\out{</div>}}
+\subsection{\code{TileDBArrayExp$any_enums()}}{
+  Checks array for factors (enumerations).
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{TileDBArrayExp$any_enums()}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    A boolean. \code{TRUE} indicating the array has factors and
+\code{FALSE} otherwise.
+  }
 }
 
-\subsection{Returns}{
-A boolean. \code{TRUE} indicating the array has factors and
-\code{FALSE} otherwise.
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-TileDBArrayExp-enum_columns"></a>}}
 \if{latex}{\out{\hypertarget{method-TileDBArrayExp-enum_columns}{}}}
-\subsection{Method \code{enum_columns()}}{
-Retrieve factor columns (attributes).
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{TileDBArrayExp$enum_columns()}\if{html}{\out{</div>}}
+\subsection{\code{TileDBArrayExp$enum_columns()}}{
+  Retrieve factor columns (attributes).
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{TileDBArrayExp$enum_columns()}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    A character vector with factor columns (enumeration attributes).
+  }
 }
 
-\subsection{Returns}{
-A character vector with factor columns (enumeration attributes).
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-TileDBArrayExp-enum_levels"></a>}}
 \if{latex}{\out{\hypertarget{method-TileDBArrayExp-enum_levels}{}}}
-\subsection{Method \code{enum_levels()}}{
-Retrieve factor levels for a given attribute.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{TileDBArrayExp$enum_levels(x)}\if{html}{\out{</div>}}
+\subsection{\code{TileDBArrayExp$enum_levels()}}{
+  Retrieve factor levels for a given attribute.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{TileDBArrayExp$enum_levels(x)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{x}}{An attribute name.}
+    }
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    A character vector with levels (enumeration values).
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{x}}{An attribute name.}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-A character vector with levels (enumeration values).
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-TileDBArrayExp-has_enumeration"></a>}}
 \if{latex}{\out{\hypertarget{method-TileDBArrayExp-has_enumeration}{}}}
-\subsection{Method \code{has_enumeration()}}{
-Check columns for factors.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{TileDBArrayExp$has_enumeration()}\if{html}{\out{</div>}}
+\subsection{\code{TileDBArrayExp$has_enumeration()}}{
+  Check columns for factors.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{TileDBArrayExp$has_enumeration()}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    A logical vector indicating which column (attribute) is encoded as factor (enumeration).
+  }
 }
 
-\subsection{Returns}{
-A logical vector indicating which column (attribute) is encoded as factor (enumeration).
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-TileDBArrayExp-consolidate"></a>}}
 \if{latex}{\out{\hypertarget{method-TileDBArrayExp-consolidate}{}}}
-\subsection{Method \code{consolidate()}}{
-Consolidates the fragments of the array into
+\subsection{\code{TileDBArrayExp$consolidate()}}{
+  Consolidates the fragments of the array into
 a single fragment.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{TileDBArrayExp$consolidate(mode = c("fragments", "commits", "fragment_meta",
-  "array_meta"), cfg = NULL, start_time = NULL, end_time = NULL)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{mode}}{The consolidate mode, one of the following:
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{TileDBArrayExp$consolidate(mode = c("fragments", "commits", "fragment_meta",
+  "array_meta"), cfg = NULL, start_time = NULL, end_time = NULL)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{mode}}{The consolidate mode, one of the following:
 \itemize{
 \item \code{"fragments"}: - consolidate all fragments (default)
 \item \code{"commits"}: - consolidate all commit files
 \item \code{"fragment_meta"}: - consolidate only fragment metadata footers to a single file
 \item \code{"array_meta"}: - consolidate array metadata only
 }}
-
-\item{\code{cfg}}{A configuration object \code{\link[tiledb:tiledb_config]{tiledb::tiledb_config()}} to override context
+      \item{\code{cfg}}{A configuration object \code{\link[tiledb:tiledb_config]{tiledb::tiledb_config()}} to override context
 configuration except for parameters set by \code{mode}, \code{start_time}, \code{end_time}.
 When \code{NULL} (default) the configuration parameters will be retrieved from
 object's context.}
-
-\item{\code{start_time, end_time}}{Optional time stamp values. A date time objects
+      \item{\code{start_time, end_time}}{Optional time stamp values. A date time objects
 of class \code{POSIXt}. If not provided, the default values from configuration
 object will be used.}
+    }
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    \code{TRUE}, invisibly.
+  }
 }
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-\code{TRUE}, invisibly.
-}
-}
+
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-TileDBArrayExp-consolidate_async"></a>}}
 \if{latex}{\out{\hypertarget{method-TileDBArrayExp-consolidate_async}{}}}
-\subsection{Method \code{consolidate_async()}}{
-Consolidate fragments of the array into a single fragment
+\subsection{\code{TileDBArrayExp$consolidate_async()}}{
+  Consolidate fragments of the array into a single fragment
 asynchronously.
 
 The consolidation will run in a separate R process in a clean environment.
 
 \strong{Note this function requires the \href{https://cran.r-project.org/web/packages/mirai/index.html}{mirai} package}.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{TileDBArrayExp$consolidate_async(mode = c("fragments", "commits",
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{TileDBArrayExp$consolidate_async(mode = c("fragments", "commits",
   "fragment_meta", "array_meta"), cfg = NULL, start_time = NULL,
-  end_time = NULL)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{mode}}{The consolidate mode, one of the following:
+  end_time = NULL)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{mode}}{The consolidate mode, one of the following:
 \itemize{
 \item \code{"fragments"}: - consolidate all fragments (default)
 \item \code{"commits"}: - consolidate all commit files
 \item \code{"fragment_meta"}: - consolidate only fragment metadata footers to a single file
 \item \code{"array_meta"}: - consolidate array metadata only
 }}
-
-\item{\code{cfg}}{A configuration object \code{\link[tiledb:tiledb_config]{tiledb::tiledb_config()}} to override context
+      \item{\code{cfg}}{A configuration object \code{\link[tiledb:tiledb_config]{tiledb::tiledb_config()}} to override context
 configuration except for parameters set by \code{mode}, \code{start_time}, \code{end_time}.
 When \code{NULL} (default) the configuration parameters will be retrieved from
 object's context.}
-
-\item{\code{start_time, end_time}}{Optional time stamp values. A date time objects
+      \item{\code{start_time, end_time}}{Optional time stamp values. A date time objects
 of class \code{POSIXt}. If not provided, the default values from configuration
 object will be used.}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-This function will return a \code{\link[mirai:mirai]{mirai::mirai()}} object immediately. When it is
+    }
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    This function will return a \code{\link[mirai:mirai]{mirai::mirai()}} object immediately. When it is
 resolved, it returns \code{TRUE} indicating consolidation success.
+  }
 }
-}
+
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-TileDBArrayExp-vacuum"></a>}}
 \if{latex}{\out{\hypertarget{method-TileDBArrayExp-vacuum}{}}}
-\subsection{Method \code{vacuum()}}{
-Clean up consolidated fragments and array metadata.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{TileDBArrayExp$vacuum(mode = c("fragments", "commits", "fragment_meta",
-  "array_meta"), cfg = NULL)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{mode}}{The vacuum mode, one of the following:
+\subsection{\code{TileDBArrayExp$vacuum()}}{
+  Clean up consolidated fragments and array metadata.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{TileDBArrayExp$vacuum(mode = c("fragments", "commits", "fragment_meta",
+  "array_meta"), cfg = NULL)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{mode}}{The vacuum mode, one of the following:
 \itemize{
 \item \code{"fragments"}: - vacuum all fragments (default)
 \item \code{"commits"}: - vacuum all commit files
 \item \code{"fragment_meta"}: - vacuum only fragment metadata footers to a single file
 \item \code{"array_meta"}: - vacuum array metadata only
 }}
-
-\item{\code{cfg}}{A configuration object \code{\link[tiledb:tiledb_config]{tiledb::tiledb_config()}} to override context
+      \item{\code{cfg}}{A configuration object \code{\link[tiledb:tiledb_config]{tiledb::tiledb_config()}} to override context
 configuration. When \code{NULL} (default) the configuration parameters will be retrieved from
 object's context.}
+    }
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    \code{TRUE}, invisibly.
+  }
 }
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-\code{TRUE}, invisibly.
-}
-}
+
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-TileDBArrayExp-vacuum_async"></a>}}
 \if{latex}{\out{\hypertarget{method-TileDBArrayExp-vacuum_async}{}}}
-\subsection{Method \code{vacuum_async()}}{
-Asynchronously clean up consolidated fragments and array metadata.
+\subsection{\code{TileDBArrayExp$vacuum_async()}}{
+  Asynchronously clean up consolidated fragments and array metadata.
 
 The clean up will run in a separate R process in a clean environment.
 
 \strong{Note this function requires the \href{https://cran.r-project.org/web/packages/mirai/index.html}{mirai} package}.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{TileDBArrayExp$vacuum_async(mode = c("fragments", "commits", "fragment_meta",
-  "array_meta"), cfg = NULL)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{mode}}{The vacuum mode, one of the following:
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{TileDBArrayExp$vacuum_async(mode = c("fragments", "commits", "fragment_meta",
+  "array_meta"), cfg = NULL)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{mode}}{The vacuum mode, one of the following:
 \itemize{
 \item \code{"fragments"}: - vacuum all fragments (default)
 \item \code{"commits"}: - vacuum all commit files
 \item \code{"fragment_meta"}: - vacuum only fragment metadata footers to a single file
 \item \code{"array_meta"}: - vacuum array metadata only
 }}
-
-\item{\code{cfg}}{A configuration object \code{\link[tiledb:tiledb_config]{tiledb::tiledb_config()}} to override context
+      \item{\code{cfg}}{A configuration object \code{\link[tiledb:tiledb_config]{tiledb::tiledb_config()}} to override context
 configuration. When \code{NULL} (default) the configuration parameters will be retrieved from
 object's context.}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-This function will return a \code{\link[mirai:mirai]{mirai::mirai()}} object immediately. When it is
+    }
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    This function will return a \code{\link[mirai:mirai]{mirai::mirai()}} object immediately. When it is
 resolved, it returns \code{TRUE} indicating vacuum success.
+  }
 }
-}
+
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-TileDBArrayExp-consolidate_and_vacuum"></a>}}
 \if{latex}{\out{\hypertarget{method-TileDBArrayExp-consolidate_and_vacuum}{}}}
-\subsection{Method \code{consolidate_and_vacuum()}}{
-Consolidates and vacuums the fragments.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{TileDBArrayExp$consolidate_and_vacuum(mode = c("fragments", "commits",
+\subsection{\code{TileDBArrayExp$consolidate_and_vacuum()}}{
+  Consolidates and vacuums the fragments.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{TileDBArrayExp$consolidate_and_vacuum(mode = c("fragments", "commits",
   "fragment_meta", "array_meta"), cfg = NULL, start_time = NULL,
-  end_time = NULL)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{mode}}{The consolidate and vacuum mode, one of the following:
+  end_time = NULL)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{mode}}{The consolidate and vacuum mode, one of the following:
 \itemize{
 \item \code{"fragments"}: - consolidate all fragments (default)
 \item \code{"commits"}: - consolidate all commit files
 \item \code{"fragment_meta"}: - consolidate only fragment metadata footers to a single file
 \item \code{"array_meta"}: - consolidate array metadata only
 }}
-
-\item{\code{cfg}}{A configuration object \code{\link[tiledb:tiledb_config]{tiledb::tiledb_config()}} to override context
+      \item{\code{cfg}}{A configuration object \code{\link[tiledb:tiledb_config]{tiledb::tiledb_config()}} to override context
 configuration except for parameters set by \code{mode}, \code{start_time}, \code{end_time}.
 When \code{NULL} (default) the configuration parameters will be retrieved from
 object's context.}
-
-\item{\code{start_time, end_time}}{Optional time stamp values. A date time objects
+      \item{\code{start_time, end_time}}{Optional time stamp values. A date time objects
 of class \code{POSIXt}. If not provided, the default values from configuration
 object will be used.}
+    }
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    \code{TRUE}, invisibly.
+  }
 }
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-\code{TRUE}, invisibly.
-}
-}
+
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-TileDBArrayExp-consolidate_and_vacuum_async"></a>}}
 \if{latex}{\out{\hypertarget{method-TileDBArrayExp-consolidate_and_vacuum_async}{}}}
-\subsection{Method \code{consolidate_and_vacuum_async()}}{
-Consolidate and vacuum fragments asynchronously.
+\subsection{\code{TileDBArrayExp$consolidate_and_vacuum_async()}}{
+  Consolidate and vacuum fragments asynchronously.
 
 The consolidation and vacuum will run in a separate R process in a clean environment.
 
 \strong{Note this function requires the \href{https://cran.r-project.org/web/packages/mirai/index.html}{mirai} package}.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{TileDBArrayExp$consolidate_and_vacuum_async(mode = c("fragments", "commits",
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{TileDBArrayExp$consolidate_and_vacuum_async(mode = c("fragments", "commits",
   "fragment_meta", "array_meta"), cfg = NULL, start_time = NULL,
-  end_time = NULL)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{mode}}{The consolidate and vacuum mode, one of the following:
+  end_time = NULL)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{mode}}{The consolidate and vacuum mode, one of the following:
 \itemize{
 \item \code{"fragments"}: - consolidate all fragments (default)
 \item \code{"commits"}: - consolidate all commit files
 \item \code{"fragment_meta"}: - consolidate only fragment metadata footers to a single file
 \item \code{"array_meta"}: - consolidate array metadata only
 }}
-
-\item{\code{cfg}}{A configuration object \code{\link[tiledb:tiledb_config]{tiledb::tiledb_config()}} to override context
+      \item{\code{cfg}}{A configuration object \code{\link[tiledb:tiledb_config]{tiledb::tiledb_config()}} to override context
 configuration except for parameters set by \code{mode}, \code{start_time}, \code{end_time}.
 When \code{NULL} (default) the configuration parameters will be retrieved from
 object's context.}
-
-\item{\code{start_time, end_time}}{Optional time stamp values. A date time objects
+      \item{\code{start_time, end_time}}{Optional time stamp values. A date time objects
 of class \code{POSIXt}. If not provided, the default values from configuration
 object will be used.}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-This function will return a \code{\link[mirai:mirai]{mirai::mirai()}} object immediately. When it is
+    }
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    This function will return a \code{\link[mirai:mirai]{mirai::mirai()}} object immediately. When it is
 resolved, it returns \code{TRUE} indicating consolidation success.
+  }
 }
-}
+
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-TileDBArrayExp-drop_attribute"></a>}}
 \if{latex}{\out{\hypertarget{method-TileDBArrayExp-drop_attribute}{}}}
-\subsection{Method \code{drop_attribute()}}{
-Remove an attribute from array.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{TileDBArrayExp$drop_attribute(x)}\if{html}{\out{</div>}}
+\subsection{\code{TileDBArrayExp$drop_attribute()}}{
+  Remove an attribute from array.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{TileDBArrayExp$drop_attribute(x)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{x}}{An attribute name.}
+    }
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    The object, invisibly.
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{x}}{An attribute name.}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-The object, invisibly.
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-TileDBArrayExp-frag_num"></a>}}
 \if{latex}{\out{\hypertarget{method-TileDBArrayExp-frag_num}{}}}
-\subsection{Method \code{frag_num()}}{
-The number of fragments.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{TileDBArrayExp$frag_num()}\if{html}{\out{</div>}}
+\subsection{\code{TileDBArrayExp$frag_num()}}{
+  The number of fragments.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{TileDBArrayExp$frag_num()}
+    \if{html}{\out{</div>}}
+  }
 }
 
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-TileDBArrayExp-frag_to_vacuum"></a>}}
 \if{latex}{\out{\hypertarget{method-TileDBArrayExp-frag_to_vacuum}{}}}
-\subsection{Method \code{frag_to_vacuum()}}{
-Consolidated fragments to be removed.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{TileDBArrayExp$frag_to_vacuum(trunc_uri = TRUE)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{trunc_uri}}{\code{TRUE} to truncate uri path.}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-An object of class \code{data.frame} with four columns:
+\subsection{\code{TileDBArrayExp$frag_to_vacuum()}}{
+  Consolidated fragments to be removed.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{TileDBArrayExp$frag_to_vacuum(trunc_uri = TRUE)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{trunc_uri}}{\code{TRUE} to truncate uri path.}
+    }
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    An object of class \code{data.frame} with four columns:
 \itemize{
 \item \code{Fragment}: the fragment index (starts at 1)
 \item \code{start_timestamp}: fragment's start time stamp
@@ -494,37 +512,41 @@ An object of class \code{data.frame} with four columns:
 
 Note that the return object will be of class \code{data.table} if the
 package is found in your system.
+  }
 }
-}
+
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-TileDBArrayExp-frag_dump"></a>}}
 \if{latex}{\out{\hypertarget{method-TileDBArrayExp-frag_dump}{}}}
-\subsection{Method \code{frag_dump()}}{
-Dump to console the commit fragments.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{TileDBArrayExp$frag_dump()}\if{html}{\out{</div>}}
+\subsection{\code{TileDBArrayExp$frag_dump()}}{
+  Dump to console the commit fragments.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{TileDBArrayExp$frag_dump()}
+    \if{html}{\out{</div>}}
+  }
 }
 
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-TileDBArrayExp-frag_uris"></a>}}
 \if{latex}{\out{\hypertarget{method-TileDBArrayExp-frag_uris}{}}}
-\subsection{Method \code{frag_uris()}}{
-Return a \code{data.frame} with  time stamps and
+\subsection{\code{TileDBArrayExp$frag_uris()}}{
+  Return a \code{data.frame} with  time stamps and
 fragments uris.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{TileDBArrayExp$frag_uris(trunc_uri = TRUE)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{trunc_uri}}{\code{TRUE} to truncate uri path.}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-An object of class \code{data.frame} with four columns:
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{TileDBArrayExp$frag_uris(trunc_uri = TRUE)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{trunc_uri}}{\code{TRUE} to truncate uri path.}
+    }
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    An object of class \code{data.frame} with four columns:
 \itemize{
 \item \code{Fragment}: the fragment index (start at 1)
 \item \code{start_timestamp}: start time-stamp of when fragment was written
@@ -535,63 +557,69 @@ An object of class \code{data.frame} with four columns:
 
 Note that the return object will be of class \code{data.table} if the
 package is found in your system.
+  }
 }
-}
+
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-TileDBArrayExp-schema_upgrade"></a>}}
 \if{latex}{\out{\hypertarget{method-TileDBArrayExp-schema_upgrade}{}}}
-\subsection{Method \code{schema_upgrade()}}{
-Upgrade the array to the latest format version.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{TileDBArrayExp$schema_upgrade(cfg = NULL, ctx = NULL)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{cfg}}{A configuration object \code{\link[tiledb:tiledb_config]{tiledb::tiledb_config()}}.}
-
-\item{\code{ctx}}{Optional \code{\link[tiledb:tiledb_ctx]{tiledb::tiledb_ctx()}} object. By default, object's context
+\subsection{\code{TileDBArrayExp$schema_upgrade()}}{
+  Upgrade the array to the latest format version.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{TileDBArrayExp$schema_upgrade(cfg = NULL, ctx = NULL)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{cfg}}{A configuration object \code{\link[tiledb:tiledb_config]{tiledb::tiledb_config()}}.}
+      \item{\code{ctx}}{Optional \code{\link[tiledb:tiledb_ctx]{tiledb::tiledb_ctx()}} object. By default, object's context
 is used.}
+    }
+    \if{html}{\out{</div>}}
+  }
 }
-\if{html}{\out{</div>}}
-}
-}
+
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-TileDBArrayExp-dir_tree"></a>}}
 \if{latex}{\out{\hypertarget{method-TileDBArrayExp-dir_tree}{}}}
-\subsection{Method \code{dir_tree()}}{
-Print directory contents.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{TileDBArrayExp$dir_tree(recursive = TRUE)}\if{html}{\out{</div>}}
+\subsection{\code{TileDBArrayExp$dir_tree()}}{
+  Print directory contents.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{TileDBArrayExp$dir_tree(recursive = TRUE)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{recursive}}{Should it recurse fully? Defaults to \code{TRUE}.}
+    }
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    A character vector with file paths, invisibly.
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{recursive}}{Should it recurse fully? Defaults to \code{TRUE}.}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-A character vector with file paths, invisibly.
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-TileDBArrayExp-clone"></a>}}
 \if{latex}{\out{\hypertarget{method-TileDBArrayExp-clone}{}}}
-\subsection{Method \code{clone()}}{
-The objects of this class are cloneable with this method.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{TileDBArrayExp$clone(deep = FALSE)}\if{html}{\out{</div>}}
+\subsection{\code{TileDBArrayExp$clone()}}{
+  The objects of this class are cloneable with this method.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{TileDBArrayExp$clone(deep = FALSE)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{deep}}{Whether to make a deep clone.}
+    }
+    \if{html}{\out{</div>}}
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{deep}}{Whether to make a deep clone.}
-}
-\if{html}{\out{</div>}}
-}
-}
 }

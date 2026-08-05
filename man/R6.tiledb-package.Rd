@@ -6,7 +6,7 @@
 \alias{R6.tiledb-package}
 \title{R6.tiledb: R6 Classes for TileDB Arrays and Groups}
 \description{
-Provides foundational R6 classes to interface with 'TileDB' storage engine using 'tiledb' package. The goal is to offer a set of minimum classes based on the R6 object oriented system in order to make it easier to work with 'TileDB' Arrays and Groups. The base classes 'TileDBArray' and 'TileDBGroup' can be easily extended to new subclasses for representing and support any data model.
+Provides foundational R6 classes to interface with 'TileDB' storage engine using 'tiledb' package. The goal is to offer a set of minimum classes based on the R6 object oriented system in order to make it easier to work with 'TileDB' Arrays and Groups. The base classes 'TileDBArray' and 'TileDBGroup' can be easily extended to new subclasses to represent and support any data model.
 }
 \seealso{
 Useful links:
@@ -19,6 +19,11 @@ Useful links:
 }
 \author{
 \strong{Maintainer}: Constantinos Giachalis \email{26255858+cgiachalis@users.noreply.github.com}
+
+Authors:
+\itemize{
+  \item Constantinos Giachalis \email{26255858+cgiachalis@users.noreply.github.com}
+}
 
 Other contributors:
 \itemize{

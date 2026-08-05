@@ -24,52 +24,50 @@ A new \code{TileDBArray} instance is initialized using the \code{new()} method:
 }
 }
 \section{Super class}{
-\code{\link[R6.tiledb:TileDBObject]{R6.tiledb::TileDBObject}} -> \code{TileDBArray}
+\code{\link[R6.tiledb:TileDBObject]{TileDBObject}} -> \code{TileDBArray}
 }
 \section{Active bindings}{
-\if{html}{\out{<div class="r6-active-bindings">}}
-\describe{
-\item{\code{object}}{Access the underlying \code{\link[tiledb:tiledb_array]{tiledb::tiledb_array()}} object. When
+  \if{html}{\out{<div class="r6-active-bindings">}}
+  \describe{
+    \item{\code{object}}{Access the underlying \code{\link[tiledb:tiledb_array]{tiledb::tiledb_array()}} object. When
 used before open() method, the underlying array will be initialised at \code{"READ"}
 mode and kept open.}
-}
-\if{html}{\out{</div>}}
+  }
+  \if{html}{\out{</div>}}
 }
 \section{Methods}{
 \subsection{Public methods}{
-\itemize{
-\item \href{#method-TileDBArray-open}{\code{TileDBArray$open()}}
-\item \href{#method-TileDBArray-close}{\code{TileDBArray$close()}}
-\item \href{#method-TileDBArray-tiledb_array}{\code{TileDBArray$tiledb_array()}}
-\item \href{#method-TileDBArray-schema}{\code{TileDBArray$schema()}}
-\item \href{#method-TileDBArray-schema_info}{\code{TileDBArray$schema_info()}}
-\item \href{#method-TileDBArray-dimensions}{\code{TileDBArray$dimensions()}}
-\item \href{#method-TileDBArray-attributes}{\code{TileDBArray$attributes()}}
-\item \href{#method-TileDBArray-dimnames}{\code{TileDBArray$dimnames()}}
-\item \href{#method-TileDBArray-attrnames}{\code{TileDBArray$attrnames()}}
-\item \href{#method-TileDBArray-colnames}{\code{TileDBArray$colnames()}}
-\item \href{#method-TileDBArray-print}{\code{TileDBArray$print()}}
-\item \href{#method-TileDBArray-clone}{\code{TileDBArray$clone()}}
+  \itemize{
+    \item \href{#method-TileDBArray-open}{\code{TileDBArray$open()}}
+    \item \href{#method-TileDBArray-close}{\code{TileDBArray$close()}}
+    \item \href{#method-TileDBArray-tiledb_array}{\code{TileDBArray$tiledb_array()}}
+    \item \href{#method-TileDBArray-schema}{\code{TileDBArray$schema()}}
+    \item \href{#method-TileDBArray-schema_info}{\code{TileDBArray$schema_info()}}
+    \item \href{#method-TileDBArray-dimensions}{\code{TileDBArray$dimensions()}}
+    \item \href{#method-TileDBArray-attributes}{\code{TileDBArray$attributes()}}
+    \item \href{#method-TileDBArray-dimnames}{\code{TileDBArray$dimnames()}}
+    \item \href{#method-TileDBArray-attrnames}{\code{TileDBArray$attrnames()}}
+    \item \href{#method-TileDBArray-colnames}{\code{TileDBArray$colnames()}}
+    \item \href{#method-TileDBArray-print}{\code{TileDBArray$print()}}
+    \item \href{#method-TileDBArray-clone}{\code{TileDBArray$clone()}}
+  }
 }
-}
-\if{html}{\out{
-<details><summary>Inherited methods</summary>
+\if{html}{\out{<details><summary>Inherited methods</summary>
 <ul>
-<li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBObject" data-id="class"><a href='../../R6.tiledb/html/TileDBObject.html#method-TileDBObject-class'><code>R6.tiledb::TileDBObject$class()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBObject" data-id="exists"><a href='../../R6.tiledb/html/TileDBObject.html#method-TileDBObject-exists'><code>R6.tiledb::TileDBObject$exists()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBObject" data-id="get_metadata"><a href='../../R6.tiledb/html/TileDBObject.html#method-TileDBObject-get_metadata'><code>R6.tiledb::TileDBObject$get_metadata()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBObject" data-id="initialize"><a href='../../R6.tiledb/html/TileDBObject.html#method-TileDBObject-initialize'><code>R6.tiledb::TileDBObject$initialize()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBObject" data-id="is_open"><a href='../../R6.tiledb/html/TileDBObject.html#method-TileDBObject-is_open'><code>R6.tiledb::TileDBObject$is_open()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBObject" data-id="reopen"><a href='../../R6.tiledb/html/TileDBObject.html#method-TileDBObject-reopen'><code>R6.tiledb::TileDBObject$reopen()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBObject" data-id="set_metadata"><a href='../../R6.tiledb/html/TileDBObject.html#method-TileDBObject-set_metadata'><code>R6.tiledb::TileDBObject$set_metadata()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBObject" data-id="class"><a href='../../R6.tiledb/html/TileDBObject.html#method-TileDBObject-class'><code>TileDBObject$class()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBObject" data-id="exists"><a href='../../R6.tiledb/html/TileDBObject.html#method-TileDBObject-exists'><code>TileDBObject$exists()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBObject" data-id="get_metadata"><a href='../../R6.tiledb/html/TileDBObject.html#method-TileDBObject-get_metadata'><code>TileDBObject$get_metadata()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBObject" data-id="initialize"><a href='../../R6.tiledb/html/TileDBObject.html#method-TileDBObject-initialize'><code>TileDBObject$initialize()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBObject" data-id="is_open"><a href='../../R6.tiledb/html/TileDBObject.html#method-TileDBObject-is_open'><code>TileDBObject$is_open()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBObject" data-id="reopen"><a href='../../R6.tiledb/html/TileDBObject.html#method-TileDBObject-reopen'><code>TileDBObject$reopen()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBObject" data-id="set_metadata"><a href='../../R6.tiledb/html/TileDBObject.html#method-TileDBObject-set_metadata'><code>TileDBObject$set_metadata()</code></a></span></li>
 </ul>
-</details>
-}}
+</details>}}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-TileDBArray-open"></a>}}
 \if{latex}{\out{\hypertarget{method-TileDBArray-open}{}}}
-\subsection{Method \code{open()}}{
-Open TileDB array object for read or write.
+\subsection{\code{TileDBArray$open()}}{
+  Open TileDB array object for read or write.
 
 This methods opens the underlying \code{\link[tiledb:tiledb_array]{tiledb::tiledb_array()}} object in the
 new mode if it is different from the current mode.
@@ -78,176 +76,200 @@ When the new mode and current mode is the same, no action is taken.
 To force close and then open again use \code{reopen()} method.
 
 When a time-stamp is specified, it will be effective in \code{"READ"} mode  only.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{TileDBArray$open(mode = c("READ", "WRITE"))}\if{html}{\out{</div>}}
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{TileDBArray$open(mode = c("READ", "WRITE"))}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{mode}}{Mode to open : either \code{"READ"} or \code{"WRITE"}.  Default is \code{"READ"}.}
+    }
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    The object, invisibly.
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{mode}}{Mode to open : either \code{"READ"} or \code{"WRITE"}.  Default is \code{"READ"}.}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-The object, invisibly.
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-TileDBArray-close"></a>}}
 \if{latex}{\out{\hypertarget{method-TileDBArray-close}{}}}
-\subsection{Method \code{close()}}{
-Close the object.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{TileDBArray$close()}\if{html}{\out{</div>}}
+\subsection{\code{TileDBArray$close()}}{
+  Close the object.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{TileDBArray$close()}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    The object, invisibly.
+  }
 }
 
-\subsection{Returns}{
-The object, invisibly.
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-TileDBArray-tiledb_array"></a>}}
 \if{latex}{\out{\hypertarget{method-TileDBArray-tiledb_array}{}}}
-\subsection{Method \code{tiledb_array()}}{
-Return a \link[tiledb:tiledb_array]{tiledb::tiledb_array} object.
+\subsection{\code{TileDBArray$tiledb_array()}}{
+  Return a \link[tiledb:tiledb_array]{tiledb::tiledb_array} object.
 
 If a \code{query_type} not provided then it will be inherited from class
 mode; in case the class mode is \code{"CLOSED"}, then the query type
 defaults to \code{"READ"}.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{TileDBArray$tiledb_array(...)}\if{html}{\out{</div>}}
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{TileDBArray$tiledb_array(...)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{...}}{Optional arguments to pass to \code{tiledb::tiledb_array()}.}
+    }
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    A \link[tiledb:tiledb_array]{tiledb::tiledb_array} object.
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{...}}{Optional arguments to pass to \code{tiledb::tiledb_array()}.}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-A \link[tiledb:tiledb_array]{tiledb::tiledb_array} object.
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-TileDBArray-schema"></a>}}
 \if{latex}{\out{\hypertarget{method-TileDBArray-schema}{}}}
-\subsection{Method \code{schema()}}{
-Retrieve the array schema as TileDB schema.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{TileDBArray$schema()}\if{html}{\out{</div>}}
+\subsection{\code{TileDBArray$schema()}}{
+  Retrieve the array schema as TileDB schema.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{TileDBArray$schema()}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    A \link[tiledb:tiledb_array_schema]{tiledb::tiledb_array_schema} object.
+  }
 }
 
-\subsection{Returns}{
-A \link[tiledb:tiledb_array_schema]{tiledb::tiledb_array_schema} object.
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-TileDBArray-schema_info"></a>}}
 \if{latex}{\out{\hypertarget{method-TileDBArray-schema_info}{}}}
-\subsection{Method \code{schema_info()}}{
-Retrieve schema information.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{TileDBArray$schema_info()}\if{html}{\out{</div>}}
+\subsection{\code{TileDBArray$schema_info()}}{
+  Retrieve schema information.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{TileDBArray$schema_info()}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    A \code{data.frame} object with four column schema
+information: \code{names}, \code{types}, \code{status} and \code{enum}.
+  }
 }
 
-\subsection{Returns}{
-A \code{data.frame} object with four column schema
-information: \code{names}, \code{types}, \code{status} and \code{enum}.
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-TileDBArray-dimensions"></a>}}
 \if{latex}{\out{\hypertarget{method-TileDBArray-dimensions}{}}}
-\subsection{Method \code{dimensions()}}{
-Retrieve the array dimensions.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{TileDBArray$dimensions()}\if{html}{\out{</div>}}
+\subsection{\code{TileDBArray$dimensions()}}{
+  Retrieve the array dimensions.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{TileDBArray$dimensions()}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    A named list of \link[tiledb:tiledb_dim]{tiledb::tiledb_dim} objects.
+  }
 }
 
-\subsection{Returns}{
-A named list of \link[tiledb:tiledb_dim]{tiledb::tiledb_dim} objects.
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-TileDBArray-attributes"></a>}}
 \if{latex}{\out{\hypertarget{method-TileDBArray-attributes}{}}}
-\subsection{Method \code{attributes()}}{
-Retrieve the array attributes.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{TileDBArray$attributes()}\if{html}{\out{</div>}}
+\subsection{\code{TileDBArray$attributes()}}{
+  Retrieve the array attributes.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{TileDBArray$attributes()}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    A list of \link[tiledb:tiledb_attr]{tiledb::tiledb_attr} objects.
+  }
 }
 
-\subsection{Returns}{
-A list of \link[tiledb:tiledb_attr]{tiledb::tiledb_attr} objects.
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-TileDBArray-dimnames"></a>}}
 \if{latex}{\out{\hypertarget{method-TileDBArray-dimnames}{}}}
-\subsection{Method \code{dimnames()}}{
-Retrieve dimension names.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{TileDBArray$dimnames()}\if{html}{\out{</div>}}
+\subsection{\code{TileDBArray$dimnames()}}{
+  Retrieve dimension names.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{TileDBArray$dimnames()}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    A character vector with the array's dimension names.
+  }
 }
 
-\subsection{Returns}{
-A character vector with the array's dimension names.
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-TileDBArray-attrnames"></a>}}
 \if{latex}{\out{\hypertarget{method-TileDBArray-attrnames}{}}}
-\subsection{Method \code{attrnames()}}{
-Retrieve attribute names.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{TileDBArray$attrnames()}\if{html}{\out{</div>}}
+\subsection{\code{TileDBArray$attrnames()}}{
+  Retrieve attribute names.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{TileDBArray$attrnames()}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    A character vector with the array's attribute names.
+  }
 }
 
-\subsection{Returns}{
-A character vector with the array's attribute names.
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-TileDBArray-colnames"></a>}}
 \if{latex}{\out{\hypertarget{method-TileDBArray-colnames}{}}}
-\subsection{Method \code{colnames()}}{
-Retrieve the names of all columns, including dimensions and
+\subsection{\code{TileDBArray$colnames()}}{
+  Retrieve the names of all columns, including dimensions and
 attributes.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{TileDBArray$colnames()}\if{html}{\out{</div>}}
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{TileDBArray$colnames()}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    A character vector with the array's column names.
+  }
 }
 
-\subsection{Returns}{
-A character vector with the array's column names.
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-TileDBArray-print"></a>}}
 \if{latex}{\out{\hypertarget{method-TileDBArray-print}{}}}
-\subsection{Method \code{print()}}{
-Print summary of the array.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{TileDBArray$print()}\if{html}{\out{</div>}}
+\subsection{\code{TileDBArray$print()}}{
+  Print summary of the array.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{TileDBArray$print()}
+    \if{html}{\out{</div>}}
+  }
 }
 
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-TileDBArray-clone"></a>}}
 \if{latex}{\out{\hypertarget{method-TileDBArray-clone}{}}}
-\subsection{Method \code{clone()}}{
-The objects of this class are cloneable with this method.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{TileDBArray$clone(deep = FALSE)}\if{html}{\out{</div>}}
+\subsection{\code{TileDBArray$clone()}}{
+  The objects of this class are cloneable with this method.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{TileDBArray$clone(deep = FALSE)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{deep}}{Whether to make a deep clone.}
+    }
+    \if{html}{\out{</div>}}
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{deep}}{Whether to make a deep clone.}
-}
-\if{html}{\out{</div>}}
-}
-}
 }

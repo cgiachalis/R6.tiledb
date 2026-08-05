@@ -27,185 +27,197 @@ at \code{READ} mode.
 }
 }
 \section{Super classes}{
-\code{\link[R6.tiledb:TileDBObject]{R6.tiledb::TileDBObject}} -> \code{\link[R6.tiledb:TileDBGroup]{R6.tiledb::TileDBGroup}} -> \code{TileDBGroupExp}
+\code{\link[R6.tiledb:TileDBObject]{TileDBObject}} -> \code{\link[R6.tiledb:TileDBGroup]{TileDBGroup}} -> \code{TileDBGroupExp}
 }
 \section{Active bindings}{
-\if{html}{\out{<div class="r6-active-bindings">}}
-\describe{
-\item{\code{size}}{Directory size.}
-}
-\if{html}{\out{</div>}}
+  \if{html}{\out{<div class="r6-active-bindings">}}
+  \describe{
+    \item{\code{size}}{Directory size.}
+  }
+  \if{html}{\out{</div>}}
 }
 \section{Methods}{
 \subsection{Public methods}{
-\itemize{
-\item \href{#method-TileDBGroupExp-has_non_members}{\code{TileDBGroupExp$has_non_members()}}
-\item \href{#method-TileDBGroupExp-non_members}{\code{TileDBGroupExp$non_members()}}
-\item \href{#method-TileDBGroupExp-prune_non_members}{\code{TileDBGroupExp$prune_non_members()}}
-\item \href{#method-TileDBGroupExp-delete_group}{\code{TileDBGroupExp$delete_group()}}
-\item \href{#method-TileDBGroupExp-walk_group}{\code{TileDBGroupExp$walk_group()}}
-\item \href{#method-TileDBGroupExp-dir_tree}{\code{TileDBGroupExp$dir_tree()}}
-\item \href{#method-TileDBGroupExp-clone}{\code{TileDBGroupExp$clone()}}
+  \itemize{
+    \item \href{#method-TileDBGroupExp-has_non_members}{\code{TileDBGroupExp$has_non_members()}}
+    \item \href{#method-TileDBGroupExp-non_members}{\code{TileDBGroupExp$non_members()}}
+    \item \href{#method-TileDBGroupExp-prune_non_members}{\code{TileDBGroupExp$prune_non_members()}}
+    \item \href{#method-TileDBGroupExp-delete_group}{\code{TileDBGroupExp$delete_group()}}
+    \item \href{#method-TileDBGroupExp-walk_group}{\code{TileDBGroupExp$walk_group()}}
+    \item \href{#method-TileDBGroupExp-dir_tree}{\code{TileDBGroupExp$dir_tree()}}
+    \item \href{#method-TileDBGroupExp-clone}{\code{TileDBGroupExp$clone()}}
+  }
 }
-}
-\if{html}{\out{
-<details><summary>Inherited methods</summary>
+\if{html}{\out{<details><summary>Inherited methods</summary>
 <ul>
-<li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBObject" data-id="class"><a href='../../R6.tiledb/html/TileDBObject.html#method-TileDBObject-class'><code>R6.tiledb::TileDBObject$class()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBObject" data-id="exists"><a href='../../R6.tiledb/html/TileDBObject.html#method-TileDBObject-exists'><code>R6.tiledb::TileDBObject$exists()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBObject" data-id="get_metadata"><a href='../../R6.tiledb/html/TileDBObject.html#method-TileDBObject-get_metadata'><code>R6.tiledb::TileDBObject$get_metadata()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBObject" data-id="initialize"><a href='../../R6.tiledb/html/TileDBObject.html#method-TileDBObject-initialize'><code>R6.tiledb::TileDBObject$initialize()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBObject" data-id="is_open"><a href='../../R6.tiledb/html/TileDBObject.html#method-TileDBObject-is_open'><code>R6.tiledb::TileDBObject$is_open()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBObject" data-id="reopen"><a href='../../R6.tiledb/html/TileDBObject.html#method-TileDBObject-reopen'><code>R6.tiledb::TileDBObject$reopen()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBObject" data-id="set_metadata"><a href='../../R6.tiledb/html/TileDBObject.html#method-TileDBObject-set_metadata'><code>R6.tiledb::TileDBObject$set_metadata()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBGroup" data-id="close"><a href='../../R6.tiledb/html/TileDBGroup.html#method-TileDBGroup-close'><code>R6.tiledb::TileDBGroup$close()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBGroup" data-id="count_members"><a href='../../R6.tiledb/html/TileDBGroup.html#method-TileDBGroup-count_members'><code>R6.tiledb::TileDBGroup$count_members()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBGroup" data-id="create"><a href='../../R6.tiledb/html/TileDBGroup.html#method-TileDBGroup-create'><code>R6.tiledb::TileDBGroup$create()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBGroup" data-id="delete"><a href='../../R6.tiledb/html/TileDBGroup.html#method-TileDBGroup-delete'><code>R6.tiledb::TileDBGroup$delete()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBGroup" data-id="dump"><a href='../../R6.tiledb/html/TileDBGroup.html#method-TileDBGroup-dump'><code>R6.tiledb::TileDBGroup$dump()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBGroup" data-id="get_member"><a href='../../R6.tiledb/html/TileDBGroup.html#method-TileDBGroup-get_member'><code>R6.tiledb::TileDBGroup$get_member()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBGroup" data-id="get_members_df"><a href='../../R6.tiledb/html/TileDBGroup.html#method-TileDBGroup-get_members_df'><code>R6.tiledb::TileDBGroup$get_members_df()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBGroup" data-id="member_exists"><a href='../../R6.tiledb/html/TileDBGroup.html#method-TileDBGroup-member_exists'><code>R6.tiledb::TileDBGroup$member_exists()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBGroup" data-id="names"><a href='../../R6.tiledb/html/TileDBGroup.html#method-TileDBGroup-names'><code>R6.tiledb::TileDBGroup$names()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBGroup" data-id="open"><a href='../../R6.tiledb/html/TileDBGroup.html#method-TileDBGroup-open'><code>R6.tiledb::TileDBGroup$open()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBGroup" data-id="print"><a href='../../R6.tiledb/html/TileDBGroup.html#method-TileDBGroup-print'><code>R6.tiledb::TileDBGroup$print()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBGroup" data-id="remove"><a href='../../R6.tiledb/html/TileDBGroup.html#method-TileDBGroup-remove'><code>R6.tiledb::TileDBGroup$remove()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBGroup" data-id="set_member"><a href='../../R6.tiledb/html/TileDBGroup.html#method-TileDBGroup-set_member'><code>R6.tiledb::TileDBGroup$set_member()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBObject" data-id="class"><a href='../../R6.tiledb/html/TileDBObject.html#method-TileDBObject-class'><code>TileDBObject$class()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBObject" data-id="exists"><a href='../../R6.tiledb/html/TileDBObject.html#method-TileDBObject-exists'><code>TileDBObject$exists()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBObject" data-id="get_metadata"><a href='../../R6.tiledb/html/TileDBObject.html#method-TileDBObject-get_metadata'><code>TileDBObject$get_metadata()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBObject" data-id="initialize"><a href='../../R6.tiledb/html/TileDBObject.html#method-TileDBObject-initialize'><code>TileDBObject$initialize()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBObject" data-id="is_open"><a href='../../R6.tiledb/html/TileDBObject.html#method-TileDBObject-is_open'><code>TileDBObject$is_open()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBObject" data-id="reopen"><a href='../../R6.tiledb/html/TileDBObject.html#method-TileDBObject-reopen'><code>TileDBObject$reopen()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBObject" data-id="set_metadata"><a href='../../R6.tiledb/html/TileDBObject.html#method-TileDBObject-set_metadata'><code>TileDBObject$set_metadata()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBGroup" data-id="close"><a href='../../R6.tiledb/html/TileDBGroup.html#method-TileDBGroup-close'><code>TileDBGroup$close()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBGroup" data-id="count_members"><a href='../../R6.tiledb/html/TileDBGroup.html#method-TileDBGroup-count_members'><code>TileDBGroup$count_members()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBGroup" data-id="create"><a href='../../R6.tiledb/html/TileDBGroup.html#method-TileDBGroup-create'><code>TileDBGroup$create()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBGroup" data-id="delete"><a href='../../R6.tiledb/html/TileDBGroup.html#method-TileDBGroup-delete'><code>TileDBGroup$delete()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBGroup" data-id="dump"><a href='../../R6.tiledb/html/TileDBGroup.html#method-TileDBGroup-dump'><code>TileDBGroup$dump()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBGroup" data-id="get_member"><a href='../../R6.tiledb/html/TileDBGroup.html#method-TileDBGroup-get_member'><code>TileDBGroup$get_member()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBGroup" data-id="get_members_df"><a href='../../R6.tiledb/html/TileDBGroup.html#method-TileDBGroup-get_members_df'><code>TileDBGroup$get_members_df()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBGroup" data-id="member_exists"><a href='../../R6.tiledb/html/TileDBGroup.html#method-TileDBGroup-member_exists'><code>TileDBGroup$member_exists()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBGroup" data-id="names"><a href='../../R6.tiledb/html/TileDBGroup.html#method-TileDBGroup-names'><code>TileDBGroup$names()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBGroup" data-id="open"><a href='../../R6.tiledb/html/TileDBGroup.html#method-TileDBGroup-open'><code>TileDBGroup$open()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBGroup" data-id="print"><a href='../../R6.tiledb/html/TileDBGroup.html#method-TileDBGroup-print'><code>TileDBGroup$print()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBGroup" data-id="remove"><a href='../../R6.tiledb/html/TileDBGroup.html#method-TileDBGroup-remove'><code>TileDBGroup$remove()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBGroup" data-id="set_member"><a href='../../R6.tiledb/html/TileDBGroup.html#method-TileDBGroup-set_member'><code>TileDBGroup$set_member()</code></a></span></li>
 </ul>
-</details>
-}}
+</details>}}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-TileDBGroupExp-has_non_members"></a>}}
 \if{latex}{\out{\hypertarget{method-TileDBGroupExp-has_non_members}{}}}
-\subsection{Method \code{has_non_members()}}{
-Checks for non group members at group's uri
+\subsection{\code{TileDBGroupExp$has_non_members()}}{
+  Checks for non group members at group's uri
 path.
 
 This function compares the \code{TileDB} resources at group's
 uri path to its members to determine if there are any
 non member.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{TileDBGroupExp$has_non_members()}\if{html}{\out{</div>}}
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{TileDBGroupExp$has_non_members()}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    \code{TRUE} for having non members, \code{FALSE} otherwise.
+  }
 }
 
-\subsection{Returns}{
-\code{TRUE} for having non members, \code{FALSE} otherwise.
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-TileDBGroupExp-non_members"></a>}}
 \if{latex}{\out{\hypertarget{method-TileDBGroupExp-non_members}{}}}
-\subsection{Method \code{non_members()}}{
-List \code{TileDB} resources which are not
+\subsection{\code{TileDBGroupExp$non_members()}}{
+  List \code{TileDB} resources which are not
 members at group's uri path.
 
 This function compares the \code{TileDB} resources at group's
 uri path to its members and returns a \code{data.frame} with
 non members object type and uri path.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{TileDBGroupExp$non_members()}\if{html}{\out{</div>}}
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{TileDBGroupExp$non_members()}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    An object of class \code{data.frame} with columns \code{TYPE}
+and \code{URI} of non member \code{TileDB} resources.
+  }
 }
 
-\subsection{Returns}{
-An object of class \code{data.frame} with columns \code{TYPE}
-and \code{URI} of non member \code{TileDB} resources.
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-TileDBGroupExp-prune_non_members"></a>}}
 \if{latex}{\out{\hypertarget{method-TileDBGroupExp-prune_non_members}{}}}
-\subsection{Method \code{prune_non_members()}}{
-Delete \code{TileDB} resources which are not members.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{TileDBGroupExp$prune_non_members()}\if{html}{\out{</div>}}
+\subsection{\code{TileDBGroupExp$prune_non_members()}}{
+  Delete \code{TileDB} resources which are not members.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{TileDBGroupExp$prune_non_members()}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    An character vector of deleted uri paths.
+  }
 }
 
-\subsection{Returns}{
-An character vector of deleted uri paths.
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-TileDBGroupExp-delete_group"></a>}}
 \if{latex}{\out{\hypertarget{method-TileDBGroupExp-delete_group}{}}}
-\subsection{Method \code{delete_group()}}{
-Delete written data from Group.
+\subsection{\code{TileDBGroupExp$delete_group()}}{
+  Delete written data from Group.
 
 This function deletes all written data from a \code{tiledb_group} object,
 i.e., the folder will not be consider as a TileDB Group after the
 operation. Any other data will not be deleted unless we set
 \code{recursive = TRUE}.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{TileDBGroupExp$delete_group(recursive = FALSE)}\if{html}{\out{</div>}}
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{TileDBGroupExp$delete_group(recursive = FALSE)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{recursive}}{Should all data be deleted inside the group?
+Default is \code{FALSE}.}
+    }
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    The object, invisibly.
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{recursive}}{Should all data be deleted inside the group?
-Default is \code{FALSE}.}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-The object, invisibly.
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-TileDBGroupExp-walk_group"></a>}}
 \if{latex}{\out{\hypertarget{method-TileDBGroupExp-walk_group}{}}}
-\subsection{Method \code{walk_group()}}{
-List all \code{TileDB} resources at group's uri path.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{TileDBGroupExp$walk_group(order = c("pre", "post"))}\if{html}{\out{</div>}}
+\subsection{\code{TileDBGroupExp$walk_group()}}{
+  List all \code{TileDB} resources at group's uri path.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{TileDBGroupExp$walk_group(order = c("pre", "post"))}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{order}}{Traversal order, either \code{pre} (default) or \code{post}.}
+    }
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    An object of class \code{data.frame} with columns \code{TYPE}
+and \code{URI} with all \code{TileDB} resources under group's uri path.
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{order}}{Traversal order, either \code{pre} (default) or \code{post}.}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-An object of class \code{data.frame} with columns \code{TYPE}
-and \code{URI} with all \code{TileDB} resources under group's uri path.
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-TileDBGroupExp-dir_tree"></a>}}
 \if{latex}{\out{\hypertarget{method-TileDBGroupExp-dir_tree}{}}}
-\subsection{Method \code{dir_tree()}}{
-Print directory contents.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{TileDBGroupExp$dir_tree(recursive = TRUE)}\if{html}{\out{</div>}}
+\subsection{\code{TileDBGroupExp$dir_tree()}}{
+  Print directory contents.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{TileDBGroupExp$dir_tree(recursive = TRUE)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{recursive}}{Should it recurse fully? Defaults to \code{TRUE}.}
+    }
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    A character vector with file paths, invisibly.
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{recursive}}{Should it recurse fully? Defaults to \code{TRUE}.}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-A character vector with file paths, invisibly.
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-TileDBGroupExp-clone"></a>}}
 \if{latex}{\out{\hypertarget{method-TileDBGroupExp-clone}{}}}
-\subsection{Method \code{clone()}}{
-The objects of this class are cloneable with this method.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{TileDBGroupExp$clone(deep = FALSE)}\if{html}{\out{</div>}}
+\subsection{\code{TileDBGroupExp$clone()}}{
+  The objects of this class are cloneable with this method.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{TileDBGroupExp$clone(deep = FALSE)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{deep}}{Whether to make a deep clone.}
+    }
+    \if{html}{\out{</div>}}
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{deep}}{Whether to make a deep clone.}
-}
-\if{html}{\out{</div>}}
-}
-}
 }
