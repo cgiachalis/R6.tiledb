@@ -26,9 +26,9 @@ An object of class `TileDBArrayExp`, `R6`.
 
 ## Super classes
 
-[`R6.tiledb::TileDBObject`](https://cgiachalis.github.io/R6.tiledb/reference/TileDBObject.md)
+[`TileDBObject`](https://cgiachalis.github.io/R6.tiledb/reference/TileDBObject.md)
 -\>
-[`R6.tiledb::TileDBArray`](https://cgiachalis.github.io/R6.tiledb/reference/TileDBArray.md)
+[`TileDBArray`](https://cgiachalis.github.io/R6.tiledb/reference/TileDBArray.md)
 -\> `TileDBArrayExp`
 
 ## Active bindings
@@ -99,27 +99,27 @@ An object of class `TileDBArrayExp`, `R6`.
 
 Inherited methods
 
-- [`R6.tiledb::TileDBObject$class()`](https://cgiachalis.github.io/R6.tiledb/reference/TileDBObject.html#method-class)
-- [`R6.tiledb::TileDBObject$exists()`](https://cgiachalis.github.io/R6.tiledb/reference/TileDBObject.html#method-exists)
-- [`R6.tiledb::TileDBObject$get_metadata()`](https://cgiachalis.github.io/R6.tiledb/reference/TileDBObject.html#method-get_metadata)
-- [`R6.tiledb::TileDBObject$initialize()`](https://cgiachalis.github.io/R6.tiledb/reference/TileDBObject.html#method-initialize)
-- [`R6.tiledb::TileDBObject$is_open()`](https://cgiachalis.github.io/R6.tiledb/reference/TileDBObject.html#method-is_open)
-- [`R6.tiledb::TileDBObject$set_metadata()`](https://cgiachalis.github.io/R6.tiledb/reference/TileDBObject.html#method-set_metadata)
-- [`R6.tiledb::TileDBArray$attributes()`](https://cgiachalis.github.io/R6.tiledb/reference/TileDBArray.html#method-attributes)
-- [`R6.tiledb::TileDBArray$attrnames()`](https://cgiachalis.github.io/R6.tiledb/reference/TileDBArray.html#method-attrnames)
-- [`R6.tiledb::TileDBArray$close()`](https://cgiachalis.github.io/R6.tiledb/reference/TileDBArray.html#method-close)
-- [`R6.tiledb::TileDBArray$colnames()`](https://cgiachalis.github.io/R6.tiledb/reference/TileDBArray.html#method-colnames)
-- [`R6.tiledb::TileDBArray$dimensions()`](https://cgiachalis.github.io/R6.tiledb/reference/TileDBArray.html#method-dimensions)
-- [`R6.tiledb::TileDBArray$dimnames()`](https://cgiachalis.github.io/R6.tiledb/reference/TileDBArray.html#method-dimnames)
-- [`R6.tiledb::TileDBArray$open()`](https://cgiachalis.github.io/R6.tiledb/reference/TileDBArray.html#method-open)
-- [`R6.tiledb::TileDBArray$print()`](https://cgiachalis.github.io/R6.tiledb/reference/TileDBArray.html#method-print)
-- [`R6.tiledb::TileDBArray$schema()`](https://cgiachalis.github.io/R6.tiledb/reference/TileDBArray.html#method-schema)
-- [`R6.tiledb::TileDBArray$schema_info()`](https://cgiachalis.github.io/R6.tiledb/reference/TileDBArray.html#method-schema_info)
-- [`R6.tiledb::TileDBArray$tiledb_array()`](https://cgiachalis.github.io/R6.tiledb/reference/TileDBArray.html#method-tiledb_array)
+- [`TileDBObject$class()`](https://cgiachalis.github.io/R6.tiledb/reference/TileDBObject.html#method-class)
+- [`TileDBObject$exists()`](https://cgiachalis.github.io/R6.tiledb/reference/TileDBObject.html#method-exists)
+- [`TileDBObject$get_metadata()`](https://cgiachalis.github.io/R6.tiledb/reference/TileDBObject.html#method-get_metadata)
+- [`TileDBObject$initialize()`](https://cgiachalis.github.io/R6.tiledb/reference/TileDBObject.html#method-initialize)
+- [`TileDBObject$is_open()`](https://cgiachalis.github.io/R6.tiledb/reference/TileDBObject.html#method-is_open)
+- [`TileDBObject$set_metadata()`](https://cgiachalis.github.io/R6.tiledb/reference/TileDBObject.html#method-set_metadata)
+- [`TileDBArray$attributes()`](https://cgiachalis.github.io/R6.tiledb/reference/TileDBArray.html#method-attributes)
+- [`TileDBArray$attrnames()`](https://cgiachalis.github.io/R6.tiledb/reference/TileDBArray.html#method-attrnames)
+- [`TileDBArray$close()`](https://cgiachalis.github.io/R6.tiledb/reference/TileDBArray.html#method-close)
+- [`TileDBArray$colnames()`](https://cgiachalis.github.io/R6.tiledb/reference/TileDBArray.html#method-colnames)
+- [`TileDBArray$dimensions()`](https://cgiachalis.github.io/R6.tiledb/reference/TileDBArray.html#method-dimensions)
+- [`TileDBArray$dimnames()`](https://cgiachalis.github.io/R6.tiledb/reference/TileDBArray.html#method-dimnames)
+- [`TileDBArray$open()`](https://cgiachalis.github.io/R6.tiledb/reference/TileDBArray.html#method-open)
+- [`TileDBArray$print()`](https://cgiachalis.github.io/R6.tiledb/reference/TileDBArray.html#method-print)
+- [`TileDBArray$schema()`](https://cgiachalis.github.io/R6.tiledb/reference/TileDBArray.html#method-schema)
+- [`TileDBArray$schema_info()`](https://cgiachalis.github.io/R6.tiledb/reference/TileDBArray.html#method-schema_info)
+- [`TileDBArray$tiledb_array()`](https://cgiachalis.github.io/R6.tiledb/reference/TileDBArray.html#method-tiledb_array)
 
 ------------------------------------------------------------------------
 
-### Method `create()`
+### `TileDBArrayExp$create()`
 
 Create an empty Array with user defined schema.
 
@@ -147,7 +147,7 @@ The object, invisibly.
 
 ------------------------------------------------------------------------
 
-### Method `delete_array()`
+### `TileDBArrayExp$delete_array()`
 
 Delete the array.
 
@@ -161,7 +161,7 @@ The object, invisibly.
 
 ------------------------------------------------------------------------
 
-### Method `reopen()`
+### `TileDBArrayExp$reopen()`
 
 Close and reopen the TileDB object in a new mode.
 
@@ -181,7 +181,7 @@ The object, invisibly.
 
 ------------------------------------------------------------------------
 
-### Method `any_enums()`
+### `TileDBArrayExp$any_enums()`
 
 Checks array for factors (enumerations).
 
@@ -196,7 +196,7 @@ otherwise.
 
 ------------------------------------------------------------------------
 
-### Method `enum_columns()`
+### `TileDBArrayExp$enum_columns()`
 
 Retrieve factor columns (attributes).
 
@@ -210,7 +210,7 @@ A character vector with factor columns (enumeration attributes).
 
 ------------------------------------------------------------------------
 
-### Method `enum_levels()`
+### `TileDBArrayExp$enum_levels()`
 
 Retrieve factor levels for a given attribute.
 
@@ -230,7 +230,7 @@ A character vector with levels (enumeration values).
 
 ------------------------------------------------------------------------
 
-### Method `has_enumeration()`
+### `TileDBArrayExp$has_enumeration()`
 
 Check columns for factors.
 
@@ -245,7 +245,7 @@ factor (enumeration).
 
 ------------------------------------------------------------------------
 
-### Method `consolidate()`
+### `TileDBArrayExp$consolidate()`
 
 Consolidates the fragments of the array into a single fragment.
 
@@ -289,7 +289,7 @@ Consolidates the fragments of the array into a single fragment.
 
 ------------------------------------------------------------------------
 
-### Method `consolidate_async()`
+### `TileDBArrayExp$consolidate_async()`
 
 Consolidate fragments of the array into a single fragment
 asynchronously.
@@ -345,7 +345,7 @@ consolidation success.
 
 ------------------------------------------------------------------------
 
-### Method `vacuum()`
+### `TileDBArrayExp$vacuum()`
 
 Clean up consolidated fragments and array metadata.
 
@@ -382,7 +382,7 @@ Clean up consolidated fragments and array metadata.
 
 ------------------------------------------------------------------------
 
-### Method `vacuum_async()`
+### `TileDBArrayExp$vacuum_async()`
 
 Asynchronously clean up consolidated fragments and array metadata.
 
@@ -428,7 +428,7 @@ success.
 
 ------------------------------------------------------------------------
 
-### Method `consolidate_and_vacuum()`
+### `TileDBArrayExp$consolidate_and_vacuum()`
 
 Consolidates and vacuums the fragments.
 
@@ -473,7 +473,7 @@ Consolidates and vacuums the fragments.
 
 ------------------------------------------------------------------------
 
-### Method `consolidate_and_vacuum_async()`
+### `TileDBArrayExp$consolidate_and_vacuum_async()`
 
 Consolidate and vacuum fragments asynchronously.
 
@@ -528,7 +528,7 @@ consolidation success.
 
 ------------------------------------------------------------------------
 
-### Method `drop_attribute()`
+### `TileDBArrayExp$drop_attribute()`
 
 Remove an attribute from array.
 
@@ -548,7 +548,7 @@ The object, invisibly.
 
 ------------------------------------------------------------------------
 
-### Method `frag_num()`
+### `TileDBArrayExp$frag_num()`
 
 The number of fragments.
 
@@ -558,7 +558,7 @@ The number of fragments.
 
 ------------------------------------------------------------------------
 
-### Method `frag_to_vacuum()`
+### `TileDBArrayExp$frag_to_vacuum()`
 
 Consolidated fragments to be removed.
 
@@ -590,7 +590,7 @@ is found in your system.
 
 ------------------------------------------------------------------------
 
-### Method `frag_dump()`
+### `TileDBArrayExp$frag_dump()`
 
 Dump to console the commit fragments.
 
@@ -600,7 +600,7 @@ Dump to console the commit fragments.
 
 ------------------------------------------------------------------------
 
-### Method `frag_uris()`
+### `TileDBArrayExp$frag_uris()`
 
 Return a `data.frame` with time stamps and fragments uris.
 
@@ -632,7 +632,7 @@ is found in your system.
 
 ------------------------------------------------------------------------
 
-### Method `schema_upgrade()`
+### `TileDBArrayExp$schema_upgrade()`
 
 Upgrade the array to the latest format version.
 
@@ -655,7 +655,7 @@ Upgrade the array to the latest format version.
 
 ------------------------------------------------------------------------
 
-### Method `dir_tree()`
+### `TileDBArrayExp$dir_tree()`
 
 Print directory contents.
 
@@ -675,7 +675,7 @@ A character vector with file paths, invisibly.
 
 ------------------------------------------------------------------------
 
-### Method `clone()`
+### `TileDBArrayExp$clone()`
 
 The objects of this class are cloneable with this method.
 

@@ -62,7 +62,7 @@ An object of class `TileDBObject`, `R6`.
 
 ### Public methods
 
-- [`TileDBObject$new()`](#method-TileDBObject-new)
+- [`TileDBObject$new()`](#method-TileDBObject-initialize)
 
 - [`TileDBObject$class()`](#method-TileDBObject-class)
 
@@ -80,7 +80,7 @@ An object of class `TileDBObject`, `R6`.
 
 ------------------------------------------------------------------------
 
-### Method `new()`
+### `TileDBObject$new()`
 
 Create a new `TileDB` object.
 
@@ -118,7 +118,7 @@ Create a new `TileDB` object.
 
 ------------------------------------------------------------------------
 
-### Method [`class()`](https://rdrr.io/r/base/class.html)
+### `TileDBObject$class()`
 
 Print the name of the R6 class.
 
@@ -128,7 +128,7 @@ Print the name of the R6 class.
 
 ------------------------------------------------------------------------
 
-### Method `is_open()`
+### `TileDBObject$is_open()`
 
 Determine if the object is open for reading or writing.
 
@@ -142,7 +142,7 @@ Determine if the object is open for reading or writing.
 
 ------------------------------------------------------------------------
 
-### Method `reopen()`
+### `TileDBObject$reopen()`
 
 Close and reopen the TileDB object in a new mode.
 
@@ -162,7 +162,7 @@ The object, invisibly.
 
 ------------------------------------------------------------------------
 
-### Method [`exists()`](https://rdrr.io/r/base/exists.html)
+### `TileDBObject$exists()`
 
 Check if the object exists.
 
@@ -176,7 +176,7 @@ Check if the object exists.
 
 ------------------------------------------------------------------------
 
-### Method `get_metadata()`
+### `TileDBObject$get_metadata()`
 
 Retrieve metadata from a `TileDB` Object.
 
@@ -207,7 +207,7 @@ kept opened until is closed by the user.
 
 ------------------------------------------------------------------------
 
-### Method [`set_metadata()`](https://cgiachalis.github.io/R6.tiledb/reference/set_metadata.md)
+### `TileDBObject$set_metadata()`
 
 Add list of metadata to a `TileDB` Object.
 
@@ -229,7 +229,7 @@ The object, invisibly.
 
 ------------------------------------------------------------------------
 
-### Method `clone()`
+### `TileDBObject$clone()`
 
 The objects of this class are cloneable with this method.
 

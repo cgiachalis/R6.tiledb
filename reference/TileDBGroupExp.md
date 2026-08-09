@@ -26,9 +26,9 @@ An object of class `TileDBGroupExp`, `R6`.
 
 ## Super classes
 
-[`R6.tiledb::TileDBObject`](https://cgiachalis.github.io/R6.tiledb/reference/TileDBObject.md)
+[`TileDBObject`](https://cgiachalis.github.io/R6.tiledb/reference/TileDBObject.md)
 -\>
-[`R6.tiledb::TileDBGroup`](https://cgiachalis.github.io/R6.tiledb/reference/TileDBGroup.md)
+[`TileDBGroup`](https://cgiachalis.github.io/R6.tiledb/reference/TileDBGroup.md)
 -\> `TileDBGroupExp`
 
 ## Active bindings
@@ -57,30 +57,30 @@ An object of class `TileDBGroupExp`, `R6`.
 
 Inherited methods
 
-- [`R6.tiledb::TileDBObject$class()`](https://cgiachalis.github.io/R6.tiledb/reference/TileDBObject.html#method-class)
-- [`R6.tiledb::TileDBObject$exists()`](https://cgiachalis.github.io/R6.tiledb/reference/TileDBObject.html#method-exists)
-- [`R6.tiledb::TileDBObject$get_metadata()`](https://cgiachalis.github.io/R6.tiledb/reference/TileDBObject.html#method-get_metadata)
-- [`R6.tiledb::TileDBObject$initialize()`](https://cgiachalis.github.io/R6.tiledb/reference/TileDBObject.html#method-initialize)
-- [`R6.tiledb::TileDBObject$is_open()`](https://cgiachalis.github.io/R6.tiledb/reference/TileDBObject.html#method-is_open)
-- [`R6.tiledb::TileDBObject$reopen()`](https://cgiachalis.github.io/R6.tiledb/reference/TileDBObject.html#method-reopen)
-- [`R6.tiledb::TileDBObject$set_metadata()`](https://cgiachalis.github.io/R6.tiledb/reference/TileDBObject.html#method-set_metadata)
-- [`R6.tiledb::TileDBGroup$close()`](https://cgiachalis.github.io/R6.tiledb/reference/TileDBGroup.html#method-close)
-- [`R6.tiledb::TileDBGroup$count_members()`](https://cgiachalis.github.io/R6.tiledb/reference/TileDBGroup.html#method-count_members)
-- [`R6.tiledb::TileDBGroup$create()`](https://cgiachalis.github.io/R6.tiledb/reference/TileDBGroup.html#method-create)
-- [`R6.tiledb::TileDBGroup$delete()`](https://cgiachalis.github.io/R6.tiledb/reference/TileDBGroup.html#method-delete)
-- [`R6.tiledb::TileDBGroup$dump()`](https://cgiachalis.github.io/R6.tiledb/reference/TileDBGroup.html#method-dump)
-- [`R6.tiledb::TileDBGroup$get_member()`](https://cgiachalis.github.io/R6.tiledb/reference/TileDBGroup.html#method-get_member)
-- [`R6.tiledb::TileDBGroup$get_members_df()`](https://cgiachalis.github.io/R6.tiledb/reference/TileDBGroup.html#method-get_members_df)
-- [`R6.tiledb::TileDBGroup$member_exists()`](https://cgiachalis.github.io/R6.tiledb/reference/TileDBGroup.html#method-member_exists)
-- [`R6.tiledb::TileDBGroup$names()`](https://cgiachalis.github.io/R6.tiledb/reference/TileDBGroup.html#method-names)
-- [`R6.tiledb::TileDBGroup$open()`](https://cgiachalis.github.io/R6.tiledb/reference/TileDBGroup.html#method-open)
-- [`R6.tiledb::TileDBGroup$print()`](https://cgiachalis.github.io/R6.tiledb/reference/TileDBGroup.html#method-print)
-- [`R6.tiledb::TileDBGroup$remove()`](https://cgiachalis.github.io/R6.tiledb/reference/TileDBGroup.html#method-remove)
-- [`R6.tiledb::TileDBGroup$set_member()`](https://cgiachalis.github.io/R6.tiledb/reference/TileDBGroup.html#method-set_member)
+- [`TileDBObject$class()`](https://cgiachalis.github.io/R6.tiledb/reference/TileDBObject.html#method-class)
+- [`TileDBObject$exists()`](https://cgiachalis.github.io/R6.tiledb/reference/TileDBObject.html#method-exists)
+- [`TileDBObject$get_metadata()`](https://cgiachalis.github.io/R6.tiledb/reference/TileDBObject.html#method-get_metadata)
+- [`TileDBObject$initialize()`](https://cgiachalis.github.io/R6.tiledb/reference/TileDBObject.html#method-initialize)
+- [`TileDBObject$is_open()`](https://cgiachalis.github.io/R6.tiledb/reference/TileDBObject.html#method-is_open)
+- [`TileDBObject$reopen()`](https://cgiachalis.github.io/R6.tiledb/reference/TileDBObject.html#method-reopen)
+- [`TileDBObject$set_metadata()`](https://cgiachalis.github.io/R6.tiledb/reference/TileDBObject.html#method-set_metadata)
+- [`TileDBGroup$close()`](https://cgiachalis.github.io/R6.tiledb/reference/TileDBGroup.html#method-close)
+- [`TileDBGroup$count_members()`](https://cgiachalis.github.io/R6.tiledb/reference/TileDBGroup.html#method-count_members)
+- [`TileDBGroup$create()`](https://cgiachalis.github.io/R6.tiledb/reference/TileDBGroup.html#method-create)
+- [`TileDBGroup$delete()`](https://cgiachalis.github.io/R6.tiledb/reference/TileDBGroup.html#method-delete)
+- [`TileDBGroup$dump()`](https://cgiachalis.github.io/R6.tiledb/reference/TileDBGroup.html#method-dump)
+- [`TileDBGroup$get_member()`](https://cgiachalis.github.io/R6.tiledb/reference/TileDBGroup.html#method-get_member)
+- [`TileDBGroup$get_members_df()`](https://cgiachalis.github.io/R6.tiledb/reference/TileDBGroup.html#method-get_members_df)
+- [`TileDBGroup$member_exists()`](https://cgiachalis.github.io/R6.tiledb/reference/TileDBGroup.html#method-member_exists)
+- [`TileDBGroup$names()`](https://cgiachalis.github.io/R6.tiledb/reference/TileDBGroup.html#method-names)
+- [`TileDBGroup$open()`](https://cgiachalis.github.io/R6.tiledb/reference/TileDBGroup.html#method-open)
+- [`TileDBGroup$print()`](https://cgiachalis.github.io/R6.tiledb/reference/TileDBGroup.html#method-print)
+- [`TileDBGroup$remove()`](https://cgiachalis.github.io/R6.tiledb/reference/TileDBGroup.html#method-remove)
+- [`TileDBGroup$set_member()`](https://cgiachalis.github.io/R6.tiledb/reference/TileDBGroup.html#method-set_member)
 
 ------------------------------------------------------------------------
 
-### Method `has_non_members()`
+### `TileDBGroupExp$has_non_members()`
 
 Checks for non group members at group's uri path.
 
@@ -97,7 +97,7 @@ members to determine if there are any non member.
 
 ------------------------------------------------------------------------
 
-### Method `non_members()`
+### `TileDBGroupExp$non_members()`
 
 List `TileDB` resources which are not members at group's uri path.
 
@@ -116,7 +116,7 @@ member `TileDB` resources.
 
 ------------------------------------------------------------------------
 
-### Method `prune_non_members()`
+### `TileDBGroupExp$prune_non_members()`
 
 Delete `TileDB` resources which are not members.
 
@@ -130,7 +130,7 @@ An character vector of deleted uri paths.
 
 ------------------------------------------------------------------------
 
-### Method `delete_group()`
+### `TileDBGroupExp$delete_group()`
 
 Delete written data from Group.
 
@@ -155,7 +155,7 @@ The object, invisibly.
 
 ------------------------------------------------------------------------
 
-### Method `walk_group()`
+### `TileDBGroupExp$walk_group()`
 
 List all `TileDB` resources at group's uri path.
 
@@ -176,7 +176,7 @@ An object of class `data.frame` with columns `TYPE` and `URI` with all
 
 ------------------------------------------------------------------------
 
-### Method `dir_tree()`
+### `TileDBGroupExp$dir_tree()`
 
 Print directory contents.
 
@@ -196,7 +196,7 @@ A character vector with file paths, invisibly.
 
 ------------------------------------------------------------------------
 
-### Method `clone()`
+### `TileDBGroupExp$clone()`
 
 The objects of this class are cloneable with this method.
 

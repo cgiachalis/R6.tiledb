@@ -21,7 +21,7 @@ An object of class `TileDBGroup`, `R6`.
 
 ## Super class
 
-[`R6.tiledb::TileDBObject`](https://cgiachalis.github.io/R6.tiledb/reference/TileDBObject.md)
+[`TileDBObject`](https://cgiachalis.github.io/R6.tiledb/reference/TileDBObject.md)
 -\> `TileDBGroup`
 
 ## Active bindings
@@ -73,17 +73,17 @@ An object of class `TileDBGroup`, `R6`.
 
 Inherited methods
 
-- [`R6.tiledb::TileDBObject$class()`](https://cgiachalis.github.io/R6.tiledb/reference/TileDBObject.html#method-class)
-- [`R6.tiledb::TileDBObject$exists()`](https://cgiachalis.github.io/R6.tiledb/reference/TileDBObject.html#method-exists)
-- [`R6.tiledb::TileDBObject$get_metadata()`](https://cgiachalis.github.io/R6.tiledb/reference/TileDBObject.html#method-get_metadata)
-- [`R6.tiledb::TileDBObject$initialize()`](https://cgiachalis.github.io/R6.tiledb/reference/TileDBObject.html#method-initialize)
-- [`R6.tiledb::TileDBObject$is_open()`](https://cgiachalis.github.io/R6.tiledb/reference/TileDBObject.html#method-is_open)
-- [`R6.tiledb::TileDBObject$reopen()`](https://cgiachalis.github.io/R6.tiledb/reference/TileDBObject.html#method-reopen)
-- [`R6.tiledb::TileDBObject$set_metadata()`](https://cgiachalis.github.io/R6.tiledb/reference/TileDBObject.html#method-set_metadata)
+- [`TileDBObject$class()`](https://cgiachalis.github.io/R6.tiledb/reference/TileDBObject.html#method-class)
+- [`TileDBObject$exists()`](https://cgiachalis.github.io/R6.tiledb/reference/TileDBObject.html#method-exists)
+- [`TileDBObject$get_metadata()`](https://cgiachalis.github.io/R6.tiledb/reference/TileDBObject.html#method-get_metadata)
+- [`TileDBObject$initialize()`](https://cgiachalis.github.io/R6.tiledb/reference/TileDBObject.html#method-initialize)
+- [`TileDBObject$is_open()`](https://cgiachalis.github.io/R6.tiledb/reference/TileDBObject.html#method-is_open)
+- [`TileDBObject$reopen()`](https://cgiachalis.github.io/R6.tiledb/reference/TileDBObject.html#method-reopen)
+- [`TileDBObject$set_metadata()`](https://cgiachalis.github.io/R6.tiledb/reference/TileDBObject.html#method-set_metadata)
 
 ------------------------------------------------------------------------
 
-### Method `create()`
+### `TileDBGroup$create()`
 
 Create a TileDB Group object at the given URI path.
 
@@ -103,7 +103,7 @@ The object, invisibly.
 
 ------------------------------------------------------------------------
 
-### Method [`open()`](https://rdrr.io/r/base/connections.html)
+### `TileDBGroup$open()`
 
 Open TileDB group object in read or write mode.
 
@@ -123,7 +123,7 @@ The object, invisibly.
 
 ------------------------------------------------------------------------
 
-### Method [`close()`](https://cgiachalis.github.io/R6.tiledb/reference/close.md)
+### `TileDBGroup$close()`
 
 Close the group object.
 
@@ -140,7 +140,7 @@ The object, invisibly.
 
 ------------------------------------------------------------------------
 
-### Method [`remove()`](https://rdrr.io/r/base/rm.html)
+### `TileDBGroup$remove()`
 
 Remove member.
 
@@ -162,7 +162,7 @@ The object, invisibly.
 
 ------------------------------------------------------------------------
 
-### Method `delete()`
+### `TileDBGroup$delete()`
 
 Delete member.
 
@@ -185,7 +185,7 @@ The object, invisibly.
 
 ------------------------------------------------------------------------
 
-### Method `count_members()`
+### `TileDBGroup$count_members()`
 
 Count the number of members in the group.
 
@@ -199,7 +199,7 @@ The number of members in the group.
 
 ------------------------------------------------------------------------
 
-### Method `get_members_df()`
+### `TileDBGroup$get_members_df()`
 
 List group members.
 
@@ -220,7 +220,7 @@ A `data.frame` with columns `name`, `type`, and `uri`.
 
 ------------------------------------------------------------------------
 
-### Method `get_member()`
+### `TileDBGroup$get_member()`
 
 Retrieve a group member by name. If the member isn't already open, it is
 opened in the same mode as the parent.
@@ -241,7 +241,7 @@ A `TileDBArray` or `TileDBGroup`.
 
 ------------------------------------------------------------------------
 
-### Method `set_member()`
+### `TileDBGroup$set_member()`
 
 Add new member to the group.
 
@@ -272,7 +272,7 @@ The object, invisibly.
 
 ------------------------------------------------------------------------
 
-### Method [`names()`](https://rdrr.io/r/base/names.html)
+### `TileDBGroup$names()`
 
 Retrieve the members' names.
 
@@ -286,7 +286,7 @@ A `character` vector of member names.
 
 ------------------------------------------------------------------------
 
-### Method `member_exists()`
+### `TileDBGroup$member_exists()`
 
 Check if a member exists.
 
@@ -306,7 +306,7 @@ A logical value.
 
 ------------------------------------------------------------------------
 
-### Method [`print()`](https://rdrr.io/r/base/print.html)
+### `TileDBGroup$print()`
 
 Print summary of the group.
 
@@ -316,7 +316,7 @@ Print summary of the group.
 
 ------------------------------------------------------------------------
 
-### Method [`dump()`](https://rdrr.io/r/base/dump.html)
+### `TileDBGroup$dump()`
 
 Dump the TileDB Group structure to string.
 
@@ -340,7 +340,7 @@ A `character` string, invisibly.
 
 ------------------------------------------------------------------------
 
-### Method `clone()`
+### `TileDBGroup$clone()`
 
 The objects of this class are cloneable with this method.
 

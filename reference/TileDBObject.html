@@ -11,7 +11,7 @@ This class is not intended to be used directly."></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">R6.tiledb</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.0.5</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.0.7</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -66,7 +66,7 @@ This class is not intended to be used directly."></head><body>
 <dd><p>TileDB Context.</p></dd>
 
 
-<dt><code>tiledb_timestamp</code></dt>
+    <dt><code>tiledb_timestamp</code></dt>
 <dd><p>Set or retrieve a <code>TileDB</code> timestamp range that
 the resource will be opened at. Effective in <code>"READ"</code> mode only.</p>
 <p>This is a <strong>mutable</strong> field to set timestamps dynamically
@@ -79,16 +79,16 @@ or length 2 with start, end timestamps</p></li>
 the group resource so as to propagate the <code>TileDB</code> time-stamp to members.</p></dd>
 
 
-<dt><code>uri</code></dt>
+    <dt><code>uri</code></dt>
 <dd><p>The URI of the <code>TileDB</code> object.</p></dd>
 
 
-<dt><code>mode</code></dt>
+    <dt><code>mode</code></dt>
 <dd><p>Get the mode of the object: one of the following:
 <code>"CLOSED"</code>, <code>"READ"</code> or <code>"WRITE"</code>.</p></dd>
 
 
-<dt><code>object_type</code></dt>
+    <dt><code>object_type</code></dt>
 <dd><p>The TileDB object type:</p><ul><li><p><code>"ARRAY"</code>, for dense or sparse array resource</p></li>
 <li><p><code>"GROUP"</code>, for group resource</p></li>
 <li><p><code>"INVALID"</code>, for not a TileDB resource</p></li>
@@ -102,8 +102,7 @@ the group resource so as to propagate the <code>TileDB</code> time-stamp to memb
 
 <div class="section">
 <h3 id="public-methods">Public methods<a class="anchor" aria-label="anchor" href="#public-methods"></a></h3>
-
-<ul><li><p><a href="#method-TileDBObject-new"><code>TileDBObject$new()</code></a></p></li>
+<p></p><ul><li><p><a href="#method-TileDBObject-initialize"><code>TileDBObject$new()</code></a></p></li>
 <li><p><a href="#method-TileDBObject-class"><code>TileDBObject$class()</code></a></p></li>
 <li><p><a href="#method-TileDBObject-is_open"><code>TileDBObject$is_open()</code></a></p></li>
 <li><p><a href="#method-TileDBObject-reopen"><code>TileDBObject$reopen()</code></a></p></li>
@@ -111,24 +110,20 @@ the group resource so as to propagate the <code>TileDB</code> time-stamp to memb
 <li><p><a href="#method-TileDBObject-get_metadata"><code>TileDBObject$get_metadata()</code></a></p></li>
 <li><p><a href="#method-TileDBObject-set_metadata"><code>TileDBObject$set_metadata()</code></a></p></li>
 <li><p><a href="#method-TileDBObject-clone"><code>TileDBObject$clone()</code></a></p></li>
-</ul></div><p></p><hr><a id="method-TileDBObject-new"></a><div class="section">
-<h3 id="method-new-">Method <code>new()</code><a class="anchor" aria-label="anchor" href="#method-new-"></a></h3>
+</ul></div><p></p><hr><a id="method-TileDBObject-initialize"></a><div class="section">
+<h3 id="tiledbobject-new-"><code>TileDBObject$new()</code><a class="anchor" aria-label="anchor" href="#tiledbobject-new-"></a></h3>
 <p>Create a new <code>TileDB</code> object.</p><div class="section">
 <h4 id="usage">Usage<a class="anchor" aria-label="anchor" href="#usage"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va"><a href="../reference/TileDBObject.html">TileDBObject</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="va">uri</span>, ctx <span class="op">=</span> <span class="cn">NULL</span>, tiledb_timestamp <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
+</div><p></p><div class="section">
 <h4 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>uri</code></dt>
 <dd><p>URI path for the <code>TileDB</code> object.</p></dd>
 
-
-<dt><code>ctx</code></dt>
+      <dt><code>ctx</code></dt>
 <dd><p>Optional <code><a href="https://tiledb-inc.github.io/TileDB-R/reference/tiledb_ctx.html" class="external-link">tiledb::tiledb_ctx()</a></code> object.</p></dd>
 
-
-<dt><code>tiledb_timestamp</code></dt>
+      <dt><code>tiledb_timestamp</code></dt>
 <dd><p>Set a <code>TileDB</code> timestamp range that
 the resource will be opened at. Effective in <code>"READ"</code> mode only.
 Valid options:</p><ul><li><p>A <code>NULL</code> value (default)</p></li>
@@ -142,69 +137,69 @@ or length 2 with start, end timestamps</p></li>
 </dl><p></p></div>
 </div>
 
-</div><p></p><hr><a id="method-TileDBObject-class"></a><div class="section">
-<h3 id="method-class-">Method <code><a href="https://rdrr.io/r/base/class.html" class="external-link">class()</a></code><a class="anchor" aria-label="anchor" href="#method-class-"></a></h3>
+</div>
+
+<p></p><hr><a id="method-TileDBObject-class"></a><div class="section">
+<h3 id="tiledbobject-class-"><code>TileDBObject$class()</code><a class="anchor" aria-label="anchor" href="#tiledbobject-class-"></a></h3>
 <p>Print the name of the R6 class.</p><div class="section">
 <h4 id="usage-1">Usage<a class="anchor" aria-label="anchor" href="#usage-1"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">TileDBObject</span><span class="op">$</span><span class="fu">class</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
+</div>
 
-</div><p></p><hr><a id="method-TileDBObject-is_open"></a><div class="section">
-<h3 id="method-is-open-">Method <code>is_open()</code><a class="anchor" aria-label="anchor" href="#method-is-open-"></a></h3>
+<p></p><hr><a id="method-TileDBObject-is_open"></a><div class="section">
+<h3 id="tiledbobject-is-open-"><code>TileDBObject$is_open()</code><a class="anchor" aria-label="anchor" href="#tiledbobject-is-open-"></a></h3>
 <p>Determine if the object is open for reading or writing.</p><div class="section">
 <h4 id="usage-2">Usage<a class="anchor" aria-label="anchor" href="#usage-2"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">TileDBObject</span><span class="op">$</span><span class="fu">is_open</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
+</div><p></p><div class="section">
 <h4 id="returns">Returns<a class="anchor" aria-label="anchor" href="#returns"></a></h4>
 <p><code>TRUE</code> if the object is open, otherwise <code>FALSE</code>.</p>
 </div>
 
-</div><p></p><hr><a id="method-TileDBObject-reopen"></a><div class="section">
-<h3 id="method-reopen-">Method <code>reopen()</code><a class="anchor" aria-label="anchor" href="#method-reopen-"></a></h3>
+</div>
+
+<p></p><hr><a id="method-TileDBObject-reopen"></a><div class="section">
+<h3 id="tiledbobject-reopen-"><code>TileDBObject$reopen()</code><a class="anchor" aria-label="anchor" href="#tiledbobject-reopen-"></a></h3>
 <p>Close and reopen the TileDB object in a new mode.</p><div class="section">
 <h4 id="usage-3">Usage<a class="anchor" aria-label="anchor" href="#usage-3"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">TileDBObject</span><span class="op">$</span><span class="fu">reopen</span><span class="op">(</span>mode <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"READ"</span>, <span class="st">"WRITE"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
+</div><p></p><div class="section">
 <h4 id="arguments-1">Arguments<a class="anchor" aria-label="anchor" href="#arguments-1"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>mode</code></dt>
 <dd><p>New mode to open the object in; choose from: <code>"READ"</code> or <code>"WRITE"</code>.</p></dd>
 
 
 </dl><p></p></div>
-</div>
-<div class="section">
+</div><p></p><div class="section">
 <h4 id="returns-1">Returns<a class="anchor" aria-label="anchor" href="#returns-1"></a></h4>
 <p>The object, invisibly.</p>
 </div>
 
-</div><p></p><hr><a id="method-TileDBObject-exists"></a><div class="section">
-<h3 id="method-exists-">Method <code><a href="https://rdrr.io/r/base/exists.html" class="external-link">exists()</a></code><a class="anchor" aria-label="anchor" href="#method-exists-"></a></h3>
+</div>
+
+<p></p><hr><a id="method-TileDBObject-exists"></a><div class="section">
+<h3 id="tiledbobject-exists-"><code>TileDBObject$exists()</code><a class="anchor" aria-label="anchor" href="#tiledbobject-exists-"></a></h3>
 <p>Check if the object exists.</p><div class="section">
 <h4 id="usage-4">Usage<a class="anchor" aria-label="anchor" href="#usage-4"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">TileDBObject</span><span class="op">$</span><span class="fu">exists</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
+</div><p></p><div class="section">
 <h4 id="returns-2">Returns<a class="anchor" aria-label="anchor" href="#returns-2"></a></h4>
 <p><code>TRUE</code> if the object exists, <code>FALSE</code> otherwise.</p>
 </div>
 
-</div><p></p><hr><a id="method-TileDBObject-get_metadata"></a><div class="section">
-<h3 id="method-get-metadata-">Method <code>get_metadata()</code><a class="anchor" aria-label="anchor" href="#method-get-metadata-"></a></h3>
+</div>
+
+<p></p><hr><a id="method-TileDBObject-get_metadata"></a><div class="section">
+<h3 id="tiledbobject-get-metadata-"><code>TileDBObject$get_metadata()</code><a class="anchor" aria-label="anchor" href="#tiledbobject-get-metadata-"></a></h3>
 <p>Retrieve metadata from a <code>TileDB</code> Object.</p>
 <p>When a <code>TileDB</code> object (array or group) is in <code>"CLOSED"</code> mode, then it will be
 opened in <code>"READ"</code> mode in order to fetch the metadata; and be kept opened until
 is closed by the user.</p><div class="section">
 <h4 id="usage-5">Usage<a class="anchor" aria-label="anchor" href="#usage-5"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">TileDBObject</span><span class="op">$</span><span class="fu">get_metadata</span><span class="op">(</span>keys <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
+</div><p></p><div class="section">
 <h4 id="arguments-2">Arguments<a class="anchor" aria-label="anchor" href="#arguments-2"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>keys</code></dt>
 <dd><p>A character vector of metadata keys to retrieve. For <code>NULL</code> (default),
@@ -212,46 +207,44 @@ it returns all metadata.</p></dd>
 
 
 </dl><p></p></div>
-</div>
-<div class="section">
+</div><p></p><div class="section">
 <h4 id="returns-3">Returns<a class="anchor" aria-label="anchor" href="#returns-3"></a></h4>
-
-<ul><li><p>For scalar key, it returns the key metadata value; if nothing is found
+<p></p><ul><li><p>For scalar key, it returns the key metadata value; if nothing is found
 it returns <code>NULL</code></p></li>
 <li><p>For character vector, it returns <code>list</code> of metadata with valid keys only;
 if nothing is found it returns an empty <code>list</code></p></li>
 <li><p>For <code>NULL</code> (default), it returns a list of all metadata</p></li>
-</ul></div>
+</ul><p></p>
+</div>
 
-</div><p></p><hr><a id="method-TileDBObject-set_metadata"></a><div class="section">
-<h3 id="method-set-metadata-">Method <code><a href="set_metadata.html">set_metadata()</a></code><a class="anchor" aria-label="anchor" href="#method-set-metadata-"></a></h3>
+</div>
+
+<p></p><hr><a id="method-TileDBObject-set_metadata"></a><div class="section">
+<h3 id="tiledbobject-set-metadata-"><code>TileDBObject$set_metadata()</code><a class="anchor" aria-label="anchor" href="#tiledbobject-set-metadata-"></a></h3>
 <p>Add list of metadata to a <code>TileDB</code> Object.</p>
 <p>The <code>TileDB</code> object should be open in <code>"WRITE"</code> mode.</p><div class="section">
 <h4 id="usage-6">Usage<a class="anchor" aria-label="anchor" href="#usage-6"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">TileDBObject</span><span class="op">$</span><span class="fu">set_metadata</span><span class="op">(</span><span class="va">metadata</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
+</div><p></p><div class="section">
 <h4 id="arguments-3">Arguments<a class="anchor" aria-label="anchor" href="#arguments-3"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>metadata</code></dt>
 <dd><p>A named list of metadata.</p></dd>
 
 
 </dl><p></p></div>
-</div>
-<div class="section">
+</div><p></p><div class="section">
 <h4 id="returns-4">Returns<a class="anchor" aria-label="anchor" href="#returns-4"></a></h4>
 <p>The object, invisibly.</p>
 </div>
 
-</div><p></p><hr><a id="method-TileDBObject-clone"></a><div class="section">
-<h3 id="method-clone-">Method <code>clone()</code><a class="anchor" aria-label="anchor" href="#method-clone-"></a></h3>
+</div>
+
+<p></p><hr><a id="method-TileDBObject-clone"></a><div class="section">
+<h3 id="tiledbobject-clone-"><code>TileDBObject$clone()</code><a class="anchor" aria-label="anchor" href="#tiledbobject-clone-"></a></h3>
 <p>The objects of this class are cloneable with this method.</p><div class="section">
 <h4 id="usage-7">Usage<a class="anchor" aria-label="anchor" href="#usage-7"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">TileDBObject</span><span class="op">$</span><span class="fu">clone</span><span class="op">(</span>deep <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
+</div><p></p><div class="section">
 <h4 id="arguments-4">Arguments<a class="anchor" aria-label="anchor" href="#arguments-4"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>deep</code></dt>
 <dd><p>Whether to make a deep clone.</p></dd>
@@ -261,6 +254,7 @@ if nothing is found it returns an empty <code>list</code></p></li>
 </div>
 
 </div>
+
 
     </div>
 

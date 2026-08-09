@@ -27,7 +27,7 @@ An object of class `TileDBFragments`, `R6`.
 
 ### Public methods
 
-- [`TileDBFragments$new()`](#method-TileDBFragments-new)
+- [`TileDBFragments$new()`](#method-TileDBFragments-initialize)
 
 - [`TileDBFragments$class()`](#method-TileDBFragments-class)
 
@@ -59,7 +59,7 @@ An object of class `TileDBFragments`, `R6`.
 
 ------------------------------------------------------------------------
 
-### Method `new()`
+### `TileDBFragments$new()`
 
 Create a new `TileDBFragments` instance.
 
@@ -81,7 +81,7 @@ Create a new `TileDBFragments` instance.
 
 ------------------------------------------------------------------------
 
-### Method [`class()`](https://rdrr.io/r/base/class.html)
+### `TileDBFragments$class()`
 
 Print the name of the R6 class.
 
@@ -91,7 +91,7 @@ Print the name of the R6 class.
 
 ------------------------------------------------------------------------
 
-### Method `frag_num()`
+### `TileDBFragments$frag_num()`
 
 Get the number of fragments.
 
@@ -105,7 +105,7 @@ A numeric value.
 
 ------------------------------------------------------------------------
 
-### Method `frag_uris()`
+### `TileDBFragments$frag_uris()`
 
 Return a `data.frame` with time stamps and fragments uris.
 
@@ -138,7 +138,7 @@ is found in your system.
 
 ------------------------------------------------------------------------
 
-### Method `reload_finfo()`
+### `TileDBFragments$reload_finfo()`
 
 Refresh the TileDB Fragment Info object.
 
@@ -152,7 +152,7 @@ The object, invisibly.
 
 ------------------------------------------------------------------------
 
-### Method `to_vacuum()`
+### `TileDBFragments$to_vacuum()`
 
 Consolidated fragments to be removed.
 
@@ -185,7 +185,7 @@ is found in your system.
 
 ------------------------------------------------------------------------
 
-### Method `to_vacuum_num()`
+### `TileDBFragments$to_vacuum_num()`
 
 Return the number of fragments to vacuum
 
@@ -199,7 +199,7 @@ A numeric value.
 
 ------------------------------------------------------------------------
 
-### Method `delete_fragment_range()`
+### `TileDBFragments$delete_fragment_range()`
 
 Delete fragments using a time-stamp range.
 
@@ -220,7 +220,7 @@ fragments' time range no deletion will incur.
 
 ------------------------------------------------------------------------
 
-### Method `delete_fragment_list()`
+### `TileDBFragments$delete_fragment_list()`
 
 Delete fragments using a vector of fragment uris.
 
@@ -243,7 +243,7 @@ all fragment uri paths.
 
 ------------------------------------------------------------------------
 
-### Method `delete_fragment()`
+### `TileDBFragments$delete_fragment()`
 
 Delete a fragment by index.
 
@@ -264,7 +264,7 @@ fragment to delete.
 
 ------------------------------------------------------------------------
 
-### Method `get_ifragment()`
+### `TileDBFragments$get_ifragment()`
 
 Get a fragment by index.
 
@@ -284,7 +284,7 @@ An object of class `ifragment`.
 
 ------------------------------------------------------------------------
 
-### Method `get_first_ifragments()`
+### `TileDBFragments$get_first_ifragments()`
 
 Get the first `n` fragments.
 
@@ -304,7 +304,7 @@ An object of class `ifragment_list`.
 
 ------------------------------------------------------------------------
 
-### Method `get_last_ifragments()`
+### `TileDBFragments$get_last_ifragments()`
 
 Get the last `n` fragments.
 
@@ -324,7 +324,7 @@ An object of class `ifragment_list`.
 
 ------------------------------------------------------------------------
 
-### Method [`dump()`](https://rdrr.io/r/base/dump.html)
+### `TileDBFragments$dump()`
 
 Dump to console the commit fragments.
 
@@ -334,7 +334,7 @@ Dump to console the commit fragments.
 
 ------------------------------------------------------------------------
 
-### Method [`print()`](https://rdrr.io/r/base/print.html)
+### `TileDBFragments$print()`
 
 Print Fragments class.
 

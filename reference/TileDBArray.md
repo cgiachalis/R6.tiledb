@@ -21,7 +21,7 @@ An object of class `TileDBArray`, `R6`.
 
 ## Super class
 
-[`R6.tiledb::TileDBObject`](https://cgiachalis.github.io/R6.tiledb/reference/TileDBObject.md)
+[`TileDBObject`](https://cgiachalis.github.io/R6.tiledb/reference/TileDBObject.md)
 -\> `TileDBArray`
 
 ## Active bindings
@@ -63,17 +63,17 @@ An object of class `TileDBArray`, `R6`.
 
 Inherited methods
 
-- [`R6.tiledb::TileDBObject$class()`](https://cgiachalis.github.io/R6.tiledb/reference/TileDBObject.html#method-class)
-- [`R6.tiledb::TileDBObject$exists()`](https://cgiachalis.github.io/R6.tiledb/reference/TileDBObject.html#method-exists)
-- [`R6.tiledb::TileDBObject$get_metadata()`](https://cgiachalis.github.io/R6.tiledb/reference/TileDBObject.html#method-get_metadata)
-- [`R6.tiledb::TileDBObject$initialize()`](https://cgiachalis.github.io/R6.tiledb/reference/TileDBObject.html#method-initialize)
-- [`R6.tiledb::TileDBObject$is_open()`](https://cgiachalis.github.io/R6.tiledb/reference/TileDBObject.html#method-is_open)
-- [`R6.tiledb::TileDBObject$reopen()`](https://cgiachalis.github.io/R6.tiledb/reference/TileDBObject.html#method-reopen)
-- [`R6.tiledb::TileDBObject$set_metadata()`](https://cgiachalis.github.io/R6.tiledb/reference/TileDBObject.html#method-set_metadata)
+- [`TileDBObject$class()`](https://cgiachalis.github.io/R6.tiledb/reference/TileDBObject.html#method-class)
+- [`TileDBObject$exists()`](https://cgiachalis.github.io/R6.tiledb/reference/TileDBObject.html#method-exists)
+- [`TileDBObject$get_metadata()`](https://cgiachalis.github.io/R6.tiledb/reference/TileDBObject.html#method-get_metadata)
+- [`TileDBObject$initialize()`](https://cgiachalis.github.io/R6.tiledb/reference/TileDBObject.html#method-initialize)
+- [`TileDBObject$is_open()`](https://cgiachalis.github.io/R6.tiledb/reference/TileDBObject.html#method-is_open)
+- [`TileDBObject$reopen()`](https://cgiachalis.github.io/R6.tiledb/reference/TileDBObject.html#method-reopen)
+- [`TileDBObject$set_metadata()`](https://cgiachalis.github.io/R6.tiledb/reference/TileDBObject.html#method-set_metadata)
 
 ------------------------------------------------------------------------
 
-### Method [`open()`](https://rdrr.io/r/base/connections.html)
+### `TileDBArray$open()`
 
 Open TileDB array object for read or write.
 
@@ -103,7 +103,7 @@ The object, invisibly.
 
 ------------------------------------------------------------------------
 
-### Method [`close()`](https://cgiachalis.github.io/R6.tiledb/reference/close.md)
+### `TileDBArray$close()`
 
 Close the object.
 
@@ -117,7 +117,7 @@ The object, invisibly.
 
 ------------------------------------------------------------------------
 
-### Method `tiledb_array()`
+### `TileDBArray$tiledb_array()`
 
 Return a
 [tiledb::tiledb_array](https://tiledb-inc.github.io/TileDB-R/reference/tiledb_array.html)
@@ -146,7 +146,7 @@ object.
 
 ------------------------------------------------------------------------
 
-### Method `schema()`
+### `TileDBArray$schema()`
 
 Retrieve the array schema as TileDB schema.
 
@@ -162,7 +162,7 @@ object.
 
 ------------------------------------------------------------------------
 
-### Method `schema_info()`
+### `TileDBArray$schema_info()`
 
 Retrieve schema information.
 
@@ -177,7 +177,7 @@ A `data.frame` object with four column schema information: `names`,
 
 ------------------------------------------------------------------------
 
-### Method `dimensions()`
+### `TileDBArray$dimensions()`
 
 Retrieve the array dimensions.
 
@@ -193,7 +193,7 @@ objects.
 
 ------------------------------------------------------------------------
 
-### Method [`attributes()`](https://rdrr.io/r/base/attributes.html)
+### `TileDBArray$attributes()`
 
 Retrieve the array attributes.
 
@@ -209,7 +209,7 @@ objects.
 
 ------------------------------------------------------------------------
 
-### Method [`dimnames()`](https://rdrr.io/r/base/dimnames.html)
+### `TileDBArray$dimnames()`
 
 Retrieve dimension names.
 
@@ -223,7 +223,7 @@ A character vector with the array's dimension names.
 
 ------------------------------------------------------------------------
 
-### Method `attrnames()`
+### `TileDBArray$attrnames()`
 
 Retrieve attribute names.
 
@@ -237,7 +237,7 @@ A character vector with the array's attribute names.
 
 ------------------------------------------------------------------------
 
-### Method [`colnames()`](https://rdrr.io/r/base/colnames.html)
+### `TileDBArray$colnames()`
 
 Retrieve the names of all columns, including dimensions and attributes.
 
@@ -251,7 +251,7 @@ A character vector with the array's column names.
 
 ------------------------------------------------------------------------
 
-### Method [`print()`](https://rdrr.io/r/base/print.html)
+### `TileDBArray$print()`
 
 Print summary of the array.
 
@@ -261,7 +261,7 @@ Print summary of the array.
 
 ------------------------------------------------------------------------
 
-### Method `clone()`
+### `TileDBArray$clone()`
 
 The objects of this class are cloneable with this method.
 

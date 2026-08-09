@@ -43,7 +43,7 @@ at READ mode.
 
     <a class="navbar-brand me-2" href="../index.html">R6.tiledb</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.0.5</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.0.7</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -109,7 +109,7 @@ at <code>READ</code> mode.</p>
     </div>
     <div class="section level2">
     <h2 id="super-classes">Super classes<a class="anchor" aria-label="anchor" href="#super-classes"></a></h2>
-    <p><code><a href="TileDBObject.html">R6.tiledb::TileDBObject</a></code> -&gt; <code><a href="TileDBArray.html">R6.tiledb::TileDBArray</a></code> -&gt; <code>TileDBArrayExp</code></p>
+    <p><code><a href="TileDBObject.html">TileDBObject</a></code> -&gt; <code><a href="TileDBArray.html">TileDBArray</a></code> -&gt; <code>TileDBArrayExp</code></p>
     </div>
     <div class="section level2">
     <h2 id="active-bindings">Active bindings<a class="anchor" aria-label="anchor" href="#active-bindings"></a></h2>
@@ -118,15 +118,15 @@ at <code>READ</code> mode.</p>
 array.</p></dd>
 
 
-<dt><code>schema_version</code></dt>
+    <dt><code>schema_version</code></dt>
 <dd><p>Retrieve the schema version for this array.</p></dd>
 
 
-<dt><code>is_sparse</code></dt>
+    <dt><code>is_sparse</code></dt>
 <dd><p>Check array schema for sparsity.</p></dd>
 
 
-<dt><code>size</code></dt>
+    <dt><code>size</code></dt>
 <dd><p>Directory size.</p></dd>
 
 
@@ -137,8 +137,7 @@ array.</p></dd>
 
 <div class="section">
 <h3 id="public-methods">Public methods<a class="anchor" aria-label="anchor" href="#public-methods"></a></h3>
-
-<ul><li><p><a href="#method-TileDBArrayExp-create"><code>TileDBArrayExp$create()</code></a></p></li>
+<p></p><ul><li><p><a href="#method-TileDBArrayExp-create"><code>TileDBArrayExp$create()</code></a></p></li>
 <li><p><a href="#method-TileDBArrayExp-delete_array"><code>TileDBArrayExp$delete_array()</code></a></p></li>
 <li><p><a href="#method-TileDBArrayExp-reopen"><code>TileDBArrayExp$reopen()</code></a></p></li>
 <li><p><a href="#method-TileDBArrayExp-any_enums"><code>TileDBArrayExp$any_enums()</code></a></p></li>
@@ -159,148 +158,142 @@ array.</p></dd>
 <li><p><a href="#method-TileDBArrayExp-schema_upgrade"><code>TileDBArrayExp$schema_upgrade()</code></a></p></li>
 <li><p><a href="#method-TileDBArrayExp-dir_tree"><code>TileDBArrayExp$dir_tree()</code></a></p></li>
 <li><p><a href="#method-TileDBArrayExp-clone"><code>TileDBArrayExp$clone()</code></a></p></li>
-</ul></div><p><details><summary>Inherited methods</summary><ul><li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBObject" data-id="class"><a href="TileDBObject.html#method-class"><code>R6.tiledb::TileDBObject$class()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBObject" data-id="exists"><a href="TileDBObject.html#method-exists"><code>R6.tiledb::TileDBObject$exists()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBObject" data-id="get_metadata"><a href="TileDBObject.html#method-get_metadata"><code>R6.tiledb::TileDBObject$get_metadata()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBObject" data-id="initialize"><a href="TileDBObject.html#method-initialize"><code>R6.tiledb::TileDBObject$initialize()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBObject" data-id="is_open"><a href="TileDBObject.html#method-is_open"><code>R6.tiledb::TileDBObject$is_open()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBObject" data-id="set_metadata"><a href="TileDBObject.html#method-set_metadata"><code>R6.tiledb::TileDBObject$set_metadata()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBArray" data-id="attributes"><a href="TileDBArray.html#method-attributes"><code>R6.tiledb::TileDBArray$attributes()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBArray" data-id="attrnames"><a href="TileDBArray.html#method-attrnames"><code>R6.tiledb::TileDBArray$attrnames()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBArray" data-id="close"><a href="TileDBArray.html#method-close"><code>R6.tiledb::TileDBArray$close()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBArray" data-id="colnames"><a href="TileDBArray.html#method-colnames"><code>R6.tiledb::TileDBArray$colnames()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBArray" data-id="dimensions"><a href="TileDBArray.html#method-dimensions"><code>R6.tiledb::TileDBArray$dimensions()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBArray" data-id="dimnames"><a href="TileDBArray.html#method-dimnames"><code>R6.tiledb::TileDBArray$dimnames()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBArray" data-id="open"><a href="TileDBArray.html#method-open"><code>R6.tiledb::TileDBArray$open()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBArray" data-id="print"><a href="TileDBArray.html#method-print"><code>R6.tiledb::TileDBArray$print()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBArray" data-id="schema"><a href="TileDBArray.html#method-schema"><code>R6.tiledb::TileDBArray$schema()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBArray" data-id="schema_info"><a href="TileDBArray.html#method-schema_info"><code>R6.tiledb::TileDBArray$schema_info()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBArray" data-id="tiledb_array"><a href="TileDBArray.html#method-tiledb_array"><code>R6.tiledb::TileDBArray$tiledb_array()</code></a></span></li>
+</ul></div><p><details><summary>Inherited methods</summary><ul><li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBObject" data-id="class"><a href="TileDBObject.html#method-class"><code>TileDBObject$class()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBObject" data-id="exists"><a href="TileDBObject.html#method-exists"><code>TileDBObject$exists()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBObject" data-id="get_metadata"><a href="TileDBObject.html#method-get_metadata"><code>TileDBObject$get_metadata()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBObject" data-id="initialize"><a href="TileDBObject.html#method-initialize"><code>TileDBObject$initialize()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBObject" data-id="is_open"><a href="TileDBObject.html#method-is_open"><code>TileDBObject$is_open()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBObject" data-id="set_metadata"><a href="TileDBObject.html#method-set_metadata"><code>TileDBObject$set_metadata()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBArray" data-id="attributes"><a href="TileDBArray.html#method-attributes"><code>TileDBArray$attributes()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBArray" data-id="attrnames"><a href="TileDBArray.html#method-attrnames"><code>TileDBArray$attrnames()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBArray" data-id="close"><a href="TileDBArray.html#method-close"><code>TileDBArray$close()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBArray" data-id="colnames"><a href="TileDBArray.html#method-colnames"><code>TileDBArray$colnames()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBArray" data-id="dimensions"><a href="TileDBArray.html#method-dimensions"><code>TileDBArray$dimensions()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBArray" data-id="dimnames"><a href="TileDBArray.html#method-dimnames"><code>TileDBArray$dimnames()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBArray" data-id="open"><a href="TileDBArray.html#method-open"><code>TileDBArray$open()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBArray" data-id="print"><a href="TileDBArray.html#method-print"><code>TileDBArray$print()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBArray" data-id="schema"><a href="TileDBArray.html#method-schema"><code>TileDBArray$schema()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBArray" data-id="schema_info"><a href="TileDBArray.html#method-schema_info"><code>TileDBArray$schema_info()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="R6.tiledb" data-topic="TileDBArray" data-id="tiledb_array"><a href="TileDBArray.html#method-tiledb_array"><code>TileDBArray$tiledb_array()</code></a></span></li>
 </ul></details></p><hr><a id="method-TileDBArrayExp-create"></a><div class="section">
-<h3 id="method-create-">Method <code>create()</code><a class="anchor" aria-label="anchor" href="#method-create-"></a></h3>
+<h3 id="tiledbarrayexp-create-"><code>TileDBArrayExp$create()</code><a class="anchor" aria-label="anchor" href="#tiledbarrayexp-create-"></a></h3>
 <p>Create an empty Array with user defined schema.</p>
 <p>The array will be opened at the given mode and kept opened; it can
 be accessed via active field <code>$object</code>.</p><div class="section">
 <h4 id="usage">Usage<a class="anchor" aria-label="anchor" href="#usage"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">TileDBArrayExp</span><span class="op">$</span><span class="fu">create</span><span class="op">(</span><span class="va">sch</span>, mode <span class="op">=</span> <span class="st">"WRITE"</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
+</div><p></p><div class="section">
 <h4 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>sch</code></dt>
 <dd><p>A TileDB schema. See constructor <code><a href="https://tiledb-inc.github.io/TileDB-R/reference/tiledb_array_schema.html" class="external-link">tiledb::tiledb_array_schema()</a></code>.</p></dd>
 
-
-<dt><code>mode</code></dt>
+      <dt><code>mode</code></dt>
 <dd><p>Mode to open: either <code>"READ"</code> or <code>"WRITE"</code> (default).</p></dd>
 
 
 </dl><p></p></div>
-</div>
-<div class="section">
+</div><p></p><div class="section">
 <h4 id="returns">Returns<a class="anchor" aria-label="anchor" href="#returns"></a></h4>
 <p>The object, invisibly.</p>
 </div>
 
-</div><p></p><hr><a id="method-TileDBArrayExp-delete_array"></a><div class="section">
-<h3 id="method-delete-array-">Method <code>delete_array()</code><a class="anchor" aria-label="anchor" href="#method-delete-array-"></a></h3>
+</div>
+
+<p></p><hr><a id="method-TileDBArrayExp-delete_array"></a><div class="section">
+<h3 id="tiledbarrayexp-delete-array-"><code>TileDBArrayExp$delete_array()</code><a class="anchor" aria-label="anchor" href="#tiledbarrayexp-delete-array-"></a></h3>
 <p>Delete the array.</p><div class="section">
 <h4 id="usage-1">Usage<a class="anchor" aria-label="anchor" href="#usage-1"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">TileDBArrayExp</span><span class="op">$</span><span class="fu">delete_array</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
+</div><p></p><div class="section">
 <h4 id="returns-1">Returns<a class="anchor" aria-label="anchor" href="#returns-1"></a></h4>
 <p>The object, invisibly.</p>
 </div>
 
-</div><p></p><hr><a id="method-TileDBArrayExp-reopen"></a><div class="section">
-<h3 id="method-reopen-">Method <code>reopen()</code><a class="anchor" aria-label="anchor" href="#method-reopen-"></a></h3>
+</div>
+
+<p></p><hr><a id="method-TileDBArrayExp-reopen"></a><div class="section">
+<h3 id="tiledbarrayexp-reopen-"><code>TileDBArrayExp$reopen()</code><a class="anchor" aria-label="anchor" href="#tiledbarrayexp-reopen-"></a></h3>
 <p>Close and reopen the TileDB object in a new mode.</p><div class="section">
 <h4 id="usage-2">Usage<a class="anchor" aria-label="anchor" href="#usage-2"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">TileDBArrayExp</span><span class="op">$</span><span class="fu">reopen</span><span class="op">(</span>mode <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"READ"</span>, <span class="st">"WRITE"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
+</div><p></p><div class="section">
 <h4 id="arguments-1">Arguments<a class="anchor" aria-label="anchor" href="#arguments-1"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>mode</code></dt>
 <dd><p>New mode to open the object in; choose from: <code>"READ"</code> or <code>"WRITE"</code>.</p></dd>
 
 
 </dl><p></p></div>
-</div>
-<div class="section">
+</div><p></p><div class="section">
 <h4 id="returns-2">Returns<a class="anchor" aria-label="anchor" href="#returns-2"></a></h4>
 <p>The object, invisibly.</p>
 </div>
 
-</div><p></p><hr><a id="method-TileDBArrayExp-any_enums"></a><div class="section">
-<h3 id="method-any-enums-">Method <code>any_enums()</code><a class="anchor" aria-label="anchor" href="#method-any-enums-"></a></h3>
+</div>
+
+<p></p><hr><a id="method-TileDBArrayExp-any_enums"></a><div class="section">
+<h3 id="tiledbarrayexp-any-enums-"><code>TileDBArrayExp$any_enums()</code><a class="anchor" aria-label="anchor" href="#tiledbarrayexp-any-enums-"></a></h3>
 <p>Checks array for factors (enumerations).</p><div class="section">
 <h4 id="usage-3">Usage<a class="anchor" aria-label="anchor" href="#usage-3"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">TileDBArrayExp</span><span class="op">$</span><span class="fu">any_enums</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
+</div><p></p><div class="section">
 <h4 id="returns-3">Returns<a class="anchor" aria-label="anchor" href="#returns-3"></a></h4>
 <p>A boolean. <code>TRUE</code> indicating the array has factors and
 <code>FALSE</code> otherwise.</p>
 </div>
 
-</div><p></p><hr><a id="method-TileDBArrayExp-enum_columns"></a><div class="section">
-<h3 id="method-enum-columns-">Method <code>enum_columns()</code><a class="anchor" aria-label="anchor" href="#method-enum-columns-"></a></h3>
+</div>
+
+<p></p><hr><a id="method-TileDBArrayExp-enum_columns"></a><div class="section">
+<h3 id="tiledbarrayexp-enum-columns-"><code>TileDBArrayExp$enum_columns()</code><a class="anchor" aria-label="anchor" href="#tiledbarrayexp-enum-columns-"></a></h3>
 <p>Retrieve factor columns (attributes).</p><div class="section">
 <h4 id="usage-4">Usage<a class="anchor" aria-label="anchor" href="#usage-4"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">TileDBArrayExp</span><span class="op">$</span><span class="fu">enum_columns</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
+</div><p></p><div class="section">
 <h4 id="returns-4">Returns<a class="anchor" aria-label="anchor" href="#returns-4"></a></h4>
 <p>A character vector with factor columns (enumeration attributes).</p>
 </div>
 
-</div><p></p><hr><a id="method-TileDBArrayExp-enum_levels"></a><div class="section">
-<h3 id="method-enum-levels-">Method <code>enum_levels()</code><a class="anchor" aria-label="anchor" href="#method-enum-levels-"></a></h3>
+</div>
+
+<p></p><hr><a id="method-TileDBArrayExp-enum_levels"></a><div class="section">
+<h3 id="tiledbarrayexp-enum-levels-"><code>TileDBArrayExp$enum_levels()</code><a class="anchor" aria-label="anchor" href="#tiledbarrayexp-enum-levels-"></a></h3>
 <p>Retrieve factor levels for a given attribute.</p><div class="section">
 <h4 id="usage-5">Usage<a class="anchor" aria-label="anchor" href="#usage-5"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">TileDBArrayExp</span><span class="op">$</span><span class="fu">enum_levels</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
+</div><p></p><div class="section">
 <h4 id="arguments-2">Arguments<a class="anchor" aria-label="anchor" href="#arguments-2"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>x</code></dt>
 <dd><p>An attribute name.</p></dd>
 
 
 </dl><p></p></div>
-</div>
-<div class="section">
+</div><p></p><div class="section">
 <h4 id="returns-5">Returns<a class="anchor" aria-label="anchor" href="#returns-5"></a></h4>
 <p>A character vector with levels (enumeration values).</p>
 </div>
 
-</div><p></p><hr><a id="method-TileDBArrayExp-has_enumeration"></a><div class="section">
-<h3 id="method-has-enumeration-">Method <code>has_enumeration()</code><a class="anchor" aria-label="anchor" href="#method-has-enumeration-"></a></h3>
+</div>
+
+<p></p><hr><a id="method-TileDBArrayExp-has_enumeration"></a><div class="section">
+<h3 id="tiledbarrayexp-has-enumeration-"><code>TileDBArrayExp$has_enumeration()</code><a class="anchor" aria-label="anchor" href="#tiledbarrayexp-has-enumeration-"></a></h3>
 <p>Check columns for factors.</p><div class="section">
 <h4 id="usage-6">Usage<a class="anchor" aria-label="anchor" href="#usage-6"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">TileDBArrayExp</span><span class="op">$</span><span class="fu">has_enumeration</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
+</div><p></p><div class="section">
 <h4 id="returns-6">Returns<a class="anchor" aria-label="anchor" href="#returns-6"></a></h4>
 <p>A logical vector indicating which column (attribute) is encoded as factor (enumeration).</p>
 </div>
 
-</div><p></p><hr><a id="method-TileDBArrayExp-consolidate"></a><div class="section">
-<h3 id="method-consolidate-">Method <code>consolidate()</code><a class="anchor" aria-label="anchor" href="#method-consolidate-"></a></h3>
+</div>
+
+<p></p><hr><a id="method-TileDBArrayExp-consolidate"></a><div class="section">
+<h3 id="tiledbarrayexp-consolidate-"><code>TileDBArrayExp$consolidate()</code><a class="anchor" aria-label="anchor" href="#tiledbarrayexp-consolidate-"></a></h3>
 <p>Consolidates the fragments of the array into
 a single fragment.</p><div class="section">
 <h4 id="usage-7">Usage<a class="anchor" aria-label="anchor" href="#usage-7"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">TileDBArrayExp</span><span class="op">$</span><span class="fu">consolidate</span><span class="op">(</span>mode <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"fragments"</span>, <span class="st">"commits"</span>, <span class="st">"fragment_meta"</span>,</span>
 <span>  <span class="st">"array_meta"</span><span class="op">)</span>, cfg <span class="op">=</span> <span class="cn">NULL</span>, start_time <span class="op">=</span> <span class="cn">NULL</span>, end_time <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
+</div><p></p><div class="section">
 <h4 id="arguments-3">Arguments<a class="anchor" aria-label="anchor" href="#arguments-3"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>mode</code></dt>
 <dd><p>The consolidate mode, one of the following:</p><ul><li><p><code>"fragments"</code>: - consolidate all fragments (default)</p></li>
@@ -309,29 +302,28 @@ a single fragment.</p><div class="section">
 <li><p><code>"array_meta"</code>: - consolidate array metadata only</p></li>
 </ul></dd>
 
-
-<dt><code>cfg</code></dt>
+      <dt><code>cfg</code></dt>
 <dd><p>A configuration object <code><a href="https://tiledb-inc.github.io/TileDB-R/reference/tiledb_config.html" class="external-link">tiledb::tiledb_config()</a></code> to override context
 configuration except for parameters set by <code>mode</code>, <code>start_time</code>, <code>end_time</code>.
 When <code>NULL</code> (default) the configuration parameters will be retrieved from
 object's context.</p></dd>
 
-
-<dt><code>start_time, end_time</code></dt>
+      <dt><code>start_time, end_time</code></dt>
 <dd><p>Optional time stamp values. A date time objects
 of class <code>POSIXt</code>. If not provided, the default values from configuration
 object will be used.</p></dd>
 
 
 </dl><p></p></div>
-</div>
-<div class="section">
+</div><p></p><div class="section">
 <h4 id="returns-7">Returns<a class="anchor" aria-label="anchor" href="#returns-7"></a></h4>
 <p><code>TRUE</code>, invisibly.</p>
 </div>
 
-</div><p></p><hr><a id="method-TileDBArrayExp-consolidate_async"></a><div class="section">
-<h3 id="method-consolidate-async-">Method <code>consolidate_async()</code><a class="anchor" aria-label="anchor" href="#method-consolidate-async-"></a></h3>
+</div>
+
+<p></p><hr><a id="method-TileDBArrayExp-consolidate_async"></a><div class="section">
+<h3 id="tiledbarrayexp-consolidate-async-"><code>TileDBArrayExp$consolidate_async()</code><a class="anchor" aria-label="anchor" href="#tiledbarrayexp-consolidate-async-"></a></h3>
 <p>Consolidate fragments of the array into a single fragment
 asynchronously.</p>
 <p>The consolidation will run in a separate R process in a clean environment.</p>
@@ -340,9 +332,7 @@ asynchronously.</p>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">TileDBArrayExp</span><span class="op">$</span><span class="fu">consolidate_async</span><span class="op">(</span>mode <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"fragments"</span>, <span class="st">"commits"</span>,</span>
 <span>  <span class="st">"fragment_meta"</span>, <span class="st">"array_meta"</span><span class="op">)</span>, cfg <span class="op">=</span> <span class="cn">NULL</span>, start_time <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  end_time <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
+</div><p></p><div class="section">
 <h4 id="arguments-4">Arguments<a class="anchor" aria-label="anchor" href="#arguments-4"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>mode</code></dt>
 <dd><p>The consolidate mode, one of the following:</p><ul><li><p><code>"fragments"</code>: - consolidate all fragments (default)</p></li>
@@ -351,37 +341,34 @@ asynchronously.</p>
 <li><p><code>"array_meta"</code>: - consolidate array metadata only</p></li>
 </ul></dd>
 
-
-<dt><code>cfg</code></dt>
+      <dt><code>cfg</code></dt>
 <dd><p>A configuration object <code><a href="https://tiledb-inc.github.io/TileDB-R/reference/tiledb_config.html" class="external-link">tiledb::tiledb_config()</a></code> to override context
 configuration except for parameters set by <code>mode</code>, <code>start_time</code>, <code>end_time</code>.
 When <code>NULL</code> (default) the configuration parameters will be retrieved from
 object's context.</p></dd>
 
-
-<dt><code>start_time, end_time</code></dt>
+      <dt><code>start_time, end_time</code></dt>
 <dd><p>Optional time stamp values. A date time objects
 of class <code>POSIXt</code>. If not provided, the default values from configuration
 object will be used.</p></dd>
 
 
 </dl><p></p></div>
-</div>
-<div class="section">
+</div><p></p><div class="section">
 <h4 id="returns-8">Returns<a class="anchor" aria-label="anchor" href="#returns-8"></a></h4>
 <p>This function will return a <code><a href="https://mirai.r-lib.org/reference/mirai.html" class="external-link">mirai::mirai()</a></code> object immediately. When it is
 resolved, it returns <code>TRUE</code> indicating consolidation success.</p>
 </div>
 
-</div><p></p><hr><a id="method-TileDBArrayExp-vacuum"></a><div class="section">
-<h3 id="method-vacuum-">Method <code>vacuum()</code><a class="anchor" aria-label="anchor" href="#method-vacuum-"></a></h3>
+</div>
+
+<p></p><hr><a id="method-TileDBArrayExp-vacuum"></a><div class="section">
+<h3 id="tiledbarrayexp-vacuum-"><code>TileDBArrayExp$vacuum()</code><a class="anchor" aria-label="anchor" href="#tiledbarrayexp-vacuum-"></a></h3>
 <p>Clean up consolidated fragments and array metadata.</p><div class="section">
 <h4 id="usage-9">Usage<a class="anchor" aria-label="anchor" href="#usage-9"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">TileDBArrayExp</span><span class="op">$</span><span class="fu">vacuum</span><span class="op">(</span>mode <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"fragments"</span>, <span class="st">"commits"</span>, <span class="st">"fragment_meta"</span>,</span>
 <span>  <span class="st">"array_meta"</span><span class="op">)</span>, cfg <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
+</div><p></p><div class="section">
 <h4 id="arguments-5">Arguments<a class="anchor" aria-label="anchor" href="#arguments-5"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>mode</code></dt>
 <dd><p>The vacuum mode, one of the following:</p><ul><li><p><code>"fragments"</code>: - vacuum all fragments (default)</p></li>
@@ -390,31 +377,29 @@ resolved, it returns <code>TRUE</code> indicating consolidation success.</p>
 <li><p><code>"array_meta"</code>: - vacuum array metadata only</p></li>
 </ul></dd>
 
-
-<dt><code>cfg</code></dt>
+      <dt><code>cfg</code></dt>
 <dd><p>A configuration object <code><a href="https://tiledb-inc.github.io/TileDB-R/reference/tiledb_config.html" class="external-link">tiledb::tiledb_config()</a></code> to override context
 configuration. When <code>NULL</code> (default) the configuration parameters will be retrieved from
 object's context.</p></dd>
 
 
 </dl><p></p></div>
-</div>
-<div class="section">
+</div><p></p><div class="section">
 <h4 id="returns-9">Returns<a class="anchor" aria-label="anchor" href="#returns-9"></a></h4>
 <p><code>TRUE</code>, invisibly.</p>
 </div>
 
-</div><p></p><hr><a id="method-TileDBArrayExp-vacuum_async"></a><div class="section">
-<h3 id="method-vacuum-async-">Method <code>vacuum_async()</code><a class="anchor" aria-label="anchor" href="#method-vacuum-async-"></a></h3>
+</div>
+
+<p></p><hr><a id="method-TileDBArrayExp-vacuum_async"></a><div class="section">
+<h3 id="tiledbarrayexp-vacuum-async-"><code>TileDBArrayExp$vacuum_async()</code><a class="anchor" aria-label="anchor" href="#tiledbarrayexp-vacuum-async-"></a></h3>
 <p>Asynchronously clean up consolidated fragments and array metadata.</p>
 <p>The clean up will run in a separate R process in a clean environment.</p>
 <p><strong>Note this function requires the <a href="https://cran.r-project.org/web/packages/mirai/index.html" class="external-link">mirai</a> package</strong>.</p><div class="section">
 <h4 id="usage-10">Usage<a class="anchor" aria-label="anchor" href="#usage-10"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">TileDBArrayExp</span><span class="op">$</span><span class="fu">vacuum_async</span><span class="op">(</span>mode <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"fragments"</span>, <span class="st">"commits"</span>, <span class="st">"fragment_meta"</span>,</span>
 <span>  <span class="st">"array_meta"</span><span class="op">)</span>, cfg <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
+</div><p></p><div class="section">
 <h4 id="arguments-6">Arguments<a class="anchor" aria-label="anchor" href="#arguments-6"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>mode</code></dt>
 <dd><p>The vacuum mode, one of the following:</p><ul><li><p><code>"fragments"</code>: - vacuum all fragments (default)</p></li>
@@ -423,31 +408,29 @@ object's context.</p></dd>
 <li><p><code>"array_meta"</code>: - vacuum array metadata only</p></li>
 </ul></dd>
 
-
-<dt><code>cfg</code></dt>
+      <dt><code>cfg</code></dt>
 <dd><p>A configuration object <code><a href="https://tiledb-inc.github.io/TileDB-R/reference/tiledb_config.html" class="external-link">tiledb::tiledb_config()</a></code> to override context
 configuration. When <code>NULL</code> (default) the configuration parameters will be retrieved from
 object's context.</p></dd>
 
 
 </dl><p></p></div>
-</div>
-<div class="section">
+</div><p></p><div class="section">
 <h4 id="returns-10">Returns<a class="anchor" aria-label="anchor" href="#returns-10"></a></h4>
 <p>This function will return a <code><a href="https://mirai.r-lib.org/reference/mirai.html" class="external-link">mirai::mirai()</a></code> object immediately. When it is
 resolved, it returns <code>TRUE</code> indicating vacuum success.</p>
 </div>
 
-</div><p></p><hr><a id="method-TileDBArrayExp-consolidate_and_vacuum"></a><div class="section">
-<h3 id="method-consolidate-and-vacuum-">Method <code>consolidate_and_vacuum()</code><a class="anchor" aria-label="anchor" href="#method-consolidate-and-vacuum-"></a></h3>
+</div>
+
+<p></p><hr><a id="method-TileDBArrayExp-consolidate_and_vacuum"></a><div class="section">
+<h3 id="tiledbarrayexp-consolidate-and-vacuum-"><code>TileDBArrayExp$consolidate_and_vacuum()</code><a class="anchor" aria-label="anchor" href="#tiledbarrayexp-consolidate-and-vacuum-"></a></h3>
 <p>Consolidates and vacuums the fragments.</p><div class="section">
 <h4 id="usage-11">Usage<a class="anchor" aria-label="anchor" href="#usage-11"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">TileDBArrayExp</span><span class="op">$</span><span class="fu">consolidate_and_vacuum</span><span class="op">(</span>mode <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"fragments"</span>, <span class="st">"commits"</span>,</span>
 <span>  <span class="st">"fragment_meta"</span>, <span class="st">"array_meta"</span><span class="op">)</span>, cfg <span class="op">=</span> <span class="cn">NULL</span>, start_time <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  end_time <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
+</div><p></p><div class="section">
 <h4 id="arguments-7">Arguments<a class="anchor" aria-label="anchor" href="#arguments-7"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>mode</code></dt>
 <dd><p>The consolidate and vacuum mode, one of the following:</p><ul><li><p><code>"fragments"</code>: - consolidate all fragments (default)</p></li>
@@ -456,29 +439,28 @@ resolved, it returns <code>TRUE</code> indicating vacuum success.</p>
 <li><p><code>"array_meta"</code>: - consolidate array metadata only</p></li>
 </ul></dd>
 
-
-<dt><code>cfg</code></dt>
+      <dt><code>cfg</code></dt>
 <dd><p>A configuration object <code><a href="https://tiledb-inc.github.io/TileDB-R/reference/tiledb_config.html" class="external-link">tiledb::tiledb_config()</a></code> to override context
 configuration except for parameters set by <code>mode</code>, <code>start_time</code>, <code>end_time</code>.
 When <code>NULL</code> (default) the configuration parameters will be retrieved from
 object's context.</p></dd>
 
-
-<dt><code>start_time, end_time</code></dt>
+      <dt><code>start_time, end_time</code></dt>
 <dd><p>Optional time stamp values. A date time objects
 of class <code>POSIXt</code>. If not provided, the default values from configuration
 object will be used.</p></dd>
 
 
 </dl><p></p></div>
-</div>
-<div class="section">
+</div><p></p><div class="section">
 <h4 id="returns-11">Returns<a class="anchor" aria-label="anchor" href="#returns-11"></a></h4>
 <p><code>TRUE</code>, invisibly.</p>
 </div>
 
-</div><p></p><hr><a id="method-TileDBArrayExp-consolidate_and_vacuum_async"></a><div class="section">
-<h3 id="method-consolidate-and-vacuum-async-">Method <code>consolidate_and_vacuum_async()</code><a class="anchor" aria-label="anchor" href="#method-consolidate-and-vacuum-async-"></a></h3>
+</div>
+
+<p></p><hr><a id="method-TileDBArrayExp-consolidate_and_vacuum_async"></a><div class="section">
+<h3 id="tiledbarrayexp-consolidate-and-vacuum-async-"><code>TileDBArrayExp$consolidate_and_vacuum_async()</code><a class="anchor" aria-label="anchor" href="#tiledbarrayexp-consolidate-and-vacuum-async-"></a></h3>
 <p>Consolidate and vacuum fragments asynchronously.</p>
 <p>The consolidation and vacuum will run in a separate R process in a clean environment.</p>
 <p><strong>Note this function requires the <a href="https://cran.r-project.org/web/packages/mirai/index.html" class="external-link">mirai</a> package</strong>.</p><div class="section">
@@ -486,9 +468,7 @@ object will be used.</p></dd>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">TileDBArrayExp</span><span class="op">$</span><span class="fu">consolidate_and_vacuum_async</span><span class="op">(</span>mode <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"fragments"</span>, <span class="st">"commits"</span>,</span>
 <span>  <span class="st">"fragment_meta"</span>, <span class="st">"array_meta"</span><span class="op">)</span>, cfg <span class="op">=</span> <span class="cn">NULL</span>, start_time <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  end_time <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
+</div><p></p><div class="section">
 <h4 id="arguments-8">Arguments<a class="anchor" aria-label="anchor" href="#arguments-8"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>mode</code></dt>
 <dd><p>The consolidate and vacuum mode, one of the following:</p><ul><li><p><code>"fragments"</code>: - consolidate all fragments (default)</p></li>
@@ -497,72 +477,68 @@ object will be used.</p></dd>
 <li><p><code>"array_meta"</code>: - consolidate array metadata only</p></li>
 </ul></dd>
 
-
-<dt><code>cfg</code></dt>
+      <dt><code>cfg</code></dt>
 <dd><p>A configuration object <code><a href="https://tiledb-inc.github.io/TileDB-R/reference/tiledb_config.html" class="external-link">tiledb::tiledb_config()</a></code> to override context
 configuration except for parameters set by <code>mode</code>, <code>start_time</code>, <code>end_time</code>.
 When <code>NULL</code> (default) the configuration parameters will be retrieved from
 object's context.</p></dd>
 
-
-<dt><code>start_time, end_time</code></dt>
+      <dt><code>start_time, end_time</code></dt>
 <dd><p>Optional time stamp values. A date time objects
 of class <code>POSIXt</code>. If not provided, the default values from configuration
 object will be used.</p></dd>
 
 
 </dl><p></p></div>
-</div>
-<div class="section">
+</div><p></p><div class="section">
 <h4 id="returns-12">Returns<a class="anchor" aria-label="anchor" href="#returns-12"></a></h4>
 <p>This function will return a <code><a href="https://mirai.r-lib.org/reference/mirai.html" class="external-link">mirai::mirai()</a></code> object immediately. When it is
 resolved, it returns <code>TRUE</code> indicating consolidation success.</p>
 </div>
 
-</div><p></p><hr><a id="method-TileDBArrayExp-drop_attribute"></a><div class="section">
-<h3 id="method-drop-attribute-">Method <code>drop_attribute()</code><a class="anchor" aria-label="anchor" href="#method-drop-attribute-"></a></h3>
+</div>
+
+<p></p><hr><a id="method-TileDBArrayExp-drop_attribute"></a><div class="section">
+<h3 id="tiledbarrayexp-drop-attribute-"><code>TileDBArrayExp$drop_attribute()</code><a class="anchor" aria-label="anchor" href="#tiledbarrayexp-drop-attribute-"></a></h3>
 <p>Remove an attribute from array.</p><div class="section">
 <h4 id="usage-13">Usage<a class="anchor" aria-label="anchor" href="#usage-13"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">TileDBArrayExp</span><span class="op">$</span><span class="fu">drop_attribute</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
+</div><p></p><div class="section">
 <h4 id="arguments-9">Arguments<a class="anchor" aria-label="anchor" href="#arguments-9"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>x</code></dt>
 <dd><p>An attribute name.</p></dd>
 
 
 </dl><p></p></div>
-</div>
-<div class="section">
+</div><p></p><div class="section">
 <h4 id="returns-13">Returns<a class="anchor" aria-label="anchor" href="#returns-13"></a></h4>
 <p>The object, invisibly.</p>
 </div>
 
-</div><p></p><hr><a id="method-TileDBArrayExp-frag_num"></a><div class="section">
-<h3 id="method-frag-num-">Method <code>frag_num()</code><a class="anchor" aria-label="anchor" href="#method-frag-num-"></a></h3>
+</div>
+
+<p></p><hr><a id="method-TileDBArrayExp-frag_num"></a><div class="section">
+<h3 id="tiledbarrayexp-frag-num-"><code>TileDBArrayExp$frag_num()</code><a class="anchor" aria-label="anchor" href="#tiledbarrayexp-frag-num-"></a></h3>
 <p>The number of fragments.</p><div class="section">
 <h4 id="usage-14">Usage<a class="anchor" aria-label="anchor" href="#usage-14"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">TileDBArrayExp</span><span class="op">$</span><span class="fu">frag_num</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
+</div>
 
-</div><p></p><hr><a id="method-TileDBArrayExp-frag_to_vacuum"></a><div class="section">
-<h3 id="method-frag-to-vacuum-">Method <code>frag_to_vacuum()</code><a class="anchor" aria-label="anchor" href="#method-frag-to-vacuum-"></a></h3>
+<p></p><hr><a id="method-TileDBArrayExp-frag_to_vacuum"></a><div class="section">
+<h3 id="tiledbarrayexp-frag-to-vacuum-"><code>TileDBArrayExp$frag_to_vacuum()</code><a class="anchor" aria-label="anchor" href="#tiledbarrayexp-frag-to-vacuum-"></a></h3>
 <p>Consolidated fragments to be removed.</p><div class="section">
 <h4 id="usage-15">Usage<a class="anchor" aria-label="anchor" href="#usage-15"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">TileDBArrayExp</span><span class="op">$</span><span class="fu">frag_to_vacuum</span><span class="op">(</span>trunc_uri <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
+</div><p></p><div class="section">
 <h4 id="arguments-10">Arguments<a class="anchor" aria-label="anchor" href="#arguments-10"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>trunc_uri</code></dt>
 <dd><p><code>TRUE</code> to truncate uri path.</p></dd>
 
 
 </dl><p></p></div>
-</div>
-<div class="section">
+</div><p></p><div class="section">
 <h4 id="returns-14">Returns<a class="anchor" aria-label="anchor" href="#returns-14"></a></h4>
 <p>An object of class <code>data.frame</code> with four columns:</p><ul><li><p><code>Fragment</code>: the fragment index (starts at 1)</p></li>
 <li><p><code>start_timestamp</code>: fragment's start time stamp</p></li>
@@ -573,31 +549,31 @@ resolved, it returns <code>TRUE</code> indicating consolidation success.</p>
 package is found in your system.</p>
 </div>
 
-</div><p></p><hr><a id="method-TileDBArrayExp-frag_dump"></a><div class="section">
-<h3 id="method-frag-dump-">Method <code>frag_dump()</code><a class="anchor" aria-label="anchor" href="#method-frag-dump-"></a></h3>
+</div>
+
+<p></p><hr><a id="method-TileDBArrayExp-frag_dump"></a><div class="section">
+<h3 id="tiledbarrayexp-frag-dump-"><code>TileDBArrayExp$frag_dump()</code><a class="anchor" aria-label="anchor" href="#tiledbarrayexp-frag-dump-"></a></h3>
 <p>Dump to console the commit fragments.</p><div class="section">
 <h4 id="usage-16">Usage<a class="anchor" aria-label="anchor" href="#usage-16"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">TileDBArrayExp</span><span class="op">$</span><span class="fu">frag_dump</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
+</div>
 
-</div><p></p><hr><a id="method-TileDBArrayExp-frag_uris"></a><div class="section">
-<h3 id="method-frag-uris-">Method <code>frag_uris()</code><a class="anchor" aria-label="anchor" href="#method-frag-uris-"></a></h3>
+<p></p><hr><a id="method-TileDBArrayExp-frag_uris"></a><div class="section">
+<h3 id="tiledbarrayexp-frag-uris-"><code>TileDBArrayExp$frag_uris()</code><a class="anchor" aria-label="anchor" href="#tiledbarrayexp-frag-uris-"></a></h3>
 <p>Return a <code>data.frame</code> with  time stamps and
 fragments uris.</p><div class="section">
 <h4 id="usage-17">Usage<a class="anchor" aria-label="anchor" href="#usage-17"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">TileDBArrayExp</span><span class="op">$</span><span class="fu">frag_uris</span><span class="op">(</span>trunc_uri <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
+</div><p></p><div class="section">
 <h4 id="arguments-11">Arguments<a class="anchor" aria-label="anchor" href="#arguments-11"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>trunc_uri</code></dt>
 <dd><p><code>TRUE</code> to truncate uri path.</p></dd>
 
 
 </dl><p></p></div>
-</div>
-<div class="section">
+</div><p></p><div class="section">
 <h4 id="returns-15">Returns<a class="anchor" aria-label="anchor" href="#returns-15"></a></h4>
 <p>An object of class <code>data.frame</code> with four columns:</p><ul><li><p><code>Fragment</code>: the fragment index (start at 1)</p></li>
 <li><p><code>start_timestamp</code>: start time-stamp of when fragment was written</p></li>
@@ -608,20 +584,19 @@ fragments uris.</p><div class="section">
 package is found in your system.</p>
 </div>
 
-</div><p></p><hr><a id="method-TileDBArrayExp-schema_upgrade"></a><div class="section">
-<h3 id="method-schema-upgrade-">Method <code>schema_upgrade()</code><a class="anchor" aria-label="anchor" href="#method-schema-upgrade-"></a></h3>
+</div>
+
+<p></p><hr><a id="method-TileDBArrayExp-schema_upgrade"></a><div class="section">
+<h3 id="tiledbarrayexp-schema-upgrade-"><code>TileDBArrayExp$schema_upgrade()</code><a class="anchor" aria-label="anchor" href="#tiledbarrayexp-schema-upgrade-"></a></h3>
 <p>Upgrade the array to the latest format version.</p><div class="section">
 <h4 id="usage-18">Usage<a class="anchor" aria-label="anchor" href="#usage-18"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">TileDBArrayExp</span><span class="op">$</span><span class="fu">schema_upgrade</span><span class="op">(</span>cfg <span class="op">=</span> <span class="cn">NULL</span>, ctx <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
+</div><p></p><div class="section">
 <h4 id="arguments-12">Arguments<a class="anchor" aria-label="anchor" href="#arguments-12"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>cfg</code></dt>
 <dd><p>A configuration object <code><a href="https://tiledb-inc.github.io/TileDB-R/reference/tiledb_config.html" class="external-link">tiledb::tiledb_config()</a></code>.</p></dd>
 
-
-<dt><code>ctx</code></dt>
+      <dt><code>ctx</code></dt>
 <dd><p>Optional <code><a href="https://tiledb-inc.github.io/TileDB-R/reference/tiledb_ctx.html" class="external-link">tiledb::tiledb_ctx()</a></code> object. By default, object's context
 is used.</p></dd>
 
@@ -629,34 +604,33 @@ is used.</p></dd>
 </dl><p></p></div>
 </div>
 
-</div><p></p><hr><a id="method-TileDBArrayExp-dir_tree"></a><div class="section">
-<h3 id="method-dir-tree-">Method <code>dir_tree()</code><a class="anchor" aria-label="anchor" href="#method-dir-tree-"></a></h3>
+</div>
+
+<p></p><hr><a id="method-TileDBArrayExp-dir_tree"></a><div class="section">
+<h3 id="tiledbarrayexp-dir-tree-"><code>TileDBArrayExp$dir_tree()</code><a class="anchor" aria-label="anchor" href="#tiledbarrayexp-dir-tree-"></a></h3>
 <p>Print directory contents.</p><div class="section">
 <h4 id="usage-19">Usage<a class="anchor" aria-label="anchor" href="#usage-19"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">TileDBArrayExp</span><span class="op">$</span><span class="fu">dir_tree</span><span class="op">(</span>recursive <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
+</div><p></p><div class="section">
 <h4 id="arguments-13">Arguments<a class="anchor" aria-label="anchor" href="#arguments-13"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>recursive</code></dt>
 <dd><p>Should it recurse fully? Defaults to <code>TRUE</code>.</p></dd>
 
 
 </dl><p></p></div>
-</div>
-<div class="section">
+</div><p></p><div class="section">
 <h4 id="returns-16">Returns<a class="anchor" aria-label="anchor" href="#returns-16"></a></h4>
 <p>A character vector with file paths, invisibly.</p>
 </div>
 
-</div><p></p><hr><a id="method-TileDBArrayExp-clone"></a><div class="section">
-<h3 id="method-clone-">Method <code>clone()</code><a class="anchor" aria-label="anchor" href="#method-clone-"></a></h3>
+</div>
+
+<p></p><hr><a id="method-TileDBArrayExp-clone"></a><div class="section">
+<h3 id="tiledbarrayexp-clone-"><code>TileDBArrayExp$clone()</code><a class="anchor" aria-label="anchor" href="#tiledbarrayexp-clone-"></a></h3>
 <p>The objects of this class are cloneable with this method.</p><div class="section">
 <h4 id="usage-20">Usage<a class="anchor" aria-label="anchor" href="#usage-20"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">TileDBArrayExp</span><span class="op">$</span><span class="fu">clone</span><span class="op">(</span>deep <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
+</div><p></p><div class="section">
 <h4 id="arguments-14">Arguments<a class="anchor" aria-label="anchor" href="#arguments-14"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>deep</code></dt>
 <dd><p>Whether to make a deep clone.</p></dd>
@@ -666,6 +640,7 @@ is used.</p></dd>
 </div>
 
 </div>
+
 
     </div>
 
