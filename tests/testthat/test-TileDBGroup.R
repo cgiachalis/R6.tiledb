@@ -728,3 +728,6 @@ test_that("'TileDBGroup' class tests metadata", {
 
   rm(group)
 })
+
+rm(list = ls())
+gc()

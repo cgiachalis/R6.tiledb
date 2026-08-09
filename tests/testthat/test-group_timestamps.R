@@ -1,17 +1,5 @@
-trg_dft <- structure(
-  list(
-    timestamp_start = structure(0, class = c("POSIXct", "POSIXt"), tzone = ""),
-    timestamp_end = structure(
-      NA_real_,
-      class = c("POSIXct", "POSIXt"),
-      tzone = ""
-    )
-  ),
-  class = "group_timestamps",
-  mode = "closed",
-  tzone = "UTC",
-  tdbsrc = "ctx"
-)
+
+rm(list = ls());gc();
 
 test_that("Test 'group_timestamps()' works as expected", {
 
