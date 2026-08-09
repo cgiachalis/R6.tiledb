@@ -87,6 +87,8 @@ export(unset_group_timestamps)
 export(vfs_dir_tree)
 export(vfs_size)
 importFrom(R6,R6Class)
-importFrom(methods,is)
-importFrom(methods,new)
+importFrom(methods,
+  is,
+  new
+)
 importFrom(utils,packageVersion)

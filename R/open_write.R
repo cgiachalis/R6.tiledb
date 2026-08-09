@@ -44,20 +44,22 @@ open_write.default <- function(object, timestamp = NULL, ...) {
 
 #' @export
 #' @rdname open_write
-open_write.TileDBArray <- function(object, timestamp = NULL, ...) {
+open_write.TileDBArray <- function(object, timestamp = NULL, ctx = NULL, ...) {
 
   if (!object$exists()) {
     cli::cli_abort("R6Class: {.cls {object$class()}} object does not exist.", call = NULL)
   }
 
-  if (object$is_open()) {
-    object$close()
+  if (is.null(ctx)) {
+    ctx <- new_context()
   }
 
   if (is.null(timestamp)) {
-   arr <- object$open("WRITE")$object
+    arr <- tiledb::tiledb_array(object$uri, query_type = "WRITE", ctx = ctx, keep_open = TRUE)
   } else {
-   arr <- tiledb::tiledb_array_open_at(object$object, "WRITE", timestamp = timestamp)
+
+    arr <- tiledb::tiledb_array(object$uri, ctx = ctx)
+    arr <- tiledb::tiledb_array_open_at(arr, "WRITE", timestamp = timestamp)
   }
 
   arr
@@ -66,17 +68,18 @@ open_write.TileDBArray <- function(object, timestamp = NULL, ...) {
 
 #' @export
 #' @rdname open_write
-open_write.tiledb_array <- function(object, timestamp = NULL, ...) {
+open_write.tiledb_array <- function(object, timestamp = NULL, ctx = NULL, ...) {
 
-
-  if (tiledb::tiledb_array_is_open(object)) {
-    object <- .tiledb_array_close2(object)
+  if (is.null(ctx)) {
+    ctx <- new_context()
   }
 
   if (is.null(timestamp)) {
-    arr <- tiledb::tiledb_array_open(object, type = "WRITE")
+    arr <- tiledb::tiledb_array(object@uri, query_type = "WRITE", ctx = ctx, keep_open = TRUE)
   } else {
-    arr <- tiledb::tiledb_array_open_at(object, "WRITE", timestamp = timestamp)
+
+    arr <- tiledb::tiledb_array(object@uri, ctx = ctx)
+    arr <- tiledb::tiledb_array_open_at(arr, "WRITE", timestamp = timestamp)
   }
 
   arr
@@ -84,24 +87,21 @@ open_write.tiledb_array <- function(object, timestamp = NULL, ...) {
 
 #' @export
 #' @rdname open_write
-open_write.TileDBGroup <- function(object, timestamp = NULL, ...) {
+open_write.TileDBGroup <- function(object, timestamp = NULL, ctx = NULL, ...) {
 
   if (!object$exists()) {
     cli::cli_abort("R6Class: {.cls {object$class()}} object does not exist.", call = NULL)
   }
 
-  if (object$is_open()) {
-    object$close()
+  if (is.null(ctx)) {
+    ctx <- new_context()
   }
 
-  object$open("WRITE")
-
   if (is.null(timestamp)) {
+    grp <- tiledb::tiledb_group(object$uri, type = "WRITE", ctx = ctx)
 
-    grp <- object$object
   } else {
 
-    ctx <- object$ctx
     cfg <- tiledb::config(ctx)
     cfg["sm.group.timestamp_end"] <- .posixt_to_int64char(timestamp)
 
@@ -114,13 +114,27 @@ open_write.TileDBGroup <- function(object, timestamp = NULL, ...) {
 
 #' @export
 #' @rdname open_write
-open_write.tiledb_group <- function(object, timestamp = NULL, ...) {
+open_write.tiledb_group <- function(object, timestamp = NULL, ctx = NULL, ...) {
 
-   uri <- tiledb::tiledb_group_uri(object)
-   cfg <- tiledb::tiledb_group_get_config(object)
-   ctx <- new_context(cfg)
-   grp <- TileDBGroup$new(uri, ctx = ctx)
-   open_write(grp, timestamp)
+  if (is.null(ctx)) {
+    ctx <- new_context()
+  }
+
+  uri <- tiledb::tiledb_group_uri(object)
+
+  if (is.null(timestamp)) {
+    grp <- tiledb::tiledb_group(uri, type = "WRITE", ctx = ctx)
+
+  } else {
+
+    cfg <- tiledb::config(ctx)
+    cfg["sm.group.timestamp_end"] <- .posixt_to_int64char(timestamp)
+
+    grp <- tiledb::tiledb_group(uri, type = "WRITE", ctx = ctx, cfg = cfg)
+
+  }
+
+  grp
 }
 
 #' @export
@@ -142,10 +156,28 @@ open_write.character <- function(object, timestamp = NULL, ctx = NULL, ...) {
 
   if (object_type == "ARRAY") {
 
-    obj <- tiledb::tiledb_array(object, ctx = ctx)
+    if (is.null(timestamp)) {
+      arr <- tiledb::tiledb_array(object, query_type = "WRITE", ctx = ctx, keep_open = TRUE)
+    } else {
+
+      arr <- tiledb::tiledb_array(object, ctx = ctx)
+      arr <- tiledb::tiledb_array_open_at(arr, "WRITE", timestamp = timestamp)
+    }
+
   } else {
-    obj <- tiledb::tiledb_group(object, ctx = ctx)
+
+    if (is.null(timestamp)) {
+      obj <- tiledb::tiledb_group(object, type = "WRITE", ctx = ctx)
+
+    } else {
+
+      cfg <- tiledb::config(ctx)
+      cfg["sm.group.timestamp_end"] <- .posixt_to_int64char(timestamp)
+
+      obj <- tiledb::tiledb_group(object, type = "WRITE", ctx = ctx, cfg = cfg)
+
+      obj
+    }
   }
 
-  open_write(obj, timestamp)
 }

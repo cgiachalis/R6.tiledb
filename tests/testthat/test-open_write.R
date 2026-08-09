@@ -14,8 +14,7 @@ test_that("'open_write' method - array,uri", {
 
   uri <- file.path(withr::local_tempdir(), "test-open_write")
   ts <- as.POSIXct("2025-08-18 13:12:50 UTC", tz = "UTC")
-  df <- data.frame(id = 1L, val = 1.0)
-  tiledb::fromDataFrame(df, uri, col_index = 1, mode = "schema_only")
+  .create_array(uri, new_context())
 
   # -----------------------------------------------------------------
 
@@ -46,14 +45,15 @@ test_that("'open_write' method - array,tiledb_array", {
 
   uri <- file.path(withr::local_tempdir(), "test-open_write")
   ts <- as.POSIXct("2025-08-18 13:12:50 UTC", tz = "UTC")
-  df <- data.frame(id = 1L, val = 1.0)
-  tiledb::fromDataFrame(df, uri, col_index = 1, mode = "schema_only")
+  .create_array(uri, new_context())
 
   # 'tiledb_array' method ---
   arrobj <- TileDBArray$new(uri)
   arr <- arrobj$object
   expect_no_error(arr <- open_write(arr))
   expect_true(tiledb::tiledb_array_is_open_for_writing(arr))
+
+  expect_equal(arrobj$mode, "READ")
 
   tstamps <- array_timestamps(arr)
   expect_equal(tstamps$open_array, trg_tstamps)
@@ -77,8 +77,7 @@ test_that("'open_write' method - array,TileDBArray", {
 
   uri <- file.path(withr::local_tempdir(), "test-open_write")
   ts <- as.POSIXct("2025-08-18 13:12:50 UTC", tz = "UTC")
-  df <- data.frame(id = 1L, val = 1.0)
-  tiledb::fromDataFrame(df, uri, col_index = 1, mode = "schema_only")
+  .create_array(uri, new_context())
 
   # 'TileDBArray' method ---
   uri_no <- file.path(withr::local_tempdir(), "test-array-no")
@@ -88,7 +87,7 @@ test_that("'open_write' method - array,TileDBArray", {
   arrobj <- TileDBArray$new(uri)
   expect_no_error(arr <- open_write(arrobj))
   expect_true(tiledb::tiledb_array_is_open_for_writing(arr))
-  expect_equal(arrobj$mode,"WRITE")
+  expect_equal(arrobj$mode,"CLOSED")
 
   tstamps <- array_timestamps(arr)
   expect_equal(tstamps$open_array, trg_tstamps)
@@ -108,7 +107,7 @@ test_that("'open_write' method - array,TileDBArray", {
 
 test_that("'open_write' method - group,uri", {
 
-  if (Sys.getenv("CI", FALSE)) {
+  if (!as.logical(Sys.getenv("DEV_LOCAL", FALSE))) {
     skip()
   }
 
@@ -142,7 +141,7 @@ test_that("'open_write' method - group,uri", {
 
 test_that("'open_write' method - group,tiledb_group", {
 
-  if (Sys.getenv("CI", FALSE)) {
+  if (!as.logical(Sys.getenv("DEV_LOCAL", FALSE))) {
     skip()
   }
 
@@ -176,7 +175,7 @@ test_that("'open_write' method - group,tiledb_group", {
 
 test_that("'open_write' method for Groups works OK", {
 
-  if (Sys.getenv("CI", FALSE)) {
+  if (!as.logical(Sys.getenv("DEV_LOCAL", FALSE))) {
     skip()
   }
 
@@ -195,7 +194,7 @@ test_that("'open_write' method for Groups works OK", {
 
   group <- TileDBGroup$new(uri)
   expect_no_error(grp <- open_write(group))
-  expect_equal(group$mode, "WRITE")
+  expect_equal(group$mode, "CLOSED")
   expect_equal(tiledb::tiledb_group_query_type(grp), "WRITE")
 
   end_time <- .get_group_timestamp_end(grp)
@@ -218,3 +217,5 @@ test_that("'open_write' method for Groups works OK", {
   expect_false(group$is_open())
 
 })
+
+rm(trg_tstamps, trg_tstamps_t1)
