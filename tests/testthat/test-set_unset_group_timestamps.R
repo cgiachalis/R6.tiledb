@@ -1,4 +1,3 @@
-gc()
 
 test_that("'set_group_tstamps()' works as expected", {
 

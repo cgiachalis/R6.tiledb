@@ -14,13 +14,14 @@
 
 create_empty_test_array <- function(uri) {
   stopifnot(!dir.exists(uri))
-  dim <- tiledb::tiledb_dim("d0", type = "ASCII", domain = NULL, tile = NULL)
-  dom <- tiledb::tiledb_domain(dims = dim)
+  ctx <- new_context()
+  dim <- tiledb::tiledb_dim("d0", type = "ASCII", domain = NULL, tile = NULL, ctx = ctx)
+  dom <- tiledb::tiledb_domain(dims = dim, ctx = ctx)
   schema <- tiledb::tiledb_array_schema(
     domain = dom,
     attrs = c(tiledb::tiledb_attr("a", type = "INT32")),
     sparse = TRUE,
-    ctx =  new_context()
+    ctx = ctx
   )
 
   tiledb::tiledb_array_create(uri, schema)
@@ -47,7 +48,7 @@ write_test_array <- function(uri) {
   # Writes 3 parts
   tiledb::fromDataFrame(df[1:8, ], uri, col_index = idx_cols, sparse = TRUE)
 
-  arr <- tiledb::tiledb_array(uri,  ctx =  new_context())
+  arr <- tiledb::tiledb_array(uri, ctx = new_context())
   arr[] <- df[9:16, ]
   arr[] <- df[17:24, ]
 

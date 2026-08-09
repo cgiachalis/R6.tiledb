@@ -1,3 +1,4 @@
+rm(list = ls());gc()
 
 trg_tstamps <- list(timestamp_start = structure(0, class = c("POSIXct", "POSIXt")),
                     timestamp_end = structure(0, class = c("POSIXct", "POSIXt")))
