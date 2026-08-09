@@ -29,6 +29,62 @@ create_empty_test_array <- function(uri) {
   invisible(uri)
 }
 
+.create_array <- function(uri, ctx) {
+
+  flist <- tiledb::tiledb_filter_list(c(
+    tiledb::tiledb_filter_set_option(
+      tiledb::tiledb_filter("ZSTD", ctx = ctx),
+      "COMPRESSION_LEVEL",
+      -1
+    )
+  ),
+  ctx =  ctx)
+
+  flist_rle <- tiledb::tiledb_filter_list(c(
+    tiledb::tiledb_filter_set_option(
+      tiledb::tiledb_filter("RLE", ctx = ctx),
+      "COMPRESSION_LEVEL",
+      -1
+    )
+  ), ctx = ctx)
+
+  sch <- tiledb::tiledb_array_schema(
+    domain =  tiledb::tiledb_domain(c(
+      tiledb::tiledb_dim(
+        name = "id",
+        domain = c(1L, 1L),
+        tile = 1L,
+        type = "INT32",
+        filter_list = flist,
+        ctx = ctx
+      )
+    ), ctx = ctx),
+    attrs = c(
+      tiledb::tiledb_attr(
+        name = "val",
+        type = "FLOAT64",
+        ncells = 1,
+        nullable = FALSE,
+        filter_list = flist,
+        ctx = ctx
+      )
+    ),
+    cell_order = "COL_MAJOR",
+    tile_order = "COL_MAJOR",
+    capacity = 10000,
+    sparse = TRUE,
+    allows_dups = TRUE,
+    coords_filter_list = flist,
+    offsets_filter_list = flist,
+    validity_filter_list = flist_rle,
+    ctx = ctx
+
+  )
+
+  tiledb::tiledb_array_create(uri, sch)
+
+}
+
 create_empty_test_group <- function(uri) {
 
   stopifnot(!dir.exists(uri))

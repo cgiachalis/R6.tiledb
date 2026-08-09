@@ -1,6 +1,6 @@
 Package: R6.tiledb
 Title: R6 Classes for TileDB Arrays and Groups
-Version: 0.3.0.7
+Version: 0.3.1
 Date: 2026-08-09
 Authors@R: c(
     person("Constantinos", "Giachalis", ,
@@ -43,4 +43,4 @@ Config/testthat/start-first: TileDBGroup
 Encoding: UTF-8
 Language: en-GB
 Roxygen: list(markdown = TRUE, old_usage = TRUE)
-Config/roxygen2/version: 8.0.0
+Config/roxygen2/version: 8.1.0
