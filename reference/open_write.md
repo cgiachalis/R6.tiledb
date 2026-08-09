@@ -12,16 +12,18 @@ at write mode with an optional timestamp.
 
 ``` r
 # S3 method for class 'TileDBArray'
-open_write(object, timestamp = NULL, ...)
+open_write(object, timestamp = NULL, ctx = NULL, ...)
 
 # S3 method for class 'tiledb_array'
-open_write(object, timestamp = NULL, ...)
+open_write(object, timestamp = NULL, ctx = NULL,
+  ...)
 
 # S3 method for class 'TileDBGroup'
-open_write(object, timestamp = NULL, ...)
+open_write(object, timestamp = NULL, ctx = NULL, ...)
 
 # S3 method for class 'tiledb_group'
-open_write(object, timestamp = NULL, ...)
+open_write(object, timestamp = NULL, ctx = NULL,
+  ...)
 
 # S3 method for class 'character'
 open_write(object, timestamp = NULL, ctx = NULL, ...)
@@ -38,15 +40,15 @@ open_write(object, timestamp = NULL, ctx = NULL, ...)
   Optional datetime object of class `"POSIXct"` to write at this
   timestamp.
 
-- ...:
-
-  Other arguments passed to methods. Not used.
-
 - ctx:
 
   Optional
   [`tiledb::tiledb_ctx()`](https://tiledb-inc.github.io/TileDB-R/reference/tiledb_ctx.html)
   object.
+
+- ...:
+
+  Other arguments passed to methods. Not used.
 
 ## Value
 
