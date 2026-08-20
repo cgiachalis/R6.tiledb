@@ -55,7 +55,7 @@ set_tiledb_timestamp(end_time = as.Date("1990-01-01"), tz = "UTC")
 set_tiledb_timestamp(tz = "Europe/London")
 #> TileDB Timestamp (default) • TZ (Europe/London)
 #>  • start: 1970-01-01 01:00:00
-#>  • end  : 2026-08-09 17:13:41
+#>  • end  : 2026-08-20 18:23:28
 
 # Invalid: start_time > end_time
 # set_tiledb_timestamp(start_time = 1, end_time = 0)
