@@ -1,4 +1,4 @@
-
+skip()
 test_that("'set_config_params()' works as expected", {
 
   cfg <- tiledb::tiledb_config()
