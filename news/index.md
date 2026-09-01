@@ -1,5 +1,5 @@
 # Changelog
 
-## R6.tiledb 0.3.1
+## R6.tiledb 0.3.2
 
 - Initial GitHub release.
