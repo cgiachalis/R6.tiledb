@@ -2,13 +2,14 @@
 
 <!-- badges: start -->
 
-![R Language](https://img.shields.io/badge/R_Language-blue?logo=r&logoSize=auto)
-[![repo-status](https://img.shields.io/badge/repo%20status-stable-brightgreen.svg)](#) 
+[!R Language](https://img.shields.io/badge/R_Language-blue?logo=r&logoSize=auto)]
 [![CRAN status](https://img.shields.io/badge/CRAN-not%20published-orange)](https://CRAN.R-project.org/package=R6.tiledb) 
-[![R CMD Check](https://github.com/cgiachalis/R6.tiledb/actions/workflows/R-CMD-check.yaml/badge.svg?branch=master)](https://github.com/cgiachalis/R6.tiledb/actions/workflows/R-CMD-check.yaml)
-[![Last Commit](https://img.shields.io/github/last-commit/cgiachalis/R6.tiledb)](https://github.com/cgiachalis/R6.tiledb)
-[![coverage](https://img.shields.io/badge/coverage-94.8%25-blue.svg)](#)
+[![R6.tiledb status badge](https://cgiachalis.r-universe.dev/R6.tiledb/badges/version)](https://cgiachalis.r-universe.dev/R6.tiledb)
+[![repo-status](https://img.shields.io/badge/repo%20status-stable-brightgreen.svg)](#) 
 [![License](https://img.shields.io/badge/License-MIT-003366.svg)](https://opensource.org/licenses/MIT)
+[![R CMD Check](https://github.com/cgiachalis/R6.tiledb/actions/workflows/R-CMD-check.yaml/badge.svg?branch=master)](https://github.com/cgiachalis/R6.tiledb/actions/workflows/R-CMD-check.yaml)
+[![Codecov test coverage](https://codecov.io/gh/cgiachalis/R6.tiledb/graph/badge.svg?token=2346YVD7US)](https://codecov.io/gh/cgiachalis/R6.tiledb)
+[![Last Commit](https://img.shields.io/github/last-commit/cgiachalis/R6.tiledb)](https://github.com/cgiachalis/R6.tiledb)
 [![Documentation](https://img.shields.io/badge/docs-GitHub_Pages-blue)](https://cgiachalis.github.io/R6.tiledb/)
 
 <!-- badges: end -->
