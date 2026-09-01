@@ -2,7 +2,7 @@
 
 <!-- badges: start -->
 
-[!R Language](https://img.shields.io/badge/R_Language-blue?logo=r&logoSize=auto)]
+![R Language](https://img.shields.io/badge/R_Language-blue?logo=r&logoSize=auto)]
 [![CRAN status](https://img.shields.io/badge/CRAN-not%20published-orange)](https://CRAN.R-project.org/package=R6.tiledb) 
 [![R6.tiledb status badge](https://cgiachalis.r-universe.dev/R6.tiledb/badges/version)](https://cgiachalis.r-universe.dev/R6.tiledb)
 [![repo-status](https://img.shields.io/badge/repo%20status-stable-brightgreen.svg)](#) 

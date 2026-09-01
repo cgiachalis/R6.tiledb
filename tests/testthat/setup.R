@@ -1,3 +1,3 @@
 # Force garbage collection after each test
 withr::defer_parent(gc())
-options(Ncpus = 1)
+Sys.setenv(TESTTHAT_PARALLEL = "false")
