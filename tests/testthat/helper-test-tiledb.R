@@ -129,6 +129,7 @@ write_test_array_tstamps <- function(uri, frags = 3) {
   }
 }
 
+#TODO: use create_time_travel_fixture
 write_test_array_tstamps2 <- function(uri, frags = 3) {
 
   ts <- as.POSIXct(c("2025-08-18 16:12:50", "2025-08-18 16:12:55", "2025-08-18 16:13:01"))
@@ -201,7 +202,7 @@ write_test_group <- function(uri) {
 
 write_test_group2 <- function(uri) {
 
-  ctx <-   ctx <- new_context()
+  ctx <- new_context()
 
   group_uri <- uri
   uri1 <- R6.tiledb:::file_path(group_uri, "testarray1")

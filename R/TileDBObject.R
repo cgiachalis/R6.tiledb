@@ -554,7 +554,7 @@ TileDBObject <- R6::R6Class(
     check_metadata = function(x) {
       if (!.is_named_list(x)) {
         cli::cli_abort(
-          "{.arg {deparse(substitute(x))}} should be a named list with metadata.",
+          "{.arg {deparse(substitute(x))}} should be a named list with key-value metadata.",
           call = NULL
         )
       }
@@ -566,7 +566,7 @@ TileDBObject <- R6::R6Class(
         invalid_keys <- .string_collapse(names(which(idx)))
         cli::cli_abort(
           c("{.arg metadata} with character values should be scalar strings only, not vectors.",
-            "i" = "Consider concacate or serialise them: {.val {invalid_keys}}"),
+            "i" = "Consider concatenate or serialise: {.val {invalid_keys}}"),
           call = NULL
         )
       }
