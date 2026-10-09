@@ -109,16 +109,16 @@ considered drop-in replacements[^1].
 - ***Introduction to Arrays*** \[[TileDB
   Academy](https://documentation.cloud.tiledb.com/academy/structure/arrays/introduction/)\]
 
-- Dirk Eddelbuettel and Aaron Wolen (2021), ***Using TileDB with R: An
-  Introductory Tutorial***
+- ***Using TileDB with R: An Introductory Tutorial***, Dirk Eddelbuettel
+  and Aaron Wolen (2021)
   \[[slides](https://dirk.eddelbuettel.com/papers/useR2021_tiledb_tutorial.pdf)\]
 
-- Aaron Wolen and Dirk Eddelbuettel (2021), ***Infinitely Scalable Data
-  Analysis: Using R with TileDB Tutorial***
+- ***Infinitely Scalable Data Analysis: Using R with TileDB Tutorial***,
+  Aaron Wolen and Dirk Eddelbuettel (2021)
   \[[slides](https://dirk.eddelbuettel.com/papers/bioc2021_tiledb_talk.pdf)\]
 
 - ***A deep dive into the TileDB data format & storage engine***
-  \[[video](https://www.youtube.com/watch?v=GHJ16KyqGKI&t=3387s)\]
+  \[[video](https://www.youtube.com/watch?v=GHJ16KyqGKI)\]
 
 ## Disclaimer
 
