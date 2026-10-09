@@ -167,7 +167,7 @@ write_test_group <- function(uri) {
   Sys.sleep(2)
 
   # create arr1 and add as member @ t1
-  arr1 <- write_test_array_tstamps2(uri1)
+  arr1 <- create_time_travel_fixture(uri1)
   grp <- tiledb::tiledb_group(group_uri, type = "WRITE", ctx = ctx)
   tiledb::tiledb_group_add_member(
     grp = grp,
@@ -181,7 +181,7 @@ write_test_group <- function(uri) {
   Sys.sleep(2)
 
   # create arr2 and add as member @ t2
-  arr2 <- write_test_array_tstamps2(uri2)
+  arr2 <- create_time_travel_fixture(uri2)
 
   grp <- tiledb::tiledb_group_open(grp, type = "WRITE")
   tiledb::tiledb_group_add_member(
