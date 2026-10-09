@@ -104,11 +104,11 @@ R packages built on top of `R6.tiledb`:
 
 -   ***Introduction to Arrays*** [<a href="https://documentation.cloud.tiledb.com/academy/structure/arrays/introduction/">TileDB Academy</a>]
 
--   Dirk Eddelbuettel and Aaron Wolen (2021), ***Using TileDB with R: An Introductory Tutorial*** [<a href="https://dirk.eddelbuettel.com/papers/useR2021_tiledb_tutorial.pdf">slides</a>]
+-   ***Using TileDB with R: An Introductory Tutorial***, Dirk Eddelbuettel and Aaron Wolen (2021) [<a href="https://dirk.eddelbuettel.com/papers/useR2021_tiledb_tutorial.pdf">slides</a>]
 
--   Aaron Wolen and Dirk Eddelbuettel (2021), ***Infinitely Scalable Data Analysis: Using R with TileDB Tutorial*** [<a href="https://dirk.eddelbuettel.com/papers/bioc2021_tiledb_talk.pdf">slides</a>]
+-   ***Infinitely Scalable Data Analysis: Using R with TileDB Tutorial***, Aaron Wolen and Dirk Eddelbuettel (2021) [<a href="https://dirk.eddelbuettel.com/papers/bioc2021_tiledb_talk.pdf">slides</a>]
 
--   ***A deep dive into the TileDB data format & storage engine*** [<a href="https://www.youtube.com/watch?v=GHJ16KyqGKI&t=3387s">video</a>]
+-   ***A deep dive into the TileDB data format & storage engine*** [<a href="https://www.youtube.com/watch?v=GHJ16KyqGKI">video</a>]
 
 ## Disclaimer
 
