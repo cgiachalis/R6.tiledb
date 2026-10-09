@@ -129,6 +129,7 @@ write_test_array_tstamps <- function(uri, frags = 3) {
   }
 }
 
+#TODO: use create_time_travel_fixture
 write_test_array_tstamps2 <- function(uri, frags = 3) {
 
   ts <- as.POSIXct(c("2025-08-18 16:12:50", "2025-08-18 16:12:55", "2025-08-18 16:13:01"))
@@ -166,7 +167,7 @@ write_test_group <- function(uri) {
   Sys.sleep(2)
 
   # create arr1 and add as member @ t1
-  arr1 <- write_test_array_tstamps2(uri1)
+  arr1 <- create_time_travel_fixture(uri1)
   grp <- tiledb::tiledb_group(group_uri, type = "WRITE", ctx = ctx)
   tiledb::tiledb_group_add_member(
     grp = grp,
@@ -180,7 +181,7 @@ write_test_group <- function(uri) {
   Sys.sleep(2)
 
   # create arr2 and add as member @ t2
-  arr2 <- write_test_array_tstamps2(uri2)
+  arr2 <- create_time_travel_fixture(uri2)
 
   grp <- tiledb::tiledb_group_open(grp, type = "WRITE")
   tiledb::tiledb_group_add_member(
@@ -201,7 +202,7 @@ write_test_group <- function(uri) {
 
 write_test_group2 <- function(uri) {
 
-  ctx <-   ctx <- new_context()
+  ctx <- new_context()
 
   group_uri <- uri
   uri1 <- R6.tiledb:::file_path(group_uri, "testarray1")

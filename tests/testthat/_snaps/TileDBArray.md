@@ -1,25 +1,25 @@
-# 'TileDBArray' class tests on non-existent array
+# TileDBArray print() snapshot for non-existent arrays
 
     Code
-      arrObj$print()
+      arr$print()
     Message
       i R6Class: <TileDBArray> object does not exist.
 
-# 'TileDBArray' class works as expected
+# TileDBArray print() snapshot for non-empty array
 
     Code
-      arrObj$print()
+      arr$print()
     Message
       R6Class: <TileDBArray>
     Output
-      > URI Basename: test-TileDBArray
+      > URI Basename: test-nonempty -array
         * Dimensions: "Dept" and "Gender"
         * Attributes: "Admit" and "Freq"
 
-# Test metadata print method
+# TileDBArray metadata print method
 
     Code
-      arrObj$get_metadata()
+      arr$get_metadata()
     Output
       TileDB ARRAY: <R6 Class: TileDBArray>
       Metadata: <key,value> * total 0
@@ -28,7 +28,7 @@
 ---
 
     Code
-      arrObj$get_metadata()
+      arr$get_metadata()
     Output
       TileDB ARRAY: <R6 Class: TileDBArray>
       Metadata: <key,value> * total 6

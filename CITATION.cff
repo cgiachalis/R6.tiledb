@@ -1,0 +1,271 @@
+# ------------------------------------------------
+# CITATION.cff file created with {cffr} R package
+# See also: https://docs.ropensci.org/cffr/
+# ------------------------------------------------
+ 
+cff-version: 1.2.0
+message: 'To cite package "R6.tiledb" in publications use:'
+type: software
+license: MIT
+title: 'R6.tiledb: R6 Classes for TileDB Arrays and Groups'
+version: 0.3.3
+abstract: Provides foundational R6 classes to interface with 'TileDB' storage engine
+  using 'tiledb' package. The goal is to offer a set of minimum classes based on the
+  R6 object oriented system in order to make it easier to work with 'TileDB' Arrays
+  and Groups. The base classes 'TileDBArray' and 'TileDBGroup' can be easily extended
+  to new subclasses to represent and support any data model.
+authors:
+- family-names: Giachalis
+  given-names: Constantinos
+  email: 26255858+cgiachalis@users.noreply.github.com
+repository-code: https://github.com/cgiachalis/R6.tiledb
+url: https://cgiachalis.github.io/R6.tiledb/
+date-released: '2026-10-09'
+contact:
+- family-names: Giachalis
+  given-names: Constantinos
+  email: 26255858+cgiachalis@users.noreply.github.com
+keywords:
+- arrays
+- r
+- tiledb
+- tiledb-r
+references:
+- type: software
+  title: 'R: A Language and Environment for Statistical Computing'
+  notes: Depends
+  url: https://www.R-project.org/
+  authors:
+  - name: R Core Team
+    website: https://ror.org/02zz1nj61
+  institution:
+    name: R Foundation for Statistical Computing
+    website: https://ror.org/05qewa988
+    address: Vienna, Austria
+  year: '2026'
+  doi: 10.32614/R.manuals
+  version: '>= 4.4.0'
+- type: software
+  title: bit64
+  abstract: 'bit64: A S3 Class for Vectors of 64bit Integers'
+  notes: Imports
+  url: https://bit64.r-lib.org
+  repository: https://CRAN.R-project.org/package=bit64
+  authors:
+  - family-names: Chirico
+    given-names: Michael
+    email: michaelchirico4@gmail.com
+  - family-names: Oehlschlägel
+    given-names: Jens
+  year: '2026'
+  doi: 10.32614/CRAN.package.bit64
+- type: software
+  title: cli
+  abstract: 'cli: Helpers for Developing Command Line Interfaces'
+  notes: Imports
+  url: https://cli.r-lib.org
+  repository: https://CRAN.R-project.org/package=cli
+  authors:
+  - family-names: Csárdi
+    given-names: Gábor
+    email: gabor@posit.co
+  year: '2026'
+  doi: 10.32614/CRAN.package.cli
+- type: software
+  title: fs
+  abstract: 'fs: Cross-Platform File System Operations Based on ''libuv'''
+  notes: Imports
+  url: https://fs.r-lib.org
+  repository: https://CRAN.R-project.org/package=fs
+  authors:
+  - family-names: Hester
+    given-names: Jim
+  - family-names: Wickham
+    given-names: Hadley
+  - family-names: Csárdi
+    given-names: Gábor
+  year: '2026'
+  doi: 10.32614/CRAN.package.fs
+- type: software
+  title: methods
+  abstract: 'R: A Language and Environment for Statistical Computing'
+  notes: Imports
+  authors:
+  - name: R Core Team
+    website: https://ror.org/02zz1nj61
+  institution:
+    name: R Foundation for Statistical Computing
+    website: https://ror.org/05qewa988
+    address: Vienna, Austria
+  year: '2026'
+  doi: 10.32614/R.manuals
+- type: software
+  title: R6
+  abstract: 'R6: Encapsulated Classes with Reference Semantics'
+  notes: Imports
+  url: https://r6.r-lib.org
+  repository: https://CRAN.R-project.org/package=R6
+  authors:
+  - family-names: Chang
+    given-names: Winston
+    email: winston@posit.co
+  year: '2026'
+  doi: 10.32614/CRAN.package.R6
+- type: software
+  title: spdl
+  abstract: 'spdl: Easier Use of ''RcppSpdlog'' Functions via Wrapper'
+  notes: Imports
+  url: https://github.com/eddelbuettel/spdl
+  repository: https://CRAN.R-project.org/package=spdl
+  authors:
+  - family-names: Eddelbuettel
+    given-names: Dirk
+    email: edd@debian.org
+  year: '2026'
+  doi: 10.32614/CRAN.package.spdl
+- type: software
+  title: tiledb
+  abstract: 'tiledb: Modern Database Engine for Complex Data Based on Multi-Dimensional
+    Arrays'
+  notes: Imports
+  url: https://tiledb-inc.github.io/TileDB-R/
+  repository: https://CRAN.R-project.org/package=tiledb
+  authors:
+  - name: TileDB, Inc.
+  year: '2026'
+  doi: 10.32614/CRAN.package.tiledb
+  version: '>= 0.33.0'
+- type: software
+  title: litedown
+  abstract: 'litedown: A Lightweight Version of R Markdown'
+  notes: Suggests
+  url: https://github.com/yihui/litedown
+  repository: https://CRAN.R-project.org/package=litedown
+  authors:
+  - family-names: Xie
+    given-names: Yihui
+    email: xie@yihui.name
+    orcid: https://orcid.org/0000-0003-0645-5666
+  year: '2026'
+  doi: 10.32614/CRAN.package.litedown
+- type: software
+  title: mirai
+  abstract: 'mirai: Minimalist Async Evaluation Framework for R'
+  notes: Suggests
+  url: https://mirai.r-lib.org
+  repository: https://CRAN.R-project.org/package=mirai
+  authors:
+  - family-names: Gao
+    given-names: Charlie
+    email: charlie.gao@posit.co
+    orcid: https://orcid.org/0000-0002-0750-061X
+  year: '2026'
+  doi: 10.32614/CRAN.package.mirai
+  version: '>= 2.4.0'
+- type: software
+  title: data.table
+  abstract: 'data.table: Extension of `data.frame`'
+  notes: Suggests
+  url: https://r-datatable.com
+  repository: https://CRAN.R-project.org/package=data.table
+  authors:
+  - family-names: Barrett
+    given-names: Tyson
+    email: t.barrett88@gmail.com
+    orcid: https://orcid.org/0000-0002-2137-1391
+  - family-names: Dowle
+    given-names: Matt
+    email: mattjdowle@gmail.com
+  - family-names: Srinivasan
+    given-names: Arun
+    email: asrini@pm.me
+  - family-names: Gorecki
+    given-names: Jan
+    email: j.gorecki@wit.edu.pl
+  - family-names: Chirico
+    given-names: Michael
+    email: michaelchirico4@gmail.com
+    orcid: https://orcid.org/0000-0003-0787-087X
+  - family-names: Hocking
+    given-names: Toby
+    email: toby.hocking@r-project.org
+    orcid: https://orcid.org/0000-0002-3146-0865
+  - family-names: Schwendinger
+    given-names: Benjamin
+    orcid: https://orcid.org/0000-0003-3315-8114
+  - family-names: Krylov
+    given-names: Ivan
+    email: ikrylov@disroot.org
+    orcid: https://orcid.org/0000-0002-0172-3812
+  year: '2026'
+  doi: 10.32614/CRAN.package.data.table
+- type: software
+  title: nanotime
+  abstract: 'nanotime: Nanosecond-Resolution Time Support for R'
+  notes: Suggests
+  url: https://eddelbuettel.github.io/nanotime/
+  repository: https://CRAN.R-project.org/package=nanotime
+  authors:
+  - family-names: Eddelbuettel
+    given-names: Dirk
+    email: edd@debian.org
+    orcid: https://orcid.org/0000-0001-6419-907X
+  - family-names: Silvestri
+    given-names: Leonardo
+  year: '2026'
+  doi: 10.32614/CRAN.package.nanotime
+- type: software
+  title: spelling
+  abstract: 'spelling: Tools for Spell Checking in R'
+  notes: Suggests
+  url: https://ropensci.r-universe.dev/spelling
+  repository: https://CRAN.R-project.org/package=spelling
+  authors:
+  - family-names: Ooms
+    given-names: Jeroen
+    email: jeroenooms@gmail.com
+    orcid: https://orcid.org/0000-0002-4035-0289
+  - family-names: Hester
+    given-names: Jim
+    email: james.hester@rstudio.com
+  year: '2026'
+  doi: 10.32614/CRAN.package.spelling
+- type: software
+  title: testthat
+  abstract: 'testthat: Unit Testing for R'
+  notes: Suggests
+  url: https://testthat.r-lib.org
+  repository: https://CRAN.R-project.org/package=testthat
+  authors:
+  - family-names: Wickham
+    given-names: Hadley
+    email: hadley@posit.co
+  year: '2026'
+  doi: 10.32614/CRAN.package.testthat
+  version: '>= 3.0.0'
+- type: software
+  title: withr
+  abstract: 'withr: Run Code ''With'' Temporarily Modified Global State'
+  notes: Suggests
+  url: https://withr.r-lib.org
+  repository: https://CRAN.R-project.org/package=withr
+  authors:
+  - family-names: Hester
+    given-names: Jim
+  - family-names: Henry
+    given-names: Lionel
+    email: lionel@posit.co
+  - family-names: Müller
+    given-names: Kirill
+    email: krlmlr+r@mailbox.org
+  - family-names: Ushey
+    given-names: Kevin
+    email: kevinushey@gmail.com
+  - family-names: Wickham
+    given-names: Hadley
+    email: hadley@posit.co
+  - family-names: Chang
+    given-names: Winston
+  year: '2026'
+  doi: 10.32614/CRAN.package.withr
+
