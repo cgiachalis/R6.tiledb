@@ -95,24 +95,6 @@ create_empty_test_group <- function(uri) {
 }
 
 
-# source: https://github.com/TileDB-Inc/TileDB-R/blob/main/inst/tinytest/test_timetravel.R
-
-write_test_array_tstamps <- function(uri, frags = 3) {
-
-  ts <- function(x) {
-    as.POSIXct(x, tz = "UTC", origin = "1970-01-01")
-  }
-
-  df <- data.frame(id = 1L, val = 1.0)
-  tiledb::fromDataFrame(df, uri, col_index = 1, mode = "schema_only")
-
-  ctx <- new_context()
-  for (i in seq_len(frags) ) {
-    arr <- tiledb::tiledb_array(uri, "WRITE", timestamp_end = ts(i), ctx = ctx)
-    arr[] <- data.frame(id = 1, val = i)
-  }
-}
-
 #TODO: use create_time_travel_fixture
 write_test_array_tstamps2 <- function(uri, frags = 3) {
 
