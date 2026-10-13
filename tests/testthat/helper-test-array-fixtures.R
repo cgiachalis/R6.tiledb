@@ -1,5 +1,4 @@
-create_ucb_array_fixture <- function(uri) {
-  ctx <- new_context()
+ucb_schema <- function(ctx) {
 
   dept_dim <- tiledb::tiledb_dim(
     "Dept", type = "ASCII", domain = NULL, tile = NULL, ctx = ctx
@@ -22,6 +21,25 @@ create_ucb_array_fixture <- function(uri) {
     ctx = ctx
   )
 
+  schema
+
+}
+timetravel_schema <- function(ctx) {
+  dim <- tiledb::tiledb_dim("id", type = "INT32", domain = c(1L, 1L), tile = 1L, ctx = ctx)
+  dom <- tiledb::tiledb_domain(dims = dim, ctx = ctx)
+  schema <- tiledb::tiledb_array_schema(
+    domain = dom,
+    allows_dups = TRUE,
+    attrs = c(tiledb::tiledb_attr("val", type = "FLOAT64", ctx = ctx)),
+    sparse = TRUE,
+    ctx = ctx
+  )
+}
+
+create_ucb_array_fixture <- function(uri) {
+  ctx <- new_context()
+  schema <- ucb_schema(ctx)
+
   tiledb::tiledb_array_create(uri, schema)
 
   df <- as.data.frame(UCBAdmissions)[1:4, c("Dept", "Gender", "Admit", "Freq")]
@@ -29,6 +47,20 @@ create_ucb_array_fixture <- function(uri) {
   arr[] <- df
 
   invisible(uri)
+}
+
+create_array_fixture <- function(uri) {
+
+  ctx <- new_context()
+  schema <- ucb_schema(ctx)
+  tiledb::tiledb_array_create(uri, schema)
+  arr <- tiledb::tiledb_array(uri, ctx = ctx)
+  df <- as.data.frame(UCBAdmissions)
+  arr[] <- df[1:8, ]
+  arr[] <- df[9:16, ]
+  arr[] <- df[17:24, ]
+
+  invisible(TRUE)
 }
 
 
@@ -40,15 +72,7 @@ create_time_travel_fixture <- function(uri) {
   ), tz = "UTC")
 
   ctx <- new_context()
-  dim <- tiledb::tiledb_dim("id", type = "INT32", domain = c(1L, 1L), tile = 1L, ctx = ctx)
-  dom <- tiledb::tiledb_domain(dims = dim, ctx = ctx)
-  schema <- tiledb::tiledb_array_schema(
-    domain = dom,
-    allows_dups = TRUE,
-    attrs = c(tiledb::tiledb_attr("val", type = "FLOAT64", ctx = ctx)),
-    sparse = TRUE,
-    ctx = ctx
-  )
+  schema <- timetravel_schema(ctx)
 
   tiledb::tiledb_array_create(uri, schema)
 
@@ -63,4 +87,22 @@ create_time_travel_fixture <- function(uri) {
   }
 
   ts
+}
+
+# write_test_array_tstamps
+
+create_ts_array_fixture <- function(uri, frags = 3) {
+
+  ts <- function(x) {
+    as.POSIXct(x, tz = "UTC", origin = "1970-01-01")
+  }
+
+  ctx <- new_context()
+  schema <- timetravel_schema(ctx)
+  tiledb::tiledb_array_create(uri, schema)
+
+  for (i in seq_len(frags) ) {
+    arr <- tiledb::tiledb_array(uri, "WRITE", timestamp_end = ts(i), ctx = ctx)
+    arr[] <- data.frame(id = 1, val = i)
+  }
 }

@@ -1,4 +1,3 @@
-gc()
 
 is_mirai_installed <- requireNamespace("mirai", quietly = TRUE)
 
@@ -7,14 +6,15 @@ if (is_mirai_installed) {
 }
 
 
-test_that("'TileDBArrayExp' class works as expected", {
+test_that("TileDBArrayExp constructor and active bindings work as expected", {
 
   uri <- file.path(withr::local_tempdir(), "test-TileDBArrayExp")
 
-  # write test array on disk
-  write_test_array(uri)
+  create_array_fixture(uri)
 
   expect_no_error(arrObj <- TileDBArrayExp$new(uri = uri))
+  expect_s3_class(arrObj, c("TileDBArrayExp","TileDBArray", "TileDBObject", "R6"),
+                  exact = TRUE)
 
   # Active --------------------------------------------------------------
 
@@ -31,11 +31,14 @@ test_that("'TileDBArrayExp' class works as expected", {
   expect_type(arrObj$size, "double")
   expect_s3_class(arrObj$size, "vfs_size")
 
+})
 
+test_that("TileDBArrayExp enum methods return expected values", {
 
-  # Methods -------------------------------------------------------------
+  uri <- file.path(withr::local_tempdir(), "test-TileDBArrayExp-enum")
+  create_array_fixture(uri)
+  arrObj <- TileDBArrayExp$new(uri = uri)
 
-  ## enums
   expect_true(arrObj$any_enums())
   expect_equal(arrObj$enum_columns(), "Admit")
   expect_equal(arrObj$enum_levels("Admit"), c("Admitted", "Rejected"))
@@ -43,7 +46,14 @@ test_that("'TileDBArrayExp' class works as expected", {
   expect_error(arrObj$enum_levels("Freq"), label = "`Freq` attribute is not factor (enum).")
   expect_equal(arrObj$has_enumeration(), c(Admit = TRUE, Freq = FALSE))
 
-  ## frags
+})
+
+test_that("TileDBArrayExp fragment methods work as expected", {
+
+  uri <- file.path(withr::local_tempdir(), "test-TileDBArrayExp-fragment")
+  create_array_fixture(uri)
+  arrObj <- TileDBArrayExp$new(uri = uri)
+
   expect_no_error(dump_str <- capture_output_lines(arrObj$frag_dump()))
   expect_equal(dump_str[[1]], "- Fragment num: 3")
   expect_identical(arrObj$frag_num(), 3)
@@ -56,12 +66,19 @@ test_that("'TileDBArrayExp' class works as expected", {
   expect_equal(dim(dfrags), c(3,4))
   expect_equal(colnames(dfrags), c("Fragment", "start_timestamp", "end_timestamp", "URI"))
 
-  ## consolidate and vacuum
+
+})
+
+test_that("TileDBArrayExp '$consolidate' and '$vacuum' methods work as expected", {
+
+  uri <- file.path(withr::local_tempdir(), "test-TileDBArrayExp-consolidate")
+  create_array_fixture(uri)
+  arrObj <- TileDBArrayExp$new(uri = uri)
 
   expect_error(arrObj$consolidate(mode = "fragments", cfg = "nope"), label = "cfg should be 'tiledb_config'")
   expect_true(arrObj$consolidate(mode = "fragments")) # default
 
-  # testthat::skip()
+
   expect_identical(arrObj$frag_num(), 1)
   expect_no_error(dfrags <- arrObj$frag_to_vacuum())
   expect_s3_class(dfrags, "data.frame")
@@ -74,21 +91,29 @@ test_that("'TileDBArrayExp' class works as expected", {
                                                    start_timestamp = as.POSIXct(double()),
                                                    end_timestamp = as.POSIXct(double()),
                                                    URI = character(0)))
-  ## drop attribute
+
+})
+
+test_that("TileDBArrayExp '$drop_attribute' method work as expected", {
+
+  uri <- file.path(withr::local_tempdir(), "test-TileDBArrayExp-consolidate")
+  create_array_fixture(uri)
+  arrObj <- TileDBArrayExp$new(uri = uri)
+
   expect_invisible(arrObj$drop_attribute("Freq"))
   expect_equal(arrObj$colnames(),  c("Dept", "Gender", "Admit"))
   expect_error(arrObj$drop_attribute("Freq"), label = "`Freq` is not an attribute.")
 
+  # Not related to drop method, but checking this method here nevertheless
   expect_null(arrObj$schema_upgrade())
 
 })
 
-
-test_that("Test '$consolidate', '$consolidate_async' and '$vacuum' methods", {
+test_that("TileDBArrayExp methods: '$consolidate', '$consolidate_async' and '$vacuum'", {
 
   uri <- file.path(withr::local_tempdir(), "test-TileDBArrayExp")
 
-  write_test_array_tstamps(uri, 4)
+  create_ts_array_fixture(uri, 4)
 
   expect_invisible(arrobj <- tdb_array(uri))
   expect_s3_class(arrobj, "TileDBArrayExp")
@@ -162,12 +187,12 @@ test_that("Test '$consolidate', '$consolidate_async' and '$vacuum' methods", {
 
 })
 
-test_that("Test '$vacuum_async' method", {
+test_that("TileDBArrayExp '$vacuum_async' method", {
 
   skip_if_not_installed("mirai")
 
-  uri <- file.path(withr::local_tempdir(), "test-TileDBArrayExp")
-  write_test_array_tstamps(uri, 2)
+  uri <- file.path(withr::local_tempdir(), "test-TileDBArrayExp-vacuum")
+  create_ts_array_fixture(uri, 2)
   arrobj <- tdb_array(uri)
   arrobj$consolidate()
 
@@ -175,6 +200,7 @@ test_that("Test '$vacuum_async' method", {
 
   origcfg <- tiledb::config(tiledb::tiledb_get_context())
   expect_true(arrobj$vacuum_async(mode = "commits")[])
+
   # check we didn't alter vacuum mode config values from tiledb cache
   cfg <- tiledb::config(tiledb::tiledb_get_context())
   expect_equal( cfg["sm.vacuum.mode"],  origcfg["sm.vacuum.mode"])
@@ -185,10 +211,10 @@ test_that("Test '$vacuum_async' method", {
 })
 
 
-test_that("Test '$consolidate_and_vacuum' method", {
+test_that("TileDBArrayExp '$consolidate_and_vacuum' method", {
 
   uri <- file.path(withr::local_tempdir(), "test-TileDBArrayExp")
-  write_test_array_tstamps(uri, 3)
+  create_ts_array_fixture(uri, 3)
   arrobj <- tdb_array(uri)
 
   expect_error(arrobj$consolidate_and_vacuum(cfg = "nope"), label = "cfg should 'tiledb_config'")
@@ -218,13 +244,14 @@ test_that("Test '$consolidate_and_vacuum' method", {
 
 })
 
-test_that("Test '$consolidate_and_vacuum_async' method", {
+test_that("TileDBArrayExp '$consolidate_and_vacuum_async' method", {
 
   skip_if_not_installed("mirai")
 
   uri <- file.path(withr::local_tempdir(), "test-TileDBArrayExp")
-  write_test_array_tstamps(uri, 3)
+  create_ts_array_fixture(uri, 3)
   arrobj <- tdb_array(uri)
+
   expect_error(arrobj$consolidate_and_vacuum_async(cfg = "nope"), label = "cfg should 'tiledb_config'")
 
   ts <- function(x) {
@@ -253,10 +280,11 @@ test_that("Test '$consolidate_and_vacuum_async' method", {
 
 })
 
-test_that("Test '$reopen' method resets fragment info object", {
+test_that("TileDBArrayExp '$reopen' method resets fragment info object", {
 
   uri <- file.path(withr::local_tempdir(), "test-TileDBArrayExp")
-  write_test_array_tstamps(uri, 1)
+  create_ts_array_fixture(uri, 1)
+
   arrobj <- tdb_array(uri)
   expect_equal(arrobj$frag_num(), 1)
   arr <- arrobj$tiledb_array()
@@ -271,20 +299,30 @@ test_that("Test '$reopen' method resets fragment info object", {
 
 })
 
-test_that("Test 'tdb_array_create()' and '$delete_array() method", {
 
-  uri <- file.path(withr::local_tempdir(), "test-TileDBArrayExp10")
+test_that("tdb_array_create() works as expected", {
 
+  uri <- file.path(withr::local_tempdir(), "test-tdb_array_create")
+
+  ctx <- new_context()
   schema <- tiledb::tiledb_array_schema(
-    dom = tiledb::tiledb_domain(dims = tiledb::tiledb_dim("id", c(1L, 4L), 4L, "INT32")),
-    attrs = tiledb::tiledb_attr("model", type = "ASCII"))
+    domain = tiledb::tiledb_domain(dims = tiledb::tiledb_dim("id", c(1L, 4L), 4L, "INT32"), ctx = ctx),
+    attrs = tiledb::tiledb_attr("model", type = "ASCII", ctx = ctx), ctx = ctx)
 
   expect_no_error(arrobj <- tdb_array_create(uri, sch = schema, mode = "WRITE"))
   expect_s3_class(arrobj, "TileDBArrayExp")
   expect_equal(arrobj$mode, "WRITE")
   expect_true(arrobj$exists())
+  })
 
+
+test_that("TileDBArrayExp '$delete' method works as expected", {
+
+  uri <- file.path(withr::local_tempdir(), "test-TileDBArrayExp-delete")
+  create_empty_test_array(uri)
+  arrobj <- tdb_array(uri)
+  expect_true(arrobj$exists())
   expect_invisible(arrobj$delete_array())
   expect_false(arrobj$exists())
   expect_equal(arrobj$object_type, "INVALID")
-  })
+})
