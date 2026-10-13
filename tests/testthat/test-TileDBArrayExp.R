@@ -69,7 +69,7 @@ test_that("TileDBArrayExp fragment methods work as expected", {
 
 })
 
-test_that("TileDBArrayExp consolidate and vacuum methods work as expected", {
+test_that("TileDBArrayExp '$consolidate' and '$vacuum' methods work as expected", {
 
   uri <- file.path(withr::local_tempdir(), "test-TileDBArrayExp-consolidate")
   create_array_fixture(uri)
@@ -94,7 +94,7 @@ test_that("TileDBArrayExp consolidate and vacuum methods work as expected", {
 
 })
 
-test_that("TileDBArrayExp drop method work as expected", {
+test_that("TileDBArrayExp '$drop_attribute' method work as expected", {
 
   uri <- file.path(withr::local_tempdir(), "test-TileDBArrayExp-consolidate")
   create_array_fixture(uri)
@@ -109,7 +109,7 @@ test_that("TileDBArrayExp drop method work as expected", {
 
 })
 
-test_that("TileDBArrayExp methods: 'consolidate', 'consolidate_async' and 'vacuum'", {
+test_that("TileDBArrayExp methods: '$consolidate', '$consolidate_async' and '$vacuum'", {
 
   uri <- file.path(withr::local_tempdir(), "test-TileDBArrayExp")
 
@@ -187,7 +187,7 @@ test_that("TileDBArrayExp methods: 'consolidate', 'consolidate_async' and 'vacuu
 
 })
 
-test_that("TileDBArrayExp vacuum_async method", {
+test_that("TileDBArrayExp '$vacuum_async' method", {
 
   skip_if_not_installed("mirai")
 
@@ -211,7 +211,7 @@ test_that("TileDBArrayExp vacuum_async method", {
 })
 
 
-test_that("TileDBArrayExp consolidate_and_vacuum method", {
+test_that("TileDBArrayExp '$consolidate_and_vacuum' method", {
 
   uri <- file.path(withr::local_tempdir(), "test-TileDBArrayExp")
   create_ts_array_fixture(uri, 3)
@@ -299,20 +299,36 @@ test_that("TileDBArrayExp '$reopen' method resets fragment info object", {
 
 })
 
-test_that("Test 'tdb_array_create()' and '$delete_array() method", {
 
-  uri <- file.path(withr::local_tempdir(), "test-TileDBArrayExp10")
+test_that("tdb_array_create() works as expected", {
 
+  uri <- file.path(withr::local_tempdir(), "test-tdb_array_create")
+
+  ctx <- new_context()
   schema <- tiledb::tiledb_array_schema(
-    dom = tiledb::tiledb_domain(dims = tiledb::tiledb_dim("id", c(1L, 4L), 4L, "INT32")),
-    attrs = tiledb::tiledb_attr("model", type = "ASCII"))
+    domain = tiledb::tiledb_domain(dims = tiledb::tiledb_dim("id", c(1L, 4L), 4L, "INT32"), ctx = ctx),
+    attrs = tiledb::tiledb_attr("model", type = "ASCII", ctx = ctx), ctx = ctx)
 
   expect_no_error(arrobj <- tdb_array_create(uri, sch = schema, mode = "WRITE"))
   expect_s3_class(arrobj, "TileDBArrayExp")
   expect_equal(arrobj$mode, "WRITE")
   expect_true(arrobj$exists())
+  })
 
+
+test_that("TileDBArrayExp '$delete' method works as expected", {
+
+  uri <- file.path(withr::local_tempdir(), "test-TileDBArrayExp-delete")
+
+  ctx <- new_context()
+  schema <- tiledb::tiledb_array_schema(
+    domain = tiledb::tiledb_domain(dims = tiledb::tiledb_dim("id", c(1L, 4L), 4L, "INT32"), ctx = ctx),
+    attrs = tiledb::tiledb_attr("model", type = "ASCII", ctx = ctx), ctx = ctx)
+
+  expect_no_error(arrobj <- tdb_array_create(uri, sch = schema, mode = "WRITE"))
+
+  expect_true(arrobj$exists())
   expect_invisible(arrobj$delete_array())
   expect_false(arrobj$exists())
   expect_equal(arrobj$object_type, "INVALID")
-  })
+})
