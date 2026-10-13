@@ -319,14 +319,8 @@ test_that("tdb_array_create() works as expected", {
 test_that("TileDBArrayExp '$delete' method works as expected", {
 
   uri <- file.path(withr::local_tempdir(), "test-TileDBArrayExp-delete")
-
-  ctx <- new_context()
-  schema <- tiledb::tiledb_array_schema(
-    domain = tiledb::tiledb_domain(dims = tiledb::tiledb_dim("id", c(1L, 4L), 4L, "INT32"), ctx = ctx),
-    attrs = tiledb::tiledb_attr("model", type = "ASCII", ctx = ctx), ctx = ctx)
-
-  expect_no_error(arrobj <- tdb_array_create(uri, sch = schema, mode = "WRITE"))
-
+  create_empty_test_array(uri)
+  arrobj <- tdb_array(uri)
   expect_true(arrobj$exists())
   expect_invisible(arrobj$delete_array())
   expect_false(arrobj$exists())
