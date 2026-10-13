@@ -95,22 +95,6 @@ create_empty_test_group <- function(uri) {
 }
 
 
-write_test_array <- function(uri) {
-
-  # Create an array
-  idx_cols <- c("Dept", "Gender")
-  df <- as.data.frame(UCBAdmissions)
-
-  # Writes 3 parts
-  tiledb::fromDataFrame(df[1:8, ], uri, col_index = idx_cols, sparse = TRUE)
-
-  arr <- tiledb::tiledb_array(uri, ctx = new_context())
-  arr[] <- df[9:16, ]
-  arr[] <- df[17:24, ]
-
-  invisible(TRUE)
-}
-
 # source: https://github.com/TileDB-Inc/TileDB-R/blob/main/inst/tinytest/test_timetravel.R
 
 write_test_array_tstamps <- function(uri, frags = 3) {

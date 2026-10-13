@@ -1,5 +1,4 @@
-create_ucb_array_fixture <- function(uri) {
-  ctx <- new_context()
+ucb_schema <- function(ctx) {
 
   dept_dim <- tiledb::tiledb_dim(
     "Dept", type = "ASCII", domain = NULL, tile = NULL, ctx = ctx
@@ -22,6 +21,15 @@ create_ucb_array_fixture <- function(uri) {
     ctx = ctx
   )
 
+  schema
+
+}
+
+
+create_ucb_array_fixture <- function(uri) {
+  ctx <- new_context()
+  schema <- ucb_schema(ctx)
+
   tiledb::tiledb_array_create(uri, schema)
 
   df <- as.data.frame(UCBAdmissions)[1:4, c("Dept", "Gender", "Admit", "Freq")]
@@ -29,6 +37,20 @@ create_ucb_array_fixture <- function(uri) {
   arr[] <- df
 
   invisible(uri)
+}
+
+create_array_fixture <- function(uri) {
+
+  ctx <- new_context()
+  schema <- ucb_schema(ctx)
+  tiledb::tiledb_array_create(uri, schema)
+  arr <- tiledb::tiledb_array(uri, ctx = ctx)
+  df <- as.data.frame(UCBAdmissions)
+  arr[] <- df[1:8, ]
+  arr[] <- df[9:16, ]
+  arr[] <- df[17:24, ]
+
+  invisible(TRUE)
 }
 
 
