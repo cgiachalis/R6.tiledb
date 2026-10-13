@@ -109,11 +109,11 @@ test_that("TileDBArrayExp drop method work as expected", {
 
 })
 
-test_that("Test '$consolidate', '$consolidate_async' and '$vacuum' methods", {
+test_that("TileDBArrayExp methods: 'consolidate', 'consolidate_async' and 'vacuum'", {
 
   uri <- file.path(withr::local_tempdir(), "test-TileDBArrayExp")
 
-  write_test_array_tstamps(uri, 4)
+  create_ts_array_fixture(uri, 4)
 
   expect_invisible(arrobj <- tdb_array(uri))
   expect_s3_class(arrobj, "TileDBArrayExp")
@@ -187,12 +187,12 @@ test_that("Test '$consolidate', '$consolidate_async' and '$vacuum' methods", {
 
 })
 
-test_that("Test '$vacuum_async' method", {
+test_that("TileDBArrayExp vacuum_async method", {
 
   skip_if_not_installed("mirai")
 
-  uri <- file.path(withr::local_tempdir(), "test-TileDBArrayExp")
-  write_test_array_tstamps(uri, 2)
+  uri <- file.path(withr::local_tempdir(), "test-TileDBArrayExp-vacuum")
+  create_ts_array_fixture(uri, 2)
   arrobj <- tdb_array(uri)
   arrobj$consolidate()
 
@@ -200,6 +200,7 @@ test_that("Test '$vacuum_async' method", {
 
   origcfg <- tiledb::config(tiledb::tiledb_get_context())
   expect_true(arrobj$vacuum_async(mode = "commits")[])
+
   # check we didn't alter vacuum mode config values from tiledb cache
   cfg <- tiledb::config(tiledb::tiledb_get_context())
   expect_equal( cfg["sm.vacuum.mode"],  origcfg["sm.vacuum.mode"])
@@ -210,10 +211,10 @@ test_that("Test '$vacuum_async' method", {
 })
 
 
-test_that("Test '$consolidate_and_vacuum' method", {
+test_that("TileDBArrayExp consolidate_and_vacuum method", {
 
   uri <- file.path(withr::local_tempdir(), "test-TileDBArrayExp")
-  write_test_array_tstamps(uri, 3)
+  create_ts_array_fixture(uri, 3)
   arrobj <- tdb_array(uri)
 
   expect_error(arrobj$consolidate_and_vacuum(cfg = "nope"), label = "cfg should 'tiledb_config'")
@@ -243,13 +244,14 @@ test_that("Test '$consolidate_and_vacuum' method", {
 
 })
 
-test_that("Test '$consolidate_and_vacuum_async' method", {
+test_that("TileDBArrayExp '$consolidate_and_vacuum_async' method", {
 
   skip_if_not_installed("mirai")
 
   uri <- file.path(withr::local_tempdir(), "test-TileDBArrayExp")
-  write_test_array_tstamps(uri, 3)
+  create_ts_array_fixture(uri, 3)
   arrobj <- tdb_array(uri)
+
   expect_error(arrobj$consolidate_and_vacuum_async(cfg = "nope"), label = "cfg should 'tiledb_config'")
 
   ts <- function(x) {
@@ -278,10 +280,11 @@ test_that("Test '$consolidate_and_vacuum_async' method", {
 
 })
 
-test_that("Test '$reopen' method resets fragment info object", {
+test_that("TileDBArrayExp '$reopen' method resets fragment info object", {
 
   uri <- file.path(withr::local_tempdir(), "test-TileDBArrayExp")
-  write_test_array_tstamps(uri, 1)
+  create_ts_array_fixture(uri, 1)
+
   arrobj <- tdb_array(uri)
   expect_equal(arrobj$frag_num(), 1)
   arr <- arrobj$tiledb_array()

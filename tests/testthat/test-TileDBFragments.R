@@ -10,7 +10,7 @@ test_that("'TileDBFragments' class works as expected", {
   expect_error(TileDBFragments$new("uri/path", ctx = "boo"))
 
   # write test array on disk
-  write_test_array_tstamps(uri)
+  create_ts_array_fixture(uri)
 
   expect_no_error(fragObj <- TileDBFragments$new(uri = uri))
 
@@ -92,7 +92,7 @@ test_that("Test ifragments methods", {
   uri <- file.path(withr::local_tempdir(), "test-TileDBFragments2")
 
   # write test array on disk
-  write_test_array_tstamps(uri)
+  create_ts_array_fixture(uri)
 
   expect_no_error(fobj <- tdb_fragments(uri))
   expect_s3_class(fobj, "TileDBFragments")
@@ -103,7 +103,7 @@ test_that("Test ifragments methods", {
 
   trg <- structure(list(fid = 1, URI = "__fragments/__1000_1000_28109_22",
                         type = "sparse", nonemptydom = list(id = structure(c(1, 1
-                        ), dimtype = "INT32")), size = "3.14 KiB", cell_num = 1,
+                        ), dimtype = "INT32")), size = "3.12 KiB", cell_num = 1,
                         timestamp_range = structure(c(1, 1), class = c("POSIXct",
                       "POSIXt")), version = 22L, consolidated_metadata = FALSE),
                    class = "ifragment")
