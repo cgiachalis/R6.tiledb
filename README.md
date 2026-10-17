@@ -24,7 +24,7 @@ It provides also functional wrappers, convenient utilities and S3 methods.
 The package can be helpful for developing domain specific applications or unified data architectures by extending the base classes.
 For day-to-day operations, the functional interface makes it easier to work with existing TileDB resources.
 
-[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/cgiachalis/R6.tiledb)
+[![Ask DeepWiki](https://img.shields.io/badge/Ask-Deepwiki-blue?logo=readthedocs)](https://deepwiki.com/cgiachalis/R6.tiledb)
 
 ## Installation
 
