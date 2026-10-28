@@ -1,7 +1,7 @@
 Package: R6.tiledb
 Title: R6 Classes for TileDB Arrays and Groups
-Version: 0.3.4
-Date: 2026-10-12
+Version: 0.3.5
+Date: 2026-10-28
 Authors@R: c(
     person("Constantinos", "Giachalis", ,
     "26255858+cgiachalis@users.noreply.github.com", role = c("aut", "cre")),
@@ -37,10 +37,10 @@ Suggests:
     withr
 VignetteBuilder: 
     litedown
-Remotes: TileDB-Inc/TileDB-R@v0.33.1
+Remotes: TileDB-Inc/TileDB-R
 Config/testthat/edition: 3
 Config/testthat/start-first: TileDBGroup
 Encoding: UTF-8
 Language: en-GB
 Roxygen: list(markdown = TRUE, old_usage = TRUE)
-Config/roxygen2/version: 8.1.0
+Config/roxygen2/version: 8.1.1

@@ -8,7 +8,7 @@ message: 'To cite package "R6.tiledb" in publications use:'
 type: software
 license: MIT
 title: 'R6.tiledb: R6 Classes for TileDB Arrays and Groups'
-version: 0.3.3
+version: 0.3.5
 abstract: Provides foundational R6 classes to interface with 'TileDB' storage engine
   using 'tiledb' package. The goal is to offer a set of minimum classes based on the
   R6 object oriented system in order to make it easier to work with 'TileDB' Arrays
@@ -20,7 +20,7 @@ authors:
   email: 26255858+cgiachalis@users.noreply.github.com
 repository-code: https://github.com/cgiachalis/R6.tiledb
 url: https://cgiachalis.github.io/R6.tiledb/
-date-released: '2026-10-09'
+date-released: '2026-10-28'
 contact:
 - family-names: Giachalis
   given-names: Constantinos
