@@ -20,7 +20,7 @@ day-to-day operations, the functional interface makes it easier to work
 with existing TileDB resources.
 
 [![Ask
-DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/cgiachalis/R6.tiledb)
+DeepWiki](https://img.shields.io/badge/Ask-Deepwiki-blue?logo=readthedocs)](https://deepwiki.com/cgiachalis/R6.tiledb)
 
 ## Installation
 
