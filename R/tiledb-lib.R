@@ -12,7 +12,7 @@
 .libtiledb_ctx <- utils::getFromNamespace("libtiledb_ctx", "tiledb")
 .libtiledb_config_set <- utils::getFromNamespace("libtiledb_config_set", "tiledb")
 .libtiledb_config_unset <- utils::getFromNamespace("libtiledb_config_unset", "tiledb")
-
+.libtiledb_vfs <- utils::getFromNamespace("libtiledb_vfs", "tiledb")
 
 # This resets timestamps slots
 .tiledb_array_close2 <- function(arr) {
