@@ -20,7 +20,7 @@
 vfs_size <- function(uri, vfs = NULL) {
 
   if (is.null(vfs)) {
-    vfs <- tiledb::tiledb_vfs(ctx = new_context())
+    vfs <- new_vfs()
   }
 
   s <- tiledb::tiledb_vfs_dir_size(uri, vfs = vfs)

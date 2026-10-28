@@ -164,7 +164,7 @@ TileDBGroupExp <- R6::R6Class(
     vfs = function() {
 
       if (is.null(private$.vfs)) {
-        private$.vfs <- tiledb::tiledb_vfs(ctx = self$ctx)
+        private$.vfs <- new_vfs(self$ctx)
       }
       private$.vfs
     }
