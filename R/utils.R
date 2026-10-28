@@ -195,3 +195,20 @@ new_context <- function(cfg = NULL) {
 
   ctx
 }
+
+#' Create a new TileDB VFS
+#'
+#' Compared to [tiledb::tiledb_vfs()], this variant does not cache the
+#' `tiledb_vfs` and does not accept configuration parameters.
+#'
+#' @param ctx A TileDB Context (optional).
+#'
+#' @keywords internal
+#'
+#' @export
+new_vfs <- function(ctx = new_context()) {
+  ptr <- .libtiledb_vfs(ctx@ptr)
+  vfs <- new("tiledb_vfs", ptr = ptr)
+
+  invisible(vfs)
+}
