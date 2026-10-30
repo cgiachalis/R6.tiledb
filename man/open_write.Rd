@@ -19,7 +19,8 @@
 \method{open_write}{tiledb_group}(object, timestamp = NULL, ctx = NULL,
   ...)
 
-\method{open_write}{character}(object, timestamp = NULL, ctx = NULL, ...)
+\method{open_write}{character}(object, timestamp = NULL,
+  ctx = tiledb::tiledb_get_context(), ...)
 }
 \arguments{
 \item{object}{An \code{R} object that contains a \code{TileDB} resource pointer.}

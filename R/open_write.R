@@ -139,13 +139,10 @@ open_write.tiledb_group <- function(object, timestamp = NULL, ctx = NULL, ...) {
 
 #' @export
 #' @rdname open_write
-open_write.character <- function(object, timestamp = NULL, ctx = NULL, ...) {
+open_write.character <- function(object, timestamp = NULL, ctx = tiledb::tiledb_get_context(), ...) {
 
   check_uri(object)
-
-  if (is.null(ctx)) {
-    ctx <- new_context()
-  }
+  check_tiledb_ctx(ctx)
 
   object_type <- tiledb::tiledb_object_type(object, ctx = ctx)
 

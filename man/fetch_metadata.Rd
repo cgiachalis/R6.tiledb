@@ -20,7 +20,7 @@
   ...)
 
 \method{fetch_metadata}{character}(x, keys = NULL, timestamp = NULL,
-  ctx = NULL, ...)
+  ctx = tiledb::tiledb_get_context(), ...)
 }
 \arguments{
 \item{x}{An \code{R} object that points to a \code{TileDB} resource whose

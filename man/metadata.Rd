@@ -22,7 +22,8 @@
 
 \method{metadata}{tiledb_group}(x, which, ...)
 
-\method{metadata}{character}(x, which, ctx = NULL, ...)
+\method{metadata}{character}(x, which, ctx = tiledb::tiledb_get_context(),
+  ...)
 
 \method{metadata}{TileDBArray}(x, which, ...) <- value
 
@@ -32,7 +33,8 @@
 
 \method{metadata}{tiledb_group}(x, which, ...) <- value
 
-\method{metadata}{character}(x, which, ctx = NULL, ...) <- value
+\method{metadata}{character}(x, which, ctx = tiledb::tiledb_get_context(),
+  ...) <- value
 }
 \arguments{
 \item{x}{An \code{R} object that points to a \code{TileDB} resource whose

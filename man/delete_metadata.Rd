@@ -17,7 +17,8 @@
 
 \method{delete_metadata}{tiledb_group}(x, keys, ...)
 
-\method{delete_metadata}{character}(x, keys, ctx = NULL, ...)
+\method{delete_metadata}{character}(x, keys,
+  ctx = tiledb::tiledb_get_context(), ...)
 }
 \arguments{
 \item{x}{An \code{R} object that points to a \code{TileDB} resource whose
