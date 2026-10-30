@@ -1,8 +1,8 @@
 test_that("Test demo array creation", {
   uri <- file.path(withr::local_tempdir(), "test-arr")
-
+  ctx <- new_context()
   expect_no_error(demo_array_UCBAdmissions(uri))
-  expect_equal(tiledb::tiledb_object_type(uri), "ARRAY")
+  expect_equal(tiledb::tiledb_object_type(uri, ctx = ctx), "ARRAY")
 })
 
 

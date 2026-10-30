@@ -125,17 +125,14 @@ metadata.tiledb_group <- function(x, which, ...) {
 
 #' @export
 #' @rdname metadata
-metadata.character <- function(x, which, ctx = NULL, ...) {
+metadata.character <- function(x, which, ctx = tiledb::tiledb_get_context(), ...) {
 
   if (isFALSE(.is_scalar_character(which))) {
     cli::cli_abort("{.arg {deparse(substitute(which))}} should be a single character string.", call = NULL)
   }
 
   check_uri(x)
-
-  if (is.null(ctx)) {
-    ctx <- new_context()
-  }
+  check_tiledb_ctx(ctx)
 
   object_type <- tiledb::tiledb_object_type(x, ctx = ctx)
 
@@ -281,9 +278,10 @@ metadata.character <- function(x, which, ctx = NULL, ...) {
 
 #' @export
 #' @rdname metadata
-`metadata<-.character` <- function(x, which, ctx = NULL, ..., value) {
+`metadata<-.character` <- function(x, which, ctx = tiledb::tiledb_get_context(), ..., value) {
 
   check_uri(x)
+
 
   if (isFALSE(.is_scalar_character(which))) {
     cli::cli_abort("{.arg {deparse(substitute(which))}} should be a single character string.", call = NULL)
@@ -293,9 +291,7 @@ metadata.character <- function(x, which, ctx = NULL, ...) {
     cli::cli_abort("Replacement value: {.arg {deparse(substitute(value))}} should be a scalar or NULL.", call = NULL)
   }
 
-  if (is.null(ctx)) {
-    ctx <- new_context()
-  }
+  check_tiledb_ctx(ctx)
 
   object_type <- tiledb::tiledb_object_type(x, ctx = ctx)
 
@@ -454,13 +450,10 @@ set_metadata.tiledb_group <- function(x, keys, timestamp = NULL, ...) {
 
 #' @export
 #' @rdname set_metadata
-set_metadata.character <- function(x, keys, timestamp = NULL, ctx = NULL, ...) {
+set_metadata.character <- function(x, keys, timestamp = NULL,  ctx = tiledb::tiledb_get_context(), ...) {
 
   check_uri(x)
-
-  if (is.null(ctx)) {
-    ctx <- new_context()
-  }
+  check_tiledb_ctx(ctx)
 
   object_type <- tiledb::tiledb_object_type(x, ctx = ctx)
 
@@ -590,13 +583,10 @@ fetch_metadata.tiledb_group <- function(x, keys = NULL, timestamp = NULL, ...) {
 
 #' @export
 #' @rdname fetch_metadata
-fetch_metadata.character <- function(x, keys = NULL, timestamp = NULL, ctx = NULL, ...) {
+fetch_metadata.character <- function(x, keys = NULL, timestamp = NULL, ctx = tiledb::tiledb_get_context(), ...) {
 
   check_uri(x)
-
-  if (is.null(ctx)) {
-    ctx <- new_context()
-  }
+  check_tiledb_ctx(ctx)
 
   object_type <- tiledb::tiledb_object_type(x, ctx = ctx)
 
@@ -720,13 +710,10 @@ delete_metadata.tiledb_group <- function(x, keys, ...) {
 
 #' @export
 #' @rdname delete_metadata
-delete_metadata.character <- function(x, keys, ctx = NULL, ...) {
+delete_metadata.character <- function(x, keys, ctx = tiledb::tiledb_get_context(), ...) {
 
   check_uri(x)
-
-  if (is.null(ctx)) {
-    ctx <- new_context()
-  }
+  check_tiledb_ctx(ctx)
 
   object_type <- tiledb::tiledb_object_type(x, ctx = ctx)
 

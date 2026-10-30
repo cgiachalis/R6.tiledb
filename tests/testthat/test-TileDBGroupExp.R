@@ -37,14 +37,14 @@ test_that("'TileDBGroupExp' class works as expected", {
   # delete group layer with recursive deleting objects
   expect_invisible(obj <- grpObj$delete_group())
   expect_s3_class(obj, class = "TileDBGroupExp")
-  rm(obj)
+
   expect_equal(grpObj$object_type, "INVALID")
   expect_error(grpObj$reopen(), label = "object does not exist.")
 
+  ctx <- new_context()
   # check we have not deleted resources under uri path
-  dm2 <- tiledb::tiledb_object_walk(uri)
+  dm2 <- tiledb::tiledb_object_walk(uri, ctx = ctx)
   expect_equal(dm2, dm[1, ], ignore_attr = TRUE)
-  rm(grpObj)
 
 
   # New group to test recursive delete
@@ -55,7 +55,7 @@ test_that("'TileDBGroupExp' class works as expected", {
   expect_no_error(grpObj <- tdb_group(uri = uri))
 
   expect_no_error(grpObj$delete_group(recursive = TRUE))
-  dm2 <- tiledb::tiledb_object_walk(uri)
+  dm2 <- tiledb::tiledb_object_walk(uri, ctx = ctx)
   expect_equal(dm2, data.frame(TYPE = character(0), URI = character(0)))
 
 })

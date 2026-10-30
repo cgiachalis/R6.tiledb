@@ -17,8 +17,8 @@
 
 \method{set_metadata}{tiledb_group}(x, keys, timestamp = NULL, ...)
 
-\method{set_metadata}{character}(x, keys, timestamp = NULL, ctx = NULL,
-  ...)
+\method{set_metadata}{character}(x, keys, timestamp = NULL,
+  ctx = tiledb::tiledb_get_context(), ...)
 }
 \arguments{
 \item{x}{An \code{R} object that points to a \code{TileDB} resource whose
