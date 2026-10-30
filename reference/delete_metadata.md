@@ -18,7 +18,8 @@ delete_metadata(x, keys, ...)
 delete_metadata(x, keys, ...)
 
 # S3 method for class 'character'
-delete_metadata(x, keys, ctx = NULL, ...)
+delete_metadata(x, keys,
+  ctx = tiledb::tiledb_get_context(), ...)
 ```
 
 ## Arguments

@@ -26,7 +26,8 @@ open_write(object, timestamp = NULL, ctx = NULL,
   ...)
 
 # S3 method for class 'character'
-open_write(object, timestamp = NULL, ctx = NULL, ...)
+open_write(object, timestamp = NULL,
+  ctx = tiledb::tiledb_get_context(), ...)
 ```
 
 ## Arguments

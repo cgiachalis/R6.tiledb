@@ -23,7 +23,7 @@ fetch_metadata(x, keys = NULL, timestamp = NULL,
 
 # S3 method for class 'character'
 fetch_metadata(x, keys = NULL, timestamp = NULL,
-  ctx = NULL, ...)
+  ctx = tiledb::tiledb_get_context(), ...)
 ```
 
 ## Arguments

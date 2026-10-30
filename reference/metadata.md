@@ -18,7 +18,8 @@ metadata(x, which, ...)
 metadata(x, which, ...)
 
 # S3 method for class 'character'
-metadata(x, which, ctx = NULL, ...)
+metadata(x, which, ctx = tiledb::tiledb_get_context(),
+  ...)
 
 # S3 method for class 'TileDBArray'
 metadata(x, which, ...) <- value
@@ -33,7 +34,8 @@ metadata(x, which, ...) <- value
 metadata(x, which, ...) <- value
 
 # S3 method for class 'character'
-metadata(x, which, ctx = NULL, ...) <- value
+metadata(x, which, ctx = tiledb::tiledb_get_context(),
+  ...) <- value
 ```
 
 ## Arguments

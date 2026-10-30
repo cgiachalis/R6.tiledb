@@ -20,8 +20,8 @@ set_metadata(x, keys, timestamp = NULL, ...)
 set_metadata(x, keys, timestamp = NULL, ...)
 
 # S3 method for class 'character'
-set_metadata(x, keys, timestamp = NULL, ctx = NULL,
-  ...)
+set_metadata(x, keys, timestamp = NULL,
+  ctx = tiledb::tiledb_get_context(), ...)
 ```
 
 ## Arguments
