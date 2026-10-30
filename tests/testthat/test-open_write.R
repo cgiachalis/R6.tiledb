@@ -1,4 +1,4 @@
-rm(list = ls());gc()
+
 
 trg_tstamps <- list(timestamp_start = structure(0, class = c("POSIXct", "POSIXt")),
                     timestamp_end = structure(0, class = c("POSIXct", "POSIXt")))
@@ -14,7 +14,8 @@ test_that("'open_write' method - array,uri", {
 
   uri <- file.path(withr::local_tempdir(), "test-open_write")
   ts <- as.POSIXct("2025-08-18 13:12:50 UTC", tz = "UTC")
-  .create_array(uri, new_context())
+  ctx <- new_context()
+  .create_array(uri, ctx)
 
   # -----------------------------------------------------------------
 
@@ -45,7 +46,8 @@ test_that("'open_write' method - array,tiledb_array", {
 
   uri <- file.path(withr::local_tempdir(), "test-open_write")
   ts <- as.POSIXct("2025-08-18 13:12:50 UTC", tz = "UTC")
-  .create_array(uri, new_context())
+  ctx <- new_context()
+  .create_array(uri, ctx)
 
   # 'tiledb_array' method ---
   arrobj <- TileDBArray$new(uri)
@@ -77,7 +79,8 @@ test_that("'open_write' method - array,TileDBArray", {
 
   uri <- file.path(withr::local_tempdir(), "test-open_write")
   ts <- as.POSIXct("2025-08-18 13:12:50 UTC", tz = "UTC")
-  .create_array(uri, new_context())
+  ctx <- new_context()
+  .create_array(uri, ctx)
 
   # 'TileDBArray' method ---
   uri_no <- file.path(withr::local_tempdir(), "test-array-no")
@@ -107,10 +110,6 @@ test_that("'open_write' method - array,TileDBArray", {
 
 test_that("'open_write' method - group,uri", {
 
-  if (!as.logical(Sys.getenv("DEV_LOCAL", FALSE))) {
-    skip()
-  }
-
   ts <- as.POSIXct("2025-08-18 13:12:50 UTC", tz = "UTC")
 
   uri <- file.path(withr::local_tempdir(), "test-group")
@@ -118,32 +117,30 @@ test_that("'open_write' method - group,uri", {
 
   # Create a group object on disk
   group$create()
+  group$close()
 
   # Character (URI) method ---
+  ctx <- new_context()
+  expect_no_error(grp <- open_write(uri, ctx = ctx))
 
-  expect_no_error(grp <- open_write(uri))
-  expect_equal(tiledb::tiledb_group_query_type(grp), "WRITE")
+
+  expect_equal(gg <- tiledb::tiledb_group_query_type(grp), "WRITE")
 
   end_time <- .get_group_timestamp_end(grp)
   expect_equal(end_time, as.POSIXct(NA, tz = "UTC"))
-  grp <- tiledb::tiledb_group_close(grp)
 
-  expect_no_error(grp <- open_write(uri, timestamp = ts[1]))
-  expect_equal(tiledb::tiledb_group_query_type(grp), "WRITE")
+  expect_no_error(grp <- open_write(uri, timestamp = ts[1], ctx = ctx))
+  expect_equal(gg <- tiledb::tiledb_group_query_type(grp), "WRITE")
 
   end_time <- .get_group_timestamp_end(grp)
   expect_equal(end_time, ts[1])
-
-  grp <- tiledb::tiledb_group_close(grp)
+gc()
 })
 
 
 
 test_that("'open_write' method - group,tiledb_group", {
 
-  if (!as.logical(Sys.getenv("DEV_LOCAL", FALSE))) {
-    skip()
-  }
 
   ts <- as.POSIXct("2025-08-18 13:12:50 UTC", tz = "UTC")
 
@@ -161,7 +158,6 @@ test_that("'open_write' method - group,tiledb_group", {
 
   end_time <- .get_group_timestamp_end(grp)
   expect_equal(end_time, as.POSIXct(NA, tz = "UTC"))
-  grp <- tiledb::tiledb_group_close(grp)
 
   expect_no_error(grp <- open_write(grp, timestamp = ts[1]))
   expect_equal(tiledb::tiledb_group_query_type(grp), "WRITE")
@@ -169,15 +165,10 @@ test_that("'open_write' method - group,tiledb_group", {
   end_time <- .get_group_timestamp_end(grp)
   expect_equal(end_time, ts[1])
 
-  grp <- tiledb::tiledb_group_close(grp)
 })
 
 
 test_that("'open_write' method for Groups works OK", {
-
-  if (!as.logical(Sys.getenv("DEV_LOCAL", FALSE))) {
-    skip()
-  }
 
   ts <- as.POSIXct("2025-08-18 13:12:50 UTC", tz = "UTC")
 
@@ -199,7 +190,6 @@ test_that("'open_write' method for Groups works OK", {
 
   end_time <- .get_group_timestamp_end(grp)
   expect_equal(end_time, as.POSIXct(NA, tz = "UTC"))
-  grp <- tiledb::tiledb_group_close(grp)
 
   expect_no_error(grp <- open_write(group, timestamp = ts[1]))
   expect_equal(tiledb::tiledb_group_query_type(grp), "WRITE")
